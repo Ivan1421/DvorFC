@@ -1,4 +1,4 @@
-             <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -280,15 +280,15 @@
             text-align: center;
             margin: 30px 0;
             font-weight: bold;
-            max-width: 100%;
-            overflow-x: auto;
+            width: 100%;
+            overflow: hidden;
         }
         
         .formation-line {
             margin: 10px 0;
             display: flex;
             justify-content: center;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             min-height: 80px;
         }
         
@@ -657,34 +657,39 @@
                 gap: 1px;
             }
             
-            /* Делаем горизонтальную прокрутку для очень маленьких экранов */
-            .formation {
-                overflow-x: auto;
-                padding-bottom: 10px;
+            /* На очень маленьких экранах уменьшаем еще больше */
+            @media (max-width: 380px) {
+                .player-item {
+                    min-width: 50px;
+                    max-width: 60px;
+                    margin: 0 1px;
+                }
+                
+                .player-photo-small {
+                    width: 30px;
+                    height: 30px;
+                }
+                
+                .player-name {
+                    font-size: 0.7rem;
+                }
+                
+                .player-number {
+                    font-size: 0.7rem;
+                }
+                
+                .formation-line:first-child {
+                    gap: 5px;
+                }
+                
+                .formation-line:nth-child(3) {
+                    gap: 2px;
+                }
+                
+                .formation-line:nth-child(4) {
+                    gap: 0px;
+                }
             }
-            
-            .formation-line {
-                min-width: 400px;
-            }
-        }
-        
-        /* Стили для горизонтальной прокрутки */
-        .formation::-webkit-scrollbar {
-            height: 6px;
-        }
-        
-        .formation::-webkit-scrollbar-track {
-            background: #f0f8ff;
-            border-radius: 3px;
-        }
-        
-        .formation::-webkit-scrollbar-thumb {
-            background: #0066cc;
-            border-radius: 3px;
-        }
-        
-        .formation::-webkit-scrollbar-thumb:hover {
-            background: #0052a3;
         }
     </style>
 </head>
@@ -695,7 +700,7 @@
                 <h1>Футбольный Двор "МЕРА"</h1>
             </div>
             <p class="subtitle">Официальная статистика и новости</p>
-        </header>
+</header>
         
         <main>
             <!-- Главная страница -->
@@ -1488,4 +1493,4 @@
         document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
-</html>                
+</html>
