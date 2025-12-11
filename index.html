@@ -16,6 +16,12 @@
             background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
             color: #333;
             min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-theme {
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            color: #f0f0f0;
         }
         
         .container {
@@ -28,6 +34,43 @@
             text-align: center;
             padding: 30px 0;
             margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .theme-toggle {
+            background: #ffcc00;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
         
         .logo {
@@ -43,12 +86,23 @@
             color: #0066cc;
             text-shadow: 2px 2px 4px rgba(0, 102, 204, 0.1);
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme h1 {
+            color: #4dabf7;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         
         .subtitle {
             font-size: 1.2rem;
             color: #666;
             margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .subtitle {
+            color: #ccc;
         }
         
         .main-buttons {
@@ -84,10 +138,26 @@
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
         }
         
+        .dark-theme .main-button {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .main-button:active {
+            background: #374151;
+        }
+        
         .button-icon {
             font-size: 3.5rem;
             margin-bottom: 15px;
             color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .button-icon {
+            color: #4dabf7;
         }
         
         .button-title {
@@ -95,12 +165,22 @@
             font-weight: bold;
             margin-bottom: 5px;
             color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .button-title {
+            color: #4dabf7;
         }
         
         .button-description {
             font-size: 1rem;
             color: #666;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .button-description {
+            color: #ccc;
         }
         
         /* Место для новостей */
@@ -111,6 +191,13 @@
             margin-top: 30px;
             border: 2px solid #0066cc;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-section {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
         .section-title {
@@ -120,6 +207,12 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #0066cc;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .section-title {
+            color: #4dabf7;
+            border-bottom-color: #4dabf7;
         }
         
         .news-placeholder {
@@ -127,12 +220,22 @@
             padding: 40px 20px;
             color: #888;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-placeholder {
+            color: #aaa;
         }
         
         .news-icon {
             font-size: 3rem;
             margin-bottom: 15px;
             color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-icon {
+            color: #4dabf7;
         }
         
         /* Страница игроков */
@@ -165,6 +268,15 @@
             transform: none;
         }
         
+        .dark-theme .back-button {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        
+        .dark-theme .back-button:active {
+            background: #339af0;
+        }
+        
         .players-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -180,12 +292,23 @@
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
         }
         
         .player-card:active {
             background: #f0f8ff;
             transform: none;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+        }
+        
+        .dark-theme .player-card {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .player-card:active {
+            background: #374151;
         }
         
         .player-header {
@@ -202,6 +325,11 @@
             overflow: hidden;
             border: 3px solid #0066cc;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-photo {
+            border-color: #4dabf7;
         }
         
         .player-photo img {
@@ -215,11 +343,21 @@
             font-size: 1.8rem;
             color: #0066cc;
             margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-info h3 {
+            color: #4dabf7;
         }
         
         .player-info p {
             color: #666;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-info p {
+            color: #ccc;
         }
         
         .player-stats {
@@ -235,18 +373,34 @@
             background: #f0f8ff;
             border-radius: 10px;
             border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stat-item {
+            background: #374151;
+            border-color: #4dabf7;
         }
         
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
             color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stat-value {
+            color: #4dabf7;
         }
         
         .stat-label {
             font-size: 0.9rem;
             color: #666;
             margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stat-label {
+            color: #ccc;
         }
         
         /* Предупреждение о статистике */
@@ -259,12 +413,24 @@
             color: #856404;
             font-size: 0.9rem;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stats-warning {
+            background: #664d03;
+            border-color: #856404;
+            color: #ffd8a8;
         }
         
         .warning-icon {
             color: #ffc107;
             font-size: 1.2rem;
             margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .warning-icon {
+            color: #ffd43b;
         }
         
         /* Страница лучшего состава */
@@ -274,36 +440,45 @@
             padding: 30px;
             border: 3px solid #0066cc;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .best-squad-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
         .formation {
             text-align: center;
-            margin: 30px 0;
+            margin: 25px 0;
             font-weight: bold;
             width: 100%;
             overflow: hidden;
         }
         
         .formation-line {
-            margin: 10px 0;
+            margin: 20px 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            min-height: 80px;
+            min-height: 85px;
+            gap: 10px;
         }
         
-        /* Уменьшаем отступы для мобильных */
+        /* УМЕНЬШЕННЫЕ (но все еще больше исходных) размеры для лучшего состава */
         .player-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-width: 70px;
-            max-width: 80px;
+            min-width: 75px;
+            max-width: 85px;
             margin: 0 5px;
             cursor: pointer;
             flex-shrink: 0;
             -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
         }
         
         .player-item:active {
@@ -314,17 +489,27 @@
             color: #0066cc;
             font-weight: bold;
             font-size: 0.9rem;
-            margin-top: 3px;
+            margin-top: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-number {
+            color: #4dabf7;
         }
         
         .player-photo-small {
-            width: 45px;
-            height: 45px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             overflow: hidden;
-            border: 2px solid #0066cc;
-            margin-bottom: 3px;
+            border: 2.5px solid #0066cc;
+            margin-bottom: 4px;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-photo-small {
+            border-color: #4dabf7;
         }
         
         .player-photo-small img {
@@ -339,6 +524,12 @@
             text-align: center;
             line-height: 1.2;
             margin-bottom: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-name {
+            color: #f0f0f0;
         }
         
         .tactics-info {
@@ -347,16 +538,32 @@
             padding: 20px;
             margin-top: 30px;
             border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .tactics-info {
+            background: #374151;
+            border-color: #4dabf7;
         }
         
         .tactics-info h3 {
             color: #0066cc;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .tactics-info h3 {
+            color: #4dabf7;
         }
         
         .tactics-info p {
             margin: 8px 0;
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .tactics-info p {
+            color: #f0f0f0;
         }
         
         /* Модальное окно для детальной информации */
@@ -390,6 +597,13 @@
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
         .modal-close-btn {
@@ -417,6 +631,15 @@
             transform: none;
         }
         
+        .dark-theme .modal-close-btn {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        
+        .dark-theme .modal-close-btn:active {
+            background: #339af0;
+        }
+        
         .modal-header {
             display: flex;
             align-items: center;
@@ -424,6 +647,11 @@
             margin-bottom: 25px;
             border-bottom: 2px solid #0066cc;
             padding-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-header {
+            border-bottom-color: #4dabf7;
         }
         
         .modal-photo {
@@ -433,6 +661,11 @@
             overflow: hidden;
             border: 3px solid #0066cc;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-photo {
+            border-color: #4dabf7;
         }
         
         .modal-photo img {
@@ -446,11 +679,21 @@
             font-size: 2rem;
             color: #0066cc;
             margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-info h3 {
+            color: #4dabf7;
         }
         
         .modal-info p {
             color: #666;
             font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-info p {
+            color: #ccc;
         }
         
         .modal-stats {
@@ -465,18 +708,34 @@
             border-radius: 10px;
             padding: 15px;
             border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-stat-item {
+            background: #374151;
+            border-color: #4dabf7;
         }
         
         .modal-stat-label {
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-stat-label {
+            color: #ccc;
         }
         
         .modal-stat-value {
             font-size: 1.5rem;
             font-weight: bold;
             color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-stat-value {
+            color: #4dabf7;
         }
         
         .modal-rating {
@@ -484,6 +743,11 @@
             margin-top: 25px;
             padding-top: 20px;
             border-top: 2px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-rating {
+            border-top-color: #4dabf7;
         }
         
         .rating-value {
@@ -491,11 +755,21 @@
             font-weight: bold;
             color: #0066cc;
             margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rating-value {
+            color: #4dabf7;
         }
         
         .rating-label {
             font-size: 1.2rem;
             color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rating-label {
+            color: #ccc;
         }
         
         footer {
@@ -505,6 +779,12 @@
             color: #666;
             font-size: 0.9rem;
             border-top: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme footer {
+            color: #aaa;
+            border-top-color: #444;
         }
         
         @media (max-width: 768px) {
@@ -514,6 +794,14 @@
             
             h1 {
                 font-size: 2.2rem;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
             }
             
             .main-button {
@@ -538,23 +826,25 @@
                 font-size: 1.8rem;
             }
             
+            /* УМЕНЬШЕННЫЙ размер для лучшего состава на мобильных */
             .player-item {
-                min-width: 60px;
-                max-width: 70px;
+                min-width: 65px;
+                max-width: 75px;
                 margin: 0 3px;
             }
             
             .player-photo-small {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+                height: 48px;
+                border-width: 2px;
             }
             
             .player-name {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
             
             .player-number {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
             
             .formation {
@@ -562,7 +852,9 @@
             }
             
             .formation-line {
-                min-height: 70px;
+                min-height: 75px;
+                margin: 15px 0;
+                gap: 8px;
             }
             
             /* Для мобильных делаем более компактную схему */
@@ -571,11 +863,11 @@
             }
             
             .formation-line:nth-child(3) {
-                gap: 5px;
+                gap: 6px;
             }
             
             .formation-line:nth-child(4) {
-                gap: 2px;
+                gap: 4px;
             }
             
             .modal {
@@ -617,32 +909,44 @@
                 font-size: 1.5rem;
             }
             
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
             .formation {
                 font-size: 0.8rem;
             }
             
+            /* УМЕНЬШЕННЫЙ размер для мобильных */
             .player-item {
-                min-width: 55px;
-                max-width: 65px;
+                min-width: 60px;
+                max-width: 70px;
                 margin: 0 2px;
             }
             
             .player-photo-small {
-                width: 35px;
-                height: 35px;
+                width: 42px;
+                height: 42px;
+                border-width: 1.5px;
             }
             
             .player-name {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
             }
             
             .player-number {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
             }
             
             /* Еще более компактно для очень маленьких экранов */
             .formation-line {
-                min-height: 65px;
+                min-height: 70px;
+                margin: 12px 0;
+                gap: 6px;
             }
             
             .formation-line:first-child {
@@ -650,57 +954,60 @@
             }
             
             .formation-line:nth-child(3) {
-                gap: 3px;
+                gap: 4px;
             }
             
             .formation-line:nth-child(4) {
-                gap: 1px;
+                gap: 2px;
             }
             
             /* На очень маленьких экранах уменьшаем еще больше */
             @media (max-width: 380px) {
                 .player-item {
-                    min-width: 50px;
-                    max-width: 60px;
+                    min-width: 55px;
+                    max-width: 65px;
                     margin: 0 1px;
                 }
                 
                 .player-photo-small {
-                    width: 30px;
-                    height: 30px;
+                    width: 38px;
+                    height: 38px;
                 }
                 
                 .player-name {
-                    font-size: 0.7rem;
+                    font-size: 0.75rem;
                 }
                 
                 .player-number {
-                    font-size: 0.7rem;
+                    font-size: 0.75rem;
                 }
                 
                 .formation-line:first-child {
-                    gap: 5px;
+                    gap: 6px;
                 }
                 
                 .formation-line:nth-child(3) {
-                    gap: 2px;
+                    gap: 3px;
                 }
                 
                 .formation-line:nth-child(4) {
-                    gap: 0px;
+                    gap: 1px;
                 }
             }
         }
     </style>
 </head>
 <body>
+    <!-- Кнопка переключения темы -->
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+    
     <div class="container">
         <header>
             <div class="logo">
                 <h1>Футбольный Двор "МЕРА"</h1>
             </div>
             <p class="subtitle">Официальная статистика и новости</p>
-</header>
+        </header>
         
         <main>
             <!-- Главная страница -->
@@ -1066,14 +1373,14 @@
                         <div class="formation-line">
                             <div class="player-item" data-player="maradona">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Марадона</div>
                                 <span class="player-number">(10)</span>
                             </div>
                             <div class="player-item" data-player="sanya">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Саня</div>
                                 <span class="player-number">(77)</span>
@@ -1084,7 +1391,7 @@
                         <div class="formation-line">
                             <div class="player-item" data-player="mbappe">
                                 <div class="player-photo-small">
-                                    <img src="https://i.ibb.co/wrgWz0kG/mbappe.jpg" alt="Килиан Мбаппе" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚡'; this.parentElement.style.fontSize='1.2rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
+                                    <img src="https://i.ibb.co/wrgWz0kG/mbappe.jpg" alt="Килиан Мбаппе" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚡'; this.parentElement.style.fontSize='1.4rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
                                 </div>
                                 <div class="player-name">Мбаппе</div>
                                 <span class="player-number">(9)</span>
@@ -1095,21 +1402,21 @@
                         <div class="formation-line">
                             <div class="player-item" data-player="pasha">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Паша</div>
                                 <span class="player-number">(7)</span>
                             </div>
                             <div class="player-item" data-player="vanya">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Ваня</div>
                                 <span class="player-number">(3)</span>
                             </div>
                             <div class="player-item" data-player="dribler">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Дриблер</div>
                                 <span class="player-number">(11)</span>
@@ -1121,7 +1428,7 @@
                             <!-- Левый защитник -->
                             <div class="player-item" data-player="beloszhneka">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Белоснежка</div>
                                 <span class="player-number">(2)</span>
@@ -1129,7 +1436,7 @@
                             <!-- Центральный защитник левый -->
                             <div class="player-item" data-player="ramos">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Рамос</div>
                                 <span class="player-number">(4)</span>
@@ -1137,7 +1444,7 @@
                             <!-- Центральный защитник правый -->
                             <div class="player-item" data-player="andrey">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Андрей</div>
                                 <span class="player-number">(5)</span>
@@ -1145,7 +1452,7 @@
                             <!-- Правый полузащитник -->
                             <div class="player-item" data-player="hokkeist">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.2rem; display: flex; align-items: center; justify-content: center; height: 100%;">🏒</div>
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">🏒</div>
                                 </div>
                                 <div class="player-name">Хоккеист</div>
                                 <span class="player-number">(66)</span>
@@ -1156,7 +1463,7 @@
                         <div class="formation-line">
                             <div class="player-item" data-player="raya">
                                 <div class="player-photo-small">
-                                    <img src="https://i.ibb.co/JFtcJjT7/raya.jpg" alt="Давид Рая" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='🧤'; this.parentElement.style.fontSize='1.2rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
+                                    <img src="https://i.ibb.co/JFtcJjT7/raya.jpg" alt="Давид Рая" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='🧤'; this.parentElement.style.fontSize='1.4rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
                                 </div>
                                 <div class="player-name">Рая</div>
                                 <span class="player-number">(1)</span>
@@ -1389,6 +1696,41 @@
                 rating: 0
             }
         };
+
+        // Функция для смены темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Проверяем сохраненную тему при загрузке
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.textContent = '☀️';
+            } else {
+                themeToggle.textContent = '🌙';
+            }
+        }
+
+        // Инициализация темы
+        loadTheme();
+
+        // Добавляем обработчик для кнопки смены темы
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
         // Переключение на страницу игроков
         document.getElementById('players-btn').addEventListener('click', function() {
