@@ -1739,7 +1739,7 @@
                 matches: 0,
                 goals: 0,
                 assists: 0,
-                rating: 80
+                rating: 84  // Обновлено
             },
             abibas: {
                 name: "Абибас",
@@ -1753,7 +1753,7 @@
                 matches: 0,
                 goals: 0,
                 assists: 0,
-                rating: 84  // Добавлено
+                rating: 79  // Обновлено
             },
             beloszhneka: {
                 name: "Белоснежка",
@@ -1888,8 +1888,8 @@
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
             
-            // Определяем цвет рейтинга
-            if (player.rating > 80) {
+            // Определяем цвет рейтинга - теперь рейтинг >= 80 будет зеленым
+            if (player.rating >= 80) {
                 ratingElement.className = 'rating-value rating-high';
             } else {
                 ratingElement.className = 'rating-value rating-medium';
