@@ -172,7 +172,6 @@
             color: #4dabf7;
         }
         
-        /* ИЗМЕНЕНО: уменьшен размер текста с 1rem на 0.8rem */
         .button-description {
             font-size: 0.8rem;
             color: #666;
@@ -216,69 +215,68 @@
             border-bottom-color: #4dabf7;
         }
         
-        .news-placeholder {
-            text-align: center;
-            padding: 40px 20px;
-            color: #888;
-            font-size: 1.1rem;
+        .news-content {
+            padding: 20px 0;
+        }
+        
+        .news-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
             transition: all 0.3s ease;
         }
         
-        .dark-theme .news-placeholder {
+        .dark-theme .news-item {
+            border-bottom-color: #444;
+        }
+        
+        .news-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .news-date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-date {
             color: #aaa;
         }
         
-        .news-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #0066cc;
+        .news-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
             transition: all 0.3s ease;
         }
         
-        .dark-theme .news-icon {
-            color: #4dabf7;
+        .dark-theme .news-text {
+            color: #f0f0f0;
         }
         
-        /* НОВОЕ: Кнопка обновления приложения */
-        .update-button {
-            display: block;
-            margin: 30px auto 20px auto;
-            background: #28a745;
+        .best-players {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .best-player-tag {
+            background: linear-gradient(to right, #0066cc, #4dabf7);
             color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 0.9rem;
+            font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
-            -webkit-tap-highlight-color: transparent;
         }
         
-        .update-button:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-        }
-        
-        .update-button:active {
-            background: #1e7e34;
-            transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(40, 167, 69, 0.2);
-        }
-        
-        .dark-theme .update-button {
-            background: #38d9a9;
-            color: #1a1a2e;
-            box-shadow: 0 2px 8px rgba(56, 217, 169, 0.3);
-        }
-        
-        .dark-theme .update-button:hover {
-            background: #20c997;
-        }
-        
-        .dark-theme .update-button:active {
-            background: #12b886;
+        .dark-theme .best-player-tag {
+            background: linear-gradient(to right, #4dabf7, #339af0);
         }
         
         /* Страница игроков */
@@ -509,7 +507,6 @@
             gap: 10px;
         }
         
-        /* УМЕНЬШЕННЫЕ (но все еще больше исходных) размеры для лучшего состава */
         .player-item {
             display: flex;
             flex-direction: column;
@@ -739,17 +736,53 @@
             color: #ccc;
         }
         
+        /* Рейтинг в хедере */
+        .modal-rating-header {
+            position: absolute;
+            right: 60px;
+            top: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .rating-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Цвета для рейтингов */
+        .rating-high {
+            color: #28a745;
+        }
+        
+        .rating-medium {
+            color: #ffc107;
+        }
+        
+        .rating-label {
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rating-label {
+            color: #ccc;
+        }
+        
+        /* Компактная статистика */
         .modal-stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
         }
         
         .modal-stat-item {
             background: #f0f8ff;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: 8px;
+            padding: 12px;
             border: 1px solid #0066cc;
             transition: all 0.3s ease;
         }
@@ -760,9 +793,9 @@
         }
         
         .modal-stat-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             transition: all 0.3s ease;
         }
         
@@ -771,7 +804,7 @@
         }
         
         .modal-stat-value {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #0066cc;
             transition: all 0.3s ease;
@@ -779,40 +812,6 @@
         
         .dark-theme .modal-stat-value {
             color: #4dabf7;
-        }
-        
-        .modal-rating {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 2px solid #0066cc;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .modal-rating {
-            border-top-color: #4dabf7;
-        }
-        
-        .rating-value {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #0066cc;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rating-value {
-            color: #4dabf7;
-        }
-        
-        .rating-label {
-            font-size: 1.2rem;
-            color: #666;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rating-label {
-            color: #ccc;
         }
         
         footer {
@@ -869,7 +868,6 @@
                 font-size: 1.8rem;
             }
             
-            /* УМЕНЬШЕННЫЙ размер для лучшего состава на мобильных */
             .player-item {
                 min-width: 65px;
                 max-width: 75px;
@@ -900,7 +898,6 @@
                 gap: 8px;
             }
             
-            /* Для мобильных делаем более компактную схему */
             .formation-line:first-child {
                 gap: 10px;
             }
@@ -920,6 +917,12 @@
             .modal-header {
                 flex-direction: column;
                 text-align: center;
+                padding-bottom: 15px;
+            }
+            
+            .modal-rating-header {
+                position: static;
+                margin-top: 10px;
             }
             
             .modal-photo {
@@ -932,7 +935,12 @@
             }
             
             .modal-stats {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .rating-value {
+                font-size: 2rem;
             }
         }
         
@@ -964,7 +972,6 @@
                 font-size: 0.8rem;
             }
             
-            /* УМЕНЬШЕННЫЙ размер для мобильных */
             .player-item {
                 min-width: 60px;
                 max-width: 70px;
@@ -985,7 +992,6 @@
                 font-size: 0.8rem;
             }
             
-            /* Еще более компактно для очень маленьких экранов */
             .formation-line {
                 min-height: 70px;
                 margin: 12px 0;
@@ -1004,7 +1010,15 @@
                 gap: 2px;
             }
             
-            /* На очень маленьких экранах уменьшаем еще больше */
+            .modal-stats {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .rating-value {
+                font-size: 1.8rem;
+            }
+            
             @media (max-width: 380px) {
                 .player-item {
                     min-width: 55px;
@@ -1071,17 +1085,28 @@
                 
                 <div class="news-section">
                     <h2 class="section-title">Новости и обновления</h2>
-                    <div class="news-placeholder">
-                        <div class="news-icon">📰</div>
-                        <p>Здесь скоро появятся новости, анонсы матчей<br>и важные объявления нашего двора</p>
-                        <p style="margin-top: 15px; font-size: 0.9rem; color: #999;">
-                            Следите за обновлениями!
-                        </p>
+                    <div class="news-content">
+                        <div class="news-item">
+                            <div class="news-date">12.12.2025</div>
+                            <div class="news-text">
+                                Были выставлены первые рейтинги. Лучшими стали:
+                            </div>
+                            <div class="best-players">
+                                <div class="best-player-tag">Мбаппе</div>
+                                <div class="best-player-tag">Белоснежка</div>
+                                <div class="best-player-tag">Рамос</div>
+                                <div class="best-player-tag">Давид Рая</div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div</div>
+                            <div class="news-text">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- НОВАЯ КНОПКА: Обновить приложение -->
-                <button class="update-button" id="update-app">🔄 Обновить приложение</button>
+                <!-- Кнопка обновления удалена -->
             </div>
             
             <!-- Страница игроков -->
@@ -1094,7 +1119,7 @@
                     <div class="player-card" data-player="mbappe">
                         <div class="player-header">
                             <div class="player-photo">
-                                <img src="https://i.ibb.co/wrgWz0kG/mbappe.jpg" alt="Килиан Мбаппе" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚡';">
+                                <img src="https://i.ibb.co/wrgWz0kG/mbappe.jpg" alt="Килиан Мбаппе" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚡'; this.parentElement.style.fontSize='2.5rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
                             </div>
                             <div class="player-info">
                                 <h3>Килиан Мбаппе</h3>
@@ -1122,7 +1147,7 @@
                     <div class="player-card" data-player="raya">
                         <div class="player-header">
                             <div class="player-photo">
-                                <img src="https://i.ibb.co/JFtcJjT7/raya.jpg" alt="Давид Рая" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='🧤';">
+                                <img src="https://i.ibb.co/JFtcJjT7/raya.jpg" alt="Давид Рая" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='🧤'; this.parentElement.style.fontSize='2.5rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
                             </div>
                             <div class="player-info">
                                 <h3>Давид Рая</h3>
@@ -1150,7 +1175,7 @@
                     <div class="player-card" data-player="maradona">
                         <div class="player-header">
                             <div class="player-photo">
-                                <div style="font-size: 2.5rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                <img src="https://i.ibb.co/tTd08P4n/maradona.jpg" alt="Марадона" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚽'; this.parentElement.style.fontSize='2.5rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center';">
                             </div>
                             <div class="player-info">
                                 <h3>Марадона</h3>
@@ -1419,7 +1444,7 @@
                         <div class="formation-line">
                             <div class="player-item" data-player="maradona">
                                 <div class="player-photo-small">
-                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
+                                    <img src="https://i.ibb.co/tTd08P4n/maradona.jpg" alt="Марадона" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚽'; this.parentElement.style.fontSize='1.4rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
                                 </div>
                                 <div class="player-name">Марадона</div>
                                 <span class="player-number">(10)</span>
@@ -1548,8 +1573,14 @@
                     <h3 id="modal-name">Имя игрока</h3>
                     <p id="modal-position">Позиция • Возраст</p>
                 </div>
+                <!-- Рейтинг теперь в хедере -->
+                <div class="modal-rating-header">
+                    <div class="rating-value" id="modal-rating">0</div>
+                    <div class="rating-label">Рейтинг</div>
+                </div>
             </div>
             
+            <!-- Компактная статистика -->
             <div class="modal-stats">
                 <div class="modal-stat-item">
                     <div class="modal-stat-label">Рабочая нога</div>
@@ -1575,11 +1606,6 @@
                     <div class="modal-stat-label">Матчи</div>
                     <div class="modal-stat-value" id="modal-matches">0</div>
                 </div>
-            </div>
-            
-            <div class="modal-rating">
-                <div class="rating-value" id="modal-rating">0</div>
-                <div class="rating-label">Рейтинг игрока</div>
             </div>
         </div>
     </div>
@@ -1619,7 +1645,7 @@
                 name: "Марадона",
                 position: "Полузащитник",
                 age: "14 лет",
-                photo: "",
+                photo: "https://i.ibb.co/tTd08P4n/maradona.jpg",
                 icon: "⚽",
                 foot: "Правая",
                 height: "0 см",
@@ -1683,7 +1709,7 @@
                 matches: 0,
                 goals: 0,
                 assists: 0,
-                rating: 90
+                rating: 88  // Понижен с 90 до 88
             },
             beloszhneka: {
                 name: "Белоснежка",
@@ -1743,6 +1769,28 @@
             }
         };
 
+        // Автоматическое обновление сайта при загрузке
+        window.addEventListener('load', function() {
+            // Проверяем, нужно ли обновить данные
+            const lastUpdate = localStorage.getItem('lastUpdate');
+            const currentDate = new Date().toDateString();
+            
+            // Если последнее обновление было не сегодня, обновляем страницу
+            if (lastUpdate !== currentDate) {
+                localStorage.setItem('lastUpdate', currentDate);
+                
+                // Принудительно очищаем кэш браузера
+                if ('caches' in window) {
+                    caches.keys().then(function(names) {
+                        for (let name of names) caches.delete(name);
+                    });
+                }
+                
+                // Обновляем страницу с очисткой кэша
+                window.location.reload(true);
+            }
+        });
+
         // Функция для смены темы
         function toggleTheme() {
             const body = document.body;
@@ -1777,21 +1825,6 @@
 
         // Добавляем обработчик для кнопки смены темы
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-
-        // НОВОЕ: Обработчик для кнопки обновления приложения
-        document.getElementById('update-app').addEventListener('click', function() {
-            // Показываем уведомление об обновлении
-            const button = this;
-            const originalText = button.textContent;
-            button.textContent = "Обновляем...";
-            button.disabled = true;
-            
-            // Имитация процесса обновления
-            setTimeout(() => {
-                // Принудительно обновляем страницу
-                window.location.reload(true);
-            }, 800);
-        });
 
         // Переключение на страницу игроков
         document.getElementById('players-btn').addEventListener('click', function() {
@@ -1828,7 +1861,17 @@
             document.getElementById('modal-foot').textContent = player.foot;
             document.getElementById('modal-height').textContent = player.height;
             document.getElementById('modal-weight').textContent = player.weight;
-            document.getElementById('modal-rating').textContent = player.rating;
+            
+            // Устанавливаем рейтинг с цветом
+            const ratingElement = document.getElementById('modal-rating');
+            ratingElement.textContent = player.rating;
+            
+            // Определяем цвет рейтинга
+            if (player.rating > 80) {
+                ratingElement.className = 'rating-value rating-high';
+            } else {
+                ratingElement.className = 'rating-value rating-medium';
+            }
             
             // Для вратаря особые статистики
             if (player.position === "Вратарь") {
@@ -1885,7 +1928,6 @@
         window.addEventListener('load', function() {
             const images = document.querySelectorAll('.player-photo img, .player-photo-small img');
             images.forEach(img => {
-                // Добавляем загрузку по требованию
                 if ('loading' in HTMLImageElement.prototype) {
                     img.loading = 'lazy';
                 }
