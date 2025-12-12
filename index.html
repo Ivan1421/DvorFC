@@ -172,8 +172,9 @@
             color: #4dabf7;
         }
         
+        /* ИЗМЕНЕНО: уменьшен размер текста с 1rem на 0.8rem */
         .button-description {
-            font-size: 1rem;
+            font-size: 0.8rem;
             color: #666;
             text-align: center;
             transition: all 0.3s ease;
@@ -236,6 +237,48 @@
         
         .dark-theme .news-icon {
             color: #4dabf7;
+        }
+        
+        /* НОВОЕ: Кнопка обновления приложения */
+        .update-button {
+            display: block;
+            margin: 30px auto 20px auto;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .update-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+        
+        .update-button:active {
+            background: #1e7e34;
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(40, 167, 69, 0.2);
+        }
+        
+        .dark-theme .update-button {
+            background: #38d9a9;
+            color: #1a1a2e;
+            box-shadow: 0 2px 8px rgba(56, 217, 169, 0.3);
+        }
+        
+        .dark-theme .update-button:hover {
+            background: #20c997;
+        }
+        
+        .dark-theme .update-button:active {
+            background: #12b886;
         }
         
         /* Страница игроков */
@@ -1036,6 +1079,9 @@
                         </p>
                     </div>
                 </div>
+                
+                <!-- НОВАЯ КНОПКА: Обновить приложение -->
+                <button class="update-button" id="update-app">🔄 Обновить приложение</button>
             </div>
             
             <!-- Страница игроков -->
@@ -1104,7 +1150,7 @@
                     <div class="player-card" data-player="maradona">
                         <div class="player-header">
                             <div class="player-photo">
-                                <img src="https://i.ibb.co/tTd08P4n/maradona.jpg" alt="Марадона" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚽'; this.parentElement.style.fontSize='2.5rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
+                                <div style="font-size: 2.5rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                             </div>
                             <div class="player-info">
                                 <h3>Марадона</h3>
@@ -1373,7 +1419,7 @@
                         <div class="formation-line">
                             <div class="player-item" data-player="maradona">
                                 <div class="player-photo-small">
-                                    <img src="https://i.ibb.co/tTd08P4n/maradona.jpg" alt="Марадона" onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='⚽'; this.parentElement.style.fontSize='1.4rem'; this.parentElement.style.display='flex'; this.parentElement.style.alignItems='center'; this.parentElement.style.justifyContent='center'; this.parentElement.style.height='100%';">
+                                    <div style="font-size: 1.4rem; display: flex; align-items: center; justify-content: center; height: 100%;">⚽</div>
                                 </div>
                                 <div class="player-name">Марадона</div>
                                 <span class="player-number">(10)</span>
@@ -1573,7 +1619,7 @@
                 name: "Марадона",
                 position: "Полузащитник",
                 age: "14 лет",
-                photo: "https://i.ibb.co/tTd08P4n/maradona.jpg",
+                photo: "",
                 icon: "⚽",
                 foot: "Правая",
                 height: "0 см",
@@ -1731,6 +1777,21 @@
 
         // Добавляем обработчик для кнопки смены темы
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        // НОВОЕ: Обработчик для кнопки обновления приложения
+        document.getElementById('update-app').addEventListener('click', function() {
+            // Показываем уведомление об обновлении
+            const button = this;
+            const originalText = button.textContent;
+            button.textContent = "Обновляем...";
+            button.disabled = true;
+            
+            // Имитация процесса обновления
+            setTimeout(() => {
+                // Принудительно обновляем страницу
+                window.location.reload(true);
+            }, 800);
+        });
 
         // Переключение на страницу игроков
         document.getElementById('players-btn').addEventListener('click', function() {
