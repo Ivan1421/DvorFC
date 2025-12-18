@@ -2,17 +2,17 @@
 // Используйте пути к файлам вместо Base64
 
 const playerPhotos = {
-    mbappe: "photos (2)/mbappe.jpg",
-    raya: "photos (2)/raya.jpg",
-    maradona: "photos (2)/maradona.jpg",
-    sanya: "photos (2)/sanya.jpg",
-    messi: "photos (2)/messi.jpg",
-    batrakov: "photos (2)/batrakov.jpg",
-    abibas: "photos (2)/abibas.jpg",
-    beloszhneka: "photos (2)/belosnezhka.jpg",
-    ramos: "photos (2)/ramos.jpg",
-    andryushka: "photos (2)/andryushka.jpg",
-    hokkeist: "photos (2)/hokkeist.jpg"
+    mbappe: "Photos (2)/mbappe.jpg",
+    raya: "Photos (2)/raya.jpg",
+    maradona: "Photos (2)/maradona.jpg",
+    sanya: "Photos (2)/sanya.jpg",
+    messi: "Photos (2)/messi.jpg",
+    batrakov: "Photos (2)/batrakov.jpg",
+    abibas: "Photos (2)/abibas.jpg",
+    beloszhneka: "Photos (2)/belosnezhka.jpg",
+    ramos: "Photos (2)/ramos.jpg",
+    andryushka: "Photos (2)/andryushka.jpg",
+    hokkeist: "Photos (2)/hokkeist.jpg"
 };
 
 // ================================================================
