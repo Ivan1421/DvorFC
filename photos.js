@@ -12,7 +12,7 @@ const playerPhotos = {
     beloszhneka: "Photos (2)/belosnezhka.jpg",
     ramos: "Photos (2)/ramos.jpg",
     andryushka: "Photos (2)/andryushka.jpg",
-    hokkeist: "Photos (2)/hokkeist.jpg"
+    hokkeist: Photos (2)/hokkeist.jpg
 };
 
 // ================================================================
