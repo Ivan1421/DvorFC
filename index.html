@@ -1023,6 +1023,156 @@
             border-top-color: #444;
         }
         
+        /* Стили для редактирования статистики */
+        .edit-stat-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .player-card:hover .edit-stat-btn {
+            display: flex;
+        }
+        
+        .edit-stat-btn:hover {
+            background: #218838;
+            transform: scale(1.1);
+        }
+        
+        .stat-edit-form {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            z-index: 10;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .dark-theme .stat-edit-form {
+            background: rgba(45, 55, 72, 0.95);
+        }
+        
+        .stat-edit-form.active {
+            display: flex;
+        }
+        
+        .stat-edit-input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 2px solid #0066cc;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .dark-theme .stat-edit-input {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+        }
+        
+        .edit-form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .edit-form-buttons .btn {
+            flex: 1;
+        }
+        
+        /* Стили для списка редактирования игроков */
+        .player-edit-list {
+            margin-top: 20px;
+        }
+        
+        .player-edit-item {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-edit-item {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        
+        .player-edit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .player-edit-name {
+            font-weight: bold;
+            color: #0066cc;
+            font-size: 1.2rem;
+        }
+        
+        .dark-theme .player-edit-name {
+            color: #4dabf7;
+        }
+        
+        .player-edit-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+        
+        .player-stat-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .player-stat-input-group label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .dark-theme .player-stat-input-group label {
+            color: #ccc;
+        }
+        
+        .player-stat-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #0066cc;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .dark-theme .player-stat-input {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -1136,6 +1286,10 @@
             .rating-value {
                 font-size: 2rem;
             }
+            
+            .player-edit-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         @media (max-width: 480px) {
@@ -1213,46 +1367,8 @@
                 font-size: 1.8rem;
             }
             
-            @media (max-width: 380px) {
-                .player-item {
-                    min-width: 55px;
-                    max-width: 65px;
-                    margin: 0 1px;
-                }
-                
-                .player-photo-small {
-                    width: 38px;
-                    height: 38px;
-                }
-                
-                .player-name {
-                    font-size: 0.75rem;
-                }
-                
-                .player-number {
-                    font-size: 0.75rem;
-                }
-                
-                .formation-line:first-child {
-                    gap: 6px;
-                }
-                
-                .formation-line:nth-child(3) {
-                    gap: 3px;
-                }
-                
-                .formation-line:nth-child(4) {
-                    gap: 1px;
-                }
-                
-                .modal-stats {
-                    grid-template-columns: 1fr;
-                    gap: 8px;
-                }
-                
-                .rating-value {
-                    font-size: 1.8rem;
-                }
+            .player-edit-stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1305,314 +1421,8 @@
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
                 <h2 class="section-title">Состав команды</h2>
                 
-                <div class="players-grid">
-                    <!-- Килиан Мбаппе -->
-                    <div class="player-card" data-player="mbappe">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Килиан Мбаппе" id="mbappe-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Килиан Мбаппе</h3>
-                                <p>ЦФД • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Давид Рая -->
-                    <div class="player-card" data-player="raya">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Давид Рая" id="raya-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Давид Рая</h3>
-                                <p>Вратарь • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Сухие</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Сейвы</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Марадона -->
-                    <div class="player-card" data-player="maradona">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Марадона" id="maradona-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Марадона</h3>
-                                <p>Полузащитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Саня -->
-                    <div class="player-card" data-player="sanya">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Саня" id="sanya-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Саня</h3>
-                                <p>Нападающий • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Месси -->
-                    <div class="player-card" data-player="messi">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Лионель Месси" id="messi-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Лионель Месси</h3>
-                                <p>Полузащитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Батраков -->
-                    <div class="player-card" data-player="batrakov">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Батраков" id="batrakov-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Батраков</h3>
-                                <p>Полузащитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Абибас -->
-                    <div class="player-card" data-player="abibas">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Абибас" id="abibas-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Абибас</h3>
-                                <p>Полузащитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Белоснежка -->
-                    <div class="player-card" data-player="beloszhneka">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Белоснежка" id="beloszhneka-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Белоснежка</h3>
-                                <p>Защитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Рамос -->
-                    <div class="player-card" data-player="ramos">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Рамос" id="ramos-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Рамос</h3>
-                                <p>Защитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Андрюшка -->
-                    <div class="player-card" data-player="andryushka">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Андрюшка" id="andryushka-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Андрюшка</h3>
-                                <p>Защитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Хоккеист -->
-                    <div class="player-card" data-player="hokkeist">
-                        <div class="player-header">
-                            <div class="player-photo">
-                                <img src="" alt="Хоккеист" id="hokkeist-photo">
-                            </div>
-                            <div class="player-info">
-                                <h3>Хоккеист</h3>
-                                <p>Полузащитник • 14 лет</p>
-                            </div>
-                        </div>
-                        
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="players-grid" id="players-grid">
+                    <!-- Карточки игроков будут загружены через JS -->
                 </div>
                 
                 <!-- Предупреждение о статистике -->
@@ -1783,6 +1593,17 @@
                             </div>
                         </div>
                         
+                        <!-- Управление статистикой игроков -->
+                        <div class="form-group" style="margin-top: 40px;">
+                            <h3>📊 Управление статистикой игроков</h3>
+                            <p style="margin-bottom: 15px; color: #666;">Здесь вы можете изменить статистику всех игроков. Изменения сохраняются автоматически.</p>
+                            <div id="players-edit-list" class="player-edit-list">
+                                <!-- Список игроков для редактирования будет загружен здесь -->
+                            </div>
+                            <button id="save-players-stats" class="btn btn-success btn-block" style="margin-top: 20px;">Сохранить все изменения</button>
+                            <div id="save-stats-message" class="message"></div>
+                        </div>
+                        
                         <!-- Кнопка выхода -->
                         <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #0066cc;">
                             <button id="logout-btn" class="btn btn-danger btn-block">Выйти из панели управления</button>
@@ -1903,6 +1724,171 @@
         // Данные новостей (загружаются из localStorage)
         let newsData = [];
         
+        // Глобальные данные игроков (будут загружены из localStorage)
+        let playersData = {};
+        
+        // Функция для загрузки данных игроков из localStorage
+        function loadPlayersData() {
+            const savedPlayersData = localStorage.getItem('footballPlayersData');
+            if (savedPlayersData) {
+                playersData = JSON.parse(savedPlayersData);
+            } else {
+                // Начальные данные игроков
+                playersData = {
+                    mbappe: {
+                        name: "Килиан Мбаппе",
+                        position: "ЦФД",
+                        age: "14 лет",
+                        icon: "⚡",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 91
+                    },
+                    raya: {
+                        name: "Давид Рая",
+                        position: "Вратарь",
+                        age: "14 лет",
+                        icon: "🧤",
+                        foot: "Правая",
+                        height: "165 см",
+                        weight: "45 кг",
+                        matches: 0,
+                        saves: 0,
+                        cleanSheets: 0,
+                        rating: 92
+                    },
+                    maradona: {
+                        name: "Марадона",
+                        position: "Полузащитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 85
+                    },
+                    sanya: {
+                        name: "Саня",
+                        position: "Нападающий",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Левая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 88
+                    },
+                    messi: {
+                        name: "Лионель Месси",
+                        position: "Полузащитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Левая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 85
+                    },
+                    batrakov: {
+                        name: "Батраков",
+                        position: "Полузащитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 84
+                    },
+                    abibas: {
+                        name: "Абибас",
+                        position: "Полузащитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 79
+                    },
+                    beloszhneka: {
+                        name: "Белоснежка",
+                        position: "Защитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 92
+                    },
+                    ramos: {
+                        name: "Рамос",
+                        position: "Защитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 90
+                    },
+                    andryushka: {
+                        name: "Андрюшка",
+                        position: "Защитник",
+                        age: "14 лет",
+                        icon: "⚽",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 78
+                    },
+                    hokkeist: {
+                        name: "Хоккеист",
+                        position: "Полузащитник",
+                        age: "14 лет",
+                        icon: "🏒",
+                        foot: "Правая",
+                        height: "0 см",
+                        weight: "0 кг",
+                        matches: 0,
+                        goals: 0,
+                        assists: 0,
+                        rating: 82
+                    }
+                };
+                savePlayersData();
+            }
+            renderPlayersCards();
+        }
+        
+        // Функция для сохранения данных игроков в localStorage
+        function savePlayersData() {
+            localStorage.setItem('footballPlayersData', JSON.stringify(playersData));
+        }
+        
         // Функция для загрузки новостей из localStorage
         function loadNews() {
             const savedNews = localStorage.getItem('footballNews');
@@ -1963,13 +1949,22 @@
                 }
                 
                 newsItem.innerHTML = `
-                    <button class="delete-news-btn" onclick="deleteNews(${news.id})" title="Удалить новость">×</button>
+                    <button class="delete-news-btn" data-id="${news.id}" title="Удалить новость">×</button>
                     <div class="news-date">${news.date}</div>
                     <div class="news-text">${news.text}</div>
                     ${playersHtml}
                 `;
                 
                 newsContent.appendChild(newsItem);
+            });
+            
+            // Добавляем обработчики для кнопок удаления
+            document.querySelectorAll('.delete-news-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.getAttribute('data-id'));
+                    deleteNews(id);
+                });
             });
             
             // Также обновляем список новостей в панели администратора
@@ -2024,7 +2019,7 @@
                             <div style="margin-bottom: 8px;">${news.text}</div>
                             ${playersText ? `<div style="font-size: 0.9em; color: #666;">${playersText}</div>` : ''}
                         </div>
-                        <button onclick="deleteNews(${news.id})" 
+                        <button class="delete-news-btn-admin" data-id="${news.id}" 
                                 style="background: #dc3545; color: white; border: none; 
                                        width: 30px; height: 30px; border-radius: 50%; 
                                        cursor: pointer; margin-left: 10px;">×</button>
@@ -2032,6 +2027,14 @@
                 `;
                 
                 newsList.appendChild(newsItem);
+            });
+            
+            // Добавляем обработчики для кнопок удаления в админ-панели
+            document.querySelectorAll('.delete-news-btn-admin').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    deleteNews(id);
+                });
             });
         }
         
@@ -2175,6 +2178,7 @@
             const adminPanel = document.getElementById('admin-panel');
             adminPanel.classList.add('active');
             renderNewsList();
+            renderPlayersEditList();
         }
         
         // Скрыть панель администратора
@@ -2183,196 +2187,6 @@
             adminPanel.classList.remove('active');
         }
         
-        // Инициализация при загрузке страницы
-        window.addEventListener('DOMContentLoaded', () => {
-            // Загружаем новости
-            loadNews();
-            
-            // Проверяем авторизацию
-            checkAuth();
-            
-            // Обработчики для панели администратора
-            document.getElementById('auth-btn').addEventListener('click', () => {
-                const code = document.getElementById('access-code').value;
-                login(code);
-            });
-            
-            document.getElementById('access-code').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    const code = document.getElementById('access-code').value;
-                    login(code);
-                }
-            });
-            
-            document.getElementById('add-news-btn').addEventListener('click', () => {
-                const date = document.getElementById('news-date').value;
-                const text = document.getElementById('news-text').value;
-                const players = document.getElementById('news-players').value;
-                addNews(date, text, players);
-            });
-            
-            document.getElementById('logout-btn').addEventListener('click', logout);
-            
-            // Переключение на страницу настроек
-            document.getElementById('settings-btn').addEventListener('click', function() {
-                document.getElementById('home-page').classList.remove('active');
-                document.getElementById('settings-page').classList.add('active');
-            });
-            
-            // Кнопка "Назад" со страницы настроек
-            document.getElementById('back-from-settings').addEventListener('click', function() {
-                document.getElementById('settings-page').classList.remove('active');
-                document.getElementById('home-page').classList.add('active');
-            });
-        });
-        
-        // Данные игроков
-        const playersData = {
-            mbappe: {
-                name: "Килиан Мбаппе",
-                position: "ЦФД",
-                age: "14 лет",
-                icon: "⚡",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 91
-            },
-            raya: {
-                name: "Давид Рая",
-                position: "Вратарь",
-                age: "14 лет",
-                icon: "🧤",
-                foot: "Правая",
-                height: "165 см",
-                weight: "45 кг",
-                matches: 0,
-                saves: 0,
-                cleanSheets: 0,
-                rating: 92
-            },
-            maradona: {
-                name: "Марадона",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 85
-            },
-            sanya: {
-                name: "Саня",
-                position: "Нападающий",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Левая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 88
-            },
-            messi: {
-                name: "Лионель Месси",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Левая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 85
-            },
-            batrakov: {
-                name: "Батраков",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 84
-            },
-            abibas: {
-                name: "Абибас",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 79
-            },
-            beloszhneka: {
-                name: "Белоснежка",
-                position: "Защитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 92
-            },
-            ramos: {
-                name: "Рамос",
-                position: "Защитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 90
-            },
-            andryushka: {
-                name: "Андрюшка",
-                position: "Защитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 78
-            },
-            hokkeist: {
-                name: "Хоккеист",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "🏒",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 82
-            }
-        };
-
         // Функция для загрузки фото игроков
         function loadPlayerPhotos() {
             // Проверяем, загрузился ли объект playerPhotos
@@ -2419,7 +2233,288 @@
                 }
             }
         }
-
+        
+        // Функция для отображения карточек игроков
+        function renderPlayersCards() {
+            const playersGrid = document.getElementById('players-grid');
+            if (!playersGrid) return;
+            
+            playersGrid.innerHTML = '';
+            
+            for (const playerId in playersData) {
+                const player = playersData[playerId];
+                const playerCard = document.createElement('div');
+                playerCard.className = 'player-card';
+                playerCard.setAttribute('data-player', playerId);
+                
+                // Определяем статистику в зависимости от позиции
+                let statsHtml = '';
+                if (player.position === "Вратарь") {
+                    statsHtml = `
+                        <div class="stat-item">
+                            <div class="stat-value">${player.matches || 0}</div>
+                            <div class="stat-label">Матчи</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${player.cleanSheets || 0}</div>
+                            <div class="stat-label">Сухие</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${player.saves || 0}</div>
+                            <div class="stat-label">Сейвы</div>
+                        </div>
+                    `;
+                } else {
+                    statsHtml = `
+                        <div class="stat-item">
+                            <div class="stat-value">${player.matches || 0}</div>
+                            <div class="stat-label">Матчи</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${player.goals || 0}</div>
+                            <div class="stat-label">Голы</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${player.assists || 0}</div>
+                            <div class="stat-label">Ассисты</div>
+                        </div>
+                    `;
+                }
+                
+                playerCard.innerHTML = `
+                    <div class="edit-stat-btn" data-player="${playerId}">✏️</div>
+                    <div class="player-header">
+                        <div class="player-photo">
+                            <img src="" alt="${player.name}" id="${playerId}-photo">
+                        </div>
+                        <div class="player-info">
+                            <h3>${player.name}</h3>
+                            <p>${player.position} • ${player.age}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="player-stats">
+                        ${statsHtml}
+                    </div>
+                    
+                    <div class="stat-edit-form" id="edit-form-${playerId}">
+                        <h4 style="text-align: center; margin-bottom: 20px; color: #0066cc;">Редактирование статистики</h4>
+                        <input type="number" class="stat-edit-input" id="edit-matches-${playerId}" 
+                               value="${player.matches || 0}" placeholder="Матчи">
+                        ${player.position === "Вратарь" ? `
+                            <input type="number" class="stat-edit-input" id="edit-cleansheets-${playerId}" 
+                                   value="${player.cleanSheets || 0}" placeholder="Сухие матчи">
+                            <input type="number" class="stat-edit-input" id="edit-saves-${playerId}" 
+                                   value="${player.saves || 0}" placeholder="Сейвы">
+                        ` : `
+                            <input type="number" class="stat-edit-input" id="edit-goals-${playerId}" 
+                                   value="${player.goals || 0}" placeholder="Голы">
+                            <input type="number" class="stat-edit-input" id="edit-assists-${playerId}" 
+                                   value="${player.assists || 0}" placeholder="Ассисты">
+                        `}
+                        <input type="number" class="stat-edit-input" id="edit-rating-${playerId}" 
+                               value="${player.rating || 0}" placeholder="Рейтинг" min="0" max="100">
+                        <div class="edit-form-buttons">
+                            <button class="btn btn-success" onclick="savePlayerStats('${playerId}')">Сохранить</button>
+                            <button class="btn" onclick="closeEditForm('${playerId}')">Отмена</button>
+                        </div>
+                    </div>
+                `;
+                
+                playersGrid.appendChild(playerCard);
+            }
+            
+            // Добавляем обработчики кликов на карточки игроков
+            document.querySelectorAll('.player-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Проверяем, не кликнули ли мы на кнопку редактирования
+                    if (!e.target.closest('.edit-stat-btn') && !e.target.closest('.stat-edit-form')) {
+                        const playerId = this.getAttribute('data-player');
+                        openPlayerModal(playerId);
+                    }
+                });
+            });
+            
+            // Добавляем обработчики для кнопок редактирования
+            document.querySelectorAll('.edit-stat-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const playerId = this.getAttribute('data-player');
+                    openEditForm(playerId);
+                });
+            });
+            
+            // Загружаем фото после рендера карточек
+            loadPlayerPhotos();
+        }
+        
+        // Функция для открытия формы редактирования статистики
+        function openEditForm(playerId) {
+            const editForm = document.getElementById(`edit-form-${playerId}`);
+            if (editForm) {
+                editForm.classList.add('active');
+            }
+        }
+        
+        // Функция для закрытия формы редактирования статистики
+        function closeEditForm(playerId) {
+            const editForm = document.getElementById(`edit-form-${playerId}`);
+            if (editForm) {
+                editForm.classList.remove('active');
+            }
+        }
+        
+        // Функция для сохранения статистики игрока
+        function savePlayerStats(playerId) {
+            const player = playersData[playerId];
+            if (!player) return;
+            
+            // Получаем значения из формы
+            player.matches = parseInt(document.getElementById(`edit-matches-${playerId}`).value) || 0;
+            player.rating = parseInt(document.getElementById(`edit-rating-${playerId}`).value) || 0;
+            
+            if (player.position === "Вратарь") {
+                player.cleanSheets = parseInt(document.getElementById(`edit-cleansheets-${playerId}`).value) || 0;
+                player.saves = parseInt(document.getElementById(`edit-saves-${playerId}`).value) || 0;
+            } else {
+                player.goals = parseInt(document.getElementById(`edit-goals-${playerId}`).value) || 0;
+                player.assists = parseInt(document.getElementById(`edit-assists-${playerId}`).value) || 0;
+            }
+            
+            // Сохраняем изменения
+            savePlayersData();
+            
+            // Обновляем отображение
+            renderPlayersCards();
+            
+            // Закрываем форму редактирования
+            closeEditForm(playerId);
+            
+            // Показываем сообщение об успехе
+            showMessage('add-news-message', 'success', `Статистика ${player.name} обновлена!`);
+            
+            // Автоматически скрываем сообщение через 2 секунды
+            setTimeout(() => {
+                hideMessage('add-news-message');
+            }, 2000);
+        }
+        
+        // Функция для отображения списка игроков для редактирования в админ-панели
+        function renderPlayersEditList() {
+            const playersEditList = document.getElementById('players-edit-list');
+            if (!playersEditList) return;
+            
+            playersEditList.innerHTML = '';
+            
+            for (const playerId in playersData) {
+                const player = playersData[playerId];
+                const playerEditItem = document.createElement('div');
+                playerEditItem.className = 'player-edit-item';
+                
+                let statsHtml = '';
+                if (player.position === "Вратарь") {
+                    statsHtml = `
+                        <div class="player-stat-input-group">
+                            <label>Матчи:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="matches" 
+                                   value="${player.matches || 0}">
+                        </div>
+                        <div class="player-stat-input-group">
+                            <label>Сухие матчи:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="cleanSheets" 
+                                   value="${player.cleanSheets || 0}">
+                        </div>
+                        <div class="player-stat-input-group">
+                            <label>Сейвы:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="saves" 
+                                   value="${player.saves || 0}">
+                        </div>
+                    `;
+                } else {
+                    statsHtml = `
+                        <div class="player-stat-input-group">
+                            <label>Матчи:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="matches" 
+                                   value="${player.matches || 0}">
+                        </div>
+                        <div class="player-stat-input-group">
+                            <label>Голы:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="goals" 
+                                   value="${player.goals || 0}">
+                        </div>
+                        <div class="player-stat-input-group">
+                            <label>Ассисты:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="assists" 
+                                   value="${player.assists || 0}">
+                        </div>
+                    `;
+                }
+                
+                playerEditItem.innerHTML = `
+                    <div class="player-edit-header">
+                        <div class="player-edit-name">${player.name}</div>
+                        <div style="color: #666; font-size: 0.9rem;">${player.position}</div>
+                    </div>
+                    <div class="player-edit-stats">
+                        ${statsHtml}
+                        <div class="player-stat-input-group">
+                            <label>Рейтинг:</label>
+                            <input type="number" class="player-stat-input" data-player="${playerId}" data-stat="rating" 
+                                   value="${player.rating || 0}" min="0" max="100">
+                        </div>
+                        <div class="player-stat-input-group">
+                            <label>Рост (см):</label>
+                            <input type="text" class="player-stat-input" data-player="${playerId}" data-stat="height" 
+                                   value="${player.height || '0 см'}">
+                        </div>
+                        <div class="player-stat-input-group">
+                            <label>Вес (кг):</label>
+                            <input type="text" class="player-stat-input" data-player="${playerId}" data-stat="weight" 
+                                   value="${player.weight || '0 кг'}">
+                        </div>
+                    </div>
+                `;
+                
+                playersEditList.appendChild(playerEditItem);
+            }
+        }
+        
+        // Функция для сохранения всей статистики игроков
+        function saveAllPlayersStats() {
+            const inputs = document.querySelectorAll('.player-stat-input');
+            let hasChanges = false;
+            
+            inputs.forEach(input => {
+                const playerId = input.getAttribute('data-player');
+                const statName = input.getAttribute('data-stat');
+                const value = input.value;
+                
+                if (playersData[playerId] && playersData[playerId][statName] !== undefined) {
+                    // Преобразуем числовые значения
+                    if (statName === 'matches' || statName === 'goals' || statName === 'assists' || 
+                        statName === 'cleanSheets' || statName === 'saves' || statName === 'rating') {
+                        playersData[playerId][statName] = parseInt(value) || 0;
+                    } else {
+                        playersData[playerId][statName] = value;
+                    }
+                    hasChanges = true;
+                }
+            });
+            
+            if (hasChanges) {
+                savePlayersData();
+                renderPlayersCards(); // Обновляем карточки на странице игроков
+                showMessage('save-stats-message', 'success', 'Статистика всех игроков сохранена!');
+                
+                // Автоматически скрываем сообщение через 2 секунды
+                setTimeout(() => {
+                    hideMessage('save-stats-message');
+                }, 2000);
+            } else {
+                showMessage('save-stats-message', 'error', 'Нет изменений для сохранения');
+            }
+        }
+        
         // Функция для смены темы
         function toggleTheme() {
             const body = document.body;
@@ -2435,7 +2530,7 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
-
+        
         // Проверяем сохраненную тему при загрузке
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme');
@@ -2448,36 +2543,6 @@
                 themeToggle.textContent = '🌙';
             }
         }
-
-        // Инициализация темы
-        loadTheme();
-
-        // Добавляем обработчик для кнопки смены темы
-        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-
-        // Переключение на страницу игроков
-        document.getElementById('players-btn').addEventListener('click', function() {
-            document.getElementById('home-page').classList.remove('active');
-            document.getElementById('players-page').classList.add('active');
-        });
-        
-        // Переключение на страницу лучшего состава
-        document.getElementById('squad-btn').addEventListener('click', function() {
-            document.getElementById('home-page').classList.remove('active');
-            document.getElementById('squad-page').classList.add('active');
-        });
-        
-        // Кнопка "Назад" со страницы игроков
-        document.getElementById('back-from-players').addEventListener('click', function() {
-            document.getElementById('players-page').classList.remove('active');
-            document.getElementById('home-page').classList.add('active');
-        });
-        
-        // Кнопка "Назад" со страницы состава
-        document.getElementById('back-from-squad').addEventListener('click', function() {
-            document.getElementById('squad-page').classList.remove('active');
-            document.getElementById('home-page').classList.add('active');
-        });
         
         // Функция для открытия модального окна с данными игрока
         function openPlayerModal(playerId) {
@@ -2506,7 +2571,7 @@
             if (player.position === "Вратарь") {
                 document.getElementById('modal-goals').textContent = "N/A";
                 document.getElementById('modal-assists').textContent = "N/A";
-                document.getElementById('modal-matches').textContent = player.matches;
+                document.getElementById('modal-matches').textContent = player.matches || 0;
             } else {
                 document.getElementById('modal-goals').textContent = player.goals || 0;
                 document.getElementById('modal-assists').textContent = player.assists || 0;
@@ -2515,7 +2580,7 @@
             
             // Устанавливаем фото или иконку
             const modalPhoto = document.getElementById('modal-photo');
-            const photoBase64 = playerPhotos[playerId];
+            const photoBase64 = playerPhotos ? playerPhotos[playerId] : null;
             
             if (photoBase64) {
                 modalPhoto.innerHTML = `<img src="${photoBase64}" alt="${player.name}">`;
@@ -2527,53 +2592,8 @@
             document.getElementById('player-modal').classList.add('active');
         }
         
-        // Добавляем обработчики кликов на карточки игроков
-        document.querySelectorAll('.player-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const playerId = this.getAttribute('data-player');
-                openPlayerModal(playerId);
-            });
-        });
-        
-        // Добавляем обработчики кликов на игроков в составе
-        document.querySelectorAll('.player-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const playerId = this.getAttribute('data-player');
-                openPlayerModal(playerId);
-            });
-        });
-        
-        // Закрытие модального окна
-        document.getElementById('modal-close').addEventListener('click', function() {
-            document.getElementById('player-modal').classList.remove('active');
-        });
-        
-        // Закрытие модального окна при клике на оверлей
-        document.getElementById('player-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
-            }
-        });
-        
-        // Загружаем фото при загрузке страницы
-        window.addEventListener('load', function() {
-            loadPlayerPhotos();
-            
-            // Оптимизация загрузки изображений
-            const images = document.querySelectorAll('.player-photo img, .player-photo-small img');
-            images.forEach(img => {
-                if ('loading' in HTMLImageElement.prototype) {
-                    img.loading = 'lazy';
-                }
-            });
-        });
-        
-        // Убираем синее выделение при тапе на мобильных устройствах
-        document.addEventListener('touchstart', function() {}, {passive: true});
-        
         // Функция для показа уведомления об обновлении
         function showUpdateNotification() {
-            // Создаем элемент уведомления
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
@@ -2591,7 +2611,6 @@
                 animation: slideDown 0.3s ease;
             `;
             
-            // Добавляем анимацию
             const style = document.createElement('style');
             style.textContent = `
                 @keyframes slideDown {
@@ -2604,11 +2623,117 @@
             notification.innerHTML = '🔄 Обновление обнаружено! Страница скоро обновится...';
             document.body.appendChild(notification);
             
-            // Удаляем уведомление через 3 секунды
             setTimeout(() => {
                 notification.style.animation = 'slideUp 0.3s ease';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
+        }
+        
+        // Инициализация при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            // Загружаем данные
+            loadPlayersData();
+            loadNews();
+            
+            // Проверяем авторизацию
+            checkAuth();
+            
+            // Загружаем тему
+            loadTheme();
+            
+            // Обработчики для панели администратора
+            document.getElementById('auth-btn').addEventListener('click', () => {
+                const code = document.getElementById('access-code').value;
+                login(code);
+            });
+            
+            document.getElementById('access-code').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const code = document.getElementById('access-code').value;
+                    login(code);
+                }
+            });
+            
+            document.getElementById('add-news-btn').addEventListener('click', () => {
+                const date = document.getElementById('news-date').value;
+                const text = document.getElementById('news-text').value;
+                const players = document.getElementById('news-players').value;
+                addNews(date, text, players);
+            });
+            
+            document.getElementById('save-players-stats').addEventListener('click', saveAllPlayersStats);
+            
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            
+            // Обработчики для переключения страниц
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            
+            document.getElementById('players-btn').addEventListener('click', function() {
+                document.getElementById('home-page').classList.remove('active');
+                document.getElementById('players-page').classList.add('active');
+            });
+            
+            document.getElementById('squad-btn').addEventListener('click', function() {
+                document.getElementById('home-page').classList.remove('active');
+                document.getElementById('squad-page').classList.add('active');
+            });
+            
+            document.getElementById('settings-btn').addEventListener('click', function() {
+                document.getElementById('home-page').classList.remove('active');
+                document.getElementById('settings-page').classList.add('active');
+            });
+            
+            document.getElementById('back-from-players').addEventListener('click', function() {
+                document.getElementById('players-page').classList.remove('active');
+                document.getElementById('home-page').classList.add('active');
+            });
+            
+            document.getElementById('back-from-squad').addEventListener('click', function() {
+                document.getElementById('squad-page').classList.remove('active');
+                document.getElementById('home-page').classList.add('active');
+            });
+            
+            document.getElementById('back-from-settings').addEventListener('click', function() {
+                document.getElementById('settings-page').classList.remove('active');
+                document.getElementById('home-page').classList.add('active');
+            });
+            
+            // Обработчики для модального окна
+            document.getElementById('modal-close').addEventListener('click', function() {
+                document.getElementById('player-modal').classList.remove('active');
+            });
+            
+            document.getElementById('player-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+            
+            // Добавляем обработчики кликов на игроков в составе
+            document.querySelectorAll('.player-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    openPlayerModal(playerId);
+                });
+            });
+            
+            // Оптимизация загрузки изображений
+            window.addEventListener('load', function() {
+                const images = document.querySelectorAll('.player-photo img, .player-photo-small img');
+                images.forEach(img => {
+                    if ('loading' in HTMLImageElement.prototype) {
+                        img.loading = 'lazy';
+                    }
+                });
+            });
+            
+            // Убираем синее выделение при тапе на мобильных устройствах
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        });
+        
+        // Для совместимости с существующим кодом photos.js
+        if (typeof playerPhotos === 'undefined') {
+            var playerPhotos = {};
         }
     </script>
 </body>
