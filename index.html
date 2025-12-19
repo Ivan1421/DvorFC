@@ -5,8 +5,1062 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Футбольный Двор "МЕРА"</title>
     <style>
-        /* Все стили остаются без изменений из предыдущего кода */
-        /* ... остальные стили ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
+            color: #333;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-theme {
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            color: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .theme-toggle {
+            background: #ffcc00;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #0066cc;
+            text-shadow: 2px 2px 4px rgba(0, 102, 204, 0.1);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme h1 {
+            color: #4dabf7;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .subtitle {
+            color: #ccc;
+        }
+        
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .main-button {
+            width: 300px;
+            height: 180px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 3px solid #0066cc;
+            padding: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .main-button:active {
+            background: #f0f8ff;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+        }
+        
+        .dark-theme .main-button {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .main-button:active {
+            background: #374151;
+        }
+        
+        .button-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .button-icon {
+            color: #4dabf7;
+        }
+        
+        .button-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .button-title {
+            color: #4dabf7;
+        }
+        
+        .button-description {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .button-description {
+            color: #ccc;
+        }
+        
+        /* Место для новостей */
+        .news-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-section {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #0066cc;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0066cc;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .section-title {
+            color: #4dabf7;
+            border-bottom-color: #4dabf7;
+        }
+        
+        .news-content {
+            padding: 20px 0;
+        }
+        
+        .news-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-item {
+            border-bottom-color: #444;
+        }
+        
+        .news-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .news-date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-date {
+            color: #aaa;
+        }
+        
+        .news-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .news-text {
+            color: #f0f0f0;
+        }
+        
+        .best-players {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .best-player-tag {
+            background: linear-gradient(to right, #0066cc, #4dabf7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .best-player-tag {
+            background: linear-gradient(to right, #4dabf7, #339af0);
+        }
+        
+        /* Страница игроков */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .back-button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .back-button:active {
+            background: #0052a3;
+            transform: none;
+        }
+        
+        .dark-theme .back-button {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        
+        .dark-theme .back-button:active {
+            background: #339af0;
+        }
+        
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .player-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .player-card:active {
+            background: #f0f8ff;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+        }
+        
+        .dark-theme .player-card {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dark-theme .player-card:active {
+            background: #374151;
+        }
+        
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .player-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #0066cc;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-photo {
+            border-color: #4dabf7;
+        }
+        
+        .player-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .player-info h3 {
+            font-size: 1.8rem;
+            color: #0066cc;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-info h3 {
+            color: #4dabf7;
+        }
+        
+        .player-info p {
+            color: #666;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-info p {
+            color: #ccc;
+        }
+        
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .stat-item {
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stat-item {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stat-value {
+            color: #4dabf7;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stat-label {
+            color: #ccc;
+        }
+        
+        /* Предупреждение о статистике */
+        .stats-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 30px;
+            color: #856404;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .stats-warning {
+            background: #664d03;
+            border-color: #856404;
+            color: #ffd8a8;
+        }
+        
+        .warning-icon {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .warning-icon {
+            color: #ffd43b;
+        }
+        
+        /* Страница лучшего состава */
+        .best-squad-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .best-squad-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .formation {
+            text-align: center;
+            margin: 25px 0;
+            font-weight: bold;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .formation-line {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 85px;
+            gap: 10px;
+        }
+        
+        .player-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 75px;
+            max-width: 85px;
+            margin: 0 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .player-item:active {
+            transform: none;
+        }
+        
+        .player-number {
+            color: #0066cc;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-number {
+            color: #4dabf7;
+        }
+        
+        .player-photo-small {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2.5px solid #0066cc;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-photo-small {
+            border-color: #4dabf7;
+        }
+        
+        .player-photo-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .player-name {
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .player-name {
+            color: #f0f0f0;
+        }
+        
+        .tactics-info {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .tactics-info {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        
+        .tactics-info h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .tactics-info h3 {
+            color: #4dabf7;
+        }
+        
+        .tactics-info p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .tactics-info p {
+            color: #f0f0f0;
+        }
+        
+        /* Модальное окно для детальной информации */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            display: none;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            border: 3px solid #0066cc;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .modal-close-btn:active {
+            background: #0052a3;
+            transform: none;
+        }
+        
+        .dark-theme .modal-close-btn {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        
+        .dark-theme .modal-close-btn:active {
+            background: #339af0;
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-header {
+            border-bottom-color: #4dabf7;
+        }
+        
+        .modal-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #0066cc;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-photo {
+            border-color: #4dabf7;
+        }
+        
+        .modal-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .modal-info h3 {
+            font-size: 2rem;
+            color: #0066cc;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-info h3 {
+            color: #4dabf7;
+        }
+        
+        .modal-info p {
+            color: #666;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-info p {
+            color: #ccc;
+        }
+        
+        /* Рейтинг в хедере */
+        .modal-rating-header {
+            position: absolute;
+            right: 60px;
+            top: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .rating-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Цвета для рейтингов */
+        .rating-high {
+            color: #28a745;
+        }
+        
+        .rating-medium {
+            color: #ffc107;
+        }
+        
+        .rating-label {
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rating-label {
+            color: #ccc;
+        }
+        
+        /* Компактная статистика */
+        .modal-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .modal-stat-item {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-stat-item {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        
+        .modal-stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-stat-label {
+            color: #ccc;
+        }
+        
+        .modal-stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .modal-stat-value {
+            color: #4dabf7;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme footer {
+            color: #aaa;
+            border-top-color: #444;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+            
+            .main-button {
+                width: 100%;
+                height: 160px;
+            }
+            
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-item {
+                padding: 12px;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .player-item {
+                min-width: 65px;
+                max-width: 75px;
+                margin: 0 3px;
+            }
+            
+            .player-photo-small {
+                width: 48px;
+                height: 48px;
+                border-width: 2px;
+            }
+            
+            .player-name {
+                font-size: 0.85rem;
+            }
+            
+            .player-number {
+                font-size: 0.85rem;
+            }
+            
+            .formation {
+                font-size: 0.9rem;
+            }
+            
+            .formation-line {
+                min-height: 75px;
+                margin: 15px 0;
+                gap: 8px;
+            }
+            
+            .formation-line:first-child {
+                gap: 10px;
+            }
+            
+            .formation-line:nth-child(3) {
+                gap: 6px;
+            }
+            
+            .formation-line:nth-child(4) {
+                gap: 4px;
+            }
+            
+            .modal {
+                padding: 20px;
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+                padding-bottom: 15px;
+            }
+            
+            .modal-rating-header {
+                position: static;
+                margin-top: 10px;
+            }
+            
+            .modal-photo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .modal-info h3 {
+                font-size: 1.6rem;
+            }
+            
+            .modal-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .rating-value {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .player-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .player-photo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .player-info h3 {
+                font-size: 1.5rem;
+            }
+            
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .formation {
+                font-size: 0.8rem;
+            }
+            
+            .player-item {
+                min-width: 60px;
+                max-width: 70px;
+                margin: 0 2px;
+            }
+            
+            .player-photo-small {
+                width: 42px;
+                height: 42px;
+                border-width: 1.5px;
+            }
+            
+            .player-name {
+                font-size: 0.8rem;
+            }
+            
+            .player-number {
+                font-size: 0.8rem;
+            }
+            
+            .formation-line {
+                min-height: 70px;
+                margin: 12px 0;
+                gap: 6px;
+            }
+            
+            .formation-line:first-child {
+                gap: 8px;
+            }
+            
+            .formation-line:nth-child(3) {
+                gap: 4px;
+            }
+            
+            .formation-line:nth-child(4) {
+                gap: 2px;
+            }
+            
+            .modal-stats {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .rating-value {
+                font-size: 1.8rem;
+            }
+            
+            @media (max-width: 380px) {
+                .player-item {
+                    min-width: 55px;
+                    max-width: 65px;
+                    margin: 0 1px;
+                }
+                
+                .player-photo-small {
+                    width: 38px;
+                    height: 38px;
+                }
+                
+                .player-name {
+                    font-size: 0.75rem;
+                }
+                
+                .player-number {
+                    font-size: 0.75rem;
+                }
+                
+                .formation-line:first-child {
+                    gap: 6px;
+                }
+                
+                .formation-line:nth-child(3) {
+                    gap: 3px;
+                }
+                
+                .formation-line:nth-child(4) {
+                    gap: 1px;
+                }
+                
+                .modal-stats {
+                    grid-template-columns: 1fr;
+                    gap: 8px;
+                }
+                
+                .rating-value {
+                    font-size: 1.8rem;
+                }
+            }
+        }
     </style>
 </head>
 <body>
@@ -19,8 +1073,6 @@
                 <h1>Футбольный Двор "МЕРА"</h1>
             </div>
             <p class="subtitle">Официальная статистика и новости</p>
-            <!-- Добавляем кнопку обновления на главную -->
-            <button class="update-app-btn" id="update-app-btn-main">🔄 Обновить приложение</button>
         </header>
         
         <main>
@@ -38,18 +1090,29 @@
                         <div class="button-title">Лучший Состав</div>
                         <div class="button-description">Идеальная команда нашего двора</div>
                     </div>
-                    
-                    <div class="main-button" id="settings-btn">
-                        <div class="button-icon">⚙️</div>
-                        <div class="button-title">Настройки</div>
-                        <div class="button-description">Управление контентом сайта</div>
-                    </div>
                 </div>
                 
                 <div class="news-section">
                     <h2 class="section-title">Новости и обновления</h2>
-                    <div class="news-content" id="news-content">
-                        <!-- Новости будут загружаться здесь -->
+                    <div class="news-content">
+                        <div class="news-item">
+                            <div class="news-date">12.12.2025</div>
+                            <div class="news-text">
+                                Были выставлены первые рейтинги. Лучшими стали:
+                            </div>
+                            <div class="best-players">
+                                <div class="best-player-tag">Мбаппе</div>
+                                <div class="best-player-tag">Белоснежка</div>
+                                <div class="best-player-tag">Рамос</div>
+                                <div class="best-player-tag">Давид Рая</div>
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-date">11.12.2025</div>
+                            <div class="news-text">
+                                Сайт теперь автоматически обновляется при изменениях! Все изменения будут видны сразу.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,8 +1122,314 @@
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
                 <h2 class="section-title">Состав команды</h2>
                 
-                <div class="players-grid" id="players-grid">
-                    <!-- Карточки игроков будут генерироваться динамически -->
+                <div class="players-grid">
+                    <!-- Килиан Мбаппе -->
+                    <div class="player-card" data-player="mbappe">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Килиан Мбаппе" id="mbappe-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Килиан Мбаппе</h3>
+                                <p>ЦФД • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Давид Рая -->
+                    <div class="player-card" data-player="raya">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Давид Рая" id="raya-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Давид Рая</h3>
+                                <p>Вратарь • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Сухие</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Сейвы</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Марадона -->
+                    <div class="player-card" data-player="maradona">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Марадона" id="maradona-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Марадона</h3>
+                                <p>Полузащитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Саня -->
+                    <div class="player-card" data-player="sanya">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Саня" id="sanya-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Саня</h3>
+                                <p>Нападающий • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Месси -->
+                    <div class="player-card" data-player="messi">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Лионель Месси" id="messi-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Лионель Месси</h3>
+                                <p>Полузащитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Батраков -->
+                    <div class="player-card" data-player="batrakov">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Батраков" id="batrakov-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Батраков</h3>
+                                <p>Полузащитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Абибас -->
+                    <div class="player-card" data-player="abibas">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Абибас" id="abibas-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Абибас</h3>
+                                <p>Полузащитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Белоснежка -->
+                    <div class="player-card" data-player="beloszhneka">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Белоснежка" id="beloszhneka-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Белоснежка</h3>
+                                <p>Защитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Рамос -->
+                    <div class="player-card" data-player="ramos">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Рамос" id="ramos-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Рамос</h3>
+                                <p>Защитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Андрюшка -->
+                    <div class="player-card" data-player="andryushka">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Андрюшка" id="andryushka-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Андрюшка</h3>
+                                <p>Защитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Хоккеист -->
+                    <div class="player-card" data-player="hokkeist">
+                        <div class="player-header">
+                            <div class="player-photo">
+                                <img src="" alt="Хоккеист" id="hokkeist-photo">
+                            </div>
+                            <div class="player-info">
+                                <h3>Хоккеист</h3>
+                                <p>Полузащитник • 14 лет</p>
+                            </div>
+                        </div>
+                        
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Предупреждение о статистике -->
@@ -78,8 +1447,107 @@
                 <div class="best-squad-container">
                     <h2 class="section-title">Лучший Состав Двора</h2>
                     
-                    <div class="formation" id="squad-formation">
-                        <!-- Состав будет генерироваться динамически -->
+                    <div class="formation">
+                        <!-- Первая линия: нападение -->
+                        <div class="formation-line">
+                            <div class="player-item" data-player="maradona">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Марадона" id="maradona-photo-small">
+                                </div>
+                                <div class="player-name">Марадона</div>
+                                <span class="player-number">(11)</span>
+                            </div>
+                            <div class="player-item" data-player="sanya">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Саня" id="sanya-photo-small">
+                                </div>
+                                <div class="player-name">Саня</div>
+                                <span class="player-number">(7)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Вторая линия: центральный нападающий -->
+                        <div class="formation-line">
+                            <div class="player-item" data-player="mbappe">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Килиан Мбаппе" id="mbappe-photo-small">
+                                </div>
+                                <div class="player-name">Мбаппе</div>
+                                <span class="player-number">(9)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Третья линия: полузащита -->
+                        <div class="formation-line">
+                            <div class="player-item" data-player="messi">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Лионель Месси" id="messi-photo-small">
+                                </div>
+                                <div class="player-name">Месси</div>
+                                <span class="player-number">(10)</span>
+                            </div>
+                            <div class="player-item" data-player="batrakov">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Батраков" id="batrakov-photo-small">
+                                </div>
+                                <div class="player-name">Батраков</div>
+                                <span class="player-number">(3)</span>
+                            </div>
+                            <div class="player-item" data-player="abibas">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Абибас" id="abibas-photo-small">
+                                </div>
+                                <div class="player-name">Абибас</div>
+                                <span class="player-number">(6)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Четвертая линия: защита (слева направо: Белосжнека, Рамос, Андрюшка, Хоккеист) -->
+                        <div class="formation-line">
+                            <!-- Левый защитник -->
+                            <div class="player-item" data-player="beloszhneka">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Белоснежка" id="beloszhneka-photo-small">
+                                </div>
+                                <div class="player-name">Белоснежка</div>
+                                <span class="player-number">(5)</span>
+                            </div>
+                            <!-- Центральный защитник левый -->
+                            <div class="player-item" data-player="ramos">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Рамос" id="ramos-photo-small">
+                                </div>
+                                <div class="player-name">Рамос</div>
+                                <span class="player-number">(4)</span>
+                            </div>
+                            <!-- Центральный защитник правый -->
+                            <div class="player-item" data-player="andryushka">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Андрюшка" id="andryushka-photo-small">
+                                </div>
+                                <div class="player-name">Андрюшка</div>
+                                <span class="player-number">(77)</span>
+                            </div>
+                            <!-- Правый полузащитник -->
+                            <div class="player-item" data-player="hokkeist">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Хоккеист" id="hokkeist-photo-small">
+                                </div>
+                                <div class="player-name">Хоккеист</div>
+                                <span class="player-number">(66)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Пятая линия: вратарь -->
+                        <div class="formation-line">
+                            <div class="player-item" data-player="raya">
+                                <div class="player-photo-small">
+                                    <img src="" alt="Давид Рая" id="raya-photo-small">
+                                </div>
+                                <div class="player-name">Рая</div>
+                                <span class="player-number">(1)</span>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="tactics-info">
@@ -90,146 +1558,17 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Страница настроек -->
-            <div id="settings-page" class="page">
-                <button class="back-button" id="back-from-settings">← Назад к главной</button>
-                
-                <div class="settings-container">
-                    <h2 class="section-title">Управление контентом</h2>
-                    
-                    <div class="auth-section">
-                        <h3>🔐 Авторизация</h3>
-                        <div class="form-group">
-                            <input type="password" id="access-code" class="input-field" 
-                                   placeholder="Введите код доступа" autocomplete="off">
-                        </div>
-                        <button id="auth-btn" class="btn btn-block">Войти</button>
-                        <div id="auth-message" class="message"></div>
-                    </div>
-                    
-                    <div id="admin-panel" class="admin-panel">
-                        <!-- Раздел управления новостями -->
-                        <div class="news-management">
-                            <h3>📝 Управление новостями</h3>
-                            
-                            <!-- Форма добавления новости -->
-                            <div class="form-group">
-                                <label class="form-label">Добавить новую запись:</label>
-                                <input type="text" id="news-date" class="input-field" 
-                                       placeholder="Дата (например: 13.12.2025)">
-                                <textarea id="news-text" class="form-textarea" 
-                                          placeholder="Текст новости"></textarea>
-                                <input type="text" id="news-players" class="input-field" 
-                                       placeholder="Лучшие игроки (через запятую)">
-                            </div>
-                            <button id="add-news-btn" class="btn btn-success btn-block">Добавить новость</button>
-                            <div id="add-news-message" class="message"></div>
-                            
-                            <!-- Список существующих новостей -->
-                            <div class="form-group" style="margin-top: 40px;">
-                                <label class="form-label">Управление существующими новостями:</label>
-                                <div id="news-list">
-                                    <!-- Список новостей будет загружаться здесь -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Раздел управления статистикой игроков -->
-                        <div class="player-stats-editor">
-                            <h3>📊 Управление статистикой игроков</h3>
-                            
-                            <select id="player-select" class="player-select">
-                                <option value="">Выберите игрока для редактирования</option>
-                                <!-- Опции будут заполнены динамически -->
-                            </select>
-                            
-                            <div id="stats-editor" style="display: none;">
-                                <div class="stats-grid">
-                                    <div class="stat-input-group">
-                                        <label for="player-matches">Матчи:</label>
-                                        <input type="number" id="player-matches" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-goals">Голы:</label>
-                                        <input type="number" id="player-goals" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-assists">Ассисты:</label>
-                                        <input type="number" id="player-assists" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-cleanSheets">Сухие матчи:</label>
-                                        <input type="number" id="player-cleanSheets" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-saves">Сейвы:</label>
-                                        <input type="number" id="player-saves" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-height">Рост (см):</label>
-                                        <input type="number" id="player-height" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-weight">Вес (кг):</label>
-                                        <input type="number" id="player-weight" class="stat-input" min="0">
-                                    </div>
-                                    
-                                    <div class="stat-input-group">
-                                        <label for="player-foot">Рабочая нога:</label>
-                                        <select id="player-foot" class="stat-input">
-                                            <option value="Правая">Правая</option>
-                                            <option value="Левая">Левая</option>
-                                            <option value="Обе">Обе</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="rating-input-container">
-                                        <label for="player-rating">Рейтинг:</label>
-                                        <input type="range" id="player-rating-slider" class="rating-slider" 
-                                               min="1" max="99" value="50">
-                                        <div class="rating-value-display" id="player-rating-display">50</div>
-                                        <input type="hidden" id="player-rating" value="50">
-                                    </div>
-                                </div>
-                                
-                                <button id="save-stats-btn" class="btn btn-success btn-block">Сохранить статистику</button>
-                                <div id="save-stats-message" class="message"></div>
-                            </div>
-                        </div>
-                        
-                        <!-- Секция синхронизации -->
-                        <div style="margin-top: 30px; padding: 20px; background: #e8f4fd; border-radius: 10px; border: 1px solid #0066cc;">
-                            <h3>🔄 Синхронизация</h3>
-                            <p>Все изменения автоматически синхронизируются между всеми пользователями.</p>
-                            <p>Статус: <span id="sync-status">✅ Синхронизировано</span></p>
-                            <button id="force-sync-btn" class="btn" style="margin-top: 10px;">Синхронизировать сейчас</button>
-                        </div>
-                        
-                        <!-- Кнопка выхода -->
-                        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #0066cc;">
-                            <button id="logout-btn" class="btn btn-danger btn-block">Выйти из панели управления</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </main>
         
         <footer>
             <p>Футбольный Двор "МЕРА" © 2025</p>
             <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">
-                Официальная статистика ведётся специалистами • Изменения синхронизируются в реальном времени
+                Официальная статистика ведётся специалистами
             </p>
         </footer>
     </div>
 
-    <!-- Модальное окно для детальной информации игрока -->
+    <!-- Модальное окно для детальной информации -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -279,811 +1618,43 @@
         </div>
     </div>
 
-    <!-- Модальное окно подтверждения удаления -->
-    <div class="confirm-modal" id="confirm-modal">
-        <div class="confirm-content">
-            <div class="confirm-icon">⚠️</div>
-            <div class="confirm-title">Подтверждение удаления</div>
-            <div class="confirm-message" id="confirm-message">Вы уверены, что хотите удалить эту новость?</div>
-            <div class="confirm-buttons">
-                <button class="confirm-btn cancel" id="confirm-cancel">Отмена</button>
-                <button class="confirm-btn delete" id="confirm-delete">Удалить</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Подключение файла с Base64 фото -->
     <script src="photos.js"></script>
 
     <script>
-        // ======================= КОНФИГУРАЦИЯ =======================
-        const ACCESS_CODE = "MERA2025";
-        const SYNC_INTERVAL = 5000; // 5 секунд
-        const UPDATE_CHECK_INTERVAL = 5000; // 5 секунд
+        // Текущая версия файла - генерируем хеш из текущего HTML
+        const currentVersion = generateVersionHash();
         
-        // Глобальные переменные
-        let newsData = [];
-        let playersData = {};
-        let currentVersion = generateVersionHash();
-        let syncTimeout = null;
-        let newsToDeleteId = null;
+        // Сохраняем текущую версию при загрузке
+        localStorage.setItem('appVersion', currentVersion);
         
-        // ======================= ИНИЦИАЛИЗАЦИЯ ДАННЫХ =======================
-        
-        // Загрузка данных игроков по умолчанию
-        function loadDefaultPlayersData() {
-            return {
-                mbappe: {
-                    id: "mbappe",
-                    name: "Килиан Мбаппе",
-                    position: "ЦФД",
-                    age: "14 лет",
-                    icon: "⚡",
-                    foot: "Правая",
-                    height: "175",
-                    weight: "68",
-                    matches: 15,
-                    goals: 12,
-                    assists: 8,
-                    rating: 91
-                },
-                raya: {
-                    id: "raya",
-                    name: "Давид Рая",
-                    position: "Вратарь",
-                    age: "14 лет",
-                    icon: "🧤",
-                    foot: "Правая",
-                    height: "165",
-                    weight: "45",
-                    matches: 10,
-                    saves: 42,
-                    cleanSheets: 3,
-                    rating: 92
-                },
-                maradona: {
-                    id: "maradona",
-                    name: "Марадона",
-                    position: "Полузащитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Правая",
-                    height: "170",
-                    weight: "65",
-                    matches: 12,
-                    goals: 5,
-                    assists: 7,
-                    rating: 85
-                },
-                sanya: {
-                    id: "sanya",
-                    name: "Саня",
-                    position: "Нападающий",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Левая",
-                    height: "172",
-                    weight: "60",
-                    matches: 14,
-                    goals: 8,
-                    assists: 4,
-                    rating: 88
-                },
-                messi: {
-                    id: "messi",
-                    name: "Лионель Месси",
-                    position: "Полузащитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Левая",
-                    height: "169",
-                    weight: "67",
-                    matches: 13,
-                    goals: 6,
-                    assists: 9,
-                    rating: 85
-                },
-                batrakov: {
-                    id: "batrakov",
-                    name: "Батраков",
-                    position: "Полузащитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Правая",
-                    height: "175",
-                    weight: "70",
-                    matches: 11,
-                    goals: 3,
-                    assists: 5,
-                    rating: 84
-                },
-                abibas: {
-                    id: "abibas",
-                    name: "Абибас",
-                    position: "Полузащитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Правая",
-                    height: "168",
-                    weight: "62",
-                    matches: 9,
-                    goals: 2,
-                    assists: 3,
-                    rating: 79
-                },
-                beloszhneka: {
-                    id: "beloszhneka",
-                    name: "Белоснежка",
-                    position: "Защитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Правая",
-                    height: "178",
-                    weight: "72",
-                    matches: 12,
-                    goals: 1,
-                    assists: 2,
-                    rating: 92
-                },
-                ramos: {
-                    id: "ramos",
-                    name: "Рамос",
-                    position: "Защитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Правая",
-                    height: "180",
-                    weight: "75",
-                    matches: 13,
-                    goals: 2,
-                    assists: 1,
-                    rating: 90
-                },
-                andryushka: {
-                    id: "andryushka",
-                    name: "Андрюшка",
-                    position: "Защитник",
-                    age: "14 лет",
-                    icon: "⚽",
-                    foot: "Правая",
-                    height: "176",
-                    weight: "68",
-                    matches: 10,
-                    goals: 0,
-                    assists: 1,
-                    rating: 78
-                },
-                hokkeist: {
-                    id: "hokkeist",
-                    name: "Хоккеист",
-                    position: "Полузащитник",
-                    age: "14 лет",
-                    icon: "🏒",
-                    foot: "Правая",
-                    height: "174",
-                    weight: "66",
-                    matches: 8,
-                    goals: 1,
-                    assists: 2,
-                    rating: 82
-                }
-            };
-        }
-        
-        // Загрузка начальных новостей
-        function loadDefaultNewsData() {
-            return [
-                {
-                    id: Date.now() - 1,
-                    date: "12.12.2025",
-                    text: "Были выставлены первые рейтинги. Лучшими стали:",
-                    players: ["Мбаппе", "Белоснежка", "Рамос", "Давид Рая"]
-                },
-                {
-                    id: Date.now(),
-                    date: "11.12.2025",
-                    text: "Сайт теперь автоматически обновляется при изменениях! Все изменения будут видны сразу.",
-                    players: []
-                }
-            ];
-        }
-        
-        // ======================= СИСТЕМА СИНХРОНИЗАЦИИ =======================
-        
-        // Сохранение данных в localStorage с отметкой времени
-        function saveDataToStorage() {
-            const data = {
-                news: newsData,
-                players: playersData,
-                timestamp: Date.now(),
-                version: currentVersion
-            };
-            localStorage.setItem('footballAppData', JSON.stringify(data));
-            console.log('Данные сохранены в localStorage');
-        }
-        
-        // Загрузка данных из localStorage
-        function loadDataFromStorage() {
-            const savedData = localStorage.getItem('footballAppData');
-            if (savedData) {
-                try {
-                    const data = JSON.parse(savedData);
-                    newsData = data.news || loadDefaultNewsData();
-                    playersData = data.players || loadDefaultPlayersData();
-                    
-                    // Если в данных есть timestamp, можно отслеживать обновления
-                    if (data.timestamp) {
-                        const lastUpdate = new Date(data.timestamp).toLocaleString();
-                        console.log(`Данные загружены, последнее обновление: ${lastUpdate}`);
-                    }
-                    
-                    return true;
-                } catch (e) {
-                    console.error('Ошибка при загрузке данных:', e);
-                    loadDefaultData();
-                    return false;
-                }
-            } else {
-                loadDefaultData();
-                return false;
-            }
-        }
-        
-        // Загрузка данных по умолчанию
-        function loadDefaultData() {
-            newsData = loadDefaultNewsData();
-            playersData = loadDefaultPlayersData();
-            saveDataToStorage();
-        }
-        
-        // Проверка обновлений данных
-        function checkForDataUpdates() {
-            const savedData = localStorage.getItem('footballAppData');
-            if (savedData) {
-                try {
-                    const data = JSON.parse(savedData);
-                    
-                    // Проверяем, изменились ли данные
-                    const currentNewsHash = JSON.stringify(newsData);
-                    const currentPlayersHash = JSON.stringify(playersData);
-                    const savedNewsHash = JSON.stringify(data.news);
-                    const savedPlayersHash = JSON.stringify(data.players);
-                    
-                    if (currentNewsHash !== savedNewsHash || currentPlayersHash !== savedPlayersHash) {
-                        console.log('Обнаружены обновления данных, загружаю...');
-                        newsData = data.news || newsData;
-                        playersData = data.players || playersData;
-                        
-                        // Обновляем интерфейс
-                        renderNews();
-                        renderPlayers();
-                        renderSquad();
-                        
-                        // Обновляем селектор игроков в админке
-                        if (document.getElementById('admin-panel').classList.contains('active')) {
-                            populatePlayerSelect();
-                        }
-                        
-                        showNotification('🔄 Данные обновлены!', 'success');
-                    }
-                } catch (e) {
-                    console.error('Ошибка при проверке обновлений:', e);
-                }
-            }
-        }
-        
-        // Принудительная синхронизация
-        function forceSync() {
-            saveDataToStorage();
-            showNotification('✅ Данные синхронизированы', 'success');
-            updateSyncStatus('✅ Синхронизировано');
-        }
-        
-        // Обновление статуса синхронизации
-        function updateSyncStatus(status) {
-            const statusElement = document.getElementById('sync-status');
-            if (statusElement) {
-                statusElement.textContent = status;
-                
-                // Добавляем анимацию
-                statusElement.style.opacity = '0.7';
-                setTimeout(() => {
-                    statusElement.style.opacity = '1';
-                }, 300);
-            }
-        }
-        
-        // ======================= РЕНДЕРИНГ ИНТЕРФЕЙСА =======================
-        
-        // Рендеринг новостей
-        function renderNews() {
-            const newsContent = document.getElementById('news-content');
-            if (!newsContent) return;
-            
-            newsContent.innerHTML = '';
-            
-            // Сортируем новости по дате (новые сверху)
-            const sortedNews = [...newsData].sort((a, b) => {
-                const dateA = parseDate(a.date);
-                const dateB = parseDate(b.date);
-                return dateB - dateA;
-            });
-            
-            sortedNews.forEach((news) => {
-                const newsItem = document.createElement('div');
-                newsItem.className = 'news-item';
-                newsItem.dataset.id = news.id;
-                
-                let playersHtml = '';
-                if (news.players && news.players.length > 0) {
-                    playersHtml = `
-                        <div class="best-players">
-                            ${news.players.map(player => 
-                                `<div class="best-player-tag">${player}</div>`
-                            ).join('')}
-                        </div>
-                    `;
-                }
-                
-                const deleteBtn = localStorage.getItem('adminAuthenticated') === 'true' 
-                    ? `<button class="delete-news-btn" onclick="showDeleteConfirm(${news.id}, '${news.date}')" title="Удалить новость">×</button>`
-                    : '';
-                
-                newsItem.innerHTML = `
-                    ${deleteBtn}
-                    <div class="news-date">${news.date}</div>
-                    <div class="news-text">${news.text}</div>
-                    ${playersHtml}
-                `;
-                
-                newsContent.appendChild(newsItem);
-            });
-            
-            // Также обновляем список новостей в панели администратора
-            if (document.getElementById('news-list')) {
-                renderNewsList();
-            }
-        }
-        
-        // Рендеринг списка новостей в админке
-        function renderNewsList() {
-            const newsList = document.getElementById('news-list');
-            if (!newsList) return;
-            
-            newsList.innerHTML = '';
-            
-            if (newsData.length === 0) {
-                newsList.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Нет новостей</p>';
-                return;
-            }
-            
-            // Сортируем новости по дате (новые сверху)
-            const sortedNews = [...newsData].sort((a, b) => {
-                const dateA = parseDate(a.date);
-                const dateB = parseDate(b.date);
-                return dateB - dateA;
-            });
-            
-            sortedNews.forEach((news) => {
-                const newsItem = document.createElement('div');
-                newsItem.className = 'news-item';
-                newsItem.style.border = '1px solid #ddd';
-                newsItem.style.padding = '15px';
-                newsItem.style.marginBottom = '10px';
-                newsItem.style.borderRadius = '8px';
-                newsItem.style.position = 'relative';
-                
-                let playersText = news.players && news.players.length > 0 
-                    ? `Лучшие игроки: ${news.players.join(', ')}`
-                    : '';
-                
-                newsItem.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <div style="flex: 1;">
-                            <div style="font-weight: bold; color: #0066cc; margin-bottom: 5px;">${news.date}</div>
-                            <div style="margin-bottom: 8px;">${news.text}</div>
-                            ${playersText ? `<div style="font-size: 0.9em; color: #666;">${playersText}</div>` : ''}
-                        </div>
-                        <button onclick="showDeleteConfirm(${news.id}, '${news.date}')" 
-                                style="background: #dc3545; color: white; border: none; 
-                                       width: 30px; height: 30px; border-radius: 50%; 
-                                       cursor: pointer; margin-left: 10px;">×</button>
-                    </div>
-                `;
-                
-                newsList.appendChild(newsItem);
-            });
-        }
-        
-        // Рендеринг игроков
-        function renderPlayers() {
-            const playersGrid = document.getElementById('players-grid');
-            if (!playersGrid) return;
-            
-            playersGrid.innerHTML = '';
-            
-            Object.keys(playersData).forEach(playerId => {
-                const player = playersData[playerId];
-                const playerCard = document.createElement('div');
-                playerCard.className = 'player-card';
-                playerCard.dataset.player = playerId;
-                
-                // Для вратаря особые статистики
-                let statsHtml = '';
-                if (player.position === "Вратарь") {
-                    statsHtml = `
-                        <div class="stat-item">
-                            <div class="stat-value">${player.matches || 0}</div>
-                            <div class="stat-label">Матчи</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">${player.cleanSheets || 0}</div>
-                            <div class="stat-label">Сухие</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">${player.saves || 0}</div>
-                            <div class="stat-label">Сейвы</div>
-                        </div>
-                    `;
-                } else {
-                    statsHtml = `
-                        <div class="stat-item">
-                            <div class="stat-value">${player.matches || 0}</div>
-                            <div class="stat-label">Матчи</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">${player.goals || 0}</div>
-                            <div class="stat-label">Голы</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">${player.assists || 0}</div>
-                            <div class="stat-label">Ассисты</div>
-                        </div>
-                    `;
-                }
-                
-                playerCard.innerHTML = `
-                    <div class="player-header">
-                        <div class="player-photo">
-                            ${getPlayerPhoto(playerId, 'large')}
-                        </div>
-                        <div class="player-info">
-                            <h3>${player.name}</h3>
-                            <p>${player.position} • ${player.age}</p>
-                        </div>
-                    </div>
-                    
-                    <div class="player-stats">
-                        ${statsHtml}
-                    </div>
-                `;
-                
-                playersGrid.appendChild(playerCard);
-            });
-            
-            // Добавляем обработчики кликов
-            document.querySelectorAll('.player-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const playerId = this.getAttribute('data-player');
-                    openPlayerModal(playerId);
-                });
-            });
-        }
-        
-        // Рендеринг лучшего состава
-        function renderSquad() {
-            const formation = document.getElementById('squad-formation');
-            if (!formation) return;
-            
-            // Определяем состав (можно настроить)
-            const squadPlayers = ['maradona', 'sanya', 'mbappe', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist', 'raya'];
-            
-            formation.innerHTML = `
-                <!-- Первая линия: нападение -->
-                <div class="formation-line">
-                    ${createSquadPlayerItem('maradona')}
-                    ${createSquadPlayerItem('sanya')}
-                </div>
-                
-                <!-- Вторая линия: центральный нападающий -->
-                <div class="formation-line">
-                    ${createSquadPlayerItem('mbappe')}
-                </div>
-                
-                <!-- Третья линия: полузащита -->
-                <div class="formation-line">
-                    ${createSquadPlayerItem('messi')}
-                    ${createSquadPlayerItem('batrakov')}
-                    ${createSquadPlayerItem('abibas')}
-                </div>
-                
-                <!-- Четвертая линия: защита -->
-                <div class="formation-line">
-                    ${createSquadPlayerItem('beloszhneka')}
-                    ${createSquadPlayerItem('ramos')}
-                    ${createSquadPlayerItem('andryushka')}
-                    ${createSquadPlayerItem('hokkeist')}
-                </div>
-                
-                <!-- Пятая линия: вратарь -->
-                <div class="formation-line">
-                    ${createSquadPlayerItem('raya')}
-                </div>
-            `;
-            
-            // Добавляем обработчики кликов
-            document.querySelectorAll('.formation .player-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const playerId = this.getAttribute('data-player');
-                    openPlayerModal(playerId);
-                });
-            });
-        }
-        
-        // Создание элемента игрока для состава
-        function createSquadPlayerItem(playerId) {
-            const player = playersData[playerId];
-            if (!player) return '';
-            
-            // Определяем номер на основе ID (можно настроить)
-            const numbers = {
-                mbappe: 9, raya: 1, maradona: 11, sanya: 7, 
-                messi: 10, batrakov: 3, abibas: 6, 
-                beloszhneka: 5, ramos: 4, andryushka: 77, hokkeist: 66
-            };
-            
-            return `
-                <div class="player-item" data-player="${playerId}">
-                    <div class="player-photo-small">
-                        ${getPlayerPhoto(playerId, 'small')}
-                    </div>
-                    <div class="player-name">${player.name.split(' ')[0]}</div>
-                    <span class="player-number">(${numbers[playerId] || '?'})</span>
-                </div>
-            `;
-        }
-        
-        // Получение фото игрока
-        function getPlayerPhoto(playerId, size = 'large') {
-            if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
-                return `<img src="${playerPhotos[playerId]}" alt="${playersData[playerId]?.name || 'Игрок'}">`;
-            } else {
-                const player = playersData[playerId];
-                const icon = player?.icon || '⚽';
-                const fontSize = size === 'small' ? '1.4rem' : '2.5rem';
-                return `<div style="font-size: ${fontSize}; display: flex; align-items: center; justify-content: center; height: 100%;">${icon}</div>`;
-            }
-        }
-        
-        // ======================= УПРАВЛЕНИЕ НОВОСТЯМИ =======================
-        
-        // Добавление новости
-        function addNews(date, text, playersStr) {
-            if (!date || !text) {
-                showMessage('add-news-message', 'error', 'Заполните дату и текст новости');
-                return;
-            }
-            
-            const formattedDate = formatDate(date);
-            if (!formattedDate) {
-                showMessage('add-news-message', 'error', 'Неверный формат даты. Используйте: ДД.ММ.ГГГГ');
-                return;
-            }
-            
-            const players = playersStr 
-                ? playersStr.split(',').map(p => p.trim()).filter(p => p.length > 0)
-                : [];
-            
-            const newNews = {
-                id: Date.now(),
-                date: formattedDate,
-                text: text,
-                players: players
-            };
-            
-            newsData.unshift(newNews);
-            saveDataToStorage();
-            renderNews();
-            
-            document.getElementById('news-date').value = '';
-            document.getElementById('news-text').value = '';
-            document.getElementById('news-players').value = '';
-            
-            showMessage('add-news-message', 'success', 'Новость успешно добавлена!');
-            
-            setTimeout(() => {
-                hideMessage('add-news-message');
-            }, 3000);
-        }
-        
-        // Показать подтверждение удаления
-        function showDeleteConfirm(id, date) {
-            newsToDeleteId = id;
-            document.getElementById('confirm-message').textContent = 
-                `Вы уверены, что хотите удалить новость от ${date}?`;
-            document.getElementById('confirm-modal').classList.add('active');
-        }
-        
-        // Удаление новости
-        function deleteNews() {
-            if (newsToDeleteId) {
-                newsData = newsData.filter(news => news.id !== newsToDeleteId);
-                saveDataToStorage();
-                renderNews();
-                showNotification('✅ Новость удалена', 'success');
-            }
-            closeConfirmModal();
-        }
-        
-        // Закрытие модального окна подтверждения
-        function closeConfirmModal() {
-            document.getElementById('confirm-modal').classList.remove('active');
-            newsToDeleteId = null;
-        }
-        
-        // ======================= УПРАВЛЕНИЕ СТАТИСТИКОЙ ИГРОКОВ =======================
-        
-        // Заполнение селектора игроков
-        function populatePlayerSelect() {
-            const select = document.getElementById('player-select');
-            if (!select) return;
-            
-            select.innerHTML = '<option value="">Выберите игрока для редактирования</option>';
-            
-            Object.keys(playersData).forEach(playerId => {
-                const player = playersData[playerId];
-                const option = document.createElement('option');
-                option.value = playerId;
-                option.textContent = player.name;
-                select.appendChild(option);
-            });
-        }
-        
-        // Загрузка данных выбранного игрока
-        function loadPlayerStats(playerId) {
-            const player = playersData[playerId];
-            if (!player) return;
-            
-            document.getElementById('player-matches').value = player.matches || 0;
-            document.getElementById('player-goals').value = player.goals || 0;
-            document.getElementById('player-assists').value = player.assists || 0;
-            document.getElementById('player-cleanSheets').value = player.cleanSheets || 0;
-            document.getElementById('player-saves').value = player.saves || 0;
-            document.getElementById('player-height').value = player.height || 0;
-            document.getElementById('player-weight').value = player.weight || 0;
-            document.getElementById('player-foot').value = player.foot || 'Правая';
-            document.getElementById('player-rating-slider').value = player.rating || 50;
-            document.getElementById('player-rating-display').textContent = player.rating || 50;
-            document.getElementById('player-rating').value = player.rating || 50;
-            
-            document.getElementById('stats-editor').style.display = 'block';
-        }
-        
-        // Сохранение статистики игрока
-        function savePlayerStats(playerId) {
-            const player = playersData[playerId];
-            if (!player) return;
-            
-            player.matches = parseInt(document.getElementById('player-matches').value) || 0;
-            player.goals = parseInt(document.getElementById('player-goals').value) || 0;
-            player.assists = parseInt(document.getElementById('player-assists').value) || 0;
-            player.cleanSheets = parseInt(document.getElementById('player-cleanSheets').value) || 0;
-            player.saves = parseInt(document.getElementById('player-saves').value) || 0;
-            player.height = parseInt(document.getElementById('player-height').value) || 0;
-            player.weight = parseInt(document.getElementById('player-weight').value) || 0;
-            player.foot = document.getElementById('player-foot').value;
-            player.rating = parseInt(document.getElementById('player-rating').value) || 50;
-            
-            playersData[playerId] = player;
-            saveDataToStorage();
-            
-            // Обновляем интерфейс
-            renderPlayers();
-            renderSquad();
-            
-            showMessage('save-stats-message', 'success', 'Статистика сохранена!');
-            
-            setTimeout(() => {
-                hideMessage('save-stats-message');
-            }, 3000);
-        }
-        
-        // ======================= ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =======================
-        
-        // Показать уведомление
-        function showNotification(message, type = 'info') {
-            // Создаем элемент уведомления
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#0066cc'};
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
-                font-weight: bold;
-                text-align: center;
-                animation: slideDown 0.3s ease;
-                max-width: 90%;
-            `;
-            
-            notification.innerHTML = message;
-            document.body.appendChild(notification);
-            
-            // Удаляем уведомление через 3 секунды
-            setTimeout(() => {
-                notification.style.animation = 'slideUp 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // Показать сообщение в форме
-        function showMessage(elementId, type, text) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.textContent = text;
-                element.className = `message ${type}`;
-                element.style.display = 'block';
-            }
-        }
-        
-        // Скрыть сообщение
-        function hideMessage(elementId) {
-            const element = document.getElementById(elementId);
-            if (element) {
-                element.style.display = 'none';
-            }
-        }
-        
-        // Парсинг даты
-        function parseDate(dateStr) {
-            const parts = dateStr.split('.');
-            if (parts.length === 3) {
-                return new Date(parts[2], parts[1] - 1, parts[0]).getTime();
-            }
-            return new Date().getTime();
-        }
-        
-        // Форматирование даты
-        function formatDate(dateStr) {
-            const parts = dateStr.split('.');
-            if (parts.length === 3) {
-                const day = parts[0].padStart(2, '0');
-                const month = parts[1].padStart(2, '0');
-                const year = parts[2];
-                
-                const date = new Date(`${year}-${month}-${day}`);
-                if (!isNaN(date.getTime())) {
-                    return `${day}.${month}.${year}`;
-                }
-            }
-            return null;
-        }
-        
-        // Генерация хеша версии
+        // Функция для генерации хеша версии
         function generateVersionHash() {
-            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            // Используем текущую дату и время как версию
+            return Date.now().toString();
         }
         
-        // ======================= СИСТЕМА ОБНОВЛЕНИЙ =======================
-        
-        // Проверка обновлений приложения
-        function checkForAppUpdates() {
+        // Функция для проверки изменений
+        function checkForUpdates() {
+            // Получаем сохраненную версию
             const savedVersion = localStorage.getItem('appVersion');
             
+            // Если версии нет в localStorage, сохраняем текущую
             if (!savedVersion) {
                 localStorage.setItem('appVersion', currentVersion);
                 return;
             }
             
+            // Сравниваем версии
             if (savedVersion !== currentVersion) {
-                console.log('Обнаружены изменения в приложении');
-                showNotification('🔄 Обновление обнаружено! Применяем изменения...', 'info');
+                console.log('Обнаружены изменения, обновляю страницу...');
                 
+                // Показываем уведомление пользователю
+                if (typeof showUpdateNotification === 'function') {
+                    showUpdateNotification();
+                }
+                
+                // Обновляем страницу с очисткой кэша
                 setTimeout(() => {
                     localStorage.setItem('appVersion', currentVersion);
                     window.location.reload(true);
@@ -1091,219 +1662,204 @@
             }
         }
         
-        // Принудительное обновление приложения
-        function forceAppUpdate() {
-            showNotification('🔄 Обновление приложения...', 'info');
-            currentVersion = generateVersionHash();
-            localStorage.setItem('appVersion', currentVersion);
-            
-            setTimeout(() => {
-                window.location.reload(true);
-            }, 1000);
-        }
+        // Запускаем проверку каждую секунду
+        setInterval(checkForUpdates, 1000);
         
-        // ======================= МОДАЛЬНОЕ ОКНО ИГРОКА =======================
-        
-        // Открытие модального окна игрока
-        function openPlayerModal(playerId) {
-            const player = playersData[playerId];
-            if (!player) return;
-            
-            document.getElementById('modal-name').textContent = player.name;
-            document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
-            document.getElementById('modal-foot').textContent = player.foot;
-            document.getElementById('modal-height').textContent = `${player.height || 0} см`;
-            document.getElementById('modal-weight').textContent = `${player.weight || 0} кг`;
-            
-            const ratingElement = document.getElementById('modal-rating');
-            ratingElement.textContent = player.rating;
-            
-            if (player.rating >= 80) {
-                ratingElement.className = 'rating-value rating-high';
-            } else {
-                ratingElement.className = 'rating-value rating-medium';
+        // Данные игроков
+        const playersData = {
+            mbappe: {
+                name: "Килиан Мбаппе",
+                position: "ЦФД",
+                age: "14 лет",
+                icon: "⚡",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 91
+            },
+            raya: {
+                name: "Давид Рая",
+                position: "Вратарь",
+                age: "14 лет",
+                icon: "🧤",
+                foot: "Правая",
+                height: "165 см",
+                weight: "45 кг",
+                matches: 0,
+                saves: 0,
+                cleanSheets: 0,
+                rating: 92
+            },
+            maradona: {
+                name: "Марадона",
+                position: "Полузащитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 85
+            },
+            sanya: {
+                name: "Саня",
+                position: "Нападающий",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Левая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 88
+            },
+            messi: {
+                name: "Лионель Месси",
+                position: "Полузащитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Левая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 85
+            },
+            batrakov: {
+                name: "Батраков",
+                position: "Полузащитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 84
+            },
+            abibas: {
+                name: "Абибас",
+                position: "Полузащитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 79
+            },
+            beloszhneka: {
+                name: "Белоснежка",
+                position: "Защитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 92
+            },
+            ramos: {
+                name: "Рамос",
+                position: "Защитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 90
+            },
+            andryushka: {
+                name: "Андрюшка",
+                position: "Защитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 78
+            },
+            hokkeist: {
+                name: "Хоккеист",
+                position: "Полузащитник",
+                age: "14 лет",
+                icon: "🏒",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 82
+            }
+        };
+
+        // Функция для загрузки фото игроков
+        function loadPlayerPhotos() {
+            // Проверяем, загрузился ли объект playerPhotos
+            if (typeof playerPhotos === 'undefined') {
+                console.error('Файл photos.js не загружен или не содержит playerPhotos');
+                return;
             }
             
-            if (player.position === "Вратарь") {
-                document.getElementById('modal-goals').textContent = "N/A";
-                document.getElementById('modal-assists').textContent = "N/A";
-                document.getElementById('modal-matches').textContent = player.matches;
-            } else {
-                document.getElementById('modal-goals').textContent = player.goals || 0;
-                document.getElementById('modal-assists').textContent = player.assists || 0;
-                document.getElementById('modal-matches').textContent = player.matches || 0;
-            }
-            
-            const modalPhoto = document.getElementById('modal-photo');
-            modalPhoto.innerHTML = getPlayerPhoto(playerId, 'modal');
-            
-            document.getElementById('player-modal').classList.add('active');
-        }
-        
-        // ======================= АВТОРИЗАЦИЯ =======================
-        
-        // Проверка авторизации
-        function checkAuth() {
-            const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
-            if (isAuthenticated) {
-                showAdminPanel();
-            }
-        }
-        
-        // Вход в систему
-        function login(code) {
-            if (code === ACCESS_CODE) {
-                localStorage.setItem('adminAuthenticated', 'true');
-                showAdminPanel();
-                showMessage('auth-message', 'success', 'Успешный вход в панель управления!');
+            // Основные фото на странице игроков
+            for (const playerId in playerPhotos) {
+                const photoBase64 = playerPhotos[playerId];
+                const mainPhotoElement = document.getElementById(`${playerId}-photo`);
+                const smallPhotoElement = document.getElementById(`${playerId}-photo-small`);
                 
-                setTimeout(() => {
-                    hideMessage('auth-message');
-                }, 2000);
-                return true;
-            } else {
-                showMessage('auth-message', 'error', 'Неверный код доступа');
-                return false;
+                if (mainPhotoElement && photoBase64) {
+                    mainPhotoElement.src = photoBase64;
+                } else if (mainPhotoElement && !photoBase64) {
+                    // Если фото нет, показываем иконку
+                    mainPhotoElement.onerror = function() {
+                        this.style.display = 'none';
+                        const parent = this.parentElement;
+                        parent.innerHTML = playersData[playerId]?.icon || '⚽';
+                        parent.style.fontSize = '2.5rem';
+                        parent.style.display = 'flex';
+                        parent.style.alignItems = 'center';
+                        parent.style.justifyContent = 'center';
+                    };
+                }
+                
+                if (smallPhotoElement && photoBase64) {
+                    smallPhotoElement.src = photoBase64;
+                } else if (smallPhotoElement && !photoBase64) {
+                    // Если фото нет, показываем иконку
+                    smallPhotoElement.onerror = function() {
+                        this.style.display = 'none';
+                        const parent = this.parentElement;
+                        parent.innerHTML = playersData[playerId]?.icon || '⚽';
+                        parent.style.fontSize = '1.4rem';
+                        parent.style.display = 'flex';
+                        parent.style.alignItems = 'center';
+                        parent.style.justifyContent = 'center';
+                        parent.style.height = '100%';
+                    };
+                }
             }
         }
-        
-        // Выход из системы
-        function logout() {
-            localStorage.removeItem('adminAuthenticated');
-            hideAdminPanel();
-            document.getElementById('access-code').value = '';
-            showMessage('auth-message', 'success', 'Вы вышли из панели управления');
-            
-            setTimeout(() => {
-                hideMessage('auth-message');
-            }, 2000);
-        }
-        
-        // Показать панель администратора
-        function showAdminPanel() {
-            const adminPanel = document.getElementById('admin-panel');
-            adminPanel.classList.add('active');
-            renderNewsList();
-            populatePlayerSelect();
-        }
-        
-        // Скрыть панель администратора
-        function hideAdminPanel() {
-            const adminPanel = document.getElementById('admin-panel');
-            adminPanel.classList.remove('active');
-        }
-        
-        // ======================= ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ =======================
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            // Загружаем данные
-            loadDataFromStorage();
-            
-            // Рендерим интерфейс
-            renderNews();
-            renderPlayers();
-            renderSquad();
-            
-            // Проверяем авторизацию
-            checkAuth();
-            
-            // Инициализация темы
-            loadTheme();
-            
-            // Обработчики событий
-            
-            // Кнопка смены темы
-            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-            
-            // Навигация
-            document.getElementById('players-btn').addEventListener('click', () => {
-                showPage('players');
-            });
-            document.getElementById('squad-btn').addEventListener('click', () => {
-                showPage('squad');
-            });
-            document.getElementById('settings-btn').addEventListener('click', () => {
-                showPage('settings');
-            });
-            
-            document.getElementById('back-from-players').addEventListener('click', () => showPage('home'));
-            document.getElementById('back-from-squad').addEventListener('click', () => showPage('home'));
-            document.getElementById('back-from-settings').addEventListener('click', () => showPage('home'));
-            
-            // Авторизация
-            document.getElementById('auth-btn').addEventListener('click', () => {
-                const code = document.getElementById('access-code').value;
-                login(code);
-            });
-            
-            document.getElementById('access-code').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    const code = document.getElementById('access-code').value;
-                    login(code);
-                }
-            });
-            
-            // Управление новостями
-            document.getElementById('add-news-btn').addEventListener('click', () => {
-                const date = document.getElementById('news-date').value;
-                const text = document.getElementById('news-text').value;
-                const players = document.getElementById('news-players').value;
-                addNews(date, text, players);
-            });
-            
-            // Управление статистикой
-            document.getElementById('player-select').addEventListener('change', (e) => {
-                if (e.target.value) {
-                    loadPlayerStats(e.target.value);
-                } else {
-                    document.getElementById('stats-editor').style.display = 'none';
-                }
-            });
-            
-            document.getElementById('player-rating-slider').addEventListener('input', (e) => {
-                document.getElementById('player-rating-display').textContent = e.target.value;
-                document.getElementById('player-rating').value = e.target.value;
-            });
-            
-            document.getElementById('save-stats-btn').addEventListener('click', () => {
-                const playerId = document.getElementById('player-select').value;
-                if (playerId) {
-                    savePlayerStats(playerId);
-                }
-            });
-            
-            // Синхронизация
-            document.getElementById('force-sync-btn').addEventListener('click', forceSync);
-            
-            // Выход из системы
-            document.getElementById('logout-btn').addEventListener('click', logout);
-            
-            // Обновление приложения
-            document.getElementById('update-app-btn-main').addEventListener('click', forceAppUpdate);
-            
-            // Модальные окна
-            document.getElementById('modal-close').addEventListener('click', () => {
-                document.getElementById('player-modal').classList.remove('active');
-            });
-            
-            document.getElementById('player-modal').addEventListener('click', (e) => {
-                if (e.target === e.currentTarget) {
-                    e.currentTarget.classList.remove('active');
-                }
-            });
-            
-            document.getElementById('confirm-cancel').addEventListener('click', closeConfirmModal);
-            document.getElementById('confirm-delete').addEventListener('click', deleteNews);
-            
-            // Начинаем проверку обновлений
-            setInterval(checkForDataUpdates, SYNC_INTERVAL);
-            setInterval(checkForAppUpdates, UPDATE_CHECK_INTERVAL);
-            
-            // Загружаем фото при загрузке страницы
-            loadPlayerPhotos();
-        });
-        
-        // Функция смены темы
+
+        // Функция для смены темы
         function toggleTheme() {
             const body = document.body;
             const themeToggle = document.getElementById('theme-toggle');
@@ -1318,8 +1874,8 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
-        
-        // Функция загрузки темы
+
+        // Проверяем сохраненную тему при загрузке
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme');
             const themeToggle = document.getElementById('theme-toggle');
@@ -1331,23 +1887,167 @@
                 themeToggle.textContent = '🌙';
             }
         }
+
+        // Инициализация темы
+        loadTheme();
+
+        // Добавляем обработчик для кнопки смены темы
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        // Переключение на страницу игроков
+        document.getElementById('players-btn').addEventListener('click', function() {
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('players-page').classList.add('active');
+        });
         
-        // Функция переключения страниц
-        function showPage(pageName) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(`${pageName}-page`).classList.add('active');
-        }
+        // Переключение на страницу лучшего состава
+        document.getElementById('squad-btn').addEventListener('click', function() {
+            document.getElementById('home-page').classList.remove('active');
+            document.getElementById('squad-page').classList.add('active');
+        });
         
-        // Функция загрузки фото игроков
-        function loadPlayerPhotos() {
-            if (typeof playerPhotos === 'undefined') {
-                console.log('Фото игроков не загружены, используются иконки');
-                return;
+        // Кнопка "Назад" со страницы игроков
+        document.getElementById('back-from-players').addEventListener('click', function() {
+            document.getElementById('players-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        });
+        
+        // Кнопка "Назад" со страницы состава
+        document.getElementById('back-from-squad').addEventListener('click', function() {
+            document.getElementById('squad-page').classList.remove('active');
+            document.getElementById('home-page').classList.add('active');
+        });
+        
+        // Функция для открытия модального окна с данными игрока
+        function openPlayerModal(playerId) {
+            const player = playersData[playerId];
+            if (!player) return;
+            
+            // Заполняем данные в модальном окне
+            document.getElementById('modal-name').textContent = player.name;
+            document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
+            document.getElementById('modal-foot').textContent = player.foot;
+            document.getElementById('modal-height').textContent = player.height;
+            document.getElementById('modal-weight').textContent = player.weight;
+            
+            // Устанавливаем рейтинг с цветом
+            const ratingElement = document.getElementById('modal-rating');
+            ratingElement.textContent = player.rating;
+            
+            // Определяем цвет рейтинга
+            if (player.rating >= 80) {
+                ratingElement.className = 'rating-value rating-high';
+            } else {
+                ratingElement.className = 'rating-value rating-medium';
             }
             
-            // Фото уже загружены через getPlayerPhoto()
+            // Для вратаря особые статистики
+            if (player.position === "Вратарь") {
+                document.getElementById('modal-goals').textContent = "N/A";
+                document.getElementById('modal-assists').textContent = "N/A";
+                document.getElementById('modal-matches').textContent = player.matches;
+            } else {
+                document.getElementById('modal-goals').textContent = player.goals || 0;
+                document.getElementById('modal-assists').textContent = player.assists || 0;
+                document.getElementById('modal-matches').textContent = player.matches || 0;
+            }
+            
+            // Устанавливаем фото или иконку
+            const modalPhoto = document.getElementById('modal-photo');
+            const photoBase64 = playerPhotos[playerId];
+            
+            if (photoBase64) {
+                modalPhoto.innerHTML = `<img src="${photoBase64}" alt="${player.name}">`;
+            } else {
+                modalPhoto.innerHTML = `<div style="font-size: 3rem; display: flex; align-items: center; justify-content: center; height: 100%;">${player.icon}</div>`;
+            }
+            
+            // Показываем модальное окно
+            document.getElementById('player-modal').classList.add('active');
+        }
+        
+        // Добавляем обработчики кликов на карточки игроков
+        document.querySelectorAll('.player-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const playerId = this.getAttribute('data-player');
+                openPlayerModal(playerId);
+            });
+        });
+        
+        // Добавляем обработчики кликов на игроков в составе
+        document.querySelectorAll('.player-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const playerId = this.getAttribute('data-player');
+                openPlayerModal(playerId);
+            });
+        });
+        
+        // Закрытие модального окна
+        document.getElementById('modal-close').addEventListener('click', function() {
+            document.getElementById('player-modal').classList.remove('active');
+        });
+        
+        // Закрытие модального окна при клике на оверлей
+        document.getElementById('player-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+        
+        // Загружаем фото при загрузке страницы
+        window.addEventListener('load', function() {
+            loadPlayerPhotos();
+            
+            // Оптимизация загрузки изображений
+            const images = document.querySelectorAll('.player-photo img, .player-photo-small img');
+            images.forEach(img => {
+                if ('loading' in HTMLImageElement.prototype) {
+                    img.loading = 'lazy';
+                }
+            });
+        });
+        
+        // Убираем синее выделение при тапе на мобильных устройствах
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        // Функция для показа уведомления об обновлении
+        function showUpdateNotification() {
+            // Создаем элемент уведомления
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #28a745;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                z-index: 1000;
+                font-weight: bold;
+                text-align: center;
+                animation: slideDown 0.3s ease;
+            `;
+            
+            // Добавляем анимацию
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+                    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            notification.innerHTML = '🔄 Обновление обнаружено! Страница скоро обновится...';
+            document.body.appendChild(notification);
+            
+            // Удаляем уведомление через 3 секунды
+            setTimeout(() => {
+                notification.style.animation = 'slideUp 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
         }
     </script>
 </body>
