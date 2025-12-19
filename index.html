@@ -224,6 +224,7 @@
             padding-bottom: 20px;
             border-bottom: 1px solid #e0e0e0;
             transition: all 0.3s ease;
+            position: relative;
         }
         
         .dark-theme .news-item {
@@ -277,6 +278,199 @@
         
         .dark-theme .best-player-tag {
             background: linear-gradient(to right, #4dabf7, #339af0);
+        }
+        
+        /* Кнопка удаления новости */
+        .delete-news-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .news-item:hover .delete-news-btn {
+            display: flex;
+        }
+        
+        .delete-news-btn:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+        
+        /* Страница настроек */
+        .settings-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .settings-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .auth-section {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .auth-section {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .input-field {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+        }
+        
+        .btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+        }
+        
+        .btn:active {
+            transform: none;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+        }
+        
+        .btn-block {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .admin-panel {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .admin-panel.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .form-label {
+            color: #4dabf7;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .form-textarea {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+        }
+        
+        .message {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .dark-theme .message.success {
+            background: #0f5132;
+            color: #d1e7dd;
+            border-color: #0c4128;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .dark-theme .message.error {
+            background: #842029;
+            color: #f8d7da;
+            border-color: #6a1a21;
         }
         
         /* Страница игроков */
@@ -1090,29 +1284,18 @@
                         <div class="button-title">Лучший Состав</div>
                         <div class="button-description">Идеальная команда нашего двора</div>
                     </div>
+                    
+                    <div class="main-button" id="settings-btn">
+                        <div class="button-icon">⚙️</div>
+                        <div class="button-title">Настройки</div>
+                        <div class="button-description">Управление контентом сайта</div>
+                    </div>
                 </div>
                 
                 <div class="news-section">
                     <h2 class="section-title">Новости и обновления</h2>
-                    <div class="news-content">
-                        <div class="news-item">
-                            <div class="news-date">12.12.2025</div>
-                            <div class="news-text">
-                                Были выставлены первые рейтинги. Лучшими стали:
-                            </div>
-                            <div class="best-players">
-                                <div class="best-player-tag">Мбаппе</div>
-                                <div class="best-player-tag">Белоснежка</div>
-                                <div class="best-player-tag">Рамос</div>
-                                <div class="best-player-tag">Давид Рая</div>
-                            </div>
-                        </div>
-                        <div class="news-item">
-                            <div class="news-date">11.12.2025</div>
-                            <div class="news-text">
-                                Сайт теперь автоматически обновляется при изменениях! Все изменения будут видны сразу.
-                            </div>
-                        </div>
+                    <div class="news-content" id="news-content">
+                        <!-- Новости будут загружаться здесь -->
                     </div>
                 </div>
             </div>
@@ -1558,6 +1741,55 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Страница настроек -->
+            <div id="settings-page" class="page">
+                <button class="back-button" id="back-from-settings">← Назад к главной</button>
+                
+                <div class="settings-container">
+                    <h2 class="section-title">Управление контентом</h2>
+                    
+                    <div class="auth-section">
+                        <h3>🔐 Авторизация</h3>
+                        <div class="form-group">
+                            <input type="password" id="access-code" class="input-field" 
+                                   placeholder="Введите код доступа" autocomplete="off">
+                        </div>
+                        <button id="auth-btn" class="btn btn-block">Войти</button>
+                        <div id="auth-message" class="message"></div>
+                    </div>
+                    
+                    <div id="admin-panel" class="admin-panel">
+                        <h3>📝 Управление новостями</h3>
+                        
+                        <!-- Форма добавления новости -->
+                        <div class="form-group">
+                            <label class="form-label">Добавить новую запись:</label>
+                            <input type="text" id="news-date" class="input-field" 
+                                   placeholder="Дата (например: 13.12.2025)">
+                            <textarea id="news-text" class="form-textarea" 
+                                      placeholder="Текст новости"></textarea>
+                            <input type="text" id="news-players" class="input-field" 
+                                   placeholder="Лучшие игроки (через запятую)">
+                        </div>
+                        <button id="add-news-btn" class="btn btn-success btn-block">Добавить новость</button>
+                        <div id="add-news-message" class="message"></div>
+                        
+                        <!-- Список существующих новостей -->
+                        <div class="form-group" style="margin-top: 40px;">
+                            <label class="form-label">Управление существующими новостями:</label>
+                            <div id="news-list">
+                                <!-- Список новостей будет загружаться здесь -->
+                            </div>
+                        </div>
+                        
+                        <!-- Кнопка выхода -->
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #0066cc;">
+                            <button id="logout-btn" class="btn btn-danger btn-block">Выйти из панели управления</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         
         <footer>
@@ -1664,6 +1896,335 @@
         
         // Запускаем проверку каждую секунду
         setInterval(checkForUpdates, 1000);
+        
+        // КОД ДОСТУПА ДЛЯ АДМИНИСТРАТОРА (измените этот код на свой)
+        const ACCESS_CODE = "MERA2025";
+        
+        // Данные новостей (загружаются из localStorage)
+        let newsData = [];
+        
+        // Функция для загрузки новостей из localStorage
+        function loadNews() {
+            const savedNews = localStorage.getItem('footballNews');
+            if (savedNews) {
+                newsData = JSON.parse(savedNews);
+            } else {
+                // Начальные новости по умолчанию
+                newsData = [
+                    {
+                        id: 1,
+                        date: "12.12.2025",
+                        text: "Были выставлены первые рейтинги. Лучшими стали:",
+                        players: ["Мбаппе", "Белоснежка", "Рамос", "Давид Рая"]
+                    },
+                    {
+                        id: 2,
+                        date: "11.12.2025",
+                        text: "Сайт теперь автоматически обновляется при изменениях! Все изменения будут видны сразу.",
+                        players: []
+                    }
+                ];
+                saveNews();
+            }
+            renderNews();
+        }
+        
+        // Функция для сохранения новостей в localStorage
+        function saveNews() {
+            localStorage.setItem('footballNews', JSON.stringify(newsData));
+        }
+        
+        // Функция для отображения новостей на главной странице
+        function renderNews() {
+            const newsContent = document.getElementById('news-content');
+            newsContent.innerHTML = '';
+            
+            // Сортируем новости по дате (новые сверху)
+            const sortedNews = [...newsData].sort((a, b) => {
+                const dateA = parseDate(a.date);
+                const dateB = parseDate(b.date);
+                return dateB - dateA;
+            });
+            
+            sortedNews.forEach((news, index) => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.dataset.id = news.id;
+                
+                let playersHtml = '';
+                if (news.players && news.players.length > 0) {
+                    playersHtml = `
+                        <div class="best-players">
+                            ${news.players.map(player => 
+                                `<div class="best-player-tag">${player}</div>`
+                            ).join('')}
+                        </div>
+                    `;
+                }
+                
+                newsItem.innerHTML = `
+                    <button class="delete-news-btn" onclick="deleteNews(${news.id})" title="Удалить новость">×</button>
+                    <div class="news-date">${news.date}</div>
+                    <div class="news-text">${news.text}</div>
+                    ${playersHtml}
+                `;
+                
+                newsContent.appendChild(newsItem);
+            });
+            
+            // Также обновляем список новостей в панели администратора
+            if (document.getElementById('news-list')) {
+                renderNewsList();
+            }
+        }
+        
+        // Функция для парсинга даты
+        function parseDate(dateStr) {
+            const parts = dateStr.split('.');
+            if (parts.length === 3) {
+                return new Date(parts[2], parts[1] - 1, parts[0]).getTime();
+            }
+            return new Date().getTime();
+        }
+        
+        // Функция для отображения списка новостей в панели администратора
+        function renderNewsList() {
+            const newsList = document.getElementById('news-list');
+            newsList.innerHTML = '';
+            
+            if (newsData.length === 0) {
+                newsList.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Нет новостей</p>';
+                return;
+            }
+            
+            // Сортируем новости по дате (новые сверху)
+            const sortedNews = [...newsData].sort((a, b) => {
+                const dateA = parseDate(a.date);
+                const dateB = parseDate(b.date);
+                return dateB - dateA;
+            });
+            
+            sortedNews.forEach((news, index) => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.style.border = '1px solid #ddd';
+                newsItem.style.padding = '15px';
+                newsItem.style.marginBottom = '10px';
+                newsItem.style.borderRadius = '8px';
+                newsItem.style.position = 'relative';
+                
+                let playersText = news.players && news.players.length > 0 
+                    ? `Лучшие игроки: ${news.players.join(', ')}`
+                    : '';
+                
+                newsItem.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div style="flex: 1;">
+                            <div style="font-weight: bold; color: #0066cc; margin-bottom: 5px;">${news.date}</div>
+                            <div style="margin-bottom: 8px;">${news.text}</div>
+                            ${playersText ? `<div style="font-size: 0.9em; color: #666;">${playersText}</div>` : ''}
+                        </div>
+                        <button onclick="deleteNews(${news.id})" 
+                                style="background: #dc3545; color: white; border: none; 
+                                       width: 30px; height: 30px; border-radius: 50%; 
+                                       cursor: pointer; margin-left: 10px;">×</button>
+                    </div>
+                `;
+                
+                newsList.appendChild(newsItem);
+            });
+        }
+        
+        // Функция для добавления новости
+        function addNews(date, text, playersStr) {
+            // Проверяем валидность данных
+            if (!date || !text) {
+                showMessage('add-news-message', 'error', 'Заполните дату и текст новости');
+                return;
+            }
+            
+            // Форматируем дату
+            const formattedDate = formatDate(date);
+            if (!formattedDate) {
+                showMessage('add-news-message', 'error', 'Неверный формат даты. Используйте: ДД.ММ.ГГГГ');
+                return;
+            }
+            
+            // Разбираем список игроков
+            const players = playersStr 
+                ? playersStr.split(',').map(p => p.trim()).filter(p => p.length > 0)
+                : [];
+            
+            // Создаём новую новость
+            const newNews = {
+                id: Date.now(), // Используем timestamp как уникальный ID
+                date: formattedDate,
+                text: text,
+                players: players
+            };
+            
+            // Добавляем новость в начало массива
+            newsData.unshift(newNews);
+            saveNews();
+            renderNews();
+            
+            // Очищаем форму
+            document.getElementById('news-date').value = '';
+            document.getElementById('news-text').value = '';
+            document.getElementById('news-players').value = '';
+            
+            // Показываем сообщение об успехе
+            showMessage('add-news-message', 'success', 'Новость успешно добавлена!');
+            
+            // Автоматически скрываем сообщение через 3 секунды
+            setTimeout(() => {
+                hideMessage('add-news-message');
+            }, 3000);
+        }
+        
+        // Функция для удаления новости
+        function deleteNews(id) {
+            if (confirm('Вы уверены, что хотите удалить эту новость?')) {
+                newsData = newsData.filter(news => news.id !== id);
+                saveNews();
+                renderNews();
+                
+                // Показываем сообщение об успехе
+                showMessage('add-news-message', 'success', 'Новость успешно удалена!');
+                
+                // Автоматически скрываем сообщение через 2 секунды
+                setTimeout(() => {
+                    hideMessage('add-news-message');
+                }, 2000);
+            }
+        }
+        
+        // Функция для форматирования даты
+        function formatDate(dateStr) {
+            // Пытаемся разобрать дату в формате ДД.ММ.ГГГГ
+            const parts = dateStr.split('.');
+            if (parts.length === 3) {
+                const day = parts[0].padStart(2, '0');
+                const month = parts[1].padStart(2, '0');
+                const year = parts[2];
+                
+                // Проверяем валидность даты
+                const date = new Date(`${year}-${month}-${day}`);
+                if (!isNaN(date.getTime())) {
+                    return `${day}.${month}.${year}`;
+                }
+            }
+            return null;
+        }
+        
+        // Функция для показа сообщений
+        function showMessage(elementId, type, text) {
+            const element = document.getElementById(elementId);
+            element.textContent = text;
+            element.className = `message ${type}`;
+            element.style.display = 'block';
+        }
+        
+        // Функция для скрытия сообщений
+        function hideMessage(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'none';
+        }
+        
+        // Проверка авторизации
+        function checkAuth() {
+            const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
+            if (isAuthenticated) {
+                showAdminPanel();
+            }
+        }
+        
+        // Авторизация
+        function login(code) {
+            if (code === ACCESS_CODE) {
+                localStorage.setItem('adminAuthenticated', 'true');
+                showAdminPanel();
+                showMessage('auth-message', 'success', 'Успешный вход в панель управления!');
+                
+                // Автоматически скрываем сообщение через 2 секунды
+                setTimeout(() => {
+                    hideMessage('auth-message');
+                }, 2000);
+                return true;
+            } else {
+                showMessage('auth-message', 'error', 'Неверный код доступа');
+                return false;
+            }
+        }
+        
+        // Выход из системы
+        function logout() {
+            localStorage.removeItem('adminAuthenticated');
+            hideAdminPanel();
+            document.getElementById('access-code').value = '';
+            showMessage('auth-message', 'success', 'Вы вышли из панели управления');
+            
+            // Автоматически скрываем сообщение через 2 секунды
+            setTimeout(() => {
+                hideMessage('auth-message');
+            }, 2000);
+        }
+        
+        // Показать панель администратора
+        function showAdminPanel() {
+            const adminPanel = document.getElementById('admin-panel');
+            adminPanel.classList.add('active');
+            renderNewsList();
+        }
+        
+        // Скрыть панель администратора
+        function hideAdminPanel() {
+            const adminPanel = document.getElementById('admin-panel');
+            adminPanel.classList.remove('active');
+        }
+        
+        // Инициализация при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            // Загружаем новости
+            loadNews();
+            
+            // Проверяем авторизацию
+            checkAuth();
+            
+            // Обработчики для панели администратора
+            document.getElementById('auth-btn').addEventListener('click', () => {
+                const code = document.getElementById('access-code').value;
+                login(code);
+            });
+            
+            document.getElementById('access-code').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const code = document.getElementById('access-code').value;
+                    login(code);
+                }
+            });
+            
+            document.getElementById('add-news-btn').addEventListener('click', () => {
+                const date = document.getElementById('news-date').value;
+                const text = document.getElementById('news-text').value;
+                const players = document.getElementById('news-players').value;
+                addNews(date, text, players);
+            });
+            
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            
+            // Переключение на страницу настроек
+            document.getElementById('settings-btn').addEventListener('click', function() {
+                document.getElementById('home-page').classList.remove('active');
+                document.getElementById('settings-page').classList.add('active');
+            });
+            
+            // Кнопка "Назад" со страницы настроек
+            document.getElementById('back-from-settings').addEventListener('click', function() {
+                document.getElementById('settings-page').classList.remove('active');
+                document.getElementById('home-page').classList.add('active');
+            });
+        });
         
         // Данные игроков
         const playersData = {
