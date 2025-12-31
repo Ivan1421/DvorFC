@@ -409,7 +409,6 @@
             box-shadow: 0 6px 20px rgba(0, 102, 204, 0.15);
         }
         
-        /* Убираем синий фон при нажатии */
         .player-card:active {
             background: white;
             transform: translateY(-2px);
@@ -426,7 +425,6 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
         
-        /* Убираем синий фон при нажатии в темной теме */
         .dark-theme .player-card:active {
             background: #2d3748;
             transform: translateY(-2px);
@@ -451,11 +449,10 @@
             background: #374151;
         }
         
-        /* ИСПРАВЛЕНИЕ: Фотографии как на странице лучшего состава */
         .player-photo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Изменено с cover на contain */
+            object-fit: contain;
             display: block;
         }
         
@@ -624,7 +621,6 @@
             transform: translateY(-3px);
         }
         
-        /* Убираем синий фон при нажатии */
         .player-item:active {
             transform: translateY(-1px);
         }
@@ -661,11 +657,10 @@
             background: #374151;
         }
         
-        /* ИСПРАВЛЕНИЕ: Фотографии как на странице лучшего состава */
         .player-photo-small img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Изменено с cover на contain */
+            object-fit: contain;
             display: block;
         }
         
@@ -743,7 +738,6 @@
             box-shadow: 0 6px 20px rgba(0, 102, 204, 0.15);
         }
         
-        /* Убираем синий фон при нажатии */
         .club-card:active {
             background: white;
             transform: translateY(-2px);
@@ -783,12 +777,10 @@
             background: #374151;
         }
         
-        /* ИСПРАВЛЕНИЕ: Логотипы клубов */
         .club-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Изменено с contain */
-            padding: 10px;
+            object-fit: cover;
             display: block;
         }
         
@@ -856,12 +848,10 @@
             background: #374151;
         }
         
-        /* ИСПРАВЛЕНИЕ: Логотипы клубов на детальной странице */
         .club-detail-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Изменено с contain */
-            padding: 15px;
+            object-fit: cover;
         }
         
         .club-detail-info h3 {
@@ -926,7 +916,6 @@
             transform: translateY(-3px);
         }
         
-        /* Убираем синий фон при нажатии */
         .club-formation-player:active {
             transform: translateY(-1px);
         }
@@ -949,11 +938,10 @@
             background: #374151;
         }
         
-        /* ИСПРАВЛЕНИЕ: Фотографии в клубе как в лучшем составе */
         .club-formation-photo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Изменено с cover на contain */
+            object-fit: contain;
             display: block;
         }
         
@@ -1073,11 +1061,10 @@
             background: #374151;
         }
         
-        /* ИСПРАВЛЕНИЕ: Фотографии в модальном окне как в лучшем составе */
         .modal-photo img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Изменено с cover на contain */
+            object-fit: contain;
             display: block;
         }
         
@@ -1193,15 +1180,6 @@
         .dark-theme footer {
             color: #aaa;
             border-top-color: #444;
-        }
-        
-        /* ИСПРАВЛЕНИЕ ДОПОЛНИТЕЛЬНОЕ: Улучшение отображения фотографий */
-        /* Эта часть гарантирует, что все фотографии будут отображаться одинаково */
-        .player-photo img,
-        .player-photo-small img,
-        .modal-photo img,
-        .club-formation-photo img {
-            object-fit: contain !important;
         }
         
         @media (max-width: 768px) {
@@ -1473,13 +1451,10 @@
             }
         }
         
-        /* ДОПОЛНИТЕЛЬНОЕ ИСПРАВЛЕНИЕ: Убираем синий квадрат при тапе */
-        /* Это отключает выделение при нажатии на мобильных устройствах */
         * {
             -webkit-tap-highlight-color: transparent !important;
         }
         
-        /* Для Safari и Chrome */
         @media (hover: none) and (pointer: coarse) {
             .player-card:active,
             .player-item:active,
@@ -1492,7 +1467,6 @@
             }
         }
         
-        /* Отключаем выделение текста при тапе */
         .player-card,
         .player-item,
         .club-card,
@@ -1510,7 +1484,6 @@
     </style>
 </head>
 <body>
-    <!-- Кнопка переключения темы -->
     <button class="theme-toggle" id="theme-toggle">🌙</button>
     
     <div class="container">
@@ -2290,20 +2263,20 @@
             }
         };
         
-        // Данные клубов - ИЗМЕНЕНО: теперь только три игрока
+        // Данные клубов
         const clubsData = {
             legends: {
                 name: "Легенды Двора",
                 founded: "2025 год",
                 logo: "🏆",
-                players: ["mbappe", "beloszhneka", "raya"], // Только эти три игрока
+                players: ["mbappe", "beloszhneka", "raya"],
                 formation: {
                     name: "Схема 1-1-1",
                     description: "Три ключевых игрока двора в своих позициях",
                     positions: {
-                        attack: ["mbappe"], // Мбаппе - нападение
-                        defense: ["beloszhneka"], // Белоснежка - защита
-                        goalkeeper: ["raya"] // Рая - вратарь
+                        attack: ["mbappe"],
+                        defense: ["beloszhneka"],
+                        goalkeeper: ["raya"]
                     }
                 },
                 achievements: [
@@ -2381,25 +2354,20 @@
                 }
             });
             
-            // Загружаем логотипы клубов
+            // Загружаем логотипы клубов - УПРОЩЕННЫЙ ВАРИАНТ
             if (typeof clubPhotos !== 'undefined' && clubPhotos.legends) {
                 const clubLogoElement = document.getElementById('club-legends-logo');
                 if (clubLogoElement) {
                     // Очищаем содержимое
                     clubLogoElement.innerHTML = '';
                     
-                    // Добавляем изображение
+                    // Просто добавляем изображение без лишних проверок
                     const img = document.createElement('img');
                     img.src = clubPhotos.legends;
                     img.alt = "Легенды Двора";
-                    img.onerror = function() {
-                        // Если фото не загрузилось, показываем иконку
-                        this.remove();
-                        const icon = document.createElement('div');
-                        icon.style.fontSize = '3rem';
-                        icon.textContent = '🏆';
-                        clubLogoElement.appendChild(icon);
-                    };
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
                     clubLogoElement.appendChild(img);
                 }
             }
@@ -2596,7 +2564,7 @@
                 </div>
             `;
             
-            // Загружаем фото для детальной страницы
+            // Загружаем фото для детальной страницы - УПРОЩЕННО
             setTimeout(() => {
                 // Логотип клуба
                 const clubLogoDetail = document.getElementById(`club-detail-logo-${clubId}`);
@@ -2604,22 +2572,17 @@
                     // Очищаем содержимое
                     clubLogoDetail.innerHTML = '';
                     
-                    // Добавляем изображение
+                    // Просто добавляем изображение
                     const img = document.createElement('img');
                     img.src = clubPhotos[clubId];
                     img.alt = club.name;
-                    img.onerror = function() {
-                        // Если фото не загрузилось, показываем иконку
-                        this.remove();
-                        const icon = document.createElement('div');
-                        icon.style.fontSize = '4rem';
-                        icon.textContent = '🏆';
-                        clubLogoDetail.appendChild(icon);
-                    };
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
                     clubLogoDetail.appendChild(img);
                 }
                 
-                // Фото игроков - такие же как на странице лучшего состава
+                // Фото игроков
                 club.players.forEach(playerId => {
                     const playerPhoto = document.getElementById(`club-${clubId}-${playerId}-photo`);
                     if (playerPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
@@ -2630,14 +2593,9 @@
                         const img = document.createElement('img');
                         img.src = playerPhotos[playerId];
                         img.alt = playersData[playerId]?.name || playerId;
-                        img.onerror = function() {
-                            // Если фото не загрузилось, показываем иконку
-                            this.remove();
-                            const icon = document.createElement('div');
-                            icon.style.fontSize = '1.5rem';
-                            icon.textContent = playersData[playerId]?.icon || '⚽';
-                            playerPhoto.appendChild(icon);
-                        };
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'contain';
                         playerPhoto.appendChild(img);
                     }
                 });
@@ -2701,14 +2659,9 @@
                 const img = document.createElement('img');
                 img.src = photoBase64;
                 img.alt = player.name;
-                img.onerror = function() {
-                    // Если фото не загрузилось, показываем иконку
-                    this.remove();
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '3rem';
-                    icon.textContent = player.icon;
-                    modalPhoto.appendChild(icon);
-                };
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'contain';
                 modalPhoto.appendChild(img);
             } else {
                 // Показываем иконку
