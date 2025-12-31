@@ -2216,25 +2216,26 @@
             }
         };
         
-        // Данные клубов
+        // Данные клубов - ИЗМЕНЕНО: теперь только три игрока
         const clubsData = {
             legends: {
                 name: "Легенды Двора",
                 founded: "2025 год",
                 logo: "🏆",
-                players: ["mbappe", "beloszhneka", "raya"],
+                players: ["mbappe", "beloszhneka", "raya"], // Только эти три игрока
                 formation: {
-                    name: "Классическая 1-1-1",
-                    description: "Простая и эффективная схема с тремя ключевыми игроками",
+                    name: "Схема 1-1-1",
+                    description: "Три ключевых игрока двора в своих позициях",
                     positions: {
-                        goalkeeper: ["raya"],
-                        defense: ["beloszhneka"],
-                        attack: ["mbappe"]
+                        attack: ["mbappe"], // Мбаппе - нападение
+                        defense: ["beloszhneka"], // Белоснежка - защита
+                        goalkeeper: ["raya"] // Рая - вратарь
                     }
                 },
                 achievements: [
                     "Первый клуб двора",
-                    "Обладатели лучших рейтингов"
+                    "Обладатели лучших рейтингов",
+                    "Три ключевых игрока двора"
                 ]
             }
         };
@@ -2464,8 +2465,9 @@
                 
                 <div class="club-formation">
                     <h3 class="formation-title">Схема: ${club.formation.name}</h3>
+                    
+                    <!-- Нападение - Мбаппе -->
                     <div class="club-formation-line">
-                        <!-- Нападение -->
                         ${club.formation.positions.attack.map(playerId => {
                             const player = playersData[playerId];
                             return `
@@ -2478,8 +2480,9 @@
                             `;
                         }).join('')}
                     </div>
+                    
+                    <!-- Защита - Белоснежка -->
                     <div class="club-formation-line">
-                        <!-- Защита -->
                         ${club.formation.positions.defense.map(playerId => {
                             const player = playersData[playerId];
                             return `
@@ -2492,8 +2495,9 @@
                             `;
                         }).join('')}
                     </div>
+                    
+                    <!-- Вратарь - Рая -->
                     <div class="club-formation-line">
-                        <!-- Вратарь -->
                         ${club.formation.positions.goalkeeper.map(playerId => {
                             const player = playersData[playerId];
                             return `
@@ -2506,6 +2510,7 @@
                             `;
                         }).join('')}
                     </div>
+                    
                     <p style="margin-top: 15px; font-style: italic;">${club.formation.description}</p>
                 </div>
                 
@@ -2540,7 +2545,7 @@
                     clubLogoDetail.appendChild(img);
                 }
                 
-                // Фото игроков
+                // Фото игроков - такие же как на странице лучшего состава
                 club.players.forEach(playerId => {
                     const playerPhoto = document.getElementById(`club-${clubId}-${playerId}-photo`);
                     if (playerPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
@@ -2787,4 +2792,4 @@
         document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
-</html> 
+</html>
