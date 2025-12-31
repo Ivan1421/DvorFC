@@ -15,15 +15,15 @@ const playerPhotos = {
     hokkeist: "https://ivan1421.github.io/DvorFC/Photos (2)/hokkeist.jpg"
 };
 
-// ==================== ЛОГОТИПЫ КЛУБОВ ====================
-
-const clubPhotos = {
-    legends: "https://ivan1421.github.io/DvorFC/Photos (2)/5379656038614766070.jpg"
-};
-
 // ================================================================
+
+// ==================== ЛОГОТИПЫ КЛУБОВ ====================
+// Добавьте эту переменную для логотипов клубов
+
 const clubPhotos = {
-    legends: "https://ivan1421.github.io/DvorFC/Photos (2)/5379656038614766070.jpg"
+    // Эмблема клуба "Легенды Двора"
+    // Можно использовать URL или Base64
+    legends: "https://github.com/Ivan1421/DvorFC/blob/main/Photos%20(2)/5379656038614766070.jpg" // ← Поменяйте на ваш URL
 };
 
 // ================================================================
