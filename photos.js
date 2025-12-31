@@ -15,11 +15,13 @@ const playerPhotos = {
     hokkeist: "https://ivan1421.github.io/DvorFC/Photos (2)/hokkeist.jpg"
 };
 
-// ================================================================
-
 // ==================== ЛОГОТИПЫ КЛУБОВ ====================
-// Добавьте эту переменную для логотипов клубов
 
+const clubPhotos = {
+    legends: "https://ivan1421.github.io/DvorFC/Photos (2)/5379656038614766070.jpg"
+};
+
+// ================================================================
 const clubPhotos = {
     legends: "https://ivan1421.github.io/DvorFC/Photos (2)/5379656038614766070.jpg"
 };
