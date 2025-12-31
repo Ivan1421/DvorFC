@@ -243,100 +243,58 @@
             box-shadow: none;
         }
         
-        /* Место для новостей */
-        .news-section {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            border: 2px solid #0066cc;
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .news-section {
-            background: #2d3748;
-            border-color: #4dabf7;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .section-title {
-            font-size: 1.8rem;
-            color: #0066cc;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #0066cc;
+        /* Кнопка Телеграм-канала */
+        .telegram-button-container {
             text-align: center;
-            transition: all 0.3s ease;
+            margin: 20px 0 40px;
         }
         
-        .dark-theme .section-title {
-            color: #4dabf7;
-            border-bottom-color: #4dabf7;
-        }
-        
-        .news-content {
-            padding: 20px 0;
-        }
-        
-        .news-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .news-item {
-            border-bottom-color: #444;
-        }
-        
-        .news-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        
-        .news-date {
-            color: #888;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .news-date {
-            color: #aaa;
-        }
-        
-        .news-text {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .news-text {
-            color: #f0f0f0;
-        }
-        
-        .best-players {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .best-player-tag {
-            background: linear-gradient(to right, #0066cc, #4dabf7);
+        .telegram-button {
+            background: linear-gradient(to right, #0088cc, #34a8e4);
             color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.3rem;
             font-weight: bold;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+            text-decoration: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
-        .dark-theme .best-player-tag {
-            background: linear-gradient(to right, #4dabf7, #339af0);
+        .telegram-button:hover {
+            background: linear-gradient(to right, #0077b3, #2997d4);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
+        }
+        
+        .telegram-button:active {
+            background: linear-gradient(to right, #006699, #2486c0);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 136, 204, 0.3);
+        }
+        
+        .dark-theme .telegram-button {
+            background: linear-gradient(to right, #0088cc, #34a8e4);
+            box-shadow: 0 4px 15px rgba(52, 168, 228, 0.4);
+        }
+        
+        .dark-theme .telegram-button:hover {
+            background: linear-gradient(to right, #0077b3, #2997d4);
+        }
+        
+        .telegram-icon {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Страница игроков (теперь "Состав двора") */
@@ -1505,42 +1463,20 @@
                     </div>
                 </div>
                 
+                <!-- Кнопка Телеграм-канала -->
+                <div class="telegram-button-container">
+                    <a href="https://t.me/DvorLeauge" target="_blank" class="telegram-button">
+                        <div class="telegram-icon">📢</div>
+                        <span>Новости в Телеграм-канале</span>
+                    </a>
+                </div>
+                
                 <!-- Кнопка обновления -->
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn">
                         <span>🔄</span>
                         <span>Обновить сайт</span>
                     </button>
-                </div>
-                
-                <div class="news-section">
-                    <h2 class="section-title">Новости и обновления</h2>
-                    <div class="news-content">
-                        <div class="news-item">
-                            <div class="news-date">12.12.2025</div>
-                            <div class="news-text">
-                                Были выставлены первые рейтинги. Лучшими стали:
-                            </div>
-                            <div class="best-players">
-                                <div class="best-player-tag">Мбаппе</div>
-                                <div class="best-player-tag">Белоснежка</div>
-                                <div class="best-player-tag">Рамос</div>
-                                <div class="best-player-tag">Давид Рая</div>
-                            </div>
-                        </div>
-                        <div class="news-item">
-                            <div class="news-date">11.12.2025</div>
-                            <div class="news-text">
-                                Сайт теперь автоматически обновляется при изменениях! Все изменения будут видны сразу.
-                            </div>
-                        </div>
-                        <div class="news-item">
-                            <div class="news-date">10.12.2025</div>
-                            <div class="news-text">
-                                Создан первый клуб "Легенды Двора"! В него вошли лучшие игроки нашего двора.
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -2687,63 +2623,6 @@
         
         // Добавляем обработчик для кнопки обновления
         document.getElementById('update-btn').addEventListener('click', forceUpdate);
-        
-        // Функция для показа уведомления
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            
-            let bgColor, textColor;
-            if (type === 'info') {
-                bgColor = '#28a745';
-                textColor = 'white';
-            } else {
-                bgColor = '#0066cc';
-                textColor = 'white';
-            }
-            
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${bgColor};
-                color: ${textColor};
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-                z-index: 1000;
-                font-weight: bold;
-                text-align: center;
-                animation: slideDown 0.3s ease;
-                max-width: 90%;
-                word-wrap: break-word;
-            `;
-            
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideDown {
-                    from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
-                    to { transform: translateX(-50%) translateY(0); opacity: 1; }
-                }
-                @keyframes slideUp {
-                    from { transform: translateX(-50%) translateY(0); opacity: 1; }
-                    to { transform: translateX(-50%) translateY(-100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            notification.innerHTML = `🔄 ${message}`;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideUp 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
         
         // Загружаем фото при загрузке страницы
         window.addEventListener('load', function() {
