@@ -246,7 +246,7 @@
         /* Кнопка Телеграм-канала */
         .telegram-button-container {
             text-align: center;
-            margin: 20px 0 40px;
+            margin: 20px 0 25px;
         }
         
         .telegram-button {
@@ -295,6 +295,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        
+        /* Текст под кнопкой Телеграм */
+        .telegram-help-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .telegram-help-text {
+            color: #aaa;
+        }
+        
+        .telegram-help-text span {
+            color: #0088cc;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .telegram-help-text span {
+            color: #4dabf7;
         }
         
         /* Страница игроков (теперь "Состав двора") */
@@ -1469,6 +1493,11 @@
                         <div class="telegram-icon">📢</div>
                         <span>Новости в Телеграм-канале</span>
                     </a>
+                    
+                    <!-- Текст под кнопкой -->
+                    <div class="telegram-help-text">
+                        Не работает кнопка? Вводи в поиск телеграмма <span>DvorLeauge</span>
+                    </div>
                 </div>
                 
                 <!-- Кнопка обновления -->
