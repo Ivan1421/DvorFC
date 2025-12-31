@@ -925,6 +925,157 @@
             transition: all 0.3s ease;
         }
         
+        /* Страница правил */
+        .rules-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .rules-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-header {
+            border-bottom-color: #4dabf7;
+        }
+        
+        .rules-header h2 {
+            font-size: 2.2rem;
+            color: #0066cc;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-header h2 {
+            color: #4dabf7;
+        }
+        
+        .rules-header .warning-text {
+            background: #ffcc00;
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 3px 8px rgba(255, 204, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-header .warning-text {
+            background: #ffd700;
+            box-shadow: 0 3px 8px rgba(255, 215, 0, 0.4);
+        }
+        
+        .rules-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-section {
+            background: #374151;
+            border-color: #4a5568;
+        }
+        
+        .rules-section h3 {
+            font-size: 1.5rem;
+            color: #0066cc;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-section h3 {
+            color: #4dabf7;
+        }
+        
+        .rules-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .rules-list li {
+            padding: 8px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .dark-theme .rules-list li {
+            border-bottom-color: #4a5568;
+            color: #f0f0f0;
+        }
+        
+        .rules-list li:before {
+            content: "•";
+            color: #0066cc;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-list li:before {
+            color: #4dabf7;
+        }
+        
+        .rules-list li strong {
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-list li strong {
+            color: #4dabf7;
+        }
+        
+        .rules-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            color: #856404;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-note {
+            background: #664d03;
+            border-color: #856404;
+            color: #ffd8a8;
+        }
+        
+        .rules-note strong {
+            color: #856404;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .rules-note strong {
+            color: #ffd8a8;
+        }
+        
         /* Модальное окно для детальной информации */
         .modal-overlay {
             position: fixed;
@@ -1257,6 +1408,14 @@
                 font-size: 2rem;
             }
             
+            .rules-section {
+                padding: 15px;
+            }
+            
+            .rules-list li {
+                font-size: 1rem;
+            }
+            
             .modal {
                 padding: 20px;
             }
@@ -1367,6 +1526,15 @@
             
             .club-info h3 {
                 font-size: 1.8rem;
+            }
+            
+            .rules-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .rules-header .warning-text {
+                font-size: 1rem;
+                padding: 10px 15px;
             }
             
             .modal-stats {
@@ -1485,18 +1653,24 @@
                         <div class="button-title">Клубы</div>
                         <div class="button-description">Футбольные команды нашего двора</div>
                     </div>
+                    
+                    <div class="main-button" id="rules-btn">
+                        <div class="button-icon">📜</div>
+                        <div class="button-title">Правила</div>
+                        <div class="button-description">Обязательно к прочтению</div>
+                    </div>
                 </div>
                 
                 <!-- Кнопка Телеграм-канала -->
                 <div class="telegram-button-container">
-                    <a href="https://t.me/DvorLeauge" target="_blank" class="telegram-button">
+                    <a href="https://t.me/DvorLeague" target="_blank" class="telegram-button">
                         <div class="telegram-icon">📢</div>
                         <span>Новости в Телеграм-канале</span>
                     </a>
                     
                     <!-- Текст под кнопкой -->
                     <div class="telegram-help-text">
-                        Не работает кнопка? Вводи в поиск телеграмма <span>DvorLeauge</span>
+                        Не работает кнопка? Вводи в поиск телеграмма <span>DvorLeague</span>
                     </div>
                 </div>
                 
@@ -1952,6 +2126,135 @@
                     <!-- Содержание будет заполнено JavaScript -->
                 </div>
             </div>
+            
+            <!-- Страница правил -->
+            <div id="rules-page" class="page">
+                <button class="back-button" id="back-from-rules">← Назад к главной</button>
+                
+                <div class="rules-container">
+                    <div class="rules-header">
+                        <h2>ПРАВИЛА ТУРНИРОВ ФУТБОЛЬНОГО ДВОРА "МЕРА"</h2>
+                        <div class="warning-text">⚠ ВНИМАНИЕ: Правила обязательны к прочтению!</div>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🎯 ОБЩИЕ ПРАВИЛА</h3>
+                        <ul class="rules-list">
+                            <li>✅ <strong>Уважение к соперникам</strong> - основа нашей игры</li>
+                            <li>✅ <strong>Фэйр-плей</strong> - честная игра и признание своих ошибок</li>
+                            <li>⭐ <strong>Главный принцип:</strong> Мы играем ради удовольствия, дружбы и развития футбольных навыков</li>
+                            <li>⭐ <strong>Важнее победы:</strong> Честная игра, уважение к соперникам и судьям</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>👥 СОСТАВ КОМАНДЫ</h3>
+                        <ul class="rules-list">
+                            <li><strong>Минимум:</strong> 3 игрока (в соответствии с турниром)</li>
+                            <li><strong>Максимум:</strong> Без ограничений в заявке</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🔄 СИСТЕМА ЗАМЕН</h3>
+                        <ul class="rules-list">
+                            <li><strong>Неограниченное количество замен</strong></li>
+                            <li><strong>Замена производится только при остановке игры</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🟨🟥 СИСТЕМА КАРТОЧЕК</h3>
+                        <ul class="rules-list">
+                            <li>🟨 <strong>Жёлтая карточка</strong> = предупреждение</li>
+                            <li>🟨🟨 <strong>2 жёлтые карточки</strong> в одном матче = красная карточка</li>
+                            <li>🔴 <strong>Красная карточка</strong> = выход из игры на 5 минут (команда играет в меньшинстве)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🏛️ СОЗДАНИЕ СВОЕГО КЛУБА</h3>
+                        <ul class="rules-list">
+                            <li><strong>Минимум 3 игрока</strong> для создания клуба</li>
+                            <li><strong>Уникальное название клуба</strong> (не должно оскорблять или нарушать нормы)</li>
+                            <li><strong>Назначается капитан</strong> - ответственный за команду</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>💰 ФИНАНСОВЫЕ УСЛОВИЯ</h3>
+                        <ul class="rules-list">
+                            <li>🎉 <strong>ВСЁ АБСОЛЮТНО БЕСПЛАТНО</strong> - никаких взносов и сборов</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🏆 СИСТЕМА НАГРАЖДЕНИЯ</h3>
+                        <ul class="rules-list">
+                            <li>📜 <strong>Грамоты</strong> победителям и призёрам турнира</li>
+                            <li>⭐ <strong>Звание "Лучший игрок турнира"</strong> с особой наградой</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>📊 РЕЙТИНГОВАЯ СИСТЕМА</h3>
+                        <ul class="rules-list">
+                            <li>✅ <strong>Победа</strong> = +3 очка рейтинга</li>
+                            <li>🤝 <strong>Ничья</strong> = +1 очко</li>
+                            <li>❌ <strong>Поражение</strong> = 0 очков</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>📅 ТУРНИРНАЯ СИСТЕМА</h3>
+                        <ul class="rules-list">
+                            <li><strong>Формат турнира</strong> может отличаться в зависимости от конкретного турнира</li>
+                            <li><strong>Все матчи проводятся</strong> на территории двора "МЕРА"</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🤝 FAIR-PLAY И ПОВЕДЕНИЕ</h3>
+                        <ul class="rules-list">
+                            <li>👍 <strong>Команды с лучшим поведением</strong> получают дополнительные баллы в рейтинге</li>
+                            <li>❌ <strong>Грубое или неспортивное поведение</strong> может привести к исключению из турнира</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>🧑‍⚖️ СУДЕЙСТВО</h3>
+                        <ul class="rules-list">
+                            <li><strong>Судью определяют</strong> перед матчем только @RAYAVITYA и @Eighteen_2018</li>
+                            <li><strong>Судье выдаётся экипировка</strong> в виде двух карточек: Жёлтой и Красной</li>
+                            <li>⚖️ <strong>Решение судьи является окончательным</strong> и обсуждению не подлежит</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>📩 РЕГИСТРАЦИЯ И ИНФОРМАЦИЯ</h3>
+                        <ul class="rules-list">
+                            <li><strong>Вся информация</strong> по регистрации клубов и игроков</li>
+                            <li><strong>Все вопросы</strong> по турнирам и организации</li>
+                            <li>✉️ <strong>ТОЛЬКО в личных сообщениях</strong> @RAYAVITYA в Телеграм</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rules-section">
+                        <h3>⚡ КАК НАЧАТЬ УЧАСТВОВАТЬ?</h3>
+                        <ol class="rules-list" style="list-style-type: decimal; padding-left: 20px;">
+                            <li>Прочитай правила выше</li>
+                            <li>Собери команду из 3+ игроков</li>
+                            <li>Придумай название для своего клуба</li>
+                            <li>Напиши @RAYAVITYA в Телеграмм для регистрации</li>
+                            <li>Участвуй в турнирах и создавай свою историю!</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="rules-note">
+                        <p><strong>ДВОР "МЕРА" ЖДЁТ ИМЕННО ТЕБЯ! СТАНЬ ЧАСТЬЮ НАШЕЙ ФУТБОЛЬНОЙ СЕМЬИ! ⚽🏆</strong></p>
+                    </div>
+                </div>
+            </div>
         </main>
         
         <footer>
@@ -2353,6 +2656,11 @@
             showPage('clubs-page');
         });
         
+        // Переключение на страницу правил
+        document.getElementById('rules-btn').addEventListener('click', function() {
+            showPage('rules-page');
+        });
+        
         // Кнопка "Назад" со страницы игроков
         document.getElementById('back-from-players').addEventListener('click', function() {
             showPage('home-page');
@@ -2371,6 +2679,11 @@
         // Кнопка "Назад" со страницы деталей клуба
         document.getElementById('back-from-club-detail').addEventListener('click', function() {
             showPage('clubs-page');
+        });
+        
+        // Кнопка "Назад" со страницы правил
+        document.getElementById('back-from-rules').addEventListener('click', function() {
+            showPage('home-page');
         });
         
         // Функция для показа страницы
