@@ -130,6 +130,8 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .main-button:active {
@@ -203,6 +205,8 @@
             gap: 10px;
             -webkit-tap-highlight-color: transparent;
             box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .update-button:hover {
@@ -358,6 +362,8 @@
             align-items: center;
             gap: 8px;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .back-button:active {
@@ -394,6 +400,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .player-card:hover {
@@ -608,6 +616,8 @@
             flex-shrink: 0;
             -webkit-tap-highlight-color: transparent;
             transition: all 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .player-item:hover {
@@ -724,6 +734,8 @@
             -webkit-tap-highlight-color: transparent;
             transition: all 0.3s ease;
             text-align: center;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .club-card:hover {
@@ -905,6 +917,9 @@
             justify-content: center;
             min-width: 80px;
             cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .club-formation-player:hover {
@@ -1007,6 +1022,8 @@
             transition: all 0.3s ease;
             z-index: 10;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         .modal-close-btn:active {
@@ -1454,6 +1471,41 @@
                     font-size: 1.8rem;
                 }
             }
+        }
+        
+        /* ДОПОЛНИТЕЛЬНОЕ ИСПРАВЛЕНИЕ: Убираем синий квадрат при тапе */
+        /* Это отключает выделение при нажатии на мобильных устройствах */
+        * {
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        
+        /* Для Safari и Chrome */
+        @media (hover: none) and (pointer: coarse) {
+            .player-card:active,
+            .player-item:active,
+            .club-card:active,
+            .club-formation-player:active,
+            .main-button:active,
+            .back-button:active,
+            .update-button:active {
+                background: inherit !important;
+            }
+        }
+        
+        /* Отключаем выделение текста при тапе */
+        .player-card,
+        .player-item,
+        .club-card,
+        .club-formation-player,
+        .main-button,
+        .back-button,
+        .update-button,
+        .modal-close-btn,
+        .theme-toggle {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
