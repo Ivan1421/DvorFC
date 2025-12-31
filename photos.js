@@ -23,7 +23,7 @@ const playerPhotos = {
 const clubPhotos = {
     // Эмблема клуба "Легенды Двора"
     // Можно использовать URL или Base64
-    legends: "https://ivan1421.github.io/DvorFC/emblema.png" // ← Поменяйте на ваш URL
+    legends: "https://github.com/Ivan1421/DvorFC/blob/main/Photos%20(2)/5379656038614766070.jpg" // ← Поменяйте на ваш URL
 };
 
 // ================================================================
