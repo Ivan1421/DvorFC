@@ -443,10 +443,11 @@
             background: #374151;
         }
         
+        /* ИСПРАВЛЕНИЕ: Фотографии как на странице лучшего состава */
         .player-photo img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Изменено с cover на contain */
             display: block;
         }
         
@@ -650,10 +651,11 @@
             background: #374151;
         }
         
+        /* ИСПРАВЛЕНИЕ: Фотографии как на странице лучшего состава */
         .player-photo-small img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Изменено с cover на contain */
             display: block;
         }
         
@@ -769,10 +771,11 @@
             background: #374151;
         }
         
+        /* ИСПРАВЛЕНИЕ: Логотипы клубов */
         .club-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* Изменено с contain */
             padding: 10px;
             display: block;
         }
@@ -841,10 +844,11 @@
             background: #374151;
         }
         
+        /* ИСПРАВЛЕНИЕ: Логотипы клубов на детальной странице */
         .club-detail-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* Изменено с contain */
             padding: 15px;
         }
         
@@ -928,6 +932,14 @@
         .dark-theme .club-formation-photo {
             border-color: #4dabf7;
             background: #374151;
+        }
+        
+        /* ИСПРАВЛЕНИЕ: Фотографии в клубе как в лучшем составе */
+        .club-formation-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Изменено с cover на contain */
+            display: block;
         }
         
         .club-formation-name {
@@ -1044,10 +1056,11 @@
             background: #374151;
         }
         
+        /* ИСПРАВЛЕНИЕ: Фотографии в модальном окне как в лучшем составе */
         .modal-photo img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Изменено с cover на contain */
             display: block;
         }
         
@@ -1163,6 +1176,15 @@
         .dark-theme footer {
             color: #aaa;
             border-top-color: #444;
+        }
+        
+        /* ИСПРАВЛЕНИЕ ДОПОЛНИТЕЛЬНОЕ: Улучшение отображения фотографий */
+        /* Эта часть гарантирует, что все фотографии будут отображаться одинаково */
+        .player-photo img,
+        .player-photo-small img,
+        .modal-photo img,
+        .club-formation-photo img {
+            object-fit: contain !important;
         }
         
         @media (max-width: 768px) {
