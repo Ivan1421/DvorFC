@@ -23,7 +23,7 @@ const playerPhotos = {
 
 const clubPhotos = {
     // Эмблема клуба "Легенды Двора"
-    legends: "https://github.com/Ivan1421/DvorFC/raw/main/Photos%20(2)/emblema.jpg"
+    legends: "https://github.com/Ivan1421/DvorFC/raw/main/Photos%20(2)/emblema.png"
 };
 
 // ================================================================
