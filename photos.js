@@ -12,7 +12,8 @@ const playerPhotos = {
     beloszhneka: "https://ivan1421.github.io/DvorFC/Photos (2)/belosnezhka.jpg",
     ramos: "https://ivan1421.github.io/DvorFC/Photos (2)/ramos.jpg",
     andryushka: "https://ivan1421.github.io/DvorFC/Photos (2)/andryushka.jpg",
-    hokkeist: "https://ivan1421.github.io/DvorFC/Photos (2)/hokkeist.jpg"
+    hokkeist: "https://ivan1421.github.io/DvorFC/Photos (2)/hokkeist.jpg",
+    kepa: "https://ivan1421.github.io/DvorFC/Photos (2)/kepa.jpg"
 };
 
 // ================================================================
