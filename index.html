@@ -2517,7 +2517,7 @@
             }
         };
         
-        // Данные клубов
+        // Данные клубов (обновлено: Кепа как запасной вратарь)
         const clubsData = {
             legends: {
                 name: "Легенды Двора",
@@ -2525,18 +2525,18 @@
                 players: ["mbappe", "beloszhneka", "raya", "kepa"],
                 formation: {
                     name: "Схема 1-1-1-1",
-                    description: "Три ключевых игрока двора + центральный защитник",
+                    description: "Три ключевых игрока двора + запасной вратарь",
                     positions: {
                         attack: ["mbappe"],
                         defense: ["beloszhneka"],
                         goalkeeper: ["raya"],
-                        centralDefender: ["kepa"]
+                        substitute: ["kepa"]
                     }
                 },
                 achievements: [
                     "Первый клуб двора",
                     "Обладатели лучших рейтингов",
-                    "Три ключевых игрока двора + центральный защитник"
+                    "Три ключевых игрока двора + запасной вратарь"
                 ]
             }
         };
@@ -2794,9 +2794,9 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Центральный защитник - Кепа -->
+                    <!-- Основной вратарь - Рая -->
                     <div class="club-formation-line">
-                        ${club.formation.positions.centralDefender.map(playerId => {
+                        ${club.formation.positions.goalkeeper.map(playerId => {
                             const player = playersData[playerId];
                             return `
                                 <div class="club-formation-player" data-player="${playerId}">
@@ -2809,9 +2809,9 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Вратарь - Рая -->
+                    <!-- Запасной вратарь - Кепа -->
                     <div class="club-formation-line">
-                        ${club.formation.positions.goalkeeper.map(playerId => {
+                        ${club.formation.positions.substitute.map(playerId => {
                             const player = playersData[playerId];
                             return `
                                 <div class="club-formation-player" data-player="${playerId}">
@@ -2819,6 +2819,7 @@
                                         <!-- Фото будет загружено через JS -->
                                     </div>
                                     <div class="club-formation-name">${player.name} ${player.number}</div>
+                                    <div style="font-size: 0.8rem; color: #666; margin-top: 3px;">(запасной вратарь)</div>
                                 </div>
                             `;
                         }).join('')}
@@ -2929,10 +2930,15 @@
             }
             
             // Для вратаря особые статистики
-            if (player.position === "Вратарь") {
-                document.getElementById('modal-goals').textContent = "N/A";
-                document.getElementById('modal-assists').textContent = "N/A";
-                document.getElementById('modal-matches').textContent = player.matches;
+            if (player.position === "Вратарь" || player.position === "Центральный защитник") {
+                if (player.position === "Вратарь") {
+                    document.getElementById('modal-goals').textContent = "N/A";
+                    document.getElementById('modal-assists').textContent = "N/A";
+                } else {
+                    document.getElementById('modal-goals').textContent = player.goals || 0;
+                    document.getElementById('modal-assists').textContent = player.assists || 0;
+                }
+                document.getElementById('modal-matches').textContent = player.matches || 0;
             } else {
                 document.getElementById('modal-goals').textContent = player.goals || 0;
                 document.getElementById('modal-assists').textContent = player.assists || 0;
