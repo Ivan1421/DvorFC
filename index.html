@@ -1741,6 +1741,32 @@
                         </div>
                     </div>
                     
+                    <!-- Кепа -->
+                    <div class="player-card" data-player="kepa">
+                        <div class="player-photo" id="kepa-photo">
+                            <!-- Фото будет загружено через JS -->
+                        </div>
+                        <div class="player-info">
+                            <h3>Кепа</h3>
+                            <p>Вратарь • 14 лет</p>
+                            <div class="player-number">(13)</div>
+                        </div>
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Сухие</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Сейвы</div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Марадона -->
                     <div class="player-card" data-player="maradona">
                         <div class="player-photo" id="maradona-photo">
@@ -2112,7 +2138,7 @@
                         <div class="club-info">
                             <h3>Легенды Двора</h3>
                             <p>Основан: 2025 год</p>
-                            <p>Состав: 3 игрока</p>
+                            <p>Состав: 4 игрока</p>
                         </div>
                     </div>
                 </div>
@@ -2349,6 +2375,20 @@
                 rating: 92,
                 number: "(1)"
             },
+            kepa: {
+                name: "Кепа",
+                position: "Вратарь",
+                age: "14 лет",
+                icon: "🧤",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                saves: 0,
+                cleanSheets: 0,
+                rating: 89,
+                number: "(13)"
+            },
             maradona: {
                 name: "Марадона",
                 position: "Полузащитник",
@@ -2482,20 +2522,21 @@
             legends: {
                 name: "Легенды Двора",
                 founded: "2025 год",
-                players: ["mbappe", "beloszhneka", "raya"],
+                players: ["mbappe", "beloszhneka", "raya", "kepa"],
                 formation: {
-                    name: "Схема 1-1-1",
-                    description: "Три ключевых игрока двора в своих позициях",
+                    name: "Схема 1-1-1-1",
+                    description: "Три ключевых игрока двора + запасной вратарь",
                     positions: {
                         attack: ["mbappe"],
                         defense: ["beloszhneka"],
-                        goalkeeper: ["raya"]
+                        goalkeeper: ["raya"],
+                        substitute: ["kepa"]
                     }
                 },
                 achievements: [
                     "Первый клуб двора",
                     "Обладатели лучших рейтингов",
-                    "Три ключевых игрока двора"
+                    "Три ключевых игрока двора + запасной вратарь"
                 ]
             }
         };
@@ -2510,7 +2551,7 @@
             }
             
             // Массив всех ID игроков
-            const playerIds = ['mbappe', 'raya', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist'];
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist'];
             
             // Загружаем фото для каждого игрока
             playerIds.forEach(playerId => {
@@ -2556,7 +2597,7 @@
         
         // Функция для установки иконок игрокам
         function setIconsForPlayers() {
-            const playerIds = ['mbappe', 'raya', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist'];
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist'];
             
             playerIds.forEach(playerId => {
                 const player = playersData[playerId];
@@ -2753,7 +2794,7 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Вратарь - Рая -->
+                    <!-- Основной вратарь - Рая -->
                     <div class="club-formation-line">
                         ${club.formation.positions.goalkeeper.map(playerId => {
                             const player = playersData[playerId];
@@ -2763,6 +2804,22 @@
                                         <!-- Фото будет загружено через JS -->
                                     </div>
                                     <div class="club-formation-name">${player.name} ${player.number}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    
+                    <!-- Запасной вратарь - Кепа -->
+                    <div class="club-formation-line">
+                        ${club.formation.positions.substitute.map(playerId => {
+                            const player = playersData[playerId];
+                            return `
+                                <div class="club-formation-player" data-player="${playerId}">
+                                    <div class="club-formation-photo" id="club-${clubId}-${playerId}-photo">
+                                        <!-- Фото будет загружено через JS -->
+                                    </div>
+                                    <div class="club-formation-name">${player.name} ${player.number}</div>
+                                    <div style="font-size: 0.8rem; color: #666; margin-top: 3px;">(запасной)</div>
                                 </div>
                             `;
                         }).join('')}
