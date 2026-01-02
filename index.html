@@ -745,15 +745,14 @@
             height: 150px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid #0066cc;
+            border: none;
             margin: 0 auto 20px;
             transition: all 0.3s ease;
-            background: #f0f8ff;
+            background: transparent;
         }
         
         .dark-theme .club-logo {
-            border-color: #4dabf7;
-            background: #374151;
+            background: transparent;
         }
         
         .club-logo img {
@@ -761,6 +760,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            border-radius: 50%;
         }
         
         .club-info h3 {
@@ -814,20 +814,20 @@
             height: 180px;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid #0066cc;
+            border: none;
             flex-shrink: 0;
-            background: #f0f8ff;
+            background: transparent;
         }
         
         .dark-theme .club-detail-logo {
-            border-color: #4dabf7;
-            background: #374151;
+            background: transparent;
         }
         
         .club-detail-logo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 50%;
         }
         
         .club-detail-info h3 {
@@ -1316,6 +1316,10 @@
         
         .rating-medium {
             color: #ffc107;
+        }
+        
+        .rating-low {
+            color: #dc3545;
         }
         
         .rating-label {
@@ -2293,7 +2297,7 @@
                         <div class="club-info">
                             <h3>Легенды Двора</h3>
                             <p>Основан: 2025 год</p>
-                            <p>Состав: 4 игрока (3 основных + 1 запасной)</p>
+                            <p>Состав: 6 игроков (3 основных + 3 запасных)</p>
                         </div>
                     </div>
                 </div>
@@ -2583,7 +2587,7 @@
     <script src="photos.js"></script>
 
     <script>
-        // Обновленные данные игроков
+        // Обновленные данные игроков с новыми рейтингами
         const playersData = {
             mbappe: {
                 name: "Килиан Мбаппе",
@@ -2627,7 +2631,7 @@
                 matchesAsGK: 0,
                 saves: 0,
                 cleanSheets: 0,
-                rating: 89,
+                rating: 88, // Обновлен рейтинг: 88
                 number: "(66)"
             },
             maradona: {
@@ -2725,7 +2729,7 @@
                 matches: 0,
                 goals: 0,
                 assists: 0,
-                rating: 90,
+                rating: 87, // Обновлен рейтинг: 87
                 number: "(4)"
             },
             andryushka: {
@@ -2758,13 +2762,13 @@
             }
         };
         
-        // Обновленные данные клубов (добавлена скамейка запасных)
+        // Обновленные данные клубов (добавлены Рамос и Андрюшка на скамейку запасных)
         const clubsData = {
             legends: {
                 name: "Легенды Двора",
                 founded: "2025 год",
                 players: ["mbappe", "beloszhneka", "raya"], // Основной состав
-                substitutes: ["kepa"], // Скамейка запасных
+                substitutes: ["kepa", "ramos", "andryushka"], // Скамейка запасных (3 игрока)
                 formation: {
                     name: "Схема 1-1-1",
                     description: "Три ключевых игрока двора",
@@ -2777,7 +2781,8 @@
                 achievements: [
                     "Первый клуб двора",
                     "Обладатели лучших рейтингов",
-                    "Три ключевых игрока двора"
+                    "Три ключевых игрока двора",
+                    "Сильная скамейка запасных"
                 ]
             }
         };
@@ -2823,7 +2828,7 @@
                 }
             });
             
-            // Загружаем логотип клуба "Легенды Двора"
+            // Загружаем логотип клуба "Легенды Двора" (без синего ободка)
             const clubLogoElement = document.getElementById('club-legends-logo');
             if (clubLogoElement && typeof clubPhotos !== 'undefined' && clubPhotos.legends) {
                 const img = document.createElement('img');
@@ -2873,7 +2878,7 @@
                 }
             });
             
-            // Иконка для клуба
+            // Иконка для клуба (без ободка)
             const clubLogoElement = document.getElementById('club-legends-logo');
             if (clubLogoElement) {
                 const icon = document.createElement('div');
@@ -2999,7 +3004,7 @@
                         <h3>${club.name}</h3>
                         <p><strong>Основан:</strong> ${club.founded}</p>
                         <p><strong>Основной состав:</strong> ${club.players.length} игрока</p>
-                        <p><strong>Запасные:</strong> ${club.substitutes.length} игрок</p>
+                        <p><strong>Запасные:</strong> ${club.substitutes.length} игрока</p>
                     </div>
                 </div>
                 
@@ -3056,7 +3061,7 @@
                 
                 <!-- Секция скамейки запасных -->
                 <div class="substitutes-section">
-                    <h3 class="substitutes-title">Скамейка запасных</h3>
+                    <h3 class="substitutes-title">Скамейка запасных (${club.substitutes.length} игрока)</h3>
                     <div class="substitutes-grid">
                         ${club.substitutes.map(playerId => {
                             const player = playersData[playerId];
@@ -3093,7 +3098,7 @@
             const club = clubsData[clubId];
             if (!club) return;
             
-            // Загружаем логотип клуба
+            // Загружаем логотип клуба (без синего ободка)
             const clubLogoDetail = document.getElementById(`club-detail-logo-${clubId}`);
             if (clubLogoDetail && typeof clubPhotos !== 'undefined' && clubPhotos[clubId]) {
                 const img = document.createElement('img');
@@ -3102,6 +3107,7 @@
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.objectFit = 'cover';
+                img.style.borderRadius = '50%';
                 clubLogoDetail.appendChild(img);
             } else {
                 const icon = document.createElement('div');
@@ -3194,8 +3200,10 @@
             // Определяем цвет рейтинга
             if (player.rating >= 85) {
                 ratingElement.className = 'rating-value rating-high';
-            } else {
+            } else if (player.rating >= 80) {
                 ratingElement.className = 'rating-value rating-medium';
+            } else {
+                ratingElement.className = 'rating-value rating-low';
             }
             
             // Устанавливаем фото или иконку
