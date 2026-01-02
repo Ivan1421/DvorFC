@@ -1749,7 +1749,7 @@
                         <div class="player-info">
                             <h3>Кепа</h3>
                             <p>Вратарь • 14 лет</p>
-                            <div class="player-number">(13)</div>
+                            <div class="player-number">(66)</div>
                         </div>
                         <div class="player-stats">
                             <div class="stat-item">
@@ -1956,7 +1956,7 @@
                         </div>
                         <div class="player-info">
                             <h3>Андрюшка</h3>
-                            <p>Защитник • 14 лет</p>
+                            <p>Полузащитник • 14 лет</p>
                             <div class="player-number">(77)</div>
                         </div>
                         <div class="player-stats">
@@ -1983,7 +1983,7 @@
                         <div class="player-info">
                             <h3>Хоккеист</h3>
                             <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(66)</div>
+                            <div class="player-number">(13)</div>
                         </div>
                         <div class="player-stats">
                             <div class="stat-item">
@@ -2088,19 +2088,19 @@
                                 <div class="player-name">Рамос</div>
                                 <span class="player-number">(4)</span>
                             </div>
+                            <div class="player-item" data-player="kepa">
+                                <div class="player-photo-small" id="kepa-photo-small">
+                                    <!-- Фото будет загружено через JS -->
+                                </div>
+                                <div class="player-name">Кепа</div>
+                                <span class="player-number">(66)</span>
+                            </div>
                             <div class="player-item" data-player="andryushka">
                                 <div class="player-photo-small" id="andryushka-photo-small">
                                     <!-- Фото будет загружено через JS -->
                                 </div>
                                 <div class="player-name">Андрюшка</div>
                                 <span class="player-number">(77)</span>
-                            </div>
-                            <div class="player-item" data-player="hokkeist">
-                                <div class="player-photo-small" id="hokkeist-photo-small">
-                                    <!-- Фото будет загружено через JS -->
-                                </div>
-                                <div class="player-name">Хоккеист</div>
-                                <span class="player-number">(66)</span>
                             </div>
                         </div>
                         
@@ -2377,17 +2377,17 @@
             },
             kepa: {
                 name: "Кепа",
-                position: "Вратарь",
+                position: "Центральный защитник",
                 age: "14 лет",
-                icon: "🧤",
+                icon: "🛡️",
                 foot: "Правая",
                 height: "0 см",
                 weight: "0 кг",
                 matches: 0,
-                saves: 0,
-                cleanSheets: 0,
+                goals: 0,
+                assists: 0,
                 rating: 89,
-                number: "(13)"
+                number: "(66)"
             },
             maradona: {
                 name: "Марадона",
@@ -2489,7 +2489,7 @@
             },
             andryushka: {
                 name: "Андрюшка",
-                position: "Защитник",
+                position: "Полузащитник",
                 age: "14 лет",
                 icon: "⚽",
                 foot: "Правая",
@@ -2513,7 +2513,7 @@
                 goals: 0,
                 assists: 0,
                 rating: 82,
-                number: "(66)"
+                number: "(13)"
             }
         };
         
@@ -2525,18 +2525,18 @@
                 players: ["mbappe", "beloszhneka", "raya", "kepa"],
                 formation: {
                     name: "Схема 1-1-1-1",
-                    description: "Три ключевых игрока двора + запасной вратарь",
+                    description: "Три ключевых игрока двора + центральный защитник",
                     positions: {
                         attack: ["mbappe"],
                         defense: ["beloszhneka"],
                         goalkeeper: ["raya"],
-                        substitute: ["kepa"]
+                        centralDefender: ["kepa"]
                     }
                 },
                 achievements: [
                     "Первый клуб двора",
                     "Обладатели лучших рейтингов",
-                    "Три ключевых игрока двора + запасной вратарь"
+                    "Три ключевых игрока двора + центральный защитник"
                 ]
             }
         };
@@ -2794,9 +2794,9 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Основной вратарь - Рая -->
+                    <!-- Центральный защитник - Кепа -->
                     <div class="club-formation-line">
-                        ${club.formation.positions.goalkeeper.map(playerId => {
+                        ${club.formation.positions.centralDefender.map(playerId => {
                             const player = playersData[playerId];
                             return `
                                 <div class="club-formation-player" data-player="${playerId}">
@@ -2809,9 +2809,9 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Запасной вратарь - Кепа -->
+                    <!-- Вратарь - Рая -->
                     <div class="club-formation-line">
-                        ${club.formation.positions.substitute.map(playerId => {
+                        ${club.formation.positions.goalkeeper.map(playerId => {
                             const player = playersData[playerId];
                             return `
                                 <div class="club-formation-player" data-player="${playerId}">
@@ -2819,7 +2819,6 @@
                                         <!-- Фото будет загружено через JS -->
                                     </div>
                                     <div class="club-formation-name">${player.name} ${player.number}</div>
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 3px;">(запасной)</div>
                                 </div>
                             `;
                         }).join('')}
