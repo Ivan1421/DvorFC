@@ -925,6 +925,89 @@
             transition: all 0.3s ease;
         }
         
+        /* Стили для скамейки запасных */
+        .substitutes-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .substitutes-section {
+            background: #374151;
+            border-color: #4a5568;
+        }
+        
+        .substitutes-title {
+            font-size: 1.3rem;
+            color: #0066cc;
+            margin-bottom: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .substitutes-title {
+            color: #4dabf7;
+        }
+        
+        .substitutes-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .substitute-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 70px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .substitute-player:hover {
+            transform: translateY(-3px);
+        }
+        
+        .substitute-player:active {
+            transform: translateY(-1px);
+        }
+        
+        .substitute-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #6c757d;
+            margin-bottom: 5px;
+            background: #f8f9fa;
+        }
+        
+        .dark-theme .substitute-photo {
+            border-color: #aaa;
+            background: #374151;
+        }
+        
+        .substitute-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .substitute-name {
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
         /* Страница правил */
         .rules-container {
             background: white;
@@ -1245,12 +1328,26 @@
             color: #ccc;
         }
         
-        /* Компактная статистика */
-        .modal-stats {
+        /* Компактная статистика для игроков с комбинированной позицией */
+        .modal-stats-combined {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 15px;
+        }
+        
+        .modal-stat-item-wide {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+            grid-column: span 2;
+        }
+        
+        .dark-theme .modal-stat-item-wide {
+            background: #374151;
+            border-color: #4dabf7;
         }
         
         .modal-stat-item {
@@ -1286,6 +1383,13 @@
         
         .dark-theme .modal-stat-value {
             color: #4dabf7;
+        }
+        
+        .modal-stat-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
         }
         
         footer {
@@ -1440,13 +1544,34 @@
                 font-size: 1.6rem;
             }
             
-            .modal-stats {
+            .modal-stats, .modal-stats-combined {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
             
+            .modal-stat-item-wide {
+                grid-column: span 2;
+            }
+            
+            .modal-stat-group {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
             .rating-value {
                 font-size: 2rem;
+            }
+            
+            .substitutes-grid {
+                gap: 10px;
+            }
+            
+            .substitute-player {
+                min-width: 60px;
+            }
+            
+            .substitute-photo {
+                width: 45px;
+                height: 45px;
             }
         }
         
@@ -1537,13 +1662,34 @@
                 padding: 10px 15px;
             }
             
-            .modal-stats {
+            .modal-stats, .modal-stats-combined {
                 grid-template-columns: 1fr;
                 gap: 8px;
             }
             
+            .modal-stat-item-wide {
+                grid-column: span 1;
+            }
+            
+            .modal-stat-group {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .rating-value {
                 font-size: 1.8rem;
+            }
+            
+            .substitutes-grid {
+                gap: 8px;
+            }
+            
+            .substitute-player {
+                min-width: 55px;
+            }
+            
+            .substitute-photo {
+                width: 40px;
+                height: 40px;
             }
             
             @media (max-width: 380px) {
@@ -1578,9 +1724,17 @@
                     gap: 1px;
                 }
                 
-                .modal-stats {
+                .modal-stats, .modal-stats-combined {
                     grid-template-columns: 1fr;
                     gap: 8px;
+                }
+                
+                .modal-stat-item-wide {
+                    grid-column: span 1;
+                }
+                
+                .modal-stat-group {
+                    grid-template-columns: repeat(2, 1fr);
                 }
                 
                 .rating-value {
@@ -1748,7 +1902,7 @@
                         </div>
                         <div class="player-info">
                             <h3>Кепа</h3>
-                            <p>Вратарь • 14 лет</p>
+                            <p>Центральный защитник-Вратарь • 14 лет</p>
                             <div class="player-number">(66)</div>
                         </div>
                         <div class="player-stats">
@@ -1758,11 +1912,11 @@
                             </div>
                             <div class="stat-item">
                                 <div class="stat-value">0</div>
-                                <div class="stat-label">Сухие</div>
+                                <div class="stat-label">Голы</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-value">0</div>
-                                <div class="stat-label">Сейвы</div>
+                                <div class="stat-label">Ассисты</div>
                             </div>
                         </div>
                     </div>
@@ -2120,6 +2274,7 @@
                         <h3>Тактическая информация</h3>
                         <p><strong>Схема:</strong> Ложная девятка</p>
                         <p><strong>Описание:</strong> Классическая расстановка нашего двора с Мбаппе в роли ложной девятки и мощной защитной линией.</p>
+                        <p><strong>Особенность:</strong> Кепа играет в роли центрального защитника-вратаря, обеспечивая дополнительную страховку в обороне.</p>
                     </div>
                 </div>
             </div>
@@ -2138,7 +2293,7 @@
                         <div class="club-info">
                             <h3>Легенды Двора</h3>
                             <p>Основан: 2025 год</p>
-                            <p>Состав: 4 игрока</p>
+                            <p>Состав: 4 игрока (3 основных + 1 запасной)</p>
                         </div>
                     </div>
                 </div>
@@ -2311,31 +2466,114 @@
                 </div>
             </div>
             
-            <!-- Компактная статистика -->
-            <div class="modal-stats">
-                <div class="modal-stat-item">
-                    <div class="modal-stat-label">Рабочая нога</div>
-                    <div class="modal-stat-value" id="modal-foot">Правая</div>
+            <!-- Статистика будет заполнена через JS -->
+            <div id="modal-stats-container">
+                <!-- Для обычных игроков -->
+                <div class="modal-stats" id="normal-stats" style="display: none;">
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Рабочая нога</div>
+                        <div class="modal-stat-value" id="modal-foot">Правая</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Рост</div>
+                        <div class="modal-stat-value" id="modal-height">0 см</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Вес</div>
+                        <div class="modal-stat-value" id="modal-weight">0 кг</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Голы</div>
+                        <div class="modal-stat-value" id="modal-goals">0</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Ассисты</div>
+                        <div class="modal-stat-value" id="modal-assists">0</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Матчи</div>
+                        <div class="modal-stat-value" id="modal-matches">0</div>
+                    </div>
                 </div>
-                <div class="modal-stat-item">
-                    <div class="modal-stat-label">Рост</div>
-                    <div class="modal-stat-value" id="modal-height">0 см</div>
+                
+                <!-- Для вратарей -->
+                <div class="modal-stats" id="goalkeeper-stats" style="display: none;">
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Рабочая нога</div>
+                        <div class="modal-stat-value" id="modal-foot-gk">Правая</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Рост</div>
+                        <div class="modal-stat-value" id="modal-height-gk">0 см</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Вес</div>
+                        <div class="modal-stat-value" id="modal-weight-gk">0 кг</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Сухие матчи</div>
+                        <div class="modal-stat-value" id="modal-cleansheets">0</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Сейвы</div>
+                        <div class="modal-stat-value" id="modal-saves">0</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Матчи</div>
+                        <div class="modal-stat-value" id="modal-matches-gk">0</div>
+                    </div>
                 </div>
-                <div class="modal-stat-item">
-                    <div class="modal-stat-label">Вес</div>
-                    <div class="modal-stat-value" id="modal-weight">0 кг</div>
-                </div>
-                <div class="modal-stat-item">
-                    <div class="modal-stat-label">Голы</div>
-                    <div class="modal-stat-value" id="modal-goals">0</div>
-                </div>
-                <div class="modal-stat-item">
-                    <div class="modal-stat-label">Ассисты</div>
-                    <div class="modal-stat-value" id="modal-assists">0</div>
-                </div>
-                <div class="modal-stat-item">
-                    <div class="modal-stat-label">Матчи</div>
-                    <div class="modal-stat-value" id="modal-matches">0</div>
+                
+                <!-- Для игроков с комбинированной позицией (Кепа) -->
+                <div class="modal-stats-combined" id="combined-stats" style="display: none;">
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Рабочая нога</div>
+                        <div class="modal-stat-value" id="modal-foot-combined">Правая</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Рост</div>
+                        <div class="modal-stat-value" id="modal-height-combined">0 см</div>
+                    </div>
+                    <div class="modal-stat-item">
+                        <div class="modal-stat-label">Вес</div>
+                        <div class="modal-stat-value" id="modal-weight-combined">0 кг</div>
+                    </div>
+                    
+                    <div class="modal-stat-item-wide">
+                        <div class="modal-stat-label">Статистика как центрального защитника</div>
+                        <div class="modal-stat-group">
+                            <div>
+                                <div class="modal-stat-label">Голы</div>
+                                <div class="modal-stat-value" id="modal-goals-combined">0</div>
+                            </div>
+                            <div>
+                                <div class="modal-stat-label">Ассисты</div>
+                                <div class="modal-stat-value" id="modal-assists-combined">0</div>
+                            </div>
+                            <div>
+                                <div class="modal-stat-label">Матчи</div>
+                                <div class="modal-stat-value" id="modal-matches-cd">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-stat-item-wide">
+                        <div class="modal-stat-label">Статистика как вратаря</div>
+                        <div class="modal-stat-group">
+                            <div>
+                                <div class="modal-stat-label">Сухие матчи</div>
+                                <div class="modal-stat-value" id="modal-cleansheets-combined">0</div>
+                            </div>
+                            <div>
+                                <div class="modal-stat-label">Сейвы</div>
+                                <div class="modal-stat-value" id="modal-saves-combined">0</div>
+                            </div>
+                            <div>
+                                <div class="modal-stat-label">Матчи</div>
+                                <div class="modal-stat-value" id="modal-matches-gk-combined">0</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2345,7 +2583,7 @@
     <script src="photos.js"></script>
 
     <script>
-        // Данные игроков
+        // Обновленные данные игроков
         const playersData = {
             mbappe: {
                 name: "Килиан Мбаппе",
@@ -2377,15 +2615,18 @@
             },
             kepa: {
                 name: "Кепа",
-                position: "Центральный защитник",
+                position: "Центральный защитник-Вратарь",
                 age: "14 лет",
-                icon: "🛡️",
+                icon: "🛡️🧤",
                 foot: "Правая",
                 height: "0 см",
                 weight: "0 кг",
-                matches: 0,
+                matchesAsCD: 0,
                 goals: 0,
                 assists: 0,
+                matchesAsGK: 0,
+                saves: 0,
+                cleanSheets: 0,
                 rating: 89,
                 number: "(66)"
             },
@@ -2517,26 +2758,26 @@
             }
         };
         
-        // Данные клубов (обновлено: Кепа как запасной вратарь)
+        // Обновленные данные клубов (добавлена скамейка запасных)
         const clubsData = {
             legends: {
                 name: "Легенды Двора",
                 founded: "2025 год",
-                players: ["mbappe", "beloszhneka", "raya", "kepa"],
+                players: ["mbappe", "beloszhneka", "raya"], // Основной состав
+                substitutes: ["kepa"], // Скамейка запасных
                 formation: {
-                    name: "Схема 1-1-1-1",
-                    description: "Три ключевых игрока двора + запасной вратарь",
+                    name: "Схема 1-1-1",
+                    description: "Три ключевых игрока двора",
                     positions: {
                         attack: ["mbappe"],
                         defense: ["beloszhneka"],
-                        goalkeeper: ["raya"],
-                        substitute: ["kepa"]
+                        goalkeeper: ["raya"]
                     }
                 },
                 achievements: [
                     "Первый клуб двора",
                     "Обладатели лучших рейтингов",
-                    "Три ключевых игрока двора + запасной вратарь"
+                    "Три ключевых игрока двора"
                 ]
             }
         };
@@ -2757,12 +2998,13 @@
                     <div class="club-detail-info">
                         <h3>${club.name}</h3>
                         <p><strong>Основан:</strong> ${club.founded}</p>
-                        <p><strong>Состав:</strong> ${club.players.length} игрока</p>
+                        <p><strong>Основной состав:</strong> ${club.players.length} игрока</p>
+                        <p><strong>Запасные:</strong> ${club.substitutes.length} игрок</p>
                     </div>
                 </div>
                 
                 <div class="club-formation">
-                    <h3 class="formation-title">Схема: ${club.formation.name}</h3>
+                    <h3 class="formation-title">Основной состав: ${club.formation.name}</h3>
                     
                     <!-- Нападение - Мбаппе -->
                     <div class="club-formation-line">
@@ -2809,23 +3051,26 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Запасной вратарь - Кепа -->
-                    <div class="club-formation-line">
-                        ${club.formation.positions.substitute.map(playerId => {
+                    <p style="margin-top: 15px; font-style: italic;">${club.formation.description}</p>
+                </div>
+                
+                <!-- Секция скамейки запасных -->
+                <div class="substitutes-section">
+                    <h3 class="substitutes-title">Скамейка запасных</h3>
+                    <div class="substitutes-grid">
+                        ${club.substitutes.map(playerId => {
                             const player = playersData[playerId];
                             return `
-                                <div class="club-formation-player" data-player="${playerId}">
-                                    <div class="club-formation-photo" id="club-${clubId}-${playerId}-photo">
+                                <div class="substitute-player" data-player="${playerId}">
+                                    <div class="substitute-photo" id="club-${clubId}-${playerId}-sub-photo">
                                         <!-- Фото будет загружено через JS -->
                                     </div>
-                                    <div class="club-formation-name">${player.name} ${player.number}</div>
-                                    <div style="font-size: 0.8rem; color: #666; margin-top: 3px;">(запасной вратарь)</div>
+                                    <div class="substitute-name">${player.name}</div>
+                                    <div class="player-number">${player.number}</div>
                                 </div>
                             `;
                         }).join('')}
                     </div>
-                    
-                    <p style="margin-top: 15px; font-style: italic;">${club.formation.description}</p>
                 </div>
                 
                 <div class="tactics-info">
@@ -2870,7 +3115,7 @@
                 clubLogoDetail.appendChild(icon);
             }
             
-            // Загружаем фото игроков
+            // Загружаем фото основных игроков
             club.players.forEach(playerId => {
                 const playerPhoto = document.getElementById(`club-${clubId}-${playerId}-photo`);
                 if (playerPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
@@ -2897,8 +3142,35 @@
                 }
             });
             
+            // Загружаем фото запасных игроков
+            club.substitutes.forEach(playerId => {
+                const playerPhoto = document.getElementById(`club-${clubId}-${playerId}-sub-photo`);
+                if (playerPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+                    const img = document.createElement('img');
+                    img.src = playerPhotos[playerId];
+                    img.alt = playersData[playerId]?.name || playerId;
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    playerPhoto.appendChild(img);
+                } else {
+                    const player = playersData[playerId];
+                    if (player) {
+                        const icon = document.createElement('div');
+                        icon.textContent = player.icon;
+                        icon.style.fontSize = '1.4rem';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        playerPhoto.appendChild(icon);
+                    }
+                }
+            });
+            
             // Добавляем обработчики кликов на игроков
-            document.querySelectorAll(`.club-formation-player[data-player]`).forEach(element => {
+            document.querySelectorAll(`.club-formation-player[data-player], .substitute-player[data-player]`).forEach(element => {
                 element.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
                     openPlayerModal(playerId);
@@ -2914,35 +3186,16 @@
             // Заполняем данные в модальном окне
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
-            document.getElementById('modal-foot').textContent = player.foot;
-            document.getElementById('modal-height').textContent = player.height;
-            document.getElementById('modal-weight').textContent = player.weight;
             
             // Устанавливаем рейтинг с цветом
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
             
             // Определяем цвет рейтинга
-            if (player.rating >= 80) {
+            if (player.rating >= 85) {
                 ratingElement.className = 'rating-value rating-high';
             } else {
                 ratingElement.className = 'rating-value rating-medium';
-            }
-            
-            // Для вратаря особые статистики
-            if (player.position === "Вратарь" || player.position === "Центральный защитник") {
-                if (player.position === "Вратарь") {
-                    document.getElementById('modal-goals').textContent = "N/A";
-                    document.getElementById('modal-assists').textContent = "N/A";
-                } else {
-                    document.getElementById('modal-goals').textContent = player.goals || 0;
-                    document.getElementById('modal-assists').textContent = player.assists || 0;
-                }
-                document.getElementById('modal-matches').textContent = player.matches || 0;
-            } else {
-                document.getElementById('modal-goals').textContent = player.goals || 0;
-                document.getElementById('modal-assists').textContent = player.assists || 0;
-                document.getElementById('modal-matches').textContent = player.matches || 0;
             }
             
             // Устанавливаем фото или иконку
@@ -2969,6 +3222,53 @@
                 icon.style.alignItems = 'center';
                 icon.style.justifyContent = 'center';
                 modalPhoto.appendChild(icon);
+            }
+            
+            // Скрываем все статистики
+            document.getElementById('normal-stats').style.display = 'none';
+            document.getElementById('goalkeeper-stats').style.display = 'none';
+            document.getElementById('combined-stats').style.display = 'none';
+            
+            // Показываем соответствующую статистику в зависимости от позиции
+            if (player.position.includes('Вратарь') && player.position.includes('Центральный защитник')) {
+                // Для Кепы - комбинированная статистика
+                document.getElementById('combined-stats').style.display = 'grid';
+                
+                document.getElementById('modal-foot-combined').textContent = player.foot;
+                document.getElementById('modal-height-combined').textContent = player.height;
+                document.getElementById('modal-weight-combined').textContent = player.weight;
+                
+                // Статистика как центрального защитника
+                document.getElementById('modal-goals-combined').textContent = player.goals || 0;
+                document.getElementById('modal-assists-combined').textContent = player.assists || 0;
+                document.getElementById('modal-matches-cd').textContent = player.matchesAsCD || 0;
+                
+                // Статистика как вратаря
+                document.getElementById('modal-cleansheets-combined').textContent = player.cleanSheets || 0;
+                document.getElementById('modal-saves-combined').textContent = player.saves || 0;
+                document.getElementById('modal-matches-gk-combined').textContent = player.matchesAsGK || 0;
+                
+            } else if (player.position === "Вратарь") {
+                // Для обычного вратаря
+                document.getElementById('goalkeeper-stats').style.display = 'grid';
+                
+                document.getElementById('modal-foot-gk').textContent = player.foot;
+                document.getElementById('modal-height-gk').textContent = player.height;
+                document.getElementById('modal-weight-gk').textContent = player.weight;
+                document.getElementById('modal-cleansheets').textContent = player.cleanSheets || 0;
+                document.getElementById('modal-saves').textContent = player.saves || 0;
+                document.getElementById('modal-matches-gk').textContent = player.matches || 0;
+                
+            } else {
+                // Для полевых игроков
+                document.getElementById('normal-stats').style.display = 'grid';
+                
+                document.getElementById('modal-foot').textContent = player.foot;
+                document.getElementById('modal-height').textContent = player.height;
+                document.getElementById('modal-weight').textContent = player.weight;
+                document.getElementById('modal-goals').textContent = player.goals || 0;
+                document.getElementById('modal-assists').textContent = player.assists || 0;
+                document.getElementById('modal-matches').textContent = player.matches || 0;
             }
             
             // Показываем модальное окно
