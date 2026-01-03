@@ -1,0 +1,74 @@
+name: Deploy Telegram Bot
+
+on:
+  workflow_dispatch:  # Ручной запуск
+  schedule:
+    - cron: '0 */2 * * *'  # Запускать каждые 2 часа
+
+jobs:
+  deploy-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install python-telegram-bot==20.7
+    
+    - name: 🔧 Configure Git
+      run: |
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "GitHub Actions"
+    
+    - name: 🤖 Run Telegram Bot
+      env:
+        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        ADMIN_ID: ${{ secrets.ADMIN_ID }}
+      run: |
+        echo "🚀 Запуск бота..."
+        # Проверяем, что бот работает
+        timeout 10m python bot.py || echo "Бот запущен"
+    
+    - name: 💾 Сохраняем данные
+      run: |
+        echo "📁 Список файлов:"
+        ls -la
+        
+        if [ -f "players_data.json" ]; then
+          echo "✅ players_data.json существует"
+          echo "📊 Содержимое players_data.json:"
+          cat players_data.json | head -20
+        fi
+        
+        if [ -f "stats.js" ]; then
+          echo "✅ stats.js существует"
+          echo "📊 Первые 10 строк stats.js:"
+          head -20 stats.js
+        fi
+    
+    - name: 📤 Commit and push changes
+      run: |
+        # Проверяем изменения
+        git status
+        
+        # Добавляем только файлы с данными
+        git add players_data.json stats.js || echo "Файлы не найдены"
+        
+        # Коммитим если есть изменения
+        if ! git diff --cached --quiet; then
+          git commit -m "🤖 Автоматическое обновление данных от $(date '+%d.%m.%Y %H:%M')"
+          git push
+          echo "✅ Изменения закоммичены и запущены"
+        else
+          echo "📭 Нет изменений для коммита"
+        fi
