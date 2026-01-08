@@ -243,83 +243,7 @@
             box-shadow: none;
         }
         
-        /* Кнопка Телеграм-канала */
-        .telegram-button-container {
-            text-align: center;
-            margin: 20px 0 25px;
-        }
-        
-        .telegram-button {
-            background: linear-gradient(to right, #0088cc, #34a8e4);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.3rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            -webkit-tap-highlight-color: transparent;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
-            text-decoration: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        
-        .telegram-button:hover {
-            background: linear-gradient(to right, #0077b3, #2997d4);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.4);
-        }
-        
-        .telegram-button:active {
-            background: linear-gradient(to right, #006699, #2486c0);
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(0, 136, 204, 0.3);
-        }
-        
-        .dark-theme .telegram-button {
-            background: linear-gradient(to right, #0088cc, #34a8e4);
-            box-shadow: 0 4px 15px rgba(52, 168, 228, 0.4);
-        }
-        
-        .dark-theme .telegram-button:hover {
-            background: linear-gradient(to right, #0077b3, #2997d4);
-        }
-        
-        .telegram-icon {
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Текст под кнопкой Телеграм */
-        .telegram-help-text {
-            text-align: center;
-            color: #666;
-            font-size: 0.95rem;
-            margin-top: 10px;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .telegram-help-text {
-            color: #aaa;
-        }
-        
-        .telegram-help-text span {
-            color: #0088cc;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .telegram-help-text span {
-            color: #4dabf7;
-        }
+        /* Убраны стили для кнопки Телеграм-канала */
         
         /* Страница игроков (теперь "Состав двора") */
         .page {
@@ -1819,18 +1743,7 @@
                     </div>
                 </div>
                 
-                <!-- Кнопка Телеграм-канала -->
-                <div class="telegram-button-container">
-                    <a href="https://t.me/DvorLeague" target="_blank" class="telegram-button">
-                        <div class="telegram-icon">📢</div>
-                        <span>Новости в Телеграм-канале</span>
-                    </a>
-                    
-                    <!-- Текст под кнопкой -->
-                    <div class="telegram-help-text">
-                        Не работает кнопка? Вводи в поиск телеграмма <span>DvorLeague</span>
-                    </div>
-                </div>
+                <!-- Убрана кнопка Телеграм-канала -->
                 
                 <!-- Кнопка обновления -->
                 <div class="update-button-container">
@@ -2142,6 +2055,32 @@
                             <h3>Хоккеист</h3>
                             <p>Полузащитник • 14 лет</p>
                             <div class="player-number">(13)</div>
+                        </div>
+                        <div class="player-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Матчи</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Голы</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Ассисты</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ваня (добавлен новый игрок) -->
+                    <div class="player-card" data-player="vanya">
+                        <div class="player-photo" id="vanya-photo">
+                            <!-- Фото будет загружено через JS -->
+                        </div>
+                        <div class="player-info">
+                            <h3>Ваня</h3>
+                            <p>Центральный полузащитник • 14 лет</p>
+                            <div class="player-number">(99)</div>
                         </div>
                         <div class="player-stats">
                             <div class="stat-item">
@@ -2587,7 +2526,7 @@
     <script src="photos.js"></script>
 
     <script>
-        // Обновленные данные игроков с новыми рейтингами
+        // Обновленные данные игроков с новыми рейтингами и добавленным игроком
         const playersData = {
             mbappe: {
                 name: "Килиан Мбаппе",
@@ -2631,7 +2570,7 @@
                 matchesAsGK: 0,
                 saves: 0,
                 cleanSheets: 0,
-                rating: 88, // Обновлен рейтинг: 88
+                rating: 88,
                 number: "(66)"
             },
             maradona: {
@@ -2729,7 +2668,7 @@
                 matches: 0,
                 goals: 0,
                 assists: 0,
-                rating: 87, // Обновлен рейтинг: 87
+                rating: 87,
                 number: "(4)"
             },
             andryushka: {
@@ -2759,6 +2698,20 @@
                 assists: 0,
                 rating: 82,
                 number: "(13)"
+            },
+            vanya: {
+                name: "Ваня",
+                position: "Центральный полузащитник",
+                age: "14 лет",
+                icon: "⚽",
+                foot: "Правая",
+                height: "0 см",
+                weight: "0 кг",
+                matches: 0,
+                goals: 0,
+                assists: 0,
+                rating: 61,
+                number: "(99)"
             }
         };
         
@@ -2796,8 +2749,8 @@
                 return;
             }
             
-            // Массив всех ID игроков
-            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist'];
+            // Массив всех ID игроков (добавлен vanya)
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
             
             // Загружаем фото для каждого игрока
             playerIds.forEach(playerId => {
@@ -2843,7 +2796,7 @@
         
         // Функция для установки иконок игрокам
         function setIconsForPlayers() {
-            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist'];
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
             
             playerIds.forEach(playerId => {
                 const player = playersData[playerId];
