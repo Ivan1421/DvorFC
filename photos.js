@@ -15,7 +15,6 @@ const playerPhotos = {
     hokkeist: "https://ivan1421.github.io/DvorFC/Photos (2)/hokkeist.jpg",
     kepa: "https://ivan1421.github.io/DvorFC/Photos (2)/kepa.jpg",
     vanya: "https://ivan1421.github.io/DvorFC/Photos (2)/Dowman.jpeg"
--{;
 
 // ================================================================
 
