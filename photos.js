@@ -13,7 +13,8 @@ const playerPhotos = {
     andryushka: "Photos (2)/andryushka.jpg",
     hokkeist: "Photos (2)/hokkeist.jpg",
     kepa: "Photos (2)/kepa.jpg",
-    vanya: "Photos (2)/Dowman.jpeg"
+    vanya: "Photos (2)/Dowman.jpeg",
+    taisia: "Photos (2)/taisia.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
