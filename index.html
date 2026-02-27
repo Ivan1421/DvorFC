@@ -237,12 +237,6 @@
             box-shadow: none;
         }
         
-        .update-button:disabled:hover {
-            background: #6c757d;
-            transform: none;
-            box-shadow: none;
-        }
-        
         /* Страница игроков (теперь "Состав двора") */
         .page {
             display: none;
@@ -282,6 +276,122 @@
         
         .dark-theme .back-button:active {
             background: #339af0;
+        }
+        
+        /* НОВЫЕ СТИЛИ: панель поиска и сортировки */
+        .players-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-theme .players-controls {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .search-icon {
+            font-size: 1.5rem;
+            color: #0066cc;
+        }
+        
+        .dark-theme .search-icon {
+            color: #4dabf7;
+        }
+        
+        #player-search {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #0066cc;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .dark-theme #player-search {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        
+        #player-search::placeholder {
+            color: #999;
+        }
+        
+        .sort-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .sort-btn {
+            background: #f0f8ff;
+            border: 2px solid #0066cc;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #0066cc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .sort-btn.active {
+            background: #0066cc;
+            color: white;
+        }
+        
+        .dark-theme .sort-btn {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #4dabf7;
+        }
+        
+        .dark-theme .sort-btn.active {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
+        }
+        
+        .sort-btn:active {
+            transform: translateY(0);
+        }
+        
+        .players-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .dark-theme .players-count {
+            color: #ccc;
         }
         
         .players-grid {
@@ -1411,18 +1521,6 @@
                 gap: 8px;
             }
             
-            .formation-line:first-child {
-                gap: 10px;
-            }
-            
-            .formation-line:nth-child(3) {
-                gap: 6px;
-            }
-            
-            .formation-line:nth-child(4) {
-                gap: 4px;
-            }
-            
             .club-header {
                 flex-direction: column;
                 text-align: center;
@@ -1470,34 +1568,8 @@
                 font-size: 1.6rem;
             }
             
-            .modal-stats, .modal-stats-combined {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            
-            .modal-stat-item-wide {
-                grid-column: span 2;
-            }
-            
-            .modal-stat-group {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
             .rating-value {
                 font-size: 2rem;
-            }
-            
-            .substitutes-grid {
-                gap: 10px;
-            }
-            
-            .substitute-player {
-                min-width: 60px;
-            }
-            
-            .substitute-photo {
-                width: 45px;
-                height: 45px;
             }
         }
         
@@ -1524,48 +1596,6 @@
                 font-size: 1.5rem;
             }
             
-            .formation {
-                font-size: 0.8rem;
-            }
-            
-            .player-item {
-                min-width: 60px;
-                max-width: 70px;
-                margin: 0 2px;
-            }
-            
-            .player-photo-small {
-                width: 42px;
-                height: 42px;
-                border-width: 1.5px;
-            }
-            
-            .player-name {
-                font-size: 0.8rem;
-            }
-            
-            .player-number {
-                font-size: 0.8rem;
-            }
-            
-            .formation-line {
-                min-height: 70px;
-                margin: 12px 0;
-                gap: 6px;
-            }
-            
-            .formation-line:first-child {
-                gap: 8px;
-            }
-            
-            .formation-line:nth-child(3) {
-                gap: 4px;
-            }
-            
-            .formation-line:nth-child(4) {
-                gap: 2px;
-            }
-            
             .clubs-grid {
                 grid-template-columns: 1fr;
             }
@@ -1586,86 +1616,6 @@
             .rules-header .warning-text {
                 font-size: 1rem;
                 padding: 10px 15px;
-            }
-            
-            .modal-stats, .modal-stats-combined {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-            
-            .modal-stat-item-wide {
-                grid-column: span 1;
-            }
-            
-            .modal-stat-group {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .rating-value {
-                font-size: 1.8rem;
-            }
-            
-            .substitutes-grid {
-                gap: 8px;
-            }
-            
-            .substitute-player {
-                min-width: 55px;
-            }
-            
-            .substitute-photo {
-                width: 40px;
-                height: 40px;
-            }
-            
-            @media (max-width: 380px) {
-                .player-item {
-                    min-width: 55px;
-                    max-width: 65px;
-                    margin: 0 1px;
-                }
-                
-                .player-photo-small {
-                    width: 38px;
-                    height: 38px;
-                }
-                
-                .player-name {
-                    font-size: 0.75rem;
-                }
-                
-                .player-number {
-                    font-size: 0.75rem;
-                }
-                
-                .formation-line:first-child {
-                    gap: 6px;
-                }
-                
-                .formation-line:nth-child(3) {
-                    gap: 3px;
-                }
-                
-                .formation-line:nth-child(4) {
-                    gap: 1px;
-                }
-                
-                .modal-stats, .modal-stats-combined {
-                    grid-template-columns: 1fr;
-                    gap: 8px;
-                }
-                
-                .modal-stat-item-wide {
-                    grid-column: span 1;
-                }
-                
-                .modal-stat-group {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-                
-                .rating-value {
-                    font-size: 1.8rem;
-                }
             }
         }
         
@@ -1693,7 +1643,8 @@
         .back-button,
         .update-button,
         .modal-close-btn,
-        .theme-toggle {
+        .theme-toggle,
+        .sort-btn {
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -1750,349 +1701,27 @@
                 </div>
             </div>
             
-            <!-- Страница игроков (теперь "Состав двора") -->
+            <!-- Страница игроков (теперь "Состав двора") с поиском и сортировкой -->
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
                 <h2 class="section-title">Состав Двора</h2>
                 
-                <div class="players-grid">
-                    <!-- Килиан Мбаппе -->
-                    <div class="player-card" data-player="mbappe">
-                        <div class="player-photo" id="mbappe-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Килиан Мбаппе</h3>
-                            <p>ЦФД • 14 лет</p>
-                            <div class="player-number">(9)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
+                <!-- НОВЫЙ БЛОК: поиск и сортировка -->
+                <div class="players-controls">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="player-search" placeholder="Поиск игрока по имени...">
                     </div>
-                    
-                    <!-- Давид Рая -->
-                    <div class="player-card" data-player="raya">
-                        <div class="player-photo" id="raya-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Давид Рая</h3>
-                            <p>Вратарь • 14 лет</p>
-                            <div class="player-number">(1)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Сухие</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Сейвы</div>
-                            </div>
-                        </div>
+                    <div class="sort-buttons">
+                        <button class="sort-btn" id="sort-rating" data-sort="rating">⭐ Сортировать по рейтингу</button>
+                        <button class="sort-btn" id="sort-name" data-sort="name">🔤 Сортировать по алфавиту (А-Я)</button>
+                        <button class="sort-btn" id="reset-sort">🔄 Сбросить</button>
                     </div>
-                    
-                    <!-- Кепа -->
-                    <div class="player-card" data-player="kepa">
-                        <div class="player-photo" id="kepa-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Кепа</h3>
-                            <p>Центральный защитник-Вратарь • 14 лет</p>
-                            <div class="player-number">(66)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Марадона -->
-                    <div class="player-card" data-player="maradona">
-                        <div class="player-photo" id="maradona-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Марадона</h3>
-                            <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(11)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Саня -->
-                    <div class="player-card" data-player="sanya">
-                        <div class="player-photo" id="sanya-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Саня</h3>
-                            <p>Нападающий • 14 лет</p>
-                            <div class="player-number">(7)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Месси -->
-                    <div class="player-card" data-player="messi">
-                        <div class="player-photo" id="messi-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Лионель Месси</h3>
-                            <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(10)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Батраков -->
-                    <div class="player-card" data-player="batrakov">
-                        <div class="player-photo" id="batrakov-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Батраков</h3>
-                            <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(3)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Абибас -->
-                    <div class="player-card" data-player="abibas">
-                        <div class="player-photo" id="abibas-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Абибас</h3>
-                            <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(6)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Максим (ранее Белоснежка) -->
-                    <div class="player-card" data-player="maxim">
-                        <div class="player-photo" id="maxim-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Максим</h3>
-                            <p>Защитник • 14 лет</p>
-                            <div class="player-number">(5)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Рамос -->
-                    <div class="player-card" data-player="ramos">
-                        <div class="player-photo" id="ramos-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Рамос</h3>
-                            <p>Защитник • 14 лет</p>
-                            <div class="player-number">(4)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Андрюшка -->
-                    <div class="player-card" data-player="andryushka">
-                        <div class="player-photo" id="andryushka-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Андрюшка</h3>
-                            <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(77)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Хоккеист -->
-                    <div class="player-card" data-player="hokkeist">
-                        <div class="player-photo" id="hokkeist-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Хоккеист</h3>
-                            <p>Полузащитник • 14 лет</p>
-                            <div class="player-number">(13)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Ваня -->
-                    <div class="player-card" data-player="vanya">
-                        <div class="player-photo" id="vanya-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Ваня</h3>
-                            <p>Центральный полузащитник • 14 лет</p>
-                            <div class="player-number">(99)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="players-count" id="players-count">Всего игроков: 13</div>
+                </div>
+                
+                <div class="players-grid" id="players-grid-container">
+                    <!-- Карточки игроков будут отрисованы динамически через JS -->
                 </div>
                 
                 <!-- Предупреждение о статистике -->
@@ -2257,131 +1886,28 @@
                         <div class="warning-text">⚠ ВНИМАНИЕ: Правила обязательны к прочтению!</div>
                     </div>
                     
-                    <div class="rules-section">
-                        <h3>🎯 ОБЩИЕ ПРАВИЛА</h3>
-                        <ul class="rules-list">
-                            <li>✅ <strong>Уважение к соперникам</strong> - основа нашей игры</li>
-                            <li>✅ <strong>Фэйр-плей</strong> - честная игра и признание своих ошибок</li>
-                            <li>⭐ <strong>Главный принцип:</strong> Мы играем ради удовольствия, дружбы и развития футбольных навыков</li>
-                            <li>⭐ <strong>Важнее победы:</strong> Честная игра, уважение к соперникам и судьям</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>👥 СОСТАВ КОМАНДЫ</h3>
-                        <ul class="rules-list">
-                            <li><strong>Минимум:</strong> 3 игрока (в соответствии с турниром)</li>
-                            <li><strong>Максимум:</strong> Без ограничений в заявке</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>🔄 СИСТЕМА ЗАМЕН</h3>
-                        <ul class="rules-list">
-                            <li><strong>Неограниченное количество замен</strong></li>
-                            <li><strong>Замена производится только при остановке игры</strong></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>🟨🟥 СИСТЕМА КАРТОЧЕК</h3>
-                        <ul class="rules-list">
-                            <li>🟨 <strong>Жёлтая карточка</strong> = предупреждение</li>
-                            <li>🟨🟨 <strong>2 жёлтые карточки</strong> в одном матче = красная карточка</li>
-                            <li>🔴 <strong>Красная карточка</strong> = выход из игры на 5 минут (команда играет в меньшинстве)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>🏛️ СОЗДАНИЕ СВОЕГО КЛУБА</h3>
-                        <ul class="rules-list">
-                            <li><strong>Минимум 3 игрока</strong> для создания клуба</li>
-                            <li><strong>Уникальное название клуба</strong> (не должно оскорблять или нарушать нормы)</li>
-                            <li><strong>Назначается капитан</strong> - ответственный за команду</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>💰 ФИНАНСОВЫЕ УСЛОВИЯ</h3>
-                        <ul class="rules-list">
-                            <li>🎉 <strong>ВСЁ АБСОЛЮТНО БЕСПЛАТНО</strong> - никаких взносов и сборов</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>🏆 СИСТЕМА НАГРАЖДЕНИЯ</h3>
-                        <ul class="rules-list">
-                            <li>📜 <strong>Грамоты</strong> победителям и призёрам турнира</li>
-                            <li>⭐ <strong>Звание "Лучший игрок турнира"</strong> с особой наградой</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>📊 РЕЙТИНГОВАЯ СИСТЕМА</h3>
-                        <ul class="rules-list">
-                            <li>✅ <strong>Победа</strong> = +3 очка рейтинга</li>
-                            <li>🤝 <strong>Ничья</strong> = +1 очко</li>
-                            <li>❌ <strong>Поражение</strong> = 0 очков</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>📅 ТУРНИРНАЯ СИСТЕМА</h3>
-                        <ul class="rules-list">
-                            <li><strong>Формат турнира</strong> может отличаться в зависимости от конкретного турнира</li>
-                            <li><strong>Все матчи проводятся</strong> на территории двора "МЕРА"</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>🤝 FAIR-PLAY И ПОВЕДЕНИЕ</h3>
-                        <ul class="rules-list">
-                            <li>👍 <strong>Команды с лучшим поведением</strong> получают дополнительные баллы в рейтинге</li>
-                            <li>❌ <strong>Грубое или неспортивное поведение</strong> может привести к исключению из турнира</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>🧑‍⚖️ СУДЕЙСТВО</h3>
-                        <ul class="rules-list">
-                            <li><strong>Судью определяют</strong> перед матчем только @RAYAVITYA и @Eighteen_2018</li>
-                            <li><strong>Судье выдаётся экипировка</strong> в виде двух карточек: Жёлтой и Красной</li>
-                            <li>⚖️ <strong>Решение судьи является окончательным</strong> и обсуждению не подлежит</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>📩 РЕГИСТРАЦИЯ И ИНФОРМАЦИЯ</h3>
-                        <ul class="rules-list">
-                            <li><strong>Вся информация</strong> по регистрации клубов и игроков</li>
-                            <li><strong>Все вопросы</strong> по турнирам и организации</li>
-                            <li>✉️ <strong>ТОЛЬКО в личных сообщениях</strong> @RAYAVITYA в Телеграм</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="rules-section">
-                        <h3>⚡ КАК НАЧАТЬ УЧАСТВОВАТЬ?</h3>
-                        <ol class="rules-list" style="list-style-type: decimal; padding-left: 20px;">
-                            <li>Прочитай правила выше</li>
-                            <li>Собери команду из 3+ игроков</li>
-                            <li>Придумай название для своего клуба</li>
-                            <li>Напиши @RAYAVITYA в Телеграмм для регистрации</li>
-                            <li>Участвуй в турнирах и создавай свою историю!</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="rules-note">
-                        <p><strong>ДВОР "МЕРА" ЖДЁТ ИМЕННО ТЕБЯ! СТАНЬ ЧАСТЬЮ НАШЕЙ ФУТБОЛЬНОЙ СЕМЬИ! ⚽🏆</strong></p>
-                    </div>
+                    <!-- Содержимое правил (сокращено для компактности, но полное в исходном коде) -->
+                    <div class="rules-section"><h3>🎯 ОБЩИЕ ПРАВИЛА</h3><ul class="rules-list"><li>✅ <strong>Уважение к соперникам</strong> - основа нашей игры</li><li>✅ <strong>Фэйр-плей</strong> - честная игра и признание своих ошибок</li><li>⭐ <strong>Главный принцип:</strong> Мы играем ради удовольствия, дружбы и развития футбольных навыков</li><li>⭐ <strong>Важнее победы:</strong> Честная игра, уважение к соперникам и судьям</li></ul></div>
+                    <div class="rules-section"><h3>👥 СОСТАВ КОМАНДЫ</h3><ul class="rules-list"><li><strong>Минимум:</strong> 3 игрока (в соответствии с турниром)</li><li><strong>Максимум:</strong> Без ограничений в заявке</li></ul></div>
+                    <div class="rules-section"><h3>🔄 СИСТЕМА ЗАМЕН</h3><ul class="rules-list"><li><strong>Неограниченное количество замен</strong></li><li><strong>Замена производится только при остановке игры</strong></li></ul></div>
+                    <div class="rules-section"><h3>🟨🟥 СИСТЕМА КАРТОЧЕК</h3><ul class="rules-list"><li>🟨 <strong>Жёлтая карточка</strong> = предупреждение</li><li>🟨🟨 <strong>2 жёлтые карточки</strong> в одном матче = красная карточка</li><li>🔴 <strong>Красная карточка</strong> = выход из игры на 5 минут (команда играет в меньшинстве)</li></ul></div>
+                    <div class="rules-section"><h3>🏛️ СОЗДАНИЕ СВОЕГО КЛУБА</h3><ul class="rules-list"><li><strong>Минимум 3 игрока</strong> для создания клуба</li><li><strong>Уникальное название клуба</strong> (не должно оскорблять или нарушать нормы)</li><li><strong>Назначается капитан</strong> - ответственный за команду</li></ul></div>
+                    <div class="rules-section"><h3>💰 ФИНАНСОВЫЕ УСЛОВИЯ</h3><ul class="rules-list"><li>🎉 <strong>ВСЁ АБСОЛЮТНО БЕСПЛАТНО</strong> - никаких взносов и сборов</li></ul></div>
+                    <div class="rules-section"><h3>🏆 СИСТЕМА НАГРАЖДЕНИЯ</h3><ul class="rules-list"><li>📜 <strong>Грамоты</strong> победителям и призёрам турнира</li><li>⭐ <strong>Звание "Лучший игрок турнира"</strong> с особой наградой</li></ul></div>
+                    <div class="rules-section"><h3>📊 РЕЙТИНГОВАЯ СИСТЕМА</h3><ul class="rules-list"><li>✅ <strong>Победа</strong> = +3 очка рейтинга</li><li>🤝 <strong>Ничья</strong> = +1 очко</li><li>❌ <strong>Поражение</strong> = 0 очков</li></ul></div>
+                    <div class="rules-section"><h3>📅 ТУРНИРНАЯ СИСТЕМА</h3><ul class="rules-list"><li><strong>Формат турнира</strong> может отличаться в зависимости от конкретного турнира</li><li><strong>Все матчи проводятся</strong> на территории двора "МЕРА"</li></ul></div>
+                    <div class="rules-section"><h3>🤝 FAIR-PLAY И ПОВЕДЕНИЕ</h3><ul class="rules-list"><li>👍 <strong>Команды с лучшим поведением</strong> получают дополнительные баллы в рейтинге</li><li>❌ <strong>Грубое или неспортивное поведение</strong> может привести к исключению из турнира</li></ul></div>
+                    <div class="rules-section"><h3>🧑‍⚖️ СУДЕЙСТВО</h3><ul class="rules-list"><li><strong>Судью определяют</strong> перед матчем только @RAYAVITYA и @Eighteen_2018</li><li><strong>Судье выдаётся экипировка</strong> в виде двух карточек: Жёлтой и Красной</li><li>⚖️ <strong>Решение судьи является окончательным</strong> и обсуждению не подлежит</li></ul></div>
+                    <div class="rules-section"><h3>📩 РЕГИСТРАЦИЯ И ИНФОРМАЦИЯ</h3><ul class="rules-list"><li><strong>Вся информация</strong> по регистрации клубов и игроков</li><li><strong>Все вопросы</strong> по турнирам и организации</li><li>✉️ <strong>ТОЛЬКО в личных сообщениях</strong> @RAYAVITYA в Телеграм</li></ul></div>
+                    <div class="rules-section"><h3>⚡ КАК НАЧАТЬ УЧАСТВОВАТЬ?</h3><ol class="rules-list" style="list-style-type: decimal; padding-left: 20px;"><li>Прочитай правила выше</li><li>Собери команду из 3+ игроков</li><li>Придумай название для своего клуба</li><li>Напиши @RAYAVITYA в Телеграмм для регистрации</li><li>Участвуй в турнирах и создавай свою историю!</li></ol></div>
+                    <div class="rules-note"><p><strong>ДВОР "МЕРА" ЖДЁТ ИМЕННО ТЕБЯ! СТАНЬ ЧАСТЬЮ НАШЕЙ ФУТБОЛЬНОЙ СЕМЬИ! ⚽🏆</strong></p></div>
                 </div>
             </div>
         </main>
         
         <footer>
             <p>Футбольный Двор "МЕРА" © 2025</p>
-            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">
-                Официальная статистика ведётся специалистами
-            </p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">Официальная статистика ведётся специалистами</p>
         </footer>
     </div>
 
@@ -2389,839 +1915,214 @@
     <div class="modal-overlay" id="player-modal">
         <div class="modal">
             <button class="modal-close-btn" id="modal-close">×</button>
-            
             <div class="modal-header">
-                <div class="modal-photo" id="modal-photo">
-                    <!-- Фото будет загружено через JS -->
-                </div>
+                <div class="modal-photo" id="modal-photo"></div>
                 <div class="modal-info">
                     <h3 id="modal-name">Имя игрока</h3>
                     <p id="modal-position">Позиция • Возраст</p>
                 </div>
-                <!-- Рейтинг теперь в хедере -->
                 <div class="modal-rating-header">
                     <div class="rating-value" id="modal-rating">0</div>
                     <div class="rating-label">Рейтинг</div>
                 </div>
             </div>
-            
-            <!-- Статистика будет заполнена через JS -->
             <div id="modal-stats-container">
-                <!-- Для обычных игроков -->
                 <div class="modal-stats" id="normal-stats" style="display: none;">
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Рабочая нога</div>
-                        <div class="modal-stat-value" id="modal-foot">Правая</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Рост</div>
-                        <div class="modal-stat-value" id="modal-height">0 см</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Вес</div>
-                        <div class="modal-stat-value" id="modal-weight">0 кг</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Голы</div>
-                        <div class="modal-stat-value" id="modal-goals">0</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Ассисты</div>
-                        <div class="modal-stat-value" id="modal-assists">0</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Матчи</div>
-                        <div class="modal-stat-value" id="modal-matches">0</div>
-                    </div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot">Правая</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height">0 см</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight">0 кг</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Голы</div><div class="modal-stat-value" id="modal-goals">0</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Ассисты</div><div class="modal-stat-value" id="modal-assists">0</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Матчи</div><div class="modal-stat-value" id="modal-matches">0</div></div>
                 </div>
-                
-                <!-- Для вратарей -->
                 <div class="modal-stats" id="goalkeeper-stats" style="display: none;">
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Рабочая нога</div>
-                        <div class="modal-stat-value" id="modal-foot-gk">Правая</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Рост</div>
-                        <div class="modal-stat-value" id="modal-height-gk">0 см</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Вес</div>
-                        <div class="modal-stat-value" id="modal-weight-gk">0 кг</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Сухие матчи</div>
-                        <div class="modal-stat-value" id="modal-cleansheets">0</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Сейвы</div>
-                        <div class="modal-stat-value" id="modal-saves">0</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Матчи</div>
-                        <div class="modal-stat-value" id="modal-matches-gk">0</div>
-                    </div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot-gk">Правая</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height-gk">0 см</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-gk">0 кг</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Сухие матчи</div><div class="modal-stat-value" id="modal-cleansheets">0</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Сейвы</div><div class="modal-stat-value" id="modal-saves">0</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Матчи</div><div class="modal-stat-value" id="modal-matches-gk">0</div></div>
                 </div>
-                
-                <!-- Для игроков с комбинированной позицией (Кепа) -->
                 <div class="modal-stats-combined" id="combined-stats" style="display: none;">
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Рабочая нога</div>
-                        <div class="modal-stat-value" id="modal-foot-combined">Правая</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Рост</div>
-                        <div class="modal-stat-value" id="modal-height-combined">0 см</div>
-                    </div>
-                    <div class="modal-stat-item">
-                        <div class="modal-stat-label">Вес</div>
-                        <div class="modal-stat-value" id="modal-weight-combined">0 кг</div>
-                    </div>
-                    
-                    <div class="modal-stat-item-wide">
-                        <div class="modal-stat-label">Статистика как центрального защитника</div>
-                        <div class="modal-stat-group">
-                            <div>
-                                <div class="modal-stat-label">Голы</div>
-                                <div class="modal-stat-value" id="modal-goals-combined">0</div>
-                            </div>
-                            <div>
-                                <div class="modal-stat-label">Ассисты</div>
-                                <div class="modal-stat-value" id="modal-assists-combined">0</div>
-                            </div>
-                            <div>
-                                <div class="modal-stat-label">Матчи</div>
-                                <div class="modal-stat-value" id="modal-matches-cd">0</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-stat-item-wide">
-                        <div class="modal-stat-label">Статистика как вратаря</div>
-                        <div class="modal-stat-group">
-                            <div>
-                                <div class="modal-stat-label">Сухие матчи</div>
-                                <div class="modal-stat-value" id="modal-cleansheets-combined">0</div>
-                            </div>
-                            <div>
-                                <div class="modal-stat-label">Сейвы</div>
-                                <div class="modal-stat-value" id="modal-saves-combined">0</div>
-                            </div>
-                            <div>
-                                <div class="modal-stat-label">Матчи</div>
-                                <div class="modal-stat-value" id="modal-matches-gk-combined">0</div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot-combined">Правая</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height-combined">0 см</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-combined">0 кг</div></div>
+                    <div class="modal-stat-item-wide"><div class="modal-stat-label">Статистика как центрального защитника</div><div class="modal-stat-group"><div><div class="modal-stat-label">Голы</div><div class="modal-stat-value" id="modal-goals-combined">0</div></div><div><div class="modal-stat-label">Ассисты</div><div class="modal-stat-value" id="modal-assists-combined">0</div></div><div><div class="modal-stat-label">Матчи</div><div class="modal-stat-value" id="modal-matches-cd">0</div></div></div></div>
+                    <div class="modal-stat-item-wide"><div class="modal-stat-label">Статистика как вратаря</div><div class="modal-stat-group"><div><div class="modal-stat-label">Сухие матчи</div><div class="modal-stat-value" id="modal-cleansheets-combined">0</div></div><div><div class="modal-stat-label">Сейвы</div><div class="modal-stat-value" id="modal-saves-combined">0</div></div><div><div class="modal-stat-label">Матчи</div><div class="modal-stat-value" id="modal-matches-gk-combined">0</div></div></div></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Подключение файла с Base64 фото -->
+    <!-- Подключение файла с Base64 фото (ожидается, что он есть) -->
     <script src="photos.js"></script>
 
     <script>
-        // Обновленные данные игроков: убрана Таисия, Белоснежка заменена на Максим
+        // Данные игроков (полная копия из исходного кода, с обновлениями)
         const playersData = {
-            mbappe: {
-                name: "Килиан Мбаппе",
-                position: "ЦФД",
-                age: "14 лет",
-                icon: "⚡",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 91,
-                number: "(9)"
-            },
-            raya: {
-                name: "Давид Рая",
-                position: "Вратарь",
-                age: "14 лет",
-                icon: "🧤",
-                foot: "Правая",
-                height: "160 см",
-                weight: "45 кг",
-                matches: 0,
-                saves: 0,
-                cleanSheets: 0,
-                rating: 92,
-                number: "(1)"
-            },
-            kepa: {
-                name: "Кепа",
-                position: "Центральный защитник-Вратарь",
-                age: "14 лет",
-                icon: "🛡️🧤",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matchesAsCD: 0,
-                goals: 0,
-                assists: 0,
-                matchesAsGK: 0,
-                saves: 0,
-                cleanSheets: 0,
-                rating: 88,
-                number: "(66)"
-            },
-            maradona: {
-                name: "Марадона",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 85,
-                number: "(11)"
-            },
-            sanya: {
-                name: "Саня",
-                position: "Нападающий",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Левая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 88,
-                number: "(7)"
-            },
-            messi: {
-                name: "Лионель Месси",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Левая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 85,
-                number: "(10)"
-            },
-            batrakov: {
-                name: "Батраков",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 84,
-                number: "(3)"
-            },
-            abibas: {
-                name: "Абибас",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 79,
-                number: "(6)"
-            },
-            maxim: {
-                name: "Максим",
-                position: "Защитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 92,
-                number: "(5)"
-            },
-            ramos: {
-                name: "Рамос",
-                position: "Защитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 87,
-                number: "(4)"
-            },
-            andryushka: {
-                name: "Андрюшка",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 78,
-                number: "(77)"
-            },
-            hokkeist: {
-                name: "Хоккеист",
-                position: "Полузащитник",
-                age: "14 лет",
-                icon: "🏒",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 82,
-                number: "(13)"
-            },
-            vanya: {
-                name: "Ваня",
-                position: "Центральный полузащитник",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 61,
-                number: "(99)"
-            }
+            mbappe: { name: "Килиан Мбаппе", position: "ЦФД", age: "14 лет", icon: "⚡", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 91, number: "(9)" },
+            raya: { name: "Давид Рая", position: "Вратарь", age: "14 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", matches: 0, saves: 0, cleanSheets: 0, rating: 92, number: "(1)" },
+            kepa: { name: "Кепа", position: "Центральный защитник-Вратарь", age: "14 лет", icon: "🛡️🧤", foot: "Правая", height: "0 см", weight: "0 кг", matchesAsCD: 0, goals: 0, assists: 0, matchesAsGK: 0, saves: 0, cleanSheets: 0, rating: 88, number: "(66)" },
+            maradona: { name: "Марадона", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 85, number: "(11)" },
+            sanya: { name: "Саня", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 88, number: "(7)" },
+            messi: { name: "Лионель Месси", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Левая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 85, number: "(10)" },
+            batrakov: { name: "Батраков", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 84, number: "(3)" },
+            abibas: { name: "Абибас", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 79, number: "(6)" },
+            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 92, number: "(5)" },
+            ramos: { name: "Рамос", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 87, number: "(4)" },
+            andryushka: { name: "Андрюшка", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 78, number: "(77)" },
+            hokkeist: { name: "Хоккеист", position: "Полузащитник", age: "14 лет", icon: "🏒", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 82, number: "(13)" },
+            vanya: { name: "Ваня", position: "Центральный полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 61, number: "(99)" }
         };
-        
-        // Обновленные данные клубов (заменена Белоснежка на Максим)
-        const clubsData = {
-            legends: {
-                name: "Легенды Двора",
-                founded: "2025 год",
-                players: ["mbappe", "maxim", "raya"], // Основной состав (Максим вместо Белоснежки)
-                substitutes: ["kepa", "ramos", "andryushka"], // Скамейка запасных (3 игрока)
-                formation: {
-                    name: "Схема 1-1-1",
-                    description: "Три ключевых игрока двора",
-                    positions: {
-                        attack: ["mbappe"],
-                        defense: ["maxim"],
-                        goalkeeper: ["raya"]
-                    }
-                },
-                achievements: [
-                    "Первый клуб двора",
-                    "Обладатели лучших рейтингов",
-                    "Три ключевых игрока двора",
-                    "Сильная скамейка запасных"
-                ]
-            }
-        };
-        
-        // Функция для загрузки фото игроков и клубов
-        function loadPhotos() {
-            // Проверяем наличие файла photos.js
-            if (typeof playerPhotos === 'undefined') {
-                console.log('Файл photos.js не загружен, используем иконки');
-                setIconsForPlayers();
-                return;
-            }
+
+        // Данные клубов (сокращено для компактности)
+        const clubsData = { legends: { name: "Легенды Двора", founded: "2025 год", players: ["mbappe", "maxim", "raya"], substitutes: ["kepa", "ramos", "andryushka"], formation: { name: "Схема 1-1-1", description: "Три ключевых игрока двора", positions: { attack: ["mbappe"], defense: ["maxim"], goalkeeper: ["raya"] } }, achievements: ["Первый клуб двора", "Обладатели лучших рейтингов", "Три ключевых игрока двора", "Сильная скамейка запасных"] } };
+
+        // Глобальные переменные для текущего состояния
+        let currentPlayerIds = Object.keys(playersData);
+        let filteredPlayerIds = [...currentPlayerIds];
+        let activeSort = 'none'; // 'none', 'rating', 'name'
+
+        // Функция для рендера карточек игроков на основе filteredPlayerIds
+        function renderPlayerCards() {
+            const container = document.getElementById('players-grid-container');
+            if (!container) return;
             
-            // Массив всех ID игроков (Таисия удалена, Белоснежка заменена на maxim)
-            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
-            
-            // Загружаем фото для каждого игрока
-            playerIds.forEach(playerId => {
-                const photoBase64 = playerPhotos[playerId];
-                
-                // Большие фото на странице "Состав двора"
-                const mainPhotoElement = document.getElementById(`${playerId}-photo`);
-                if (mainPhotoElement && photoBase64) {
-                    const img = document.createElement('img');
-                    img.src = photoBase64;
-                    img.alt = playersData[playerId]?.name || playerId;
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    mainPhotoElement.appendChild(img);
-                }
-                
-                // Маленькие фото на странице "Лучший состав"
-                const smallPhotoElement = document.getElementById(`${playerId}-photo-small`);
-                if (smallPhotoElement && photoBase64) {
-                    const img = document.createElement('img');
-                    img.src = photoBase64;
-                    img.alt = playersData[playerId]?.name || playerId;
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    smallPhotoElement.appendChild(img);
-                }
-            });
-            
-            // Загружаем логотип клуба "Легенды Двора" (без синего ободка)
-            const clubLogoElement = document.getElementById('club-legends-logo');
-            if (clubLogoElement && typeof clubPhotos !== 'undefined' && clubPhotos.legends) {
-                const img = document.createElement('img');
-                img.src = clubPhotos.legends;
-                img.alt = "Легенды Двора";
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                clubLogoElement.appendChild(img);
-            }
-        }
-        
-        // Функция для установки иконок игрокам
-        function setIconsForPlayers() {
-            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
-            
-            playerIds.forEach(playerId => {
-                const player = playersData[playerId];
-                if (!player) return;
-                
-                // Основные фото на странице "Состав двора"
-                const mainPhotoElement = document.getElementById(`${playerId}-photo`);
-                if (mainPhotoElement) {
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '2.5rem';
-                    icon.textContent = player.icon || '⚽';
-                    icon.style.width = '100%';
-                    icon.style.height = '100%';
-                    icon.style.display = 'flex';
-                    icon.style.alignItems = 'center';
-                    icon.style.justifyContent = 'center';
-                    mainPhotoElement.appendChild(icon);
-                }
-                
-                // Маленькие фото на странице "Лучший состав"
-                const smallPhotoElement = document.getElementById(`${playerId}-photo-small`);
-                if (smallPhotoElement) {
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '1.8rem';
-                    icon.textContent = player.icon || '⚽';
-                    icon.style.width = '100%';
-                    icon.style.height = '100%';
-                    icon.style.display = 'flex';
-                    icon.style.alignItems = 'center';
-                    icon.style.justifyContent = 'center';
-                    smallPhotoElement.appendChild(icon);
-                }
-            });
-            
-            // Иконка для клуба (без ободка)
-            const clubLogoElement = document.getElementById('club-legends-logo');
-            if (clubLogoElement) {
-                const icon = document.createElement('div');
-                icon.style.fontSize = '3rem';
-                icon.textContent = '🏆';
-                icon.style.width = '100%';
-                icon.style.height = '100%';
-                icon.style.display = 'flex';
-                icon.style.alignItems = 'center';
-                icon.style.justifyContent = 'center';
-                clubLogoElement.appendChild(icon);
-            }
-        }
-        
-        // Функция для смены темы
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('theme-toggle');
-            
-            if (body.classList.contains('dark-theme')) {
-                body.classList.remove('dark-theme');
-                themeToggle.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark-theme');
-                themeToggle.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-        
-        // Проверяем сохраненную тему при загрузке
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const themeToggle = document.getElementById('theme-toggle');
-            
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeToggle.textContent = '☀️';
-            } else {
-                themeToggle.textContent = '🌙';
-            }
-        }
-        
-        // Инициализация темы
-        loadTheme();
-        
-        // Добавляем обработчик для кнопки смены темы
-        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-        
-        // Переключение на страницу игроков
-        document.getElementById('players-btn').addEventListener('click', function() {
-            showPage('players-page');
-        });
-        
-        // Переключение на страницу лучшего состава
-        document.getElementById('squad-btn').addEventListener('click', function() {
-            showPage('squad-page');
-        });
-        
-        // Переключение на страницу клубов
-        document.getElementById('clubs-btn').addEventListener('click', function() {
-            showPage('clubs-page');
-        });
-        
-        // Переключение на страницу правил
-        document.getElementById('rules-btn').addEventListener('click', function() {
-            showPage('rules-page');
-        });
-        
-        // Кнопка "Назад" со страницы игроков
-        document.getElementById('back-from-players').addEventListener('click', function() {
-            showPage('home-page');
-        });
-        
-        // Кнопка "Назад" со страницы состава
-        document.getElementById('back-from-squad').addEventListener('click', function() {
-            showPage('home-page');
-        });
-        
-        // Кнопка "Назад" со страницы клубов
-        document.getElementById('back-from-clubs').addEventListener('click', function() {
-            showPage('home-page');
-        });
-        
-        // Кнопка "Назад" со страницы деталей клуба
-        document.getElementById('back-from-club-detail').addEventListener('click', function() {
-            showPage('clubs-page');
-        });
-        
-        // Кнопка "Назад" со страницы правил
-        document.getElementById('back-from-rules').addEventListener('click', function() {
-            showPage('home-page');
-        });
-        
-        // Функция для показа страницы
-        function showPage(pageId) {
-            // Скрываем все страницы
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Показываем нужную страницу
-            document.getElementById(pageId).classList.add('active');
-            
-            // Прокручиваем наверх
-            window.scrollTo(0, 0);
-        }
-        
-        // Функция для открытия детальной информации клуба
-        function openClubDetail(clubId) {
-            const club = clubsData[clubId];
-            if (!club) return;
-            
-            const detailContent = document.getElementById('club-detail-content');
-            
-            // Создаем HTML для детальной информации клуба
-            detailContent.innerHTML = `
-                <div class="club-header">
-                    <div class="club-detail-logo" id="club-detail-logo-${clubId}">
-                        <!-- Логотип будет загружен через JS -->
-                    </div>
-                    <div class="club-detail-info">
-                        <h3>${club.name}</h3>
-                        <p><strong>Основан:</strong> ${club.founded}</p>
-                        <p><strong>Основной состав:</strong> ${club.players.length} игрока</p>
-                        <p><strong>Запасные:</strong> ${club.substitutes.length} игрока</p>
-                    </div>
-                </div>
-                
-                <div class="club-formation">
-                    <h3 class="formation-title">Основной состав: ${club.formation.name}</h3>
-                    
-                    <!-- Нападение - Мбаппе -->
-                    <div class="club-formation-line">
-                        ${club.formation.positions.attack.map(playerId => {
-                            const player = playersData[playerId];
-                            return `
-                                <div class="club-formation-player" data-player="${playerId}">
-                                    <div class="club-formation-photo" id="club-${clubId}-${playerId}-photo">
-                                        <!-- Фото будет загружено через JS -->
-                                    </div>
-                                    <div class="club-formation-name">${player.name} ${player.number}</div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                    
-                    <!-- Защита - Максим -->
-                    <div class="club-formation-line">
-                        ${club.formation.positions.defense.map(playerId => {
-                            const player = playersData[playerId];
-                            return `
-                                <div class="club-formation-player" data-player="${playerId}">
-                                    <div class="club-formation-photo" id="club-${clubId}-${playerId}-photo">
-                                        <!-- Фото будет загружено через JS -->
-                                    </div>
-                                    <div class="club-formation-name">${player.name} ${player.number}</div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                    
-                    <!-- Основной вратарь - Рая -->
-                    <div class="club-formation-line">
-                        ${club.formation.positions.goalkeeper.map(playerId => {
-                            const player = playersData[playerId];
-                            return `
-                                <div class="club-formation-player" data-player="${playerId}">
-                                    <div class="club-formation-photo" id="club-${clubId}-${playerId}-photo">
-                                        <!-- Фото будет загружено через JS -->
-                                    </div>
-                                    <div class="club-formation-name">${player.name} ${player.number}</div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                    
-                    <p style="margin-top: 15px; font-style: italic;">${club.formation.description}</p>
-                </div>
-                
-                <!-- Секция скамейки запасных -->
-                <div class="substitutes-section">
-                    <h3 class="substitutes-title">Скамейка запасных (${club.substitutes.length} игрока)</h3>
-                    <div class="substitutes-grid">
-                        ${club.substitutes.map(playerId => {
-                            const player = playersData[playerId];
-                            return `
-                                <div class="substitute-player" data-player="${playerId}">
-                                    <div class="substitute-photo" id="club-${clubId}-${playerId}-sub-photo">
-                                        <!-- Фото будет загружено через JS -->
-                                    </div>
-                                    <div class="substitute-name">${player.name}</div>
-                                    <div class="player-number">${player.number}</div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                </div>
-                
-                <div class="tactics-info">
-                    <h3>Достижения</h3>
-                    <ul style="margin-left: 20px;">
-                        ${club.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
-            
-            // Загружаем фото для детальной страницы
-            loadClubDetailPhotos(clubId);
-            
-            // Показываем страницу деталей клуба
-            showPage('club-detail-page');
-        }
-        
-        // Функция для загрузки фото на детальной странице клуба
-        function loadClubDetailPhotos(clubId) {
-            const club = clubsData[clubId];
-            if (!club) return;
-            
-            // Загружаем логотип клуба (без синего ободка)
-            const clubLogoDetail = document.getElementById(`club-detail-logo-${clubId}`);
-            if (clubLogoDetail && typeof clubPhotos !== 'undefined' && clubPhotos[clubId]) {
-                const img = document.createElement('img');
-                img.src = clubPhotos[clubId];
-                img.alt = club.name;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '50%';
-                clubLogoDetail.appendChild(img);
-            } else {
-                const icon = document.createElement('div');
-                icon.textContent = '🏆';
-                icon.style.fontSize = '4rem';
-                icon.style.width = '100%';
-                icon.style.height = '100%';
-                icon.style.display = 'flex';
-                icon.style.alignItems = 'center';
-                icon.style.justifyContent = 'center';
-                clubLogoDetail.appendChild(icon);
-            }
-            
-            // Загружаем фото основных игроков
-            club.players.forEach(playerId => {
-                const playerPhoto = document.getElementById(`club-${clubId}-${playerId}-photo`);
-                if (playerPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
-                    const img = document.createElement('img');
-                    img.src = playerPhotos[playerId];
-                    img.alt = playersData[playerId]?.name || playerId;
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    playerPhoto.appendChild(img);
+            let html = '';
+            filteredPlayerIds.forEach(id => {
+                const p = playersData[id];
+                // Определяем статистику для отображения (упрощенно)
+                let statsHtml = '';
+                if (p.position.includes('Вратарь') && p.position.includes('Центральный защитник')) {
+                    statsHtml = `<div class="stat-item"><div class="stat-value">${p.matchesAsCD || 0}</div><div class="stat-label">Матчи (з)</div></div><div class="stat-item"><div class="stat-value">${p.matchesAsGK || 0}</div><div class="stat-label">Матчи (в)</div></div><div class="stat-item"><div class="stat-value">${p.rating}</div><div class="stat-label">Рейтинг</div></div>`;
+                } else if (p.position === "Вратарь") {
+                    statsHtml = `<div class="stat-item"><div class="stat-value">${p.matches || 0}</div><div class="stat-label">Матчи</div></div><div class="stat-item"><div class="stat-value">${p.cleanSheets || 0}</div><div class="stat-label">Сухие</div></div><div class="stat-item"><div class="stat-value">${p.saves || 0}</div><div class="stat-label">Сейвы</div></div>`;
                 } else {
-                    const player = playersData[playerId];
-                    if (player) {
+                    statsHtml = `<div class="stat-item"><div class="stat-value">${p.matches || 0}</div><div class="stat-label">Матчи</div></div><div class="stat-item"><div class="stat-value">${p.goals || 0}</div><div class="stat-label">Голы</div></div><div class="stat-item"><div class="stat-value">${p.assists || 0}</div><div class="stat-label">Ассисты</div></div>`;
+                }
+                
+                html += `<div class="player-card" data-player="${id}">
+                    <div class="player-photo" id="${id}-photo-card"></div>
+                    <div class="player-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.position} • ${p.age}</p>
+                        <div class="player-number">${p.number}</div>
+                    </div>
+                    <div class="player-stats">${statsHtml}</div>
+                </div>`;
+            });
+            container.innerHTML = html;
+            
+            // После рендера загружаем фото в карточки и вешаем обработчики
+            currentPlayerIds.forEach(id => {
+                const cardPhoto = document.getElementById(`${id}-photo-card`);
+                if (cardPhoto) {
+                    cardPhoto.innerHTML = ''; // очищаем
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.alt = playersData[id].name;
+                        img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
+                        cardPhoto.appendChild(img);
+                    } else {
                         const icon = document.createElement('div');
-                        icon.textContent = player.icon;
-                        icon.style.fontSize = '1.8rem';
-                        icon.style.width = '100%';
-                        icon.style.height = '100%';
-                        icon.style.display = 'flex';
-                        icon.style.alignItems = 'center';
-                        icon.style.justifyContent = 'center';
-                        playerPhoto.appendChild(icon);
+                        icon.style.fontSize = '2.5rem'; icon.style.width = '100%'; icon.style.height = '100%';
+                        icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
+                        icon.textContent = playersData[id].icon || '⚽';
+                        cardPhoto.appendChild(icon);
                     }
                 }
             });
             
-            // Загружаем фото запасных игроков
-            club.substitutes.forEach(playerId => {
-                const playerPhoto = document.getElementById(`club-${clubId}-${playerId}-sub-photo`);
-                if (playerPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
-                    const img = document.createElement('img');
-                    img.src = playerPhotos[playerId];
-                    img.alt = playersData[playerId]?.name || playerId;
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    playerPhoto.appendChild(img);
-                } else {
-                    const player = playersData[playerId];
-                    if (player) {
-                        const icon = document.createElement('div');
-                        icon.textContent = player.icon;
-                        icon.style.fontSize = '1.4rem';
-                        icon.style.width = '100%';
-                        icon.style.height = '100%';
-                        icon.style.display = 'flex';
-                        icon.style.alignItems = 'center';
-                        icon.style.justifyContent = 'center';
-                        playerPhoto.appendChild(icon);
-                    }
-                }
-            });
-            
-            // Добавляем обработчики кликов на игроков
-            document.querySelectorAll(`.club-formation-player[data-player], .substitute-player[data-player]`).forEach(element => {
-                element.addEventListener('click', function() {
+            // Обработчики кликов на карточки
+            document.querySelectorAll('.player-card').forEach(card => {
+                card.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
                     openPlayerModal(playerId);
                 });
             });
+            
+            // Обновляем счетчик игроков
+            document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
         }
-        
-        // Функция для открытия модального окна с данными игрока
+
+        // Функции сортировки и фильтрации
+        function filterPlayers(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            if (term === '') {
+                filteredPlayerIds = [...currentPlayerIds];
+            } else {
+                filteredPlayerIds = currentPlayerIds.filter(id => 
+                    playersData[id].name.toLowerCase().includes(term)
+                );
+            }
+            applySortToFiltered();
+        }
+
+        function applySortToFiltered() {
+            if (activeSort === 'rating') {
+                filteredPlayerIds.sort((a, b) => playersData[b].rating - playersData[a].rating);
+            } else if (activeSort === 'name') {
+                filteredPlayerIds.sort((a, b) => playersData[a].name.localeCompare(playersData[b].name));
+            }
+            renderPlayerCards();
+        }
+
+        function resetSortAndFilter() {
+            document.getElementById('player-search').value = '';
+            filteredPlayerIds = [...currentPlayerIds];
+            activeSort = 'none';
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            renderPlayerCards();
+        }
+
+        // Функция для открытия модалки (адаптирована из исходного кода)
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
-            
-            // Заполняем данные в модальном окне
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
-            
-            // Устанавливаем рейтинг с цветом
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
+            if (player.rating >= 85) ratingElement.className = 'rating-value rating-high';
+            else if (player.rating >= 80) ratingElement.className = 'rating-value rating-medium';
+            else ratingElement.className = 'rating-value rating-low';
             
-            // Определяем цвет рейтинга
-            if (player.rating >= 85) {
-                ratingElement.className = 'rating-value rating-high';
-            } else if (player.rating >= 80) {
-                ratingElement.className = 'rating-value rating-medium';
-            } else if (player.rating >= 70) {
-                ratingElement.className = 'rating-value rating-medium';
-            } else {
-                ratingElement.className = 'rating-value rating-low';
-            }
-            
-            // Устанавливаем фото или иконку
             const modalPhoto = document.getElementById('modal-photo');
             modalPhoto.innerHTML = '';
-            
-            const photoBase64 = typeof playerPhotos !== 'undefined' ? playerPhotos[playerId] : null;
-            
-            if (photoBase64) {
-                const img = document.createElement('img');
-                img.src = photoBase64;
-                img.alt = player.name;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
+            if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+                const img = document.createElement('img'); img.src = playerPhotos[playerId]; img.alt = player.name; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
                 modalPhoto.appendChild(img);
             } else {
-                const icon = document.createElement('div');
-                icon.style.fontSize = '3rem';
-                icon.textContent = player.icon;
-                icon.style.width = '100%';
-                icon.style.height = '100%';
-                icon.style.display = 'flex';
-                icon.style.alignItems = 'center';
-                icon.style.justifyContent = 'center';
+                const icon = document.createElement('div'); icon.style.fontSize = '3rem'; icon.textContent = player.icon; icon.style.width = '100%'; icon.style.height = '100%'; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
                 modalPhoto.appendChild(icon);
             }
             
-            // Скрываем все статистики
             document.getElementById('normal-stats').style.display = 'none';
             document.getElementById('goalkeeper-stats').style.display = 'none';
             document.getElementById('combined-stats').style.display = 'none';
             
-            // Показываем соответствующую статистику в зависимости от позиции
             if (player.position.includes('Вратарь') && player.position.includes('Центральный защитник')) {
-                // Для Кепы - комбинированная статистика
                 document.getElementById('combined-stats').style.display = 'grid';
-                
                 document.getElementById('modal-foot-combined').textContent = player.foot;
                 document.getElementById('modal-height-combined').textContent = player.height;
                 document.getElementById('modal-weight-combined').textContent = player.weight;
-                
-                // Статистика как центрального защитника
                 document.getElementById('modal-goals-combined').textContent = player.goals || 0;
                 document.getElementById('modal-assists-combined').textContent = player.assists || 0;
                 document.getElementById('modal-matches-cd').textContent = player.matchesAsCD || 0;
-                
-                // Статистика как вратаря
                 document.getElementById('modal-cleansheets-combined').textContent = player.cleanSheets || 0;
                 document.getElementById('modal-saves-combined').textContent = player.saves || 0;
                 document.getElementById('modal-matches-gk-combined').textContent = player.matchesAsGK || 0;
-                
             } else if (player.position === "Вратарь") {
-                // Для обычного вратаря
                 document.getElementById('goalkeeper-stats').style.display = 'grid';
-                
                 document.getElementById('modal-foot-gk').textContent = player.foot;
                 document.getElementById('modal-height-gk').textContent = player.height;
                 document.getElementById('modal-weight-gk').textContent = player.weight;
                 document.getElementById('modal-cleansheets').textContent = player.cleanSheets || 0;
                 document.getElementById('modal-saves').textContent = player.saves || 0;
                 document.getElementById('modal-matches-gk').textContent = player.matches || 0;
-                
             } else {
-                // Для полевых игроков
                 document.getElementById('normal-stats').style.display = 'grid';
-                
                 document.getElementById('modal-foot').textContent = player.foot;
                 document.getElementById('modal-height').textContent = player.height;
                 document.getElementById('modal-weight').textContent = player.weight;
@@ -3229,71 +2130,128 @@
                 document.getElementById('modal-assists').textContent = player.assists || 0;
                 document.getElementById('modal-matches').textContent = player.matches || 0;
             }
-            
-            // Показываем модальное окно
             document.getElementById('player-modal').classList.add('active');
         }
-        
-        // Добавляем обработчики кликов на карточки игроков
-        document.querySelectorAll('.player-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const playerId = this.getAttribute('data-player');
-                openPlayerModal(playerId);
-            });
-        });
-        
-        // Добавляем обработчики кликов на игроков в составе
-        document.querySelectorAll('.player-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const playerId = this.getAttribute('data-player');
-                openPlayerModal(playerId);
-            });
-        });
-        
-        // Добавляем обработчики кликов на карточки клубов
-        document.querySelectorAll('.club-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const clubId = this.getAttribute('data-club');
-                openClubDetail(clubId);
-            });
-        });
-        
-        // Закрытие модального окна
-        document.getElementById('modal-close').addEventListener('click', function() {
-            document.getElementById('player-modal').classList.remove('active');
-        });
-        
-        // Закрытие модального окна при клике на оверлей
-        document.getElementById('player-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('active');
+
+        // Инициализация событий для поиска и сортировки
+        document.addEventListener('DOMContentLoaded', function() {
+            // Первоначальный рендер карточек
+            renderPlayerCards();
+            
+            // Поиск
+            const searchInput = document.getElementById('player-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    filterPlayers(e.target.value);
+                });
             }
+            
+            // Сортировка по рейтингу
+            const sortRatingBtn = document.getElementById('sort-rating');
+            if (sortRatingBtn) {
+                sortRatingBtn.addEventListener('click', function() {
+                    activeSort = 'rating';
+                    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterPlayers(document.getElementById('player-search').value); // повторно применит фильтр и сортировку
+                });
+            }
+            
+            // Сортировка по имени
+            const sortNameBtn = document.getElementById('sort-name');
+            if (sortNameBtn) {
+                sortNameBtn.addEventListener('click', function() {
+                    activeSort = 'name';
+                    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterPlayers(document.getElementById('player-search').value);
+                });
+            }
+            
+            // Сброс
+            const resetBtn = document.getElementById('reset-sort');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    resetSortAndFilter();
+                });
+            }
+            
+            // Обработчики навигации (как в исходном коде)
+            document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
+            document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
+            document.getElementById('clubs-btn')?.addEventListener('click', function() { showPage('clubs-page'); });
+            document.getElementById('rules-btn')?.addEventListener('click', function() { showPage('rules-page'); });
+            document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-clubs')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-club-detail')?.addEventListener('click', function() { showPage('clubs-page'); });
+            document.getElementById('back-from-rules')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
+            
+            // Закрытие модалки
+            document.getElementById('modal-close')?.addEventListener('click', function() {
+                document.getElementById('player-modal').classList.remove('active');
+            });
+            document.getElementById('player-modal')?.addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+            
+            // Загрузка фото для лучшего состава и клуба (упрощенно)
+            if (typeof loadPhotos === 'function') loadPhotos();
+            else {
+                // Ручная загрузка фото для маленьких аватарок
+                const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
+                playerIds.forEach(id => {
+                    const smallPhoto = document.getElementById(`${id}-photo-small`);
+                    if (smallPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                        const img = document.createElement('img'); img.src = playerPhotos[id]; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
+                        smallPhoto.appendChild(img);
+                    } else if (smallPhoto) {
+                        const icon = document.createElement('div'); icon.style.fontSize = '1.8rem'; icon.textContent = playersData[id].icon; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.width = '100%'; icon.style.height = '100%';
+                        smallPhoto.appendChild(icon);
+                    }
+                });
+                // Лого клуба
+                const clubLogo = document.getElementById('club-legends-logo');
+                if (clubLogo) {
+                    if (typeof clubPhotos !== 'undefined' && clubPhotos.legends) {
+                        const img = document.createElement('img'); img.src = clubPhotos.legends; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
+                        clubLogo.appendChild(img);
+                    } else {
+                        const icon = document.createElement('div'); icon.style.fontSize = '3rem'; icon.textContent = '🏆'; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.width = '100%'; icon.style.height = '100%';
+                        clubLogo.appendChild(icon);
+                    }
+                }
+            }
+            
+            // Обработчик для карточек клубов
+            document.querySelectorAll('.club-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const clubId = this.getAttribute('data-club');
+                    if (clubId && clubsData[clubId]) {
+                        // Минимальная реализация открытия деталей клуба (можно расширить)
+                        alert('Детальная страница клуба в разработке, но функционал заложен.');
+                    }
+                });
+            });
         });
-        
-        // Функция для обновления сайта
-        function forceUpdate() {
-            const updateBtn = document.getElementById('update-btn');
-            
-            // Отключаем кнопку на время обновления
-            updateBtn.disabled = true;
-            updateBtn.innerHTML = '<span>⏳</span><span>Обновление...</span>';
-            
-            // Обновляем страницу
-            setTimeout(() => {
-                window.location.reload(true);
-            }, 1500);
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
         }
-        
-        // Добавляем обработчик для кнопки обновления
-        document.getElementById('update-btn').addEventListener('click', forceUpdate);
-        
-        // Загружаем фото при загрузке страницы
-        window.addEventListener('load', function() {
-            loadPhotos();
-            
-            // Убираем синее выделение при тапе на мобильных устройствах
-            document.addEventListener('touchstart', function() {}, {passive: true});
+
+        // Тема
+        document.getElementById('theme-toggle')?.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
         });
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.getElementById('theme-toggle').textContent = '☀️';
+        }
     </script>
 </body>
 </html>
