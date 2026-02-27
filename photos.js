@@ -8,7 +8,7 @@ const playerPhotos = {
     messi: "Photos (2)/messi.jpg",
     batrakov: "Photos (2)/batrakov.jpg",
     abibas: "Photos (2)/abibas.jpg",
-    beloszhneka: "Photos (2)/belosnezhka.jpg",
+    maxim: "Photos (2)/belosnezhka.jpg",
     ramos: "Photos (2)/ramos.jpg",
     andryushka: "Photos (2)/andryushka.jpg",
     hokkeist: "Photos (2)/hokkeist.jpg",
