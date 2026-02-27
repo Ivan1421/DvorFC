@@ -1741,8 +1741,6 @@
                     </div>
                 </div>
                 
-                <!-- Убрана кнопка Телеграм-канала -->
-                
                 <!-- Кнопка обновления -->
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn">
@@ -1966,13 +1964,13 @@
                         </div>
                     </div>
                     
-                    <!-- Белоснежка -->
-                    <div class="player-card" data-player="beloszhneka">
-                        <div class="player-photo" id="beloszhneka-photo">
+                    <!-- Максим (ранее Белоснежка) -->
+                    <div class="player-card" data-player="maxim">
+                        <div class="player-photo" id="maxim-photo">
                             <!-- Фото будет загружено через JS -->
                         </div>
                         <div class="player-info">
-                            <h3>Белоснежка</h3>
+                            <h3>Максим</h3>
                             <p>Защитник • 14 лет</p>
                             <div class="player-number">(5)</div>
                         </div>
@@ -2095,32 +2093,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- ТАИСИЯ (новый игрок) -->
-                    <div class="player-card" data-player="taisia">
-                        <div class="player-photo" id="taisia-photo">
-                            <!-- Фото будет загружено через JS -->
-                        </div>
-                        <div class="player-info">
-                            <h3>Таисия</h3>
-                            <p>Нападающий • 14 лет</p>
-                            <div class="player-number">(20)</div>
-                        </div>
-                        <div class="player-stats">
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Матчи</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Голы</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Ассисты</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
                 <!-- Предупреждение о статистике -->
@@ -2195,11 +2167,11 @@
                         
                         <!-- Четвертая линия: защита -->
                         <div class="formation-line">
-                            <div class="player-item" data-player="beloszhneka">
-                                <div class="player-photo-small" id="beloszhneka-photo-small">
+                            <div class="player-item" data-player="maxim">
+                                <div class="player-photo-small" id="maxim-photo-small">
                                     <!-- Фото будет загружено через JS -->
                                 </div>
-                                <div class="player-name">Белоснежка</div>
+                                <div class="player-name">Максим</div>
                                 <span class="player-number">(5)</span>
                             </div>
                             <div class="player-item" data-player="ramos">
@@ -2550,7 +2522,7 @@
     <script src="photos.js"></script>
 
     <script>
-        // Обновленные данные игроков с добавлением Таисии
+        // Обновленные данные игроков: убрана Таисия, Белоснежка заменена на Максим
         const playersData = {
             mbappe: {
                 name: "Килиан Мбаппе",
@@ -2667,8 +2639,8 @@
                 rating: 79,
                 number: "(6)"
             },
-            beloszhneka: {
-                name: "Белоснежка",
+            maxim: {
+                name: "Максим",
                 position: "Защитник",
                 age: "14 лет",
                 icon: "⚽",
@@ -2736,37 +2708,22 @@
                 assists: 0,
                 rating: 61,
                 number: "(99)"
-            },
-            // НОВЫЙ ИГРОК: Таисия
-            taisia: {
-                name: "Таисия",
-                position: "Нападающий",
-                age: "14 лет",
-                icon: "⚽",
-                foot: "Правая",
-                height: "0 см",
-                weight: "0 кг",
-                matches: 0,
-                goals: 0,
-                assists: 0,
-                rating: 70,
-                number: "(20)"
             }
         };
         
-        // Обновленные данные клубов (добавлены Рамос и Андрюшка на скамейку запасных)
+        // Обновленные данные клубов (заменена Белоснежка на Максим)
         const clubsData = {
             legends: {
                 name: "Легенды Двора",
                 founded: "2025 год",
-                players: ["mbappe", "beloszhneka", "raya"], // Основной состав
+                players: ["mbappe", "maxim", "raya"], // Основной состав (Максим вместо Белоснежки)
                 substitutes: ["kepa", "ramos", "andryushka"], // Скамейка запасных (3 игрока)
                 formation: {
                     name: "Схема 1-1-1",
                     description: "Три ключевых игрока двора",
                     positions: {
                         attack: ["mbappe"],
-                        defense: ["beloszhneka"],
+                        defense: ["maxim"],
                         goalkeeper: ["raya"]
                     }
                 },
@@ -2788,8 +2745,8 @@
                 return;
             }
             
-            // Массив всех ID игроков (добавлены vanya и taisia)
-            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist', 'vanya', 'taisia'];
+            // Массив всех ID игроков (Таисия удалена, Белоснежка заменена на maxim)
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
             
             // Загружаем фото для каждого игрока
             playerIds.forEach(playerId => {
@@ -2835,7 +2792,7 @@
         
         // Функция для установки иконок игрокам
         function setIconsForPlayers() {
-            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'beloszhneka', 'ramos', 'andryushka', 'hokkeist', 'vanya', 'taisia'];
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
             
             playerIds.forEach(playerId => {
                 const player = playersData[playerId];
@@ -3018,7 +2975,7 @@
                         }).join('')}
                     </div>
                     
-                    <!-- Защита - Белоснежка -->
+                    <!-- Защита - Максим -->
                     <div class="club-formation-line">
                         ${club.formation.positions.defense.map(playerId => {
                             const player = playersData[playerId];
@@ -3262,7 +3219,7 @@
                 document.getElementById('modal-matches-gk').textContent = player.matches || 0;
                 
             } else {
-                // Для полевых игроков (включая Таисию)
+                // Для полевых игроков
                 document.getElementById('normal-stats').style.display = 'grid';
                 
                 document.getElementById('modal-foot').textContent = player.foot;
