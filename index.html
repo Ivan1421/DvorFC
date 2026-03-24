@@ -725,321 +725,6 @@
             color: #f0f0f0;
         }
         
-        /* Страница клубов */
-        .clubs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        
-        .club-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            border: 3px solid #0066cc;
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            transition: all 0.3s ease;
-            text-align: center;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-        
-        .club-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.15);
-        }
-        
-        .club-card:active {
-            background: white;
-            transform: translateY(-2px);
-        }
-        
-        .dark-theme .club-card {
-            background: #2d3748;
-            border-color: #4dabf7;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .dark-theme .club-card:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .dark-theme .club-card:active {
-            background: #2d3748;
-            transform: translateY(-2px);
-        }
-        
-        .club-logo {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: none;
-            margin: 0 auto 20px;
-            transition: all 0.3s ease;
-            background: transparent;
-        }
-        
-        .dark-theme .club-logo {
-            background: transparent;
-        }
-        
-        .club-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border-radius: 50%;
-        }
-        
-        .club-info h3 {
-            font-size: 2rem;
-            color: #0066cc;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .club-info h3 {
-            color: #4dabf7;
-        }
-        
-        .club-info p {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .club-info p {
-            color: #ccc;
-        }
-        
-        /* Детальная страница клуба */
-        .club-detail {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            border: 3px solid #0066cc;
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .club-detail {
-            background: #2d3748;
-            border-color: #4dabf7;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .club-header {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .club-detail-logo {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: none;
-            flex-shrink: 0;
-            background: transparent;
-        }
-        
-        .dark-theme .club-detail-logo {
-            background: transparent;
-        }
-        
-        .club-detail-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        
-        .club-detail-info h3 {
-            font-size: 2.5rem;
-            color: #0066cc;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .club-detail-info h3 {
-            color: #4dabf7;
-        }
-        
-        .club-formation {
-            text-align: center;
-            margin: 30px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px solid #dee2e6;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .club-formation {
-            background: #374151;
-            border-color: #4a5568;
-        }
-        
-        .formation-title {
-            font-size: 1.5rem;
-            color: #0066cc;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .formation-title {
-            color: #4dabf7;
-        }
-        
-        .club-formation-line {
-            margin: 15px 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            min-height: 70px;
-            gap: 15px;
-        }
-        
-        .club-formation-player {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 80px;
-            cursor: pointer;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .club-formation-player:hover {
-            transform: translateY(-3px);
-        }
-        
-        .club-formation-player:active {
-            transform: translateY(-1px);
-        }
-        
-        .club-formation-photo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #0066cc;
-            margin-bottom: 5px;
-            background: #f8f9fa;
-        }
-        
-        .dark-theme .club-formation-photo {
-            border-color: #4dabf7;
-            background: #374151;
-        }
-        
-        .club-formation-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .club-formation-name {
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        /* Стили для скамейки запасных */
-        .substitutes-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px dashed #dee2e6;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .substitutes-section {
-            background: #374151;
-            border-color: #4a5568;
-        }
-        
-        .substitutes-title {
-            font-size: 1.3rem;
-            color: #0066cc;
-            margin-bottom: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .substitutes-title {
-            color: #4dabf7;
-        }
-        
-        .substitutes-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .substitute-player {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 70px;
-            cursor: pointer;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .substitute-player:hover {
-            transform: translateY(-3px);
-        }
-        
-        .substitute-player:active {
-            transform: translateY(-1px);
-        }
-        
-        .substitute-photo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid #6c757d;
-            margin-bottom: 5px;
-            background: #f8f9fa;
-        }
-        
-        .dark-theme .substitute-photo {
-            border-color: #aaa;
-            background: #374151;
-        }
-        
-        .substitute-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        
-        .substitute-name {
-            font-size: 0.85rem;
-            text-align: center;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
         /* Страница правил */
         .rules-container {
             background: white;
@@ -1521,21 +1206,6 @@
                 gap: 8px;
             }
             
-            .club-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .club-detail-logo {
-                width: 150px;
-                height: 150px;
-                margin: 0 auto;
-            }
-            
-            .club-detail-info h3 {
-                font-size: 2rem;
-            }
-            
             .rules-section {
                 padding: 15px;
             }
@@ -1596,19 +1266,6 @@
                 font-size: 1.5rem;
             }
             
-            .clubs-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .club-logo {
-                width: 130px;
-                height: 130px;
-            }
-            
-            .club-info h3 {
-                font-size: 1.8rem;
-            }
-            
             .rules-header h2 {
                 font-size: 1.8rem;
             }
@@ -1626,8 +1283,6 @@
         @media (hover: none) and (pointer: coarse) {
             .player-card:active,
             .player-item:active,
-            .club-card:active,
-            .club-formation-player:active,
             .main-button:active,
             .back-button:active,
             .update-button:active {
@@ -1637,8 +1292,6 @@
         
         .player-card,
         .player-item,
-        .club-card,
-        .club-formation-player,
         .main-button,
         .back-button,
         .update-button,
@@ -1677,12 +1330,6 @@
                         <div class="button-icon">🏆</div>
                         <div class="button-title">Лучший Состав</div>
                         <div class="button-description">Идеальная команда нашего двора</div>
-                    </div>
-                    
-                    <div class="main-button" id="clubs-btn">
-                        <div class="button-icon">🏛️</div>
-                        <div class="button-title">Клубы</div>
-                        <div class="button-description">Футбольные команды нашего двора</div>
                     </div>
                     
                     <div class="main-button" id="rules-btn">
@@ -1758,16 +1405,15 @@
                         </div>
                         
                         <!-- Вторая линия: центральный нападающий -->
-                        <div class="formation-line">
-                            <div class="player-item" data-player="mbappe">
-                                <div class="player-photo-small" id="mbappe-photo-small">
-                                    <!-- Фото будет загружено через JS -->
-                                </div>
-                                <div class="player-name">Мбаппе</div>
-                                <span class="player-number">(9)</span>
-                            </div>
-                        </div>
-                        
+<div class="formation-line">
+    <div class="player-item" data-player="batrakov">
+        <div class="player-photo-small" id="batrakov-photo-small">
+            <!-- Фото будет загружено через JS -->
+        </div>
+        <div class="player-name">Батраков</div>
+        <span class="player-number">(3)</span>
+    </div>
+</div>
                         <!-- Третья линия: полузащита -->
                         <div class="formation-line">
                             <div class="player-item" data-player="messi">
@@ -1846,35 +1492,6 @@
                 </div>
             </div>
             
-            <!-- Страница клубов -->
-            <div id="clubs-page" class="page">
-                <button class="back-button" id="back-from-clubs">← Назад к главной</button>
-                <h2 class="section-title">Футбольные Клубы Двора</h2>
-                
-                <div class="clubs-grid">
-                    <!-- Клуб "Легенды Двора" -->
-                    <div class="club-card" data-club="legends">
-                        <div class="club-logo" id="club-legends-logo">
-                            <!-- Логотип будет загружен через JS -->
-                        </div>
-                        <div class="club-info">
-                            <h3>Легенды Двора</h3>
-                            <p>Основан: 2025 год</p>
-                            <p>Состав: 6 игроков (3 основных + 3 запасных)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Страница детальной информации клуба -->
-            <div id="club-detail-page" class="page">
-                <button class="back-button" id="back-from-club-detail">← Назад к клубам</button>
-                
-                <div class="club-detail" id="club-detail-content">
-                    <!-- Содержание будет заполнено JavaScript -->
-                </div>
-            </div>
-            
             <!-- Страница правил -->
             <div id="rules-page" class="page">
                 <button class="back-button" id="back-from-rules">← Назад к главной</button>
@@ -1885,7 +1502,6 @@
                         <div class="warning-text">⚠ ВНИМАНИЕ: Правила обязательны к прочтению!</div>
                     </div>
                     
-                    <!-- Содержимое правил (сокращено для компактности, но полное в исходном коде) -->
                     <div class="rules-section"><h3>🎯 ОБЩИЕ ПРАВИЛА</h3><ul class="rules-list"><li>✅ <strong>Уважение к соперникам</strong> - основа нашей игры</li><li>✅ <strong>Фэйр-плей</strong> - честная игра и признание своих ошибок</li><li>⭐ <strong>Главный принцип:</strong> Мы играем ради удовольствия, дружбы и развития футбольных навыков</li><li>⭐ <strong>Важнее победы:</strong> Честная игра, уважение к соперникам и судьям</li></ul></div>
                     <div class="rules-section"><h3>👥 СОСТАВ КОМАНДЫ</h3><ul class="rules-list"><li><strong>Минимум:</strong> 3 игрока (в соответствии с турниром)</li><li><strong>Максимум:</strong> Без ограничений в заявке</li></ul></div>
                     <div class="rules-section"><h3>🔄 СИСТЕМА ЗАМЕН</h3><ul class="rules-list"><li><strong>Неограниченное количество замен</strong></li><li><strong>Замена производится только при остановке игры</strong></li></ul></div>
@@ -1959,7 +1575,7 @@
     <script>
         // Данные игроков (полная копия из исходного кода, с обновлениями)
         const playersData = {
-            mbappe: { name: "Килиан Мбаппе", position: "ЦФД", age: "14 лет", icon: "⚡", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 91, number: "(9)" },
+            mbappe: { name: "Килиан Мбаппе", position: "ЦФД", age: "14 лет", icon: "⚡", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 76, number: "(9)" }, // Рейтинг понижен на 15 (был 91)
             raya: { name: "Давид Рая", position: "Вратарь", age: "14 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", matches: 0, saves: 0, cleanSheets: 0, rating: 92, number: "(1)" },
             kepa: { name: "Кепа", position: "Центральный защитник-Вратарь", age: "14 лет", icon: "🛡️🧤", foot: "Правая", height: "0 см", weight: "0 кг", matchesAsCD: 0, goals: 0, assists: 0, matchesAsGK: 0, saves: 0, cleanSheets: 0, rating: 88, number: "(66)" },
             maradona: { name: "Марадона", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 85, number: "(11)" },
@@ -1973,9 +1589,6 @@
             hokkeist: { name: "Хоккеист", position: "Полузащитник", age: "14 лет", icon: "🏒", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 82, number: "(13)" },
             vanya: { name: "Ваня", position: "Центральный полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", matches: 0, goals: 0, assists: 0, rating: 61, number: "(99)" }
         };
-
-        // Данные клубов (сокращено для компактности)
-        const clubsData = { legends: { name: "Легенды Двора", founded: "2025 год", players: ["mbappe", "maxim", "raya"], substitutes: ["kepa", "ramos", "andryushka"], formation: { name: "Схема 1-1-1", description: "Три ключевых игрока двора", positions: { attack: ["mbappe"], defense: ["maxim"], goalkeeper: ["raya"] } }, achievements: ["Первый клуб двора", "Обладатели лучших рейтингов", "Три ключевых игрока двора", "Сильная скамейка запасных"] } };
 
         // Глобальные переменные для текущего состояния
         let currentPlayerIds = Object.keys(playersData);
@@ -2175,15 +1788,12 @@
                 });
             }
             
-            // Обработчики навигации (как в исходном коде)
+            // Обработчики навигации
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
-            document.getElementById('clubs-btn')?.addEventListener('click', function() { showPage('clubs-page'); });
             document.getElementById('rules-btn')?.addEventListener('click', function() { showPage('rules-page'); });
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
-            document.getElementById('back-from-clubs')?.addEventListener('click', function() { showPage('home-page'); });
-            document.getElementById('back-from-club-detail')?.addEventListener('click', function() { showPage('clubs-page'); });
             document.getElementById('back-from-rules')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             
@@ -2195,41 +1805,25 @@
                 if (e.target === this) this.classList.remove('active');
             });
             
-            // Загрузка фото для лучшего состава и клуба (упрощенно)
-            if (typeof loadPhotos === 'function') loadPhotos();
-            else {
-                // Ручная загрузка фото для маленьких аватарок
-                const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
-                playerIds.forEach(id => {
-                    const smallPhoto = document.getElementById(`${id}-photo-small`);
-                    if (smallPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                        const img = document.createElement('img'); img.src = playerPhotos[id]; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
-                        smallPhoto.appendChild(img);
-                    } else if (smallPhoto) {
-                        const icon = document.createElement('div'); icon.style.fontSize = '1.8rem'; icon.textContent = playersData[id].icon; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.width = '100%'; icon.style.height = '100%';
-                        smallPhoto.appendChild(icon);
-                    }
-                });
-                // Лого клуба
-                const clubLogo = document.getElementById('club-legends-logo');
-                if (clubLogo) {
-                    if (typeof clubPhotos !== 'undefined' && clubPhotos.legends) {
-                        const img = document.createElement('img'); img.src = clubPhotos.legends; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
-                        clubLogo.appendChild(img);
-                    } else {
-                        const icon = document.createElement('div'); icon.style.fontSize = '3rem'; icon.textContent = '🏆'; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.width = '100%'; icon.style.height = '100%';
-                        clubLogo.appendChild(icon);
-                    }
+            // Загрузка фото для лучшего состава
+            const playerIds = ['mbappe', 'raya', 'kepa', 'maradona', 'sanya', 'messi', 'batrakov', 'abibas', 'maxim', 'ramos', 'andryushka', 'hokkeist', 'vanya'];
+            playerIds.forEach(id => {
+                const smallPhoto = document.getElementById(`${id}-photo-small`);
+                if (smallPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    const img = document.createElement('img'); img.src = playerPhotos[id]; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
+                    smallPhoto.appendChild(img);
+                } else if (smallPhoto) {
+                    const icon = document.createElement('div'); icon.style.fontSize = '1.8rem'; icon.textContent = playersData[id].icon; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.width = '100%'; icon.style.height = '100%';
+                    smallPhoto.appendChild(icon);
                 }
-            }
+            });
             
-            // Обработчик для карточек клубов
-            document.querySelectorAll('.club-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const clubId = this.getAttribute('data-club');
-                    if (clubId && clubsData[clubId]) {
-                        // Минимальная реализация открытия деталей клуба (можно расширить)
-                        alert('Детальная страница клуба в разработке, но функционал заложен.');
+            // Добавляем обработчики для игроков в лучшем составе для открытия модалки
+            document.querySelectorAll('.player-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    if (playerId && playersData[playerId]) {
+                        openPlayerModal(playerId);
                     }
                 });
             });
