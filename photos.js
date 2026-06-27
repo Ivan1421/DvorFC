@@ -15,7 +15,8 @@ const playerPhotos = {
     kepa: "Photos (2)/kepa.jpg",
     vanya: "Photos (2)/Dowman.jpeg",
     taisia: "Photos (2)/taisia.jpg",
-    lesha_podavalny: "Photos (2)/lesha.jpg"
+    lesha_podavalny: "Photos (2)/lesha.jpg",
+    aleksey_doroshenko: "doroshenko.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
