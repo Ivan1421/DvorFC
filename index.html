@@ -413,6 +413,7 @@
             align-items: center;
             -webkit-user-select: none;
             user-select: none;
+            position: relative;
         }
         
         .player-card:hover {
@@ -628,6 +629,7 @@
             transition: all 0.3s ease;
             -webkit-user-select: none;
             user-select: none;
+            position: relative;
         }
         
         .player-item:hover {
@@ -1297,6 +1299,78 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        /* Стили для особой пометки "игрок ФК "МЕРА"" */
+        .player-card.mera-player {
+            position: relative;
+            border: 3px solid #9b59b6;
+            animation: purpleGlow 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .player-card.mera-player::before {
+            content: "⭐ Игрок ФК \"МЕРА\"";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
+            z-index: 5;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            border: 1px solid #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        @keyframes purpleGlow {
+            0% { box-shadow: 0 0 10px 2px rgba(155, 89, 182, 0.4), inset 0 0 10px 2px rgba(155, 89, 182, 0.2); border-color: #9b59b6; }
+            50% { box-shadow: 0 0 25px 8px rgba(155, 89, 182, 0.7), inset 0 0 20px 5px rgba(155, 89, 182, 0.4); border-color: #af7ac5; }
+            100% { box-shadow: 0 0 10px 2px rgba(155, 89, 182, 0.4), inset 0 0 10px 2px rgba(155, 89, 182, 0.2); border-color: #9b59b6; }
+        }
+
+        /* Для темной темы корректируем */
+        .dark-theme .player-card.mera-player {
+            border-color: #af7ac5;
+            animation: purpleGlowDark 3s ease-in-out infinite;
+        }
+
+        @keyframes purpleGlowDark {
+            0% { box-shadow: 0 0 15px 3px rgba(175, 122, 197, 0.3), inset 0 0 15px 3px rgba(175, 122, 197, 0.1); border-color: #af7ac5; }
+            50% { box-shadow: 0 0 35px 12px rgba(175, 122, 197, 0.6), inset 0 0 25px 8px rgba(175, 122, 197, 0.3); border-color: #c39bd3; }
+            100% { box-shadow: 0 0 15px 3px rgba(175, 122, 197, 0.3), inset 0 0 15px 3px rgba(175, 122, 197, 0.1); border-color: #af7ac5; }
+        }
+
+        /* В модальном окне тоже пометка */
+        .modal .mera-tag {
+            display: inline-block;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.4);
+            border: 1px solid #fff;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        /* Убираем обводку и надпись у player-item во вкладке ФК МЕРА */
+        .player-item.mera-player {
+            border: none !important;
+            animation: none !important;
+            box-shadow: none !important;
+        }
+
+        .player-item.mera-player::before {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -1385,7 +1459,6 @@
                                 <span class="player-number">(?)</span>
                             </div>
                         </div>
-                    </div>
                         
                         <div class="formation-line">
                             <div class="player-item" data-player="lesha_podavalny">
@@ -1407,6 +1480,7 @@
                                 <span class="player-number">(1)</span>
                             </div>
                         </div>
+                    </div>
                     
                     <div class="tactics-info">
                         <h3>Тактическая информация</h3>
@@ -1457,6 +1531,7 @@
                 <div class="modal-info">
                     <h3 id="modal-name">Имя игрока</h3>
                     <p id="modal-position">Позиция • Возраст</p>
+                    <div id="modal-mera-tag" class="mera-tag" style="display: none;">⭐ Игрок ФК "МЕРА"</div>
                 </div>
                 <div class="modal-rating-header">
                     <div class="rating-value" id="modal-rating">0</div>
@@ -1486,6 +1561,9 @@
     <script src="photos.js"></script>
 
     <script>
+        // Список ID игроков, которые являются частью ФК "МЕРА"
+        const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'andryushka'];
+
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "14 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)" },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)" },
@@ -1519,13 +1597,16 @@
             let html = '';
             filteredPlayerIds.forEach(id => {
                 const p = playersData[id];
+                const isMera = meraPlayerIds.includes(id);
+                const cardClass = isMera ? 'player-card mera-player' : 'player-card';
+                
                 let statsHtml = `
                     <div class="stat-item"><div class="stat-value">${p.height}</div><div class="stat-label">Рост</div></div>
                     <div class="stat-item"><div class="stat-value">${p.weight}</div><div class="stat-label">Вес</div></div>
                     <div class="stat-item"><div class="stat-value">${p.rating}</div><div class="stat-label">Рейтинг</div></div>
                 `;
                 
-                html += `<div class="player-card" data-player="${id}">
+                html += `<div class="${cardClass}" data-player="${id}">
                     <div class="player-photo" id="${id}-photo-card"></div>
                     <div class="player-info">
                         <h3>${p.name}</h3>
@@ -1601,6 +1682,15 @@
             if (!player) return;
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
+            
+            // Показываем пометку "Игрок ФК МЕРА" если игрок в списке
+            const meraTag = document.getElementById('modal-mera-tag');
+            if (meraPlayerIds.includes(playerId)) {
+                meraTag.style.display = 'inline-block';
+            } else {
+                meraTag.style.display = 'none';
+            }
+            
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
             if (player.rating >= 80) ratingElement.className = 'rating-value rating-high';
