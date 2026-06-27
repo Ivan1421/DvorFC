@@ -839,51 +839,6 @@
             display: none !important;
         }
 
-        /* Стили для TikTok ссылки в модальном окне Раи */
-        .modal-tiktok-section {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #0066cc;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .modal-tiktok-section {
-            border-top-color: #4dabf7;
-        }
-        
-        .tiktok-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            animation: purpleGlowText 2s ease-in-out infinite;
-            margin-bottom: 8px;
-        }
-        
-        .tiktok-link {
-            color: #1e90ff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .tiktok-link:hover {
-            color: #4169e1;
-            text-decoration: underline;
-        }
-        
-        .tiktok-subscribe {
-            font-size: 1.1rem;
-            font-weight: bold;
-            animation: purpleGlowText 2s ease-in-out infinite;
-            animation-delay: 0.5s;
-        }
-        
-        @keyframes purpleGlowText {
-            0% { color: #9b59b6; text-shadow: 0 0 5px rgba(155, 89, 182, 0.3); }
-            50% { color: #af7ac5; text-shadow: 0 0 15px rgba(155, 89, 182, 0.7), 0 0 30px rgba(155, 89, 182, 0.3); }
-            100% { color: #9b59b6; text-shadow: 0 0 5px rgba(155, 89, 182, 0.3); }
-        }
-
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1465,15 +1420,6 @@
                     <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-combined">0 кг</div></div>
                 </div>
             </div>
-            <!-- Блок для TikTok ссылки (будет показываться только для Раи) -->
-            <div id="modal-tiktok-section" class="modal-tiktok-section" style="display: none;">
-                <div class="tiktok-text">
-                     Я в <a href="https://www.tiktok.com/@user8583096138045?_r=1&_t=ZS-97Z9argLRzA" target="_blank" class="tiktok-link">тик токе</a>
-                </div>
-                <div class="tiktok-subscribe">
-                     🐊
-                </div>
-            </div>
         </div>
     </div>
 
@@ -1632,14 +1578,6 @@
             document.getElementById('modal-foot').textContent = player.foot;
             document.getElementById('modal-height').textContent = player.height;
             document.getElementById('modal-weight').textContent = player.weight;
-            
-            // Показываем TikTok блок только для Раи
-            const tiktokSection = document.getElementById('modal-tiktok-section');
-            if (playerId === 'raya') {
-                tiktokSection.style.display = 'block';
-            } else {
-                tiktokSection.style.display = 'none';
-            }
             
             document.getElementById('player-modal').classList.add('active');
         }
