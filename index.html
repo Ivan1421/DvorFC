@@ -185,7 +185,6 @@
             color: #ccc;
         }
         
-        /* Кнопка обновления на главной */
         .update-button-container {
             text-align: center;
             margin: 20px 0 40px;
@@ -237,7 +236,6 @@
             box-shadow: none;
         }
         
-        /* Страница игроков (теперь "Состав двора") */
         .page {
             display: none;
         }
@@ -278,7 +276,6 @@
             background: #339af0;
         }
         
-        /* НОВЫЕ СТИЛИ: панель поиска и сортировки */
         .players-controls {
             background: white;
             border-radius: 15px;
@@ -552,7 +549,6 @@
             color: #ccc;
         }
         
-        /* Предупреждение о статистике */
         .stats-warning {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -582,7 +578,6 @@
             color: #ffd43b;
         }
         
-        /* Страница ФК МЕРЫ */
         .best-squad-container {
             background: white;
             border-radius: 15px;
@@ -729,7 +724,6 @@
             color: #f0f0f0;
         }
         
-        /* Страница правил */
         .rules-container {
             background: white;
             border-radius: 15px;
@@ -880,7 +874,6 @@
             color: #ffd8a8;
         }
         
-        /* Модальное окно для детальной информации */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1014,7 +1007,6 @@
             color: #ccc;
         }
         
-        /* Рейтинг в хедере */
         .modal-rating-header {
             position: absolute;
             right: 60px;
@@ -1030,7 +1022,6 @@
             transition: all 0.3s ease;
         }
         
-        /* Цвета для рейтингов */
         .rating-high {
             color: #28a745;
         }
@@ -1053,7 +1044,6 @@
             color: #ccc;
         }
         
-        /* Компактная статистика для игроков с комбинированной позицией */
         .modal-stats-combined {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1321,7 +1311,6 @@
         </header>
         
         <main>
-            <!-- Главная страница -->
             <div id="home-page" class="page active">
                 <div class="main-buttons">
                     <div class="main-button" id="players-btn">
@@ -1343,7 +1332,6 @@
                     </div>
                 </div>
                 
-                <!-- Кнопка обновления -->
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn">
                         <span>🔄</span>
@@ -1352,11 +1340,9 @@
                 </div>
             </div>
             
-            <!-- Страница игроков (теперь "Состав двора") с поиском и сортировкой -->
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
          
-                <!-- НОВЫЙ БЛОК: поиск и сортировка -->
                 <div class="players-controls">
                     <div class="search-container">
                         <span class="search-icon">🔍</span>
@@ -1371,10 +1357,8 @@
                 </div>
                 
                 <div class="players-grid" id="players-grid-container">
-                    <!-- Карточки игроков будут отрисованы динамически через JS -->
                 </div>
                 
-                <!-- Предупреждение о статистике -->
                 <div class="stats-warning">
                     <span class="warning-icon">⚠</span>
                     <strong>Важно:</strong> Статистика обновляется и считается только в те дни, 
@@ -1382,7 +1366,6 @@
                 </div>
             </div>
             
-            <!-- Страница ФК МЕРЫ (ранее лучший состав) -->
             <div id="squad-page" class="page">
                 <button class="back-button" id="back-from-squad">← Назад к главной</button>
                 
@@ -1390,8 +1373,6 @@
                     <h2 class="section-title">ФК "МЕРА" — основной состав</h2>
                     
                     <div class="formation">
-                        <!-- Схема снизу-вверх: вратарь внизу, защитники выше, вингеры выше -->
-                        <!-- Линия 1: вратарь - снизу (первая в HTML, но будет снизу из-за flex-direction: column-reverse) -->
                         <div class="formation-line">
                             <div class="player-item" data-player="batrakov">
                                 <div class="player-photo-small" id="batrakov-photo-small"></div>
@@ -1406,7 +1387,6 @@
                         </div>
                     </div>
                         
-                        <!-- Линия 2: два центральных защитника - посередине -->
                         <div class="formation-line">
                             <div class="player-item" data-player="lesha_podavalny">
                                 <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
@@ -1420,7 +1400,6 @@
                             </div>
                         </div>
                         
-                        <!-- Линия 3: два полузащитника (вингеры) - сверху -->
                         <div class="formation-line">
                             <div class="player-item" data-player="raya">
                                 <div class="player-photo-small" id="raya-photo-small"></div>
@@ -1437,7 +1416,6 @@
                 </div>
             </div>
             
-            <!-- Страница правил -->
             <div id="rules-page" class="page">
                 <button class="back-button" id="back-from-rules">← Назад к главной</button>
                 
@@ -1471,7 +1449,6 @@
         </footer>
     </div>
 
-    <!-- Модальное окно для детальной информации -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -1487,19 +1464,16 @@
                 </div>
             </div>
             <div id="modal-stats-container">
-                <!-- Блок для обычных полевых игроков (рост, вес, нога) -->
                 <div class="modal-stats" id="normal-stats" style="display: none;">
                     <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot">Правая</div></div>
                     <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height">0 см</div></div>
                     <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight">0 кг</div></div>
                 </div>
-                <!-- Блок для вратарей (рост, вес, нога) -->
                 <div class="modal-stats" id="goalkeeper-stats" style="display: none;">
                     <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot-gk">Правая</div></div>
                     <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height-gk">0 см</div></div>
                     <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-gk">0 кг</div></div>
                 </div>
-                <!-- Блок для комбинированных позиций (защитник-вратарь) — не используется, но оставлен -->
                 <div class="modal-stats-combined" id="combined-stats" style="display: none;">
                     <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot-combined">Правая</div></div>
                     <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height-combined">0 см</div></div>
@@ -1509,28 +1483,22 @@
         </div>
     </div>
 
-    <!-- Подключение файла с Base64 фото (ожидается, что он есть) -->
     <script src="photos.js"></script>
 
     <script>
-        // Обновленные данные игроков
         const playersData = {
-            // Существующие, обновленные
             raya: { name: "Давид Рая", position: "Вратарь", age: "14 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)" },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)" },
             batrakov: { name: "Батраков", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 87, number: "(83)" },
             ramos: { name: "Рамос", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 42, number: "(4)" },
             messi: { name: "Лионель Месси", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Левая", height: "0 см", weight: "0 кг", rating: 67, number: "(10)" },
             andryushka: { name: "Андрюшка", position: "Полузащитник", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 87, number: "(77)" },
-            
-            // Новые игроки
             miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 82, number: "(?)" },
             holland: { name: "Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Правая", height: "141 см", weight: "37 кг", rating: 81, number: "(?)" },
             elanga: { name: "Еланга", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "50 кг", rating: 88, number: "(?)" },
             lesha_podavalny: { name: "Леша Подавальный", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 89, number: "(41)" },
             aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "40 кг", rating: 91, number: "(?)" },
             dyadya_fedya: { name: "Дядя Федя", position: "Тренер", age: "67 лет", icon: "🧑‍🏫", foot: "Правая", height: "0 см", weight: "0 кг", rating: 100, number: "(?)" },
-            // Оставляем остальных для совместимости
             mbappe: { name: "Килиан Мбаппе", position: "ЦФД", age: "14 лет", icon: "⚡", foot: "Правая", height: "0 см", weight: "0 кг", rating: 76, number: "(9)" },
             maradona: { name: "Марадона", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 85, number: "(11)" },
             abibas: { name: "Абибас", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 79, number: "(6)" },
@@ -1538,15 +1506,12 @@
             vanya: { name: "Ваня", position: "Центральный полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 61, number: "(99)" }
         };
 
-        // Удаляем Кепу
         delete playersData.kepa;
 
-        // Глобальные переменные для текущего состояния
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
-        let activeSort = 'none'; // 'none', 'rating', 'name'
+        let activeSort = 'none';
 
-        // Функция для рендера карточек игроков на основе filteredPlayerIds
         function renderPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
@@ -1554,7 +1519,6 @@
             let html = '';
             filteredPlayerIds.forEach(id => {
                 const p = playersData[id];
-                // Упрощенная статистика: только рост, вес, рейтинг (без голов/матчей)
                 let statsHtml = `
                     <div class="stat-item"><div class="stat-value">${p.height}</div><div class="stat-label">Рост</div></div>
                     <div class="stat-item"><div class="stat-value">${p.weight}</div><div class="stat-label">Вес</div></div>
@@ -1573,11 +1537,10 @@
             });
             container.innerHTML = html;
             
-            // После рендера загружаем фото в карточки и вешаем обработчики
             currentPlayerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
-                    cardPhoto.innerHTML = ''; // очищаем
+                    cardPhoto.innerHTML = '';
                     if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         const img = document.createElement('img');
                         img.src = playerPhotos[id];
@@ -1594,7 +1557,6 @@
                 }
             });
             
-            // Обработчики кликов на карточки
             document.querySelectorAll('.player-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
@@ -1602,11 +1564,9 @@
                 });
             });
             
-            // Обновляем счетчик игроков
             document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
         }
 
-        // Функции сортировки и фильтрации
         function filterPlayers(searchTerm) {
             const term = searchTerm.toLowerCase().trim();
             if (term === '') {
@@ -1636,7 +1596,6 @@
             renderPlayerCards();
         }
 
-        // Функция для открытия модалки (только рост, вес, нога, рейтинг)
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
@@ -1658,7 +1617,6 @@
                 modalPhoto.appendChild(icon);
             }
             
-            // Показываем только базовые статы для всех
             document.getElementById('normal-stats').style.display = 'grid';
             document.getElementById('goalkeeper-stats').style.display = 'none';
             document.getElementById('combined-stats').style.display = 'none';
@@ -1670,12 +1628,9 @@
             document.getElementById('player-modal').classList.add('active');
         }
 
-        // Инициализация событий для поиска и сортировки
         document.addEventListener('DOMContentLoaded', function() {
-            // Первоначальный рендер карточек
             renderPlayerCards();
             
-            // Поиск
             const searchInput = document.getElementById('player-search');
             if (searchInput) {
                 searchInput.addEventListener('input', function(e) {
@@ -1683,18 +1638,16 @@
                 });
             }
             
-            // Сортировка по рейтингу
             const sortRatingBtn = document.getElementById('sort-rating');
             if (sortRatingBtn) {
                 sortRatingBtn.addEventListener('click', function() {
                     activeSort = 'rating';
                     document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
-                    filterPlayers(document.getElementById('player-search').value); // повторно применит фильтр и сортировку
+                    filterPlayers(document.getElementById('player-search').value);
                 });
             }
             
-            // Сортировка по имени
             const sortNameBtn = document.getElementById('sort-name');
             if (sortNameBtn) {
                 sortNameBtn.addEventListener('click', function() {
@@ -1705,7 +1658,6 @@
                 });
             }
             
-            // Сброс
             const resetBtn = document.getElementById('reset-sort');
             if (resetBtn) {
                 resetBtn.addEventListener('click', function() {
@@ -1713,7 +1665,6 @@
                 });
             }
             
-            // Обработчики навигации
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
             document.getElementById('rules-btn')?.addEventListener('click', function() { showPage('rules-page'); });
@@ -1722,7 +1673,6 @@
             document.getElementById('back-from-rules')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             
-            // Закрытие модалки
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
             });
@@ -1730,7 +1680,6 @@
                 if (e.target === this) this.classList.remove('active');
             });
             
-            // Загрузка фото для ФК МЕРЫ
             const squadPlayerIds = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
             squadPlayerIds.forEach(id => {
                 const smallPhoto = document.getElementById(`${id}-photo-small`);
@@ -1743,7 +1692,6 @@
                 }
             });
             
-            // Добавляем обработчики для игроков в ФК МЕРЫ для открытия модалки
             document.querySelectorAll('.player-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
@@ -1760,7 +1708,6 @@
             window.scrollTo(0, 0);
         }
 
-        // Тема
         document.getElementById('theme-toggle')?.addEventListener('click', function() {
             document.body.classList.toggle('dark-theme');
             this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
