@@ -1603,8 +1603,8 @@
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
-            if (player.rating >= 85) ratingElement.className = 'rating-value rating-high';
-            else if (player.rating >= 80) ratingElement.className = 'rating-value rating-medium';
+            if (player.rating >= 80) ratingElement.className = 'rating-value rating-high';
+            else if (player.rating >= 75) ratingElement.className = 'rating-value rating-medium';
             else ratingElement.className = 'rating-value rating-low';
             
             const modalPhoto = document.getElementById('modal-photo');
