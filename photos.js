@@ -11,7 +11,7 @@ const playerPhotos = {
     maxim: "Photos (2)/belosnezhka.jpg",
     ramos: "Photos (2)/ramos.jpg",
     andryushka: "Photos (2)/andryushka.jpg",
-    hokkeist: "Photos (2)/hokkeist.jpg",
+    hokkeist: "Photos (2)/hokkeist1.jpg",
     kepa: "Photos (2)/kepa.jpg",
     vanya: "Photos (2)/Dowman.jpeg",
     taisia: "Photos (2)/taisia.jpg"
