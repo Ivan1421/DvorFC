@@ -726,156 +726,119 @@
             color: #f0f0f0;
         }
         
-        .rules-container {
+        /* Стили для страницы "Другие дворы" */
+        .other-yards-container {
             background: white;
             border-radius: 15px;
-            padding: 30px;
+            padding: 50px 30px;
             border: 3px solid #0066cc;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            text-align: center;
             transition: all 0.3s ease;
         }
         
-        .dark-theme .rules-container {
+        .dark-theme .other-yards-container {
             background: #2d3748;
             border-color: #4dabf7;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .rules-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #0066cc;
-            transition: all 0.3s ease;
+        .other-yards-container .big-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
         }
         
-        .dark-theme .rules-header {
-            border-bottom-color: #4dabf7;
-        }
-        
-        .rules-header h2 {
-            font-size: 2.2rem;
+        .other-yards-container h2 {
             color: #0066cc;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rules-header h2 {
-            color: #4dabf7;
-        }
-        
-        .rules-header .warning-text {
-            background: #ffcc00;
-            color: #333;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: inline-block;
-            margin-top: 10px;
-            box-shadow: 0 3px 8px rgba(255, 204, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rules-header .warning-text {
-            background: #ffd700;
-            box-shadow: 0 3px 8px rgba(255, 215, 0, 0.4);
-        }
-        
-        .rules-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 1px solid #dee2e6;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rules-section {
-            background: #374151;
-            border-color: #4a5568;
-        }
-        
-        .rules-section h3 {
-            font-size: 1.5rem;
-            color: #0066cc;
+            font-size: 2.5rem;
             margin-bottom: 15px;
             transition: all 0.3s ease;
         }
         
-        .dark-theme .rules-section h3 {
+        .dark-theme .other-yards-container h2 {
             color: #4dabf7;
         }
         
-        .rules-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .rules-list li {
-            padding: 8px 0;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #eee;
-            transition: all 0.3s ease;
-            position: relative;
-            padding-left: 25px;
-        }
-        
-        .dark-theme .rules-list li {
-            border-bottom-color: #4a5568;
-            color: #f0f0f0;
-        }
-        
-        .rules-list li:before {
-            content: "•";
-            color: #0066cc;
+        .other-yards-container .message {
             font-size: 1.5rem;
-            position: absolute;
-            left: 0;
-            top: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rules-list li:before {
-            color: #4dabf7;
-        }
-        
-        .rules-list li strong {
-            color: #0066cc;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .rules-list li strong {
-            color: #4dabf7;
-        }
-        
-        .rules-note {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            color: #666;
+            padding: 30px;
+            background: #f8f9fa;
             border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            color: #856404;
-            font-size: 1rem;
-            text-align: center;
+            border: 2px dashed #0066cc;
             transition: all 0.3s ease;
         }
         
-        .dark-theme .rules-note {
-            background: #664d03;
-            border-color: #856404;
-            color: #ffd8a8;
+        .dark-theme .other-yards-container .message {
+            color: #ccc;
+            background: #374151;
+            border-color: #4dabf7;
         }
         
-        .rules-note strong {
-            color: #856404;
-            transition: all 0.3s ease;
+        /* Стили для особой пометки "игрок ФК "МЕРА"" - только надпись, без фиолетовой подсветки */
+        .player-card.mera-player {
+            position: relative;
         }
-        
-        .dark-theme .rules-note strong {
-            color: #ffd8a8;
+
+        .player-card.mera-player::before {
+            content: "⭐ Игрок ФК \"МЕРА\"";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
+            z-index: 5;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            border: 1px solid #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
-        
+
+        /* Убираем фиолетовую подсветку у карточек игроков ФК МЕРА */
+        .player-card.mera-player {
+            border: 2px solid #0066cc !important;
+            animation: none !important;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1) !important;
+        }
+
+        .dark-theme .player-card.mera-player {
+            border: 2px solid #4dabf7 !important;
+            animation: none !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        /* В модальном окне тоже пометка */
+        .modal .mera-tag {
+            display: inline-block;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.4);
+            border: 1px solid #fff;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        /* Убираем обводку и надпись у player-item во вкладке ФК МЕРА */
+        .player-item.mera-player {
+            border: none !important;
+            animation: none !important;
+            box-shadow: none !important;
+        }
+
+        .player-item.mera-player::before {
+            display: none !important;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1202,14 +1165,6 @@
                 gap: 8px;
             }
             
-            .rules-section {
-                padding: 15px;
-            }
-            
-            .rules-list li {
-                font-size: 1rem;
-            }
-            
             .modal {
                 padding: 20px;
             }
@@ -1237,6 +1192,11 @@
             .rating-value {
                 font-size: 2rem;
             }
+            
+            .other-yards-container .message {
+                font-size: 1.2rem;
+                padding: 20px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1260,15 +1220,6 @@
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
-            }
-            
-            .rules-header h2 {
-                font-size: 1.8rem;
-            }
-            
-            .rules-header .warning-text {
-                font-size: 1rem;
-                padding: 10px 15px;
             }
         }
         
@@ -1299,78 +1250,6 @@
             -ms-user-select: none;
             user-select: none;
         }
-
-        /* Стили для особой пометки "игрок ФК "МЕРА"" */
-        .player-card.mera-player {
-            position: relative;
-            border: 3px solid #9b59b6;
-            animation: purpleGlow 3s ease-in-out infinite;
-            z-index: 1;
-        }
-
-        .player-card.mera-player::before {
-            content: "⭐ Игрок ФК \"МЕРА\"";
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #8e44ad;
-            color: #fff;
-            font-weight: bold;
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
-            z-index: 5;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-            border: 1px solid #fff;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
-        }
-
-        @keyframes purpleGlow {
-            0% { box-shadow: 0 0 10px 2px rgba(155, 89, 182, 0.4), inset 0 0 10px 2px rgba(155, 89, 182, 0.2); border-color: #9b59b6; }
-            50% { box-shadow: 0 0 25px 8px rgba(155, 89, 182, 0.7), inset 0 0 20px 5px rgba(155, 89, 182, 0.4); border-color: #af7ac5; }
-            100% { box-shadow: 0 0 10px 2px rgba(155, 89, 182, 0.4), inset 0 0 10px 2px rgba(155, 89, 182, 0.2); border-color: #9b59b6; }
-        }
-
-        /* Для темной темы корректируем */
-        .dark-theme .player-card.mera-player {
-            border-color: #af7ac5;
-            animation: purpleGlowDark 3s ease-in-out infinite;
-        }
-
-        @keyframes purpleGlowDark {
-            0% { box-shadow: 0 0 15px 3px rgba(175, 122, 197, 0.3), inset 0 0 15px 3px rgba(175, 122, 197, 0.1); border-color: #af7ac5; }
-            50% { box-shadow: 0 0 35px 12px rgba(175, 122, 197, 0.6), inset 0 0 25px 8px rgba(175, 122, 197, 0.3); border-color: #c39bd3; }
-            100% { box-shadow: 0 0 15px 3px rgba(175, 122, 197, 0.3), inset 0 0 15px 3px rgba(175, 122, 197, 0.1); border-color: #af7ac5; }
-        }
-
-        /* В модальном окне тоже пометка */
-        .modal .mera-tag {
-            display: inline-block;
-            background: #8e44ad;
-            color: #fff;
-            font-weight: bold;
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-top: 8px;
-            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.4);
-            border: 1px solid #fff;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
-        }
-
-        /* Убираем обводку и надпись у player-item во вкладке ФК МЕРА */
-        .player-item.mera-player {
-            border: none !important;
-            animation: none !important;
-            box-shadow: none !important;
-        }
-
-        .player-item.mera-player::before {
-            display: none !important;
-        }
     </style>
 </head>
 <body>
@@ -1399,10 +1278,10 @@
                         <div class="button-description">Основной состав нашего двора</div>
                     </div>
                     
-                    <div class="main-button" id="rules-btn">
-                        <div class="button-icon">📜</div>
-                        <div class="button-title">Правила</div>
-                        <div class="button-description">Обязательно к прочтению</div>
+                    <div class="main-button" id="yards-btn">
+                        <div class="button-icon">🏘️</div>
+                        <div class="button-title">Другие дворы</div>
+                        <div class="button-description">Наши соперники</div>
                     </div>
                 </div>
                 
@@ -1490,29 +1369,15 @@
                 </div>
             </div>
             
-            <div id="rules-page" class="page">
-                <button class="back-button" id="back-from-rules">← Назад к главной</button>
+            <div id="yards-page" class="page">
+                <button class="back-button" id="back-from-yards">← Назад к главной</button>
                 
-                <div class="rules-container">
-                    <div class="rules-header">
-                        <h2>ПРАВИЛА ТУРНИРОВ ФУТБОЛЬНОГО ДВОРА "МЕРА"</h2>
-                        <div class="warning-text">⚠ ВНИМАНИЕ: Правила обязательны к прочтению!</div>
+                <div class="other-yards-container">
+                    <div class="big-icon">🏘️</div>
+                    <h2>Другие дворы</h2>
+                    <div class="message">
+                        📢 Здесь скоро будут наши соперники!
                     </div>
-                    
-                    <div class="rules-section"><h3>🎯 ОБЩИЕ ПРАВИЛА</h3><ul class="rules-list"><li>✅ <strong>Уважение к соперникам</strong> - основа нашей игры</li><li>✅ <strong>Фэйр-плей</strong> - честная игра и признание своих ошибок</li><li>⭐ <strong>Главный принцип:</strong> Мы играем ради удовольствия, дружбы и развития футбольных навыков</li><li>⭐ <strong>Важнее победы:</strong> Честная игра, уважение к соперникам и судьям</li></ul></div>
-                    <div class="rules-section"><h3>👥 СОСТАВ КОМАНДЫ</h3><ul class="rules-list"><li><strong>Минимум:</strong> 3 игрока (в соответствии с турниром)</li><li><strong>Максимум:</strong> Без ограничений в заявке</li></ul></div>
-                    <div class="rules-section"><h3>🔄 СИСТЕМА ЗАМЕН</h3><ul class="rules-list"><li><strong>Неограниченное количество замен</strong></li><li><strong>Замена производится только при остановке игры</strong></li></ul></div>
-                    <div class="rules-section"><h3>🟨🟥 СИСТЕМА КАРТОЧЕК</h3><ul class="rules-list"><li>🟨 <strong>Жёлтая карточка</strong> = предупреждение</li><li>🟨🟨 <strong>2 жёлтые карточки</strong> в одном матче = красная карточка</li><li>🔴 <strong>Красная карточка</strong> = выход из игры на 5 минут (команда играет в меньшинстве)</li></ul></div>
-                    <div class="rules-section"><h3>🏛️ СОЗДАНИЕ СВОЕГО КЛУБА</h3><ul class="rules-list"><li><strong>Минимум 3 игрока</strong> для создания клуба</li><li><strong>Уникальное название клуба</strong> (не должно оскорблять или нарушать нормы)</li><li><strong>Назначается капитан</strong> - ответственный за команду</li></ul></div>
-                    <div class="rules-section"><h3>💰 ФИНАНСОВЫЕ УСЛОВИЯ</h3><ul class="rules-list"><li>🎉 <strong>ВСЁ АБСОЛЮТНО БЕСПЛАТНО</strong> - никаких взносов и сборов</li></ul></div>
-                    <div class="rules-section"><h3>🏆 СИСТЕМА НАГРАЖДЕНИЯ</h3><ul class="rules-list"><li>📜 <strong>Грамоты</strong> победителям и призёрам турнира</li><li>⭐ <strong>Звание "Лучший игрок турнира"</strong> с особой наградой</li></ul></div>
-                    <div class="rules-section"><h3>📊 РЕЙТИНГОВАЯ СИСТЕМА</h3><ul class="rules-list"><li>✅ <strong>Победа</strong> = +3 очка рейтинга</li><li>🤝 <strong>Ничья</strong> = +1 очко</li><li>❌ <strong>Поражение</strong> = 0 очков</li></ul></div>
-                    <div class="rules-section"><h3>📅 ТУРНИРНАЯ СИСТЕМА</h3><ul class="rules-list"><li><strong>Формат турнира</strong> может отличаться в зависимости от конкретного турнира</li><li><strong>Все матчи проводятся</strong> на территории двора "МЕРА"</li></ul></div>
-                    <div class="rules-section"><h3>🤝 FAIR-PLAY И ПОВЕДЕНИЕ</h3><ul class="rules-list"><li>👍 <strong>Команды с лучшим поведением</strong> получают дополнительные баллы в рейтинге</li><li>❌ <strong>Грубое или неспортивное поведение</strong> может привести к исключению из турнира</li></ul></div>
-                    <div class="rules-section"><h3>🧑‍⚖️ СУДЕЙСТВО</h3><ul class="rules-list"><li><strong>Судью определяют</strong> перед матчем только @RAYAVITYA и @Eighteen_2018</li><li><strong>Судье выдаётся экипировка</strong> в виде двух карточек: Жёлтой и Красной</li><li>⚖️ <strong>Решение судьи является окончательным</strong> и обсуждению не подлежит</li></ul></div>
-                    <div class="rules-section"><h3>📩 РЕГИСТРАЦИЯ И ИНФОРМАЦИЯ</h3><ul class="rules-list"><li><strong>Вся информация</strong> по регистрации клубов и игроков</li><li><strong>Все вопросы</strong> по турнирам и организации</li><li>✉️ <strong>ТОЛЬКО в личных сообщениях</strong> @RAYAVITYA в Телеграм</li></ul></div>
-                    <div class="rules-section"><h3>⚡ КАК НАЧАТЬ УЧАСТВОВАТЬ?</h3><ol class="rules-list" style="list-style-type: decimal; padding-left: 20px;"><li>Прочитай правила выше</li><li>Собери команду из 3+ игроков</li><li>Придумай название для своего клуба</li><li>Напиши @RAYAVITYA в Телеграмм для регистрации</li><li>Участвуй в турнирах и создавай свою историю!</li></ol></div>
-                    <div class="rules-note"><p><strong>ДВОР "МЕРА" ЖДЁТ ИМЕННО ТЕБЯ! СТАНЬ ЧАСТЬЮ НАШЕЙ ФУТБОЛЬНОЙ СЕМЬИ! ⚽🏆</strong></p></div>
                 </div>
             </div>
         </main>
@@ -1683,7 +1548,6 @@
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
             
-            // Показываем пометку "Игрок ФК МЕРА" если игрок в списке
             const meraTag = document.getElementById('modal-mera-tag');
             if (meraPlayerIds.includes(playerId)) {
                 meraTag.style.display = 'inline-block';
@@ -1757,10 +1621,10 @@
             
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
-            document.getElementById('rules-btn')?.addEventListener('click', function() { showPage('rules-page'); });
+            document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
-            document.getElementById('back-from-rules')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             
             document.getElementById('modal-close')?.addEventListener('click', function() {
