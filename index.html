@@ -696,7 +696,7 @@
             background: #f0f8ff;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 30px;
+            margin-top: 20px;
             border: 1px solid #0066cc;
             transition: all 0.3s ease;
         }
@@ -725,8 +725,63 @@
         .dark-theme .tactics-info p {
             color: #f0f0f0;
         }
+
+        /* Переключатель составов - снизу, выше тактической информации */
+        .squad-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0 25px 0;
+        }
+
+        .squad-tab {
+            background: #f0f8ff;
+            border: 2px solid #0066cc;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .squad-tab.active {
+            background: #0066cc;
+            color: white;
+        }
+
+        .dark-theme .squad-tab {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #4dabf7;
+        }
+
+        .dark-theme .squad-tab.active {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+
+        .squad-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
+        }
+
+        .squad-tab:active {
+            transform: translateY(0);
+        }
+
+        .squad-content {
+            display: none;
+        }
+
+        .squad-content.active {
+            display: block;
+        }
         
-        /* Стили для страницы "Другие дворы" */
         .other-yards-container {
             background: white;
             border-radius: 15px;
@@ -775,7 +830,6 @@
             border-color: #4dabf7;
         }
         
-        /* Стили для особой пометки "игрок ФК "МЕРА"" - только надпись, без фиолетовой подсветки */
         .player-card.mera-player {
             position: relative;
         }
@@ -799,7 +853,6 @@
             text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
-        /* Убираем фиолетовую подсветку у карточек игроков ФК МЕРА */
         .player-card.mera-player {
             border: 2px solid #0066cc !important;
             animation: none !important;
@@ -812,7 +865,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
         }
 
-        /* В модальном окне тоже пометка */
         .modal .mera-tag {
             display: inline-block;
             background: #8e44ad;
@@ -828,7 +880,6 @@
             text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
-        /* Убираем обводку и надпись у player-item во вкладке ФК МЕРА */
         .player-item.mera-player {
             border: none !important;
             animation: none !important;
@@ -1306,7 +1357,7 @@
                         <button class="sort-btn" id="sort-name" data-sort="name">🔤 Сортировать по алфавиту (А-Я)</button>
                         <button class="sort-btn" id="reset-sort">🔄 Сбросить</button>
                     </div>
-                    <div class="players-count" id="players-count">Всего игроков: 13</div>
+                    <div class="players-count" id="players-count">Всего игроков: 15</div>
                 </div>
                 
                 <div class="players-grid" id="players-grid-container">
@@ -1325,46 +1376,95 @@
                 <div class="best-squad-container">
                     <h2 class="section-title">ФК "МЕРА" — основной состав</h2>
                     
-                    <div class="formation">
-                        <div class="formation-line">
-                            <div class="player-item" data-player="batrakov">
-                                <div class="player-photo-small" id="batrakov-photo-small"></div>
-                                <div class="player-name">Батраков</div>
-                                <span class="player-number">(83)</span>
+                    <!-- Первый состав -->
+                    <div class="squad-content active" id="squad-1">
+                        <div class="formation">
+                            <div class="formation-line">
+                                <div class="player-item" data-player="batrakov">
+                                    <div class="player-photo-small" id="batrakov-photo-small"></div>
+                                    <div class="player-name">Батраков</div>
+                                    <span class="player-number">(83)</span>
+                                </div>
+                                <div class="player-item" data-player="aleksey_doroshenko">
+                                    <div class="player-photo-small" id="aleksey_doroshenko-photo-small"></div>
+                                    <div class="player-name">Дорошенко</div>
+                                    <span class="player-number">(?)</span>
+                                </div>
                             </div>
-                            <div class="player-item" data-player="aleksey_doroshenko">
-                                <div class="player-photo-small" id="aleksey_doroshenko-photo-small"></div>
-                                <div class="player-name">Дорошенко</div>
-                                <span class="player-number">(?)</span>
+                            
+                            <div class="formation-line">
+                                <div class="player-item" data-player="lesha_podavalny">
+                                    <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
+                                    <div class="player-name">Подавальный</div>
+                                    <span class="player-number">(41)</span>
+                                </div>
+                                <div class="player-item" data-player="maxim">
+                                    <div class="player-photo-small" id="maxim-photo-small"></div>
+                                    <div class="player-name">Максим</div>
+                                    <span class="player-number">(8)</span>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="formation-line">
-                            <div class="player-item" data-player="lesha_podavalny">
-                                <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
-                                <div class="player-name">Подавальный</div>
-                                <span class="player-number">(41)</span>
-                            </div>
-                            <div class="player-item" data-player="maxim">
-                                <div class="player-photo-small" id="maxim-photo-small"></div>
-                                <div class="player-name">Максим</div>
-                                <span class="player-number">(8)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="formation-line">
-                            <div class="player-item" data-player="raya">
-                                <div class="player-photo-small" id="raya-photo-small"></div>
-                                <div class="player-name">Рая</div>
-                                <span class="player-number">(1)</span>
+                            
+                            <div class="formation-line">
+                                <div class="player-item" data-player="raya">
+                                    <div class="player-photo-small" id="raya-photo-small"></div>
+                                    <div class="player-name">Рая</div>
+                                    <span class="player-number">(1)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="tactics-info">
+
+                    <!-- Второй состав -->
+                    <div class="squad-content" id="squad-2">
+                        <div class="formation">
+                            <div class="formation-line">
+                                <div class="player-item" data-player="andryushka">
+                                    <div class="player-photo-small" id="andryushka-photo-small"></div>
+                                    <div class="player-name">Андрюшка</div>
+                                    <span class="player-number">(7)</span>
+                                </div>
+                                <div class="player-item" data-player="elanga">
+                                    <div class="player-photo-small" id="elanga-photo-small"></div>
+                                    <div class="player-name">Еланга</div>
+                                    <span class="player-number">(20)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="formation-line">
+                                <div class="player-item" data-player="egor_vulf">
+                                    <div class="player-photo-small" id="egor_vulf-photo-small"></div>
+                                    <div class="player-name">Вульф</div>
+                                    <span class="player-number">(5)</span>
+                                </div>
+                                <div class="player-item" data-player="matvey">
+                                    <div class="player-photo-small" id="matvey-photo-small"></div>
+                                    <div class="player-name">Матвей</div>
+                                    <span class="player-number">(3)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="formation-line">
+                                <div class="player-item" data-player="lesha_podavalny">
+                                    <div class="player-photo-small" id="lesha_podavalny-photo-small-2"></div>
+                                    <div class="player-name">Подавальный</div>
+                                    <span class="player-number">(41)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Переключатель составов - снизу, выше тактической информации -->
+                    <div class="squad-tabs">
+                        <button class="squad-tab active" data-squad="1">1️⃣</button>
+                        <button class="squad-tab" data-squad="2">2️⃣</button>
+                    </div>
+
+                    <!-- Тактическая информация теперь под переключателем -->
+                    <div class="tactics-info" id="tactics-info">
                         <h3>Тактическая информация</h3>
                         <p><strong>Схема:</strong> 1-2-2 (вратарь, 2 защитника, 2 полузащитника)</p>
-                        <p><strong>Описание:</strong> Основной состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.</p>
+                        <p id="tactics-description"><strong>Описание:</strong> Первый состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.</p>
                     </div>
                 </div>
             </div>
@@ -1427,7 +1527,7 @@
 
     <script>
         // Список ID игроков, которые являются частью ФК "МЕРА"
-        const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'andryushka'];
+        const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'andryushka', 'egor_vulf', 'matvey'];
 
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "14 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)" },
@@ -1446,10 +1546,10 @@
             maradona: { name: "Марадона", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 65, number: "(11)" },
             abibas: { name: "Абибас", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 60, number: "(39)" },
             hokkeist: { name: "Хоккеист", position: "Вратарь", age: "13 лет", icon: "🧤", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)" },
-            vanya: { name: "Ваня", position: "Центральный полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 61, number: "(99)" }
+            vanya: { name: "Ваня", position: "Центральный полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 61, number: "(99)" },
+            egor_vulf: { name: "Егор Вульф", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "48 кг", rating: 86, number: "(5)" },
+            matvey: { name: "Матвей", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "42 кг", rating: 85, number: "(3)" }
         };
-
-        delete playersData.kepa;
 
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
@@ -1634,18 +1734,73 @@
                 if (e.target === this) this.classList.remove('active');
             });
             
-            const squadPlayerIds = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
-            squadPlayerIds.forEach(id => {
-                const smallPhoto = document.getElementById(`${id}-photo-small`);
-                if (smallPhoto && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                    const img = document.createElement('img'); img.src = playerPhotos[id]; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
-                    smallPhoto.appendChild(img);
-                } else if (smallPhoto) {
-                    const icon = document.createElement('div'); icon.style.fontSize = '1.8rem'; icon.textContent = playersData[id]?.icon || '⚽'; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center'; icon.style.width = '100%'; icon.style.height = '100%';
-                    smallPhoto.appendChild(icon);
+            // Переключатель составов
+            const squadTabs = document.querySelectorAll('.squad-tab');
+            const tacticsDesc = document.getElementById('tactics-description');
+            
+            squadTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    squadTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const squadNum = this.getAttribute('data-squad');
+                    document.querySelectorAll('.squad-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`squad-${squadNum}`).classList.add('active');
+                    
+                    // Обновляем описание в тактической информации
+                    if (squadNum === '1') {
+                        tacticsDesc.innerHTML = '<strong>Описание:</strong> Первый состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
+                    } else {
+                        tacticsDesc.innerHTML = '<strong>Описание:</strong> Второй состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
+                    }
+                    
+                    // Загружаем фото для второго состава при его открытии
+                    if (squadNum === '2') {
+                        const squad2Players = ['andryushka', 'elanga', 'egor_vulf', 'matvey', 'lesha_podavalny'];
+                        squad2Players.forEach(id => {
+                            const photoId = id === 'lesha_podavalny' ? 'lesha_podavalny-photo-small-2' : `${id}-photo-small`;
+                            const photoEl = document.getElementById(photoId);
+                            if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                                photoEl.innerHTML = '';
+                                const img = document.createElement('img');
+                                img.src = playerPhotos[id];
+                                img.style.width = '100%';
+                                img.style.height = '100%';
+                                img.style.objectFit = 'cover';
+                                photoEl.appendChild(img);
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Загружаем фото для первого состава
+            const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
+            squad1Players.forEach(id => {
+                const photoEl = document.getElementById(`${id}-photo-small`);
+                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    const img = document.createElement('img');
+                    img.src = playerPhotos[id];
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    photoEl.appendChild(img);
+                } else if (photoEl) {
+                    const icon = document.createElement('div');
+                    icon.style.fontSize = '1.8rem';
+                    icon.textContent = playersData[id]?.icon || '⚽';
+                    icon.style.display = 'flex';
+                    icon.style.alignItems = 'center';
+                    icon.style.justifyContent = 'center';
+                    icon.style.width = '100%';
+                    icon.style.height = '100%';
+                    photoEl.appendChild(icon);
                 }
             });
             
+            // Обработчики кликов на игроков в составах
             document.querySelectorAll('.player-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
