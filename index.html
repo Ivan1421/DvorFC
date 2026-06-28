@@ -1445,10 +1445,10 @@
                             </div>
                             
                             <div class="formation-line">
-                                <div class="player-item" data-player="lesha_podavalny">
-                                    <div class="player-photo-small" id="lesha_podavalny-photo-small-2"></div>
-                                    <div class="player-name">Подавальный</div>
-                                    <span class="player-number">(41)</span>
+                                <div class="player-item" data-player="hokkeist">
+                                    <div class="player-photo-small" id="hokkeist-photo-small-2"></div>
+                                    <div class="player-name">Хоккеист</div>
+                                    <span class="player-number">(30)</span>
                                 </div>
                             </div>
                         </div>
@@ -1534,7 +1534,6 @@
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)" },
             batrakov: { name: "Батраков", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 87, number: "(83)" },
             ramos: { name: "Рамос", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 42, number: "(4)" },
-            messi: { name: "Лионель Месси", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Левая", height: "0 см", weight: "0 кг", rating: 67, number: "(10)" },
             andryushka: { name: "Андрюшка", position: "Полузащитник", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 87, number: "(7)" },
             miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 82, number: "(6)" },
             holland: { name: "Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Правая", height: "141 см", weight: "37 кг", rating: 81, number: "(14)" },
@@ -1544,11 +1543,11 @@
             dyadya_fedya: { name: "Дядя Федя", position: "Тренер", age: "67 лет", icon: "🧑‍🏫", foot: "Правая", height: "0 см", weight: "0 кг", rating: 100, number: "(?)" },
             mbappe: { name: "Килиан Мбаппе", position: "ЦФД", age: "14 лет", icon: "⚡", foot: "Правая", height: "0 см", weight: "0 кг", rating: 76, number: "(9)" },
             maradona: { name: "Марадона", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 65, number: "(11)" },
-            abibas: { name: "Абибас", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 60, number: "(39)" },
             hokkeist: { name: "Хоккеист", position: "Вратарь", age: "13 лет", icon: "🧤", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)" },
-            vanya: { name: "Ваня", position: "Центральный полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "0 см", weight: "0 кг", rating: 61, number: "(99)" },
             egor_vulf: { name: "Егор Вульф", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "?", weight: "?", rating: 86, number: "(5)" },
-            matvey: { name: "Матвей", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "?", weight: "?", rating: 85, number: "(3)" }
+            matvey: { name: "Матвей", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "?", weight: "?", rating: 85, number: "(3)" },
+            saveliy: { name: "Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "?", weight: "?", rating: 89, number: "(?)" },
+            artem: { name: "Артем", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "?", weight: "?", rating: 82, number: "(?)" }
         };
 
         let currentPlayerIds = Object.keys(playersData);
@@ -1758,9 +1757,9 @@
                     
                     // Загружаем фото для второго состава при его открытии
                     if (squadNum === '2') {
-                        const squad2Players = ['andryushka', 'elanga', 'egor_vulf', 'matvey', 'lesha_podavalny'];
+                        const squad2Players = ['andryushka', 'elanga', 'egor_vulf', 'matvey', 'hokkeist'];
                         squad2Players.forEach(id => {
-                            const photoId = id === 'lesha_podavalny' ? 'lesha_podavalny-photo-small-2' : `${id}-photo-small`;
+                            const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : `${id}-photo-small`;
                             const photoEl = document.getElementById(photoId);
                             if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                                 photoEl.innerHTML = '';
