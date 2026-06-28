@@ -21,7 +21,7 @@ const playerPhotos = {
     miron: "Photos (2)/miron.jpg",
     holland: "Photos (2)/haaland.jpg",
     egor_vulf: "Photos (2)/egor_vulf.jpg",
-    matvey:"Photos (2)/matvey.jpg"
+    matvey:"Photos (2)/neymar.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
