@@ -19,7 +19,8 @@ const playerPhotos = {
     aleksey_doroshenko: "Photos (2)/doroshenko.jpg",
     elanga: "Photos (2)/elanga.jpg",
     miron: "Photos (2)/miron.jpg",
-    holland: "Photos (2)/haaland.jpg"
+    holland: "Photos (2)/haaland.jpg",
+    egor_vulf: "Photos (2)/egor_vulf"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
