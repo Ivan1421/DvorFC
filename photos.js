@@ -26,7 +26,6 @@ const playerPhotos = {
     artem:"Photos (2)/artem.jpg",
     elisey:"Photos (2)/yamal.jpg"
 };
-};
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
 
