@@ -1301,6 +1301,56 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        /* Стили для описания игрока в карточке */
+        .player-description {
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .dark-theme .player-description {
+            color: #bbb;
+            border-top-color: #444;
+        }
+
+        /* Стили для описания в модальном окне */
+        .modal-description {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #0066cc;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .dark-theme .modal-description {
+            background: #374151;
+            border-left-color: #4dabf7;
+            color: #f0f0f0;
+        }
+
+        .modal-description-label {
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dark-theme .modal-description-label {
+            color: #4dabf7;
+        }
     </style>
 </head>
 <body>
@@ -1500,6 +1550,13 @@
                     <div class="rating-label">Рейтинг</div>
                 </div>
             </div>
+
+            <!-- Блок с описанием игрока в модальном окне -->
+            <div class="modal-description" id="modal-description">
+                <span class="modal-description-label">📝 Краткое описание</span>
+                <span id="modal-description-text">здесь описание</span>
+            </div>
+
             <div id="modal-stats-container">
                 <div class="modal-stats" id="normal-stats" style="display: none;">
                     <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot">Правая</div></div>
@@ -1527,25 +1584,25 @@
         const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'andryushka'];
 
         const playersData = {
-            raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)" },
-            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)" },
-            batrakov: { name: "Батраков", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)" },
-            andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 87, number: "(7)" },
-            miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 83, number: "(6)" },
-            holland: { name: "Леонид Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 85, number: "(14)" },
-            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 84, number: "(20)" },
-            lesha_podavalny: { name: "Леша Подавальный", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 89, number: "(41)" },
-            aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "35 кг", rating: 95, number: "(22)" },
-            dyadya_fedya: { name: "Дядя Федя", position: "Тренер", age: "67 лет", icon: "🧑‍🏫", foot: "Правая", height: "170 см", weight: "75 кг", rating: 100, number: "" },
-            maradona: { name: "Стёпа", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 76, number: "(11)" },
-            hokkeist: { name: "Хоккеист", position: "Вратарь", age: "13 лет", icon: "🧤", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)" },
-            egor_vulf: { name: "Егор Вульф", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Левая", height: "168 см", weight: "50 кг", rating: 84, number: "(5)" },
-            matvey: { name: "Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 86, number: "(3)" },
-            saveliy: { name: "Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 83, number: "(78)" },
-            artem: { name: "Артем", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "68 кг", rating: 77, number: "(98)" },
-            bogdan: { name: "Богданчик", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "67 кг", rating: 79, number: "(11)" },
-            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 87, number: "(19)" },
-            messi: { name: "Месси", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "38 кг", rating: 76, number: "(56)" }
+            raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)", description: "здесь описание" },
+            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)", description: "здесь описание" },
+            batrakov: { name: "Батраков", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "здесь описание" },
+            andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 87, number: "(7)", description: "здесь описание" },
+            miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 83, number: "(6)", description: "здесь описание" },
+            holland: { name: "Леонид Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 85, number: "(14)", description: "здесь описание" },
+            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 84, number: "(20)", description: "здесь описание" },
+            lesha_podavalny: { name: "Леша Подавальный", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 89, number: "(41)", description: "здесь описание" },
+            aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "35 кг", rating: 95, number: "(22)", description: "здесь описание" },
+            dyadya_fedya: { name: "Дядя Федя", position: "Тренер", age: "67 лет", icon: "🧑‍🏫", foot: "Правая", height: "170 см", weight: "75 кг", rating: 100, number: "", description: "здесь описание" },
+            maradona: { name: "Стёпа", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 76, number: "(11)", description: "здесь описание" },
+            hokkeist: { name: "Хоккеист", position: "Вратарь", age: "13 лет", icon: "🧤", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)", description: "здесь описание" },
+            egor_vulf: { name: "Егор Вульф", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Левая", height: "168 см", weight: "50 кг", rating: 84, number: "(5)", description: "здесь описание" },
+            matvey: { name: "Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 86, number: "(3)", description: "здесь описание" },
+            saveliy: { name: "Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 83, number: "(78)", description: "здесь описание" },
+            artem: { name: "Артем", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "68 кг", rating: 77, number: "(98)", description: "здесь описание" },
+            bogdan: { name: "Богданчик", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "67 кг", rating: 79, number: "(11)", description: "здесь описание" },
+            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 87, number: "(19)", description: "здесь описание" },
+            messi: { name: "Месси", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "38 кг", rating: 76, number: "(56)", description: "здесь описание" }
         };
 
         let currentPlayerIds = Object.keys(playersData);
@@ -1576,6 +1633,7 @@
                         <div class="player-number">${p.number}</div>
                     </div>
                     <div class="player-stats">${statsHtml}</div>
+                    <div class="player-description">${p.description || 'здесь описание'}</div>
                 </div>`;
             });
             container.innerHTML = html;
@@ -1657,6 +1715,9 @@
             if (player.rating >= 80) ratingElement.className = 'rating-value rating-high';
             else if (player.rating >= 75) ratingElement.className = 'rating-value rating-medium';
             else ratingElement.className = 'rating-value rating-low';
+            
+            // Устанавливаем описание в модальном окне
+            document.getElementById('modal-description-text').textContent = player.description || 'здесь описание';
             
             const modalPhoto = document.getElementById('modal-photo');
             modalPhoto.innerHTML = '';
