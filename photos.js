@@ -25,7 +25,8 @@ const playerPhotos = {
     saveliy:"Photos (2)/vini.jpg",
     artem:"Photos (2)/tema.jpg",
     elisey:"Photos (2)/yamal.jpg",
-    bogdan:"Photos (2)/artem.jpg"
+    bogdan:"Photos (2)/artem.jpg",
+    demid:"https://vkobyakov.ru/public/storage/images/logo.png"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
