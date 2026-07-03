@@ -26,7 +26,10 @@ const playerPhotos = {
     artem:"Photos (2)/tema.jpg",
     elisey:"Photos (2)/yamal.jpg",
     bogdan:"Photos (2)/artem.jpg",
-    demid:"Photos (2)/logo.png"
+    demid:"Photos (2)/logo.png",
+    saldaevk:"Photos (2)/saldK.jpg",
+    saldaevd:"Photos (2)/saldD.jpg",
+    vladimirova:"Photos (2)/vladA.png
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
