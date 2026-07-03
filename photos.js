@@ -29,7 +29,7 @@ const playerPhotos = {
     demid:"Photos (2)/logo.png",
     saldaevk:"Photos (2)/saldK.jpg",
     saldaevd:"Photos (2)/saldD.jpg",
-    vladimirova:"Photos (2)/vladA.png
+    vladimirova:"Photos (2)/vladA.png,
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
