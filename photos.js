@@ -44,5 +44,6 @@ const playstylePhotos = {
     jockey: "Photos (2)/jockey.png",
     Aerial_Fortress: "Photos (2)/Aerial Fortress.png",
     enot: "Photos (2)/enot.png",
-    Bezjalostniy:"Photos (2)/vinos.png"
+    Bezjalostniy:"Photos (2)/vinos.png",
+    obmanshik_silver:"Photos (2)/obmanshik_silver.png"
 };
