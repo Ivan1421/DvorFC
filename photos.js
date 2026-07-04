@@ -37,3 +37,9 @@ const playerPhotos = {
 const clubPhotos = {
     legends: "Photos (2)/emblema.png"
 };
+
+// ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ====================
+
+const playstylePhotos = {
+    jockey: "Photos (2)/jockey.png"
+};
