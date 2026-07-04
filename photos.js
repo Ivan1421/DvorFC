@@ -47,5 +47,7 @@ const playstylePhotos = {
     obmanshik_silver:"Photos (2)/Truk.png",
     borec:"Photos (2)/borec.png",
     golova:"Photos (2)/golova.png",
-    bistro:"Photos (2)/bistro.png"
+    bistro:"Photos (2)/bistro.png",
+    pushka:"Photos (2)/pushka.png",
+    tochno:"Photos (2)/tochno.png"
 };
