@@ -1268,35 +1268,42 @@
             transform: scale(1.1);
         }
 
+        /* УВЕЛИЧЕННАЯ ИКОНКА В МОДАЛЬНОМ ОКНЕ ПЛЕЙСТАЙЛА */
         .playstyle-detail-icon {
-            width: 180px;
-            height: 180px;
-            border-radius: 20px;
-            border: 5px solid #ffd700;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            width: 200px;
+            height: 200px;
+            border-radius: 24px;
+            border: 6px solid #ffd700;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            font-size: 5rem;
             margin: 0 auto 20px;
             background: #f8f9fa;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .playstyle-detail-icon.silver {
             border-color: #c0c0c0;
-            box-shadow: 0 0 30px rgba(192, 192, 192, 0.4);
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5);
         }
 
         .dark-theme .playstyle-detail-icon {
             background: #374151;
         }
 
+        .dark-theme .playstyle-detail-icon.silver {
+            border-color: #a8a8a8;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3);
+        }
+
         .playstyle-detail-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 15px;
+            padding: 20px;
         }
 
         .playstyle-detail-name {
@@ -1454,10 +1461,12 @@
                 border-width: 3px;
             }
 
+            /* Адаптация увеличенной иконки на планшетах */
             .playstyle-detail-icon {
-                width: 100px;
-                height: 100px;
-                font-size: 3.2rem;
+                width: 160px;
+                height: 160px;
+                font-size: 4rem;
+                border-width: 5px;
             }
 
             .playstyle-detail-name {
@@ -1495,10 +1504,12 @@
                 border-width: 3px;
             }
 
+            /* Адаптация увеличенной иконки на телефонах */
             .playstyle-detail-icon {
-                width: 80px;
-                height: 80px;
-                font-size: 2.8rem;
+                width: 130px;
+                height: 130px;
+                font-size: 3.2rem;
+                border-width: 4px;
             }
         }
 
