@@ -41,7 +41,7 @@ const clubPhotos = {
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ====================
 
 const playstylePhotos = {
-    strag: "Photos (2)/strag.png",
+    strag: "Photos (2)/strag_gold.png",
     Aerial_Fortress: "Photos (2)/Aerial Fortress.png",
     enot: "Photos (2)/enot.png",
     Bezjalostniy:"Photos (2)/vinos_gold.png",
