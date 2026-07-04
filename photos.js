@@ -45,5 +45,6 @@ const playstylePhotos = {
     Aerial_Fortress: "Photos (2)/Aerial Fortress.png",
     enot: "Photos (2)/enot.png",
     Bezjalostniy:"Photos (2)/vinos_gold.png",
-    obmanshik_silver:"Photos (2)/Truk.png"
+    obmanshik_silver:"Photos (2)/Truk.png",
+    borec:"Photos (2)/borec.png"
 };
