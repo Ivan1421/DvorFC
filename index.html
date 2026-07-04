@@ -1150,21 +1150,21 @@
         .playstyles-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 14px;
             justify-content: center;
         }
 
         .playstyle-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 10px;
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
             background: #f0f8ff;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 2rem;
             transition: all 0.3s ease;
             cursor: default;
             overflow: hidden;
@@ -1173,19 +1173,33 @@
         .dark-theme .playstyle-icon {
             background: #2d3748;
             border-color: #ffd700;
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.4);
+        }
+
+        .playstyle-icon.silver {
+            border-color: #c0c0c0;
+            box-shadow: 0 0 16px rgba(192, 192, 192, 0.5);
+        }
+
+        .dark-theme .playstyle-icon.silver {
+            border-color: #a8a8a8;
+            box-shadow: 0 0 16px rgba(192, 192, 192, 0.3);
         }
 
         .playstyle-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 6px;
+            padding: 8px;
         }
 
         .playstyle-icon:hover {
             transform: scale(1.12);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.7);
+        }
+
+        .playstyle-icon.silver:hover {
+            box-shadow: 0 0 28px rgba(192, 192, 192, 0.7);
         }
 
         .playstyles-section-hidden {
@@ -1319,10 +1333,10 @@
             }
 
             .playstyle-icon {
-                width: 48px;
-                height: 48px;
-                font-size: 1.4rem;
-                border-width: 2.5px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+                border-width: 3px;
             }
         }
 
@@ -1350,10 +1364,10 @@
             }
 
             .playstyle-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.2rem;
-                border-width: 2px;
+                width: 56px;
+                height: 56px;
+                font-size: 1.4rem;
+                border-width: 3px;
             }
         }
 
@@ -1665,7 +1679,7 @@
 
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)", description: "Стена, которую не пробить", playstyles: [] },
-            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)", description: "Габриел Магальяинш", playstyles: ["jockey","Aerial_Fortress"] },
+            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)", description: "Габриел Магальяинш", playstyles: ["jockey","Aerial_Fortress"], playstyleColors: { jockey: "gold", Aerial_Fortress: "silver" } },
             batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: [] },
             andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Лень-99% Талант-1%", playstyles: [] },
             miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 83, number: "(6)", description: "Он не знает слова ПАС", playstyles: [] },
@@ -1698,6 +1712,14 @@
             return player && player.playstyles && player.playstyles.length > 0;
         }
 
+        function getPlaystyleColor(playerId, style) {
+            const player = playersData[playerId];
+            if (player && player.playstyleColors && player.playstyleColors[style]) {
+                return player.playstyleColors[style];
+            }
+            return 'gold';
+        }
+
         function renderPlaystyles(playerId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1716,12 +1738,13 @@
             
             let html = '';
             styles.forEach(style => {
+                const colorClass = getPlaystyleColor(playerId, style) === 'silver' ? 'silver' : '';
                 if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
-                    html += `<div class="playstyle-icon" title="${style}">
+                    html += `<div class="playstyle-icon ${colorClass}" title="${style}">
                         <img src="${playstylePhotos[style]}" alt="${style}">
                     </div>`;
                 } else {
-                    html += `<div class="playstyle-icon" title="${style}">${style}</div>`;
+                    html += `<div class="playstyle-icon ${colorClass}" title="${style}">${style}</div>`;
                 }
             });
             container.innerHTML = html;
@@ -1893,12 +1916,13 @@
                 const styles = player.playstyles;
                 let html = '';
                 styles.forEach(style => {
+                    const colorClass = getPlaystyleColor(playerId, style) === 'silver' ? 'silver' : '';
                     if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
-                        html += `<div class="playstyle-icon" title="${style}">
+                        html += `<div class="playstyle-icon ${colorClass}" title="${style}">
                             <img src="${playstylePhotos[style]}" alt="${style}">
                         </div>`;
                     } else {
-                        html += `<div class="playstyle-icon" title="${style}">${style}</div>`;
+                        html += `<div class="playstyle-icon ${colorClass}" title="${style}">${style}</div>`;
                     }
                 });
                 modalPlaystylesGrid.innerHTML = html;
