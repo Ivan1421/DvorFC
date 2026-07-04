@@ -43,5 +43,6 @@ const clubPhotos = {
 const playstylePhotos = {
     jockey: "Photos (2)/jockey.png",
     Aerial_Fortress: "Photos (2)/Aerial Fortress.png",
-    enot: "Photos (2)/enot.png"
+    enot: "Photos (2)/enot.png",
+    Bezjalostniy:"Photos (2)/vinos"
 };
