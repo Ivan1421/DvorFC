@@ -1284,17 +1284,13 @@
         }
 
         .playstyle-detail-icon.silver {
-            border-color: #c0c0c0;
-            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5);
-        }
-
-        .dark-theme .playstyle-detail-icon {
-            background: #374151;
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5) !important;
         }
 
         .dark-theme .playstyle-detail-icon.silver {
-            border-color: #a8a8a8;
-            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3);
+            border-color: #a8a8a8 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3) !important;
         }
 
         .playstyle-detail-icon img {
@@ -1899,7 +1895,8 @@
             const styleInfo = playstyleDescriptions[styleKey];
             if (!styleInfo) return;
 
-            const colorClass = getPlaystyleColor(playerId, styleKey) === 'silver' ? 'silver' : '';
+            const color = getPlaystyleColor(playerId, styleKey);
+            const colorClass = color === 'silver' ? 'silver' : '';
 
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
