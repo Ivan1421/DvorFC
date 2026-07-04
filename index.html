@@ -11,32 +11,32 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
-        
+
         body {
             background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
             color: #333;
             min-height: 100vh;
             transition: all 0.3s ease;
         }
-        
+
         body.dark-theme {
             background: linear-gradient(to bottom, #1a1a2e, #16213e);
             color: #f0f0f0;
         }
-        
+
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         header {
             text-align: center;
             padding: 30px 0;
             margin-bottom: 20px;
             position: relative;
         }
-        
+
         .theme-toggle {
             position: fixed;
             top: 20px;
@@ -57,22 +57,22 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             z-index: 100;
         }
-        
+
         .theme-toggle:hover {
             transform: scale(1.05);
         }
-        
+
         .theme-toggle:active {
             transform: scale(0.95);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
-        
+
         .dark-theme .theme-toggle {
             background: #ffcc00;
             color: #333;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -80,7 +80,7 @@
             gap: 15px;
             margin-bottom: 10px;
         }
-        
+
         h1 {
             font-size: 2.8rem;
             color: #0066cc;
@@ -88,23 +88,23 @@
             letter-spacing: 1px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme h1 {
             color: #4dabf7;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .subtitle {
             font-size: 1.2rem;
             color: #666;
             margin-top: 5px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .subtitle {
             color: #ccc;
         }
-        
+
         .main-buttons {
             display: flex;
             justify-content: center;
@@ -112,7 +112,7 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
-        
+
         .main-button {
             width: 300px;
             height: 180px;
@@ -133,35 +133,35 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        
+
         .main-button:active {
             background: #f0f8ff;
             transform: none;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
         }
-        
+
         .dark-theme .main-button {
             background: #2d3748;
             color: #f0f0f0;
             border-color: #4dabf7;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .dark-theme .main-button:active {
             background: #374151;
         }
-        
+
         .button-icon {
             font-size: 3.5rem;
             margin-bottom: 15px;
             color: #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .button-icon {
             color: #4dabf7;
         }
-        
+
         .button-title {
             font-size: 1.8rem;
             font-weight: bold;
@@ -169,27 +169,27 @@
             color: #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .button-title {
             color: #4dabf7;
         }
-        
+
         .button-description {
             font-size: 0.8rem;
             color: #666;
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .button-description {
             color: #ccc;
         }
-        
+
         .update-button-container {
             text-align: center;
             margin: 20px 0 40px;
         }
-        
+
         .update-button {
             background: #28a745;
             color: white;
@@ -207,43 +207,43 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        
+
         .update-button:hover {
             background: #218838;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
         }
-        
+
         .update-button:active {
             background: #1e7e34;
             transform: translateY(0);
             box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
         }
-        
+
         .dark-theme .update-button {
             background: #2ecc71;
             box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
         }
-        
+
         .dark-theme .update-button:hover {
             background: #27ae60;
         }
-        
+
         .update-button:disabled {
             background: #6c757d;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-        
+
         .page {
             display: none;
         }
-        
+
         .page.active {
             display: block;
         }
-        
+
         .back-button {
             background: #0066cc;
             color: white;
@@ -261,21 +261,21 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        
+
         .back-button:active {
             background: #0052a3;
             transform: none;
         }
-        
+
         .dark-theme .back-button {
             background: #4dabf7;
             color: #1a1a2e;
         }
-        
+
         .dark-theme .back-button:active {
             background: #339af0;
         }
-        
+
         .players-controls {
             background: white;
             border-radius: 15px;
@@ -285,29 +285,29 @@
             box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .players-controls {
             background: #2d3748;
             border-color: #4dabf7;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-        
+
         .search-container {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 15px;
         }
-        
+
         .search-icon {
             font-size: 1.5rem;
             color: #0066cc;
         }
-        
+
         .dark-theme .search-icon {
             color: #4dabf7;
         }
-        
+
         #player-search {
             flex: 1;
             padding: 12px 15px;
@@ -319,24 +319,24 @@
             background: #f8f9fa;
             color: #333;
         }
-        
+
         .dark-theme #player-search {
             background: #374151;
             border-color: #4dabf7;
             color: #f0f0f0;
         }
-        
+
         #player-search::placeholder {
             color: #999;
         }
-        
+
         .sort-buttons {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
         }
-        
+
         .sort-btn {
             background: #f0f8ff;
             border: 2px solid #0066cc;
@@ -354,50 +354,50 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        
+
         .sort-btn.active {
             background: #0066cc;
             color: white;
         }
-        
+
         .dark-theme .sort-btn {
             background: #374151;
             border-color: #4dabf7;
             color: #4dabf7;
         }
-        
+
         .dark-theme .sort-btn.active {
             background: #4dabf7;
             color: #1a1a2e;
         }
-        
+
         .sort-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
         }
-        
+
         .sort-btn:active {
             transform: translateY(0);
         }
-        
+
         .players-count {
             text-align: right;
             font-size: 0.9rem;
             color: #666;
             margin-top: 10px;
         }
-        
+
         .dark-theme .players-count {
             color: #ccc;
         }
-        
+
         .players-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
-        
+
         .player-card {
             background: white;
             border-radius: 15px;
@@ -415,33 +415,33 @@
             user-select: none;
             position: relative;
         }
-        
+
         .player-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(0, 102, 204, 0.15);
         }
-        
+
         .player-card:active {
             background: white;
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
         }
-        
+
         .dark-theme .player-card {
             background: #2d3748;
             border-color: #4dabf7;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .dark-theme .player-card:hover {
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
-        
+
         .dark-theme .player-card:active {
             background: #2d3748;
             transform: translateY(-2px);
         }
-        
+
         .player-photo {
             width: 80px;
             height: 80px;
@@ -455,45 +455,45 @@
             justify-content: center;
             background: #f8f9fa;
         }
-        
+
         .dark-theme .player-photo {
             border-color: #4dabf7;
             background: #374151;
         }
-        
+
         .player-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        
+
         .player-info {
             width: 100%;
         }
-        
+
         .player-info h3 {
             font-size: 1.3rem;
             color: #0066cc;
             margin-bottom: 5px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .player-info h3 {
             color: #4dabf7;
         }
-        
+
         .player-info p {
             color: #666;
             font-size: 1rem;
             margin-bottom: 10px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .player-info p {
             color: #ccc;
         }
-        
+
         .player-number {
             font-size: 1.8rem;
             font-weight: bold;
@@ -501,11 +501,11 @@
             margin-top: 10px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .player-number {
             color: #4dabf7;
         }
-        
+
         .player-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -514,7 +514,7 @@
             margin-top: 15px;
             width: 100%;
         }
-        
+
         .stat-item {
             padding: 10px;
             background: #f0f8ff;
@@ -522,34 +522,34 @@
             border: 1px solid #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .stat-item {
             background: #374151;
             border-color: #4dabf7;
         }
-        
+
         .stat-value {
             font-size: 1.2rem;
             font-weight: bold;
             color: #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .stat-value {
             color: #4dabf7;
         }
-        
+
         .stat-label {
             font-size: 0.8rem;
             color: #666;
             margin-top: 3px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .stat-label {
             color: #ccc;
         }
-        
+
         .stats-warning {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -561,24 +561,24 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .stats-warning {
             background: #664d03;
             border-color: #856404;
             color: #ffd8a8;
         }
-        
+
         .warning-icon {
             color: #ffc107;
             font-size: 1.2rem;
             margin-right: 5px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .warning-icon {
             color: #ffd43b;
         }
-        
+
         .best-squad-container {
             background: white;
             border-radius: 15px;
@@ -587,13 +587,13 @@
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .best-squad-container {
             background: #2d3748;
             border-color: #4dabf7;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .formation {
             display: flex;
             flex-direction: column;
@@ -604,7 +604,7 @@
             width: 100%;
             overflow: hidden;
         }
-        
+
         .formation-line {
             margin: 15px 0;
             display: flex;
@@ -614,7 +614,7 @@
             gap: 15px;
             width: 100%;
         }
-        
+
         .player-item {
             display: flex;
             flex-direction: column;
@@ -631,15 +631,15 @@
             user-select: none;
             position: relative;
         }
-        
+
         .player-item:hover {
             transform: translateY(-3px);
         }
-        
+
         .player-item:active {
             transform: translateY(-1px);
         }
-        
+
         .player-number {
             color: #0066cc;
             font-weight: bold;
@@ -647,11 +647,11 @@
             margin-top: 4px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .player-number {
             color: #4dabf7;
         }
-        
+
         .player-photo-small {
             width: 60px;
             height: 60px;
@@ -666,19 +666,19 @@
             justify-content: center;
             background: #f8f9fa;
         }
-        
+
         .dark-theme .player-photo-small {
             border-color: #4dabf7;
             background: #374151;
         }
-        
+
         .player-photo-small img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        
+
         .player-name {
             font-size: 0.9rem;
             text-align: center;
@@ -687,11 +687,11 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .player-name {
             color: #f0f0f0;
         }
-        
+
         .tactics-info {
             background: #f0f8ff;
             border-radius: 10px;
@@ -700,33 +700,32 @@
             border: 1px solid #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .tactics-info {
             background: #374151;
             border-color: #4dabf7;
         }
-        
+
         .tactics-info h3 {
             color: #0066cc;
             margin-bottom: 15px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .tactics-info h3 {
             color: #4dabf7;
         }
-        
+
         .tactics-info p {
             margin: 8px 0;
             font-size: 1.1rem;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .tactics-info p {
             color: #f0f0f0;
         }
 
-        /* Переключатель составов - снизу, выше тактической информации */
         .squad-tabs {
             display: flex;
             justify-content: center;
@@ -781,7 +780,7 @@
         .squad-content.active {
             display: block;
         }
-        
+
         .other-yards-container {
             background: white;
             border-radius: 15px;
@@ -791,29 +790,29 @@
             text-align: center;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .other-yards-container {
             background: #2d3748;
             border-color: #4dabf7;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .other-yards-container .big-icon {
             font-size: 5rem;
             margin-bottom: 20px;
         }
-        
+
         .other-yards-container h2 {
             color: #0066cc;
             font-size: 2.5rem;
             margin-bottom: 15px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .other-yards-container h2 {
             color: #4dabf7;
         }
-        
+
         .other-yards-container .message {
             font-size: 1.5rem;
             color: #666;
@@ -823,13 +822,13 @@
             border: 2px dashed #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .other-yards-container .message {
             color: #ccc;
             background: #374151;
             border-color: #4dabf7;
         }
-        
+
         .player-card.mera-player {
             position: relative;
         }
@@ -850,7 +849,7 @@
             white-space: nowrap;
             letter-spacing: 0.5px;
             border: 1px solid #fff;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .player-card.mera-player {
@@ -877,7 +876,7 @@
             box-shadow: 0 2px 10px rgba(142, 68, 173, 0.4);
             border: 1px solid #fff;
             letter-spacing: 0.5px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .player-item.mera-player {
@@ -904,11 +903,11 @@
             padding: 20px;
             display: none;
         }
-        
+
         .modal-overlay.active {
             display: flex;
         }
-        
+
         .modal {
             background: white;
             border-radius: 15px;
@@ -922,13 +921,13 @@
             position: relative;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal {
             background: #2d3748;
             border-color: #4dabf7;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        
+
         .modal-close-btn {
             position: absolute;
             top: 15px;
@@ -950,21 +949,21 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        
+
         .modal-close-btn:active {
             background: #0052a3;
             transform: none;
         }
-        
+
         .dark-theme .modal-close-btn {
             background: #4dabf7;
             color: #1a1a2e;
         }
-        
+
         .dark-theme .modal-close-btn:active {
             background: #339af0;
         }
-        
+
         .modal-header {
             display: flex;
             align-items: center;
@@ -974,11 +973,11 @@
             padding-bottom: 20px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal-header {
             border-bottom-color: #4dabf7;
         }
-        
+
         .modal-photo {
             width: 100px;
             height: 100px;
@@ -989,40 +988,40 @@
             transition: all 0.3s ease;
             background: #f8f9fa;
         }
-        
+
         .dark-theme .modal-photo {
             border-color: #4dabf7;
             background: #374151;
         }
-        
+
         .modal-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
-        
+
         .modal-info h3 {
             font-size: 2rem;
             color: #0066cc;
             margin-bottom: 8px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal-info h3 {
             color: #4dabf7;
         }
-        
+
         .modal-info p {
             color: #666;
             font-size: 1.2rem;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal-info p {
             color: #ccc;
         }
-        
+
         .modal-rating-header {
             position: absolute;
             right: 60px;
@@ -1030,43 +1029,43 @@
             text-align: center;
             z-index: 1;
         }
-        
+
         .rating-value {
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 5px;
             transition: all 0.3s ease;
         }
-        
+
         .rating-high {
             color: #28a745;
         }
-        
+
         .rating-medium {
             color: #ffc107;
         }
-        
+
         .rating-low {
             color: #dc3545;
         }
-        
+
         .rating-label {
             font-size: 0.9rem;
             color: #666;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .rating-label {
             color: #ccc;
         }
-        
+
         .modal-stats-combined {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 15px;
         }
-        
+
         .modal-stat-item-wide {
             background: #f0f8ff;
             border-radius: 8px;
@@ -1075,12 +1074,12 @@
             transition: all 0.3s ease;
             grid-column: span 2;
         }
-        
+
         .dark-theme .modal-stat-item-wide {
             background: #374151;
             border-color: #4dabf7;
         }
-        
+
         .modal-stat-item {
             background: #f0f8ff;
             border-radius: 8px;
@@ -1088,41 +1087,108 @@
             border: 1px solid #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal-stat-item {
             background: #374151;
             border-color: #4dabf7;
         }
-        
+
         .modal-stat-label {
             font-size: 0.8rem;
             color: #666;
             margin-bottom: 6px;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal-stat-label {
             color: #ccc;
         }
-        
+
         .modal-stat-value {
             font-size: 1.2rem;
             font-weight: bold;
             color: #0066cc;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme .modal-stat-value {
             color: #4dabf7;
         }
-        
+
         .modal-stat-group {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
             margin-top: 8px;
         }
-        
+
+        .playstyles-section {
+            margin-top: 15px;
+            border-top: 2px solid #0066cc;
+            padding-top: 15px;
+            width: 100%;
+        }
+
+        .dark-theme .playstyles-section {
+            border-top-color: #4dabf7;
+        }
+
+        .playstyles-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dark-theme .playstyles-title {
+            color: #4dabf7;
+        }
+
+        .playstyles-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .playstyle-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #f0f8ff;
+            border: 2px solid #0066cc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: default;
+            overflow: hidden;
+        }
+
+        .dark-theme .playstyle-icon {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+
+        .playstyle-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
+        }
+
+        .playstyle-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .playstyles-section-hidden {
+            display: none !important;
+        }
+
         footer {
             text-align: center;
             margin-top: 50px;
@@ -1132,21 +1198,21 @@
             border-top: 1px solid #ddd;
             transition: all 0.3s ease;
         }
-        
+
         .dark-theme footer {
             color: #aaa;
             border-top-color: #444;
         }
-        
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
-            
+
             h1 {
                 font-size: 2.2rem;
             }
-            
+
             .theme-toggle {
                 top: 15px;
                 right: 15px;
@@ -1154,117 +1220,123 @@
                 height: 55px;
                 font-size: 1.6rem;
             }
-            
+
             .main-button {
                 width: 100%;
                 height: 160px;
             }
-            
+
             .players-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 15px;
             }
-            
+
             .player-photo {
                 width: 70px;
                 height: 70px;
             }
-            
+
             .player-info h3 {
                 font-size: 1.1rem;
             }
-            
+
             .player-number {
                 font-size: 1.5rem;
             }
-            
+
             .stat-value {
                 font-size: 1rem;
             }
-            
+
             .stat-label {
                 font-size: 0.7rem;
             }
-            
+
             .player-item {
                 min-width: 70px;
                 max-width: 80px;
                 margin: 0 3px;
             }
-            
+
             .player-photo-small {
                 width: 50px;
                 height: 50px;
                 border-width: 2px;
             }
-            
+
             .player-name {
                 font-size: 0.8rem;
             }
-            
+
             .player-number {
                 font-size: 0.8rem;
             }
-            
+
             .formation {
                 font-size: 0.9rem;
             }
-            
+
             .formation-line {
                 min-height: 75px;
                 margin: 12px 0;
                 gap: 8px;
             }
-            
+
             .modal {
                 padding: 20px;
             }
-            
+
             .modal-header {
                 flex-direction: column;
                 text-align: center;
                 padding-bottom: 15px;
             }
-            
+
             .modal-rating-header {
                 position: static;
                 margin-top: 10px;
             }
-            
+
             .modal-photo {
                 width: 80px;
                 height: 80px;
             }
-            
+
             .modal-info h3 {
                 font-size: 1.6rem;
             }
-            
+
             .rating-value {
                 font-size: 2rem;
             }
-            
+
             .other-yards-container .message {
                 font-size: 1.2rem;
                 padding: 20px;
             }
+
+            .playstyle-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
         }
-        
+
         @media (max-width: 480px) {
             .players-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
+
             .player-card {
                 padding: 15px;
             }
-            
+
             .player-photo {
                 width: 80px;
                 height: 80px;
             }
-            
+
             .theme-toggle {
                 top: 10px;
                 right: 10px;
@@ -1273,11 +1345,11 @@
                 font-size: 1.5rem;
             }
         }
-        
+
         * {
             -webkit-tap-highlight-color: transparent !important;
         }
-        
+
         @media (hover: none) and (pointer: coarse) {
             .player-card:active,
             .player-item:active,
@@ -1287,7 +1359,7 @@
                 background: inherit !important;
             }
         }
-        
+
         .player-card,
         .player-item,
         .main-button,
@@ -1302,7 +1374,6 @@
             user-select: none;
         }
 
-        /* Стили для описания игрока в карточке */
         .player-description {
             font-size: 0.85rem;
             color: #555;
@@ -1321,7 +1392,6 @@
             border-top-color: #444;
         }
 
-        /* Стили для описания в модальном окне */
         .modal-description {
             background: #f8f9fa;
             border-radius: 8px;
@@ -1355,7 +1425,7 @@
 </head>
 <body>
     <button class="theme-toggle" id="theme-toggle">🌙</button>
-    
+
     <div class="container">
         <header>
             <div class="logo">
@@ -1363,7 +1433,7 @@
             </div>
             <p class="subtitle">Официальная статистика и новости</p>
         </header>
-        
+
         <main>
             <div id="home-page" class="page active">
                 <div class="main-buttons">
@@ -1372,20 +1442,20 @@
                         <div class="button-title">Состав Двора</div>
                         <div class="button-description">Все игроки нашего двора</div>
                     </div>
-                    
+
                     <div class="main-button" id="squad-btn">
                         <div class="button-icon">🏆</div>
                         <div class="button-title">ФК "МЕРА"</div>
                         <div class="button-description">Основной состав нашего двора</div>
                     </div>
-                    
+
                     <div class="main-button" id="yards-btn">
                         <div class="button-icon">🏘️</div>
                         <div class="button-title">Другие дворы</div>
                         <div class="button-description">Наши соперники</div>
                     </div>
                 </div>
-                
+
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn">
                         <span>🔄</span>
@@ -1393,10 +1463,10 @@
                     </button>
                 </div>
             </div>
-            
+
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
-         
+
                 <div class="players-controls">
                     <div class="search-container">
                         <span class="search-icon">🔍</span>
@@ -1409,19 +1479,17 @@
                     </div>
                     <div class="players-count" id="players-count">Всего игроков: 15</div>
                 </div>
-                
+
                 <div class="players-grid" id="players-grid-container">
                 </div>
-                </div>
             </div>
-            
+
             <div id="squad-page" class="page">
                 <button class="back-button" id="back-from-squad">← Назад к главной</button>
-                
+
                 <div class="best-squad-container">
                     <h2 class="section-title">ФК "МЕРА" — основной состав</h2>
-                    
-                    <!-- Первый состав -->
+
                     <div class="squad-content active" id="squad-1">
                         <div class="formation">
                             <div class="formation-line">
@@ -1436,7 +1504,7 @@
                                     <span class="player-number">(22)</span>
                                 </div>
                             </div>
-                            
+
                             <div class="formation-line">
                                 <div class="player-item" data-player="lesha_podavalny">
                                     <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
@@ -1449,7 +1517,7 @@
                                     <span class="player-number">(8)</span>
                                 </div>
                             </div>
-                            
+
                             <div class="formation-line">
                                 <div class="player-item" data-player="raya">
                                     <div class="player-photo-small" id="raya-photo-small"></div>
@@ -1460,7 +1528,6 @@
                         </div>
                     </div>
 
-                    <!-- Второй состав -->
                     <div class="squad-content" id="squad-2">
                         <div class="formation">
                             <div class="formation-line">
@@ -1475,7 +1542,7 @@
                                     <span class="player-number">(20)</span>
                                 </div>
                             </div>
-                            
+
                             <div class="formation-line">
                                 <div class="player-item" data-player="elisey">
                                     <div class="player-photo-small" id="elisey-photo-small"></div>
@@ -1488,7 +1555,7 @@
                                     <span class="player-number">(78)</span>
                                 </div>
                             </div>
-                            
+
                             <div class="formation-line">
                                 <div class="player-item" data-player="hokkeist">
                                     <div class="player-photo-small" id="hokkeist-photo-small-2"></div>
@@ -1499,13 +1566,11 @@
                         </div>
                     </div>
 
-                    <!-- Переключатель составов - снизу, выше тактической информации -->
                     <div class="squad-tabs">
                         <button class="squad-tab active" data-squad="1">1️⃣</button>
                         <button class="squad-tab" data-squad="2">2️⃣</button>
                     </div>
 
-                    <!-- Тактическая информация теперь под переключателем -->
                     <div class="tactics-info" id="tactics-info">
                         <h3>Тактическая информация</h3>
                         <p><strong>Схема:</strong> 1-2-2 (вратарь, 2 защитника, 2 полузащитника)</p>
@@ -1513,27 +1578,26 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="yards-page" class="page">
                 <button class="back-button" id="back-from-yards">← Назад к главной</button>
-                
+
                 <div class="other-yards-container">
                     <div class="big-icon">🏘️</div>
                     <h2>Другие дворы</h2>
                     <div class="message">
-                        📢 Здесь скоро будут наши соперники:          
+                        📢 Здесь скоро будут наши соперники:
                         <p>• ФК ФПК 🟢⚪️</p>
                         <p>• 78 школа 🏫</p>
                     </div>
                 </div>
             </div>
         </main>
-        
+
         <footer>
             <p>Футбольный Двор "МЕРА" © 2026</p>
-            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">FC MERA™
-                </p>FC MERA Stadium 🏟</p>
-            </p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">FC MERA™</p>
+            <p>FC MERA Stadium 🏟</p>
         </footer>
     </div>
 
@@ -1553,7 +1617,6 @@
                 </div>
             </div>
 
-            <!-- Блок с описанием игрока в модальном окне -->
             <div class="modal-description" id="modal-description">
                 <span class="modal-description-label">📝 Краткое описание</span>
                 <span id="modal-description-text">здесь описание</span>
@@ -1576,61 +1639,107 @@
                     <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-combined">0 кг</div></div>
                 </div>
             </div>
+
+            <div class="playstyles-section" id="modal-playstyles-section">
+                <div class="playstyles-title">🎮 Плейстайлы</div>
+                <div class="playstyles-grid" id="modal-playstyles-grid"></div>
+            </div>
         </div>
     </div>
 
     <script src="photos.js"></script>
 
     <script>
-        // Список ID игроков, которые являются частью ФК "МЕРА"
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'andryushka'];
 
         const playersData = {
-            raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)", description: "Стена, которую не пробить" },
-            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)", description: "Габриел Магальяинш" },
-            batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова" },
-            andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Лень-99% Талант-1%" },
-            miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 83, number: "(6)", description: "Он не знает слова ПАС" },
+            raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 99, number: "(1)", description: "Стена, которую не пробить", playstyles: [] },
+            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 99, number: "(8)", description: "Габриел Магальяинш", playstyles: ["jockey"] },
+            batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: [] },
+            andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Лень-99% Талант-1%", playstyles: [] },
+            miron: { name: "Мирон", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "157 см", weight: "40 кг", rating: 83, number: "(6)", description: "Он не знает слова ПАС", playstyles: [] },
             holland: { name: "Леонид Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 85, number: "(14)", description: "здесь описание" },
-            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 83, number: "(20)", description: "Самый волосатый игрок двора" },
-            lesha_podavalny: { name: "Леша Подавальный", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 88, number: "(41)", description: "Угловой?...💀💀💀" },
-            aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 95, number: "(22)", description: "Лучший дриблер  двора" },
-            dyadya_fedya: { name: "Дядя Федя", position: "Тренер", age: "67 лет", icon: "🧑‍🏫", foot: "Правая", height: "170 см", weight: "75 кг", rating: 100, number: "", description: "Не матерись!!!" },
+            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 83, number: "(20)", description: "Самый волосатый игрок двора", playstyles: [] },
+            lesha_podavalny: { name: "Леша Подавальный", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 88, number: "(41)", description: "Угловой?...💀💀💀", playstyles: [] },
+            aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 95, number: "(22)", description: "Лучший дриблер двора", playstyles: [] },
+            dyadya_fedya: { name: "Дядя Федя", position: "Тренер", age: "67 лет", icon: "🧑‍🏫", foot: "Правая", height: "170 см", weight: "75 кг", rating: 100, number: "", description: "Не матерись!!!", playstyles: [] },
             maradona: { name: "Стёпа", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 78, number: "(11)", description: "Не раскрылся полностью" },
-            hokkeist: { name: "Хоккеист", position: "Вратарь", age: "13 лет", icon: "🧤", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)", description: "Играл ещё во времена динозавров" },
+            hokkeist: { name: "Хоккеист", position: "Вратарь", age: "13 лет", icon: "🧤", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)", description: "Играл ещё во времена динозавров", playstyles: [] },
             egor_vulf: { name: "Егор Вульф", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Левая", height: "168 см", weight: "50 кг", rating: 84, number: "(5)", description: "Левоногая опасность" },
-            matvey: { name: "Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 85, number: "(3)", description: "Падает стабильно каждый  матч" },
+            matvey: { name: "Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 85, number: "(3)", description: "Падает стабильно каждый матч" },
             saveliy: { name: "Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 84, number: "(78)", description: "дриблер, непризнанный гений" },
             artem: { name: "Артем", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "68 кг", rating: 77, number: "(98)", description: "В его весовой он один" },
             bogdan: { name: "Богданчик", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 79, number: "(11)", description: "Самый дисциплинированный игрок двора" },
-            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "косит под Ямаля" },
+            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "косит под Ямаля", playstyles: [] },
             messi: { name: "Месси", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "38 кг", rating: 80, number: "(56)", description: "Футболка Месси + игрок" },
             demid: { name: "Демид", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 86, number: "(45)", description: "Русский пыр не знает дыр" },
-            saldaevk: { name: "Салдаев К.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 91 , number: "(23)", description: "Братское комбо" },
-            saldaevd: { name: "Салдаев Д.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 91 , number: "(24)", description: "Братское комбо" },
-            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 94 , number: "(76)", description: "Опасность с обеих ног" }
+            saldaevk: { name: "Салдаев К.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 91, number: "(23)", description: "Братское комбо" },
+            saldaevd: { name: "Салдаев Д.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 91, number: "(24)", description: "Братское комбо" },
+            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 94, number: "(76)", description: "Опасность с обеих ног", playstyles: [] }
         };
 
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
 
+        function hasPlaystyles(playerId) {
+            const player = playersData[playerId];
+            return player && player.playstyles && player.playstyles.length > 0;
+        }
+
+        function renderPlaystyles(playerId, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            if (!hasPlaystyles(playerId)) {
+                const section = container.closest('.playstyles-section');
+                if (section) section.classList.add('playstyles-section-hidden');
+                return;
+            }
+            
+            const section = container.closest('.playstyles-section');
+            if (section) section.classList.remove('playstyles-section-hidden');
+            
+            const player = playersData[playerId];
+            const styles = player.playstyles;
+            
+            let html = '';
+            styles.forEach(style => {
+                if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                    html += `<div class="playstyle-icon" title="${style}">
+                        <img src="${playstylePhotos[style]}" alt="${style}">
+                    </div>`;
+                } else {
+                    html += `<div class="playstyle-icon" title="${style}">${style}</div>`;
+                }
+            });
+            container.innerHTML = html;
+        }
+
         function renderPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
-            
+
             let html = '';
             filteredPlayerIds.forEach(id => {
                 const p = playersData[id];
                 const isMera = meraPlayerIds.includes(id);
                 const cardClass = isMera ? 'player-card mera-player' : 'player-card';
                 
+                const hasStyles = hasPlaystyles(id);
+                const playstylesBlock = hasStyles ? `
+                    <div class="playstyles-section" id="playstyles-${id}">
+                        <div class="playstyles-title">🎮 Плейстайлы</div>
+                        <div class="playstyles-grid" id="playstyles-grid-${id}"></div>
+                    </div>
+                ` : '';
+
                 let statsHtml = `
                     <div class="stat-item"><div class="stat-value">${p.height}</div><div class="stat-label">Рост</div></div>
                     <div class="stat-item"><div class="stat-value">${p.weight}</div><div class="stat-label">Вес</div></div>
                     <div class="stat-item"><div class="stat-value">${p.rating}</div><div class="stat-label">Рейтинг</div></div>
                 `;
-                
+
                 html += `<div class="${cardClass}" data-player="${id}">
                     <div class="player-photo" id="${id}-photo-card"></div>
                     <div class="player-info">
@@ -1640,10 +1749,11 @@
                     </div>
                     <div class="player-stats">${statsHtml}</div>
                     <div class="player-description">${p.description || 'здесь описание'}</div>
+                    ${playstylesBlock}
                 </div>`;
             });
             container.innerHTML = html;
-            
+
             currentPlayerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
@@ -1652,25 +1762,35 @@
                         const img = document.createElement('img');
                         img.src = playerPhotos[id];
                         img.alt = playersData[id].name;
-                        img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
                         cardPhoto.appendChild(img);
                     } else {
                         const icon = document.createElement('div');
-                        icon.style.fontSize = '2.5rem'; icon.style.width = '100%'; icon.style.height = '100%';
-                        icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
+                        icon.style.fontSize = '2.5rem';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
                         icon.textContent = playersData[id].icon || '⚽';
                         cardPhoto.appendChild(icon);
                     }
                 }
+                
+                if (hasPlaystyles(id)) {
+                    renderPlaystyles(id, `playstyles-grid-${id}`);
+                }
             });
-            
+
             document.querySelectorAll('.player-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
                     openPlayerModal(playerId);
                 });
             });
-            
+
             document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
         }
 
@@ -1679,7 +1799,7 @@
             if (term === '') {
                 filteredPlayerIds = [...currentPlayerIds];
             } else {
-                filteredPlayerIds = currentPlayerIds.filter(id => 
+                filteredPlayerIds = currentPlayerIds.filter(id =>
                     playersData[id].name.toLowerCase().includes(term)
                 );
             }
@@ -1708,54 +1828,87 @@
             if (!player) return;
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
-            
+
             const meraTag = document.getElementById('modal-mera-tag');
             if (meraPlayerIds.includes(playerId)) {
                 meraTag.style.display = 'inline-block';
             } else {
                 meraTag.style.display = 'none';
             }
-            
+
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
             if (player.rating >= 80) ratingElement.className = 'rating-value rating-high';
             else if (player.rating >= 75) ratingElement.className = 'rating-value rating-medium';
             else ratingElement.className = 'rating-value rating-low';
-            
-            // Устанавливаем описание в модальном окне
+
             document.getElementById('modal-description-text').textContent = player.description || 'здесь описание';
-            
+
             const modalPhoto = document.getElementById('modal-photo');
             modalPhoto.innerHTML = '';
             if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
-                const img = document.createElement('img'); img.src = playerPhotos[playerId]; img.alt = player.name; img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
+                const img = document.createElement('img');
+                img.src = playerPhotos[playerId];
+                img.alt = player.name;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
                 modalPhoto.appendChild(img);
             } else {
-                const icon = document.createElement('div'); icon.style.fontSize = '3rem'; icon.textContent = player.icon; icon.style.width = '100%'; icon.style.height = '100%'; icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
+                const icon = document.createElement('div');
+                icon.style.fontSize = '3rem';
+                icon.textContent = player.icon;
+                icon.style.width = '100%';
+                icon.style.height = '100%';
+                icon.style.display = 'flex';
+                icon.style.alignItems = 'center';
+                icon.style.justifyContent = 'center';
                 modalPhoto.appendChild(icon);
             }
-            
+
             document.getElementById('normal-stats').style.display = 'grid';
             document.getElementById('goalkeeper-stats').style.display = 'none';
             document.getElementById('combined-stats').style.display = 'none';
-            
+
             document.getElementById('modal-foot').textContent = player.foot;
             document.getElementById('modal-height').textContent = player.height;
             document.getElementById('modal-weight').textContent = player.weight;
+
+            const modalPlaystylesSection = document.getElementById('modal-playstyles-section');
+            const modalPlaystylesGrid = document.getElementById('modal-playstyles-grid');
             
+            if (hasPlaystyles(playerId)) {
+                modalPlaystylesSection.classList.remove('playstyles-section-hidden');
+                const styles = player.playstyles;
+                let html = '';
+                styles.forEach(style => {
+                    if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                        html += `<div class="playstyle-icon" title="${style}">
+                            <img src="${playstylePhotos[style]}" alt="${style}">
+                        </div>`;
+                    } else {
+                        html += `<div class="playstyle-icon" title="${style}">${style}</div>`;
+                    }
+                });
+                modalPlaystylesGrid.innerHTML = html;
+            } else {
+                modalPlaystylesSection.classList.add('playstyles-section-hidden');
+                modalPlaystylesGrid.innerHTML = '';
+            }
+
             document.getElementById('player-modal').classList.add('active');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             renderPlayerCards();
-            
+
             const searchInput = document.getElementById('player-search');
             if (searchInput) {
                 searchInput.addEventListener('input', function(e) {
                     filterPlayers(e.target.value);
                 });
             }
-            
+
             const sortRatingBtn = document.getElementById('sort-rating');
             if (sortRatingBtn) {
                 sortRatingBtn.addEventListener('click', function() {
@@ -1765,7 +1918,7 @@
                     filterPlayers(document.getElementById('player-search').value);
                 });
             }
-            
+
             const sortNameBtn = document.getElementById('sort-name');
             if (sortNameBtn) {
                 sortNameBtn.addEventListener('click', function() {
@@ -1775,14 +1928,14 @@
                     filterPlayers(document.getElementById('player-search').value);
                 });
             }
-            
+
             const resetBtn = document.getElementById('reset-sort');
             if (resetBtn) {
                 resetBtn.addEventListener('click', function() {
                     resetSortAndFilter();
                 });
             }
-            
+
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
@@ -1790,37 +1943,34 @@
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
-            
+
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
             });
             document.getElementById('player-modal')?.addEventListener('click', function(e) {
                 if (e.target === this) this.classList.remove('active');
             });
-            
-            // Переключатель составов
+
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
-            
+
             squadTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     squadTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
-                    
+
                     const squadNum = this.getAttribute('data-squad');
                     document.querySelectorAll('.squad-content').forEach(content => {
                         content.classList.remove('active');
                     });
                     document.getElementById(`squad-${squadNum}`).classList.add('active');
-                    
-                    // Обновляем описание в тактической информации
+
                     if (squadNum === '1') {
                         tacticsDesc.innerHTML = '<strong>Описание:</strong> Первый состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
                     } else {
                         tacticsDesc.innerHTML = '<strong>Описание:</strong> Второй состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
                     }
-                    
-                    // Загружаем фото для второго состава при его открытии
+
                     if (squadNum === '2') {
                         const squad2Players = ['andryushka', 'elanga', 'egor_vulf', 'matvey', 'hokkeist'];
                         squad2Players.forEach(id => {
@@ -1839,8 +1989,7 @@
                     }
                 });
             });
-            
-            // Загружаем фото для первого состава
+
             const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
             squad1Players.forEach(id => {
                 const photoEl = document.getElementById(`${id}-photo-small`);
@@ -1863,8 +2012,7 @@
                     photoEl.appendChild(icon);
                 }
             });
-            
-            // Обработчики кликов на игроков в составах
+
             document.querySelectorAll('.player-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
