@@ -46,5 +46,6 @@ const playstylePhotos = {
     Bezjalostniy:"Photos (2)/vinos_gold.png",
     obmanshik_silver:"Photos (2)/Truk.png",
     borec:"Photos (2)/borec.png",
-    golova:"Photos (2)/golova.png"
+    golova:"Photos (2)/golova.png",
+    bistro:"Photos (2)/bistro.png"
 };
