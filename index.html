@@ -1150,39 +1150,42 @@
         .playstyles-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
         }
 
         .playstyle-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 56px;
+            height: 56px;
+            border-radius: 10px;
             background: #f0f8ff;
-            border: 2px solid #0066cc;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.6rem;
             transition: all 0.3s ease;
             cursor: default;
             overflow: hidden;
         }
 
         .dark-theme .playstyle-icon {
-            background: #374151;
-            border-color: #4dabf7;
+            background: #2d3748;
+            border-color: #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
         }
 
         .playstyle-icon img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 4px;
+            padding: 6px;
         }
 
         .playstyle-icon:hover {
-            transform: scale(1.1);
+            transform: scale(1.12);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
 
         .playstyles-section-hidden {
@@ -1316,9 +1319,10 @@
             }
 
             .playstyle-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.4rem;
+                border-width: 2.5px;
             }
         }
 
@@ -1343,6 +1347,13 @@
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
+            }
+
+            .playstyle-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+                border-width: 2px;
             }
         }
 
