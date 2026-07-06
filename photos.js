@@ -57,6 +57,7 @@ const playstylePhotos = {
     otraz:"Photos (2)/otraz.png",
     vihod:"Photos (2)/vihod.png",
     bombardir:"Photos (2)/bombardir.png",
-    bombardir_silver:"Photos (2)/bombardir_silver.png"
+    bombardir_silver:"Photos (2)/bombardir_silver.png",
+    naves:"Photos (2)/naves.png"
     
 };
