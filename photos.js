@@ -60,6 +60,7 @@ const playstylePhotos = {
     bombardir_silver:"Photos (2)/bombardir_silver.png",
     naves:"Photos (2)/naves.png",
     intuation: "Photos (2)/intuation.png",
-    sumulant: "Photos (2)/simulant.png"
+    sumulant: "Photos (2)/simulant.png",
+    borec_silver: "Photos (2)/simulant.png"
     
 };
