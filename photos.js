@@ -44,10 +44,18 @@ const playstylePhotos = {
     strag: "Photos (2)/strag_gold.png",
     enot: "Photos (2)/enot.png",
     Bezjalostniy:"Photos (2)/vinos_gold.png",
+    vinos_silver:"Photos (2)/vinos_gold.png",
     obmanshik_silver:"Photos (2)/Truk.png",
+    truk_gold:"Photos (2)/truk_gold.png",
     borec:"Photos (2)/borec.png",
     golova:"Photos (2)/golova.png",
     bistro:"Photos (2)/bistro.png",
     pushka:"Photos (2)/pushka.png",
-    tochno:"Photos (2)/tochno.png"
+    tochno:"Photos (2)/tochno.png",
+    tochno_silver:"Photos (2)/tochno_silver.png",
+    otraz:"Photos (2)/otraz.png",
+    vihod:"Photos (2)/vihod.png",
+    bombardir:"Photos (2)/bombardir.png",
+    bombardir_silver:"Photos (2)/bombardir_silver.png"
+    
 };
