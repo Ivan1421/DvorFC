@@ -52,6 +52,7 @@ const playstylePhotos = {
     bistro_silver:"Photos (2)/bistro.png",
     bistro_gold:"Photos (2)/bistro_gold.png",
     pushka:"Photos (2)/pushka.png",
+    pushka_silver:"Photos (2)/pushka_silver.png"
     tochno:"Photos (2)/tochno.png",
     tochno_silver:"Photos (2)/tochno_silver.png",
     otraz:"Photos (2)/otraz.png",
