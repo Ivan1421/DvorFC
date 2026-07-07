@@ -61,6 +61,7 @@ const playstylePhotos = {
     naves:"Photos (2)/naves.png",
     intuation: "Photos (2)/intuation.png",
     borec_silver: "Photos (2)/borec_silver.png",
-    simulant: "Photos (2)/simulant.png"
+    simulant: "Photos (2)/simulant.png",
+    parashut: "Photos (2)/parashut.png
     
 };
