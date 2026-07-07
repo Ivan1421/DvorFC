@@ -1,20 +1,14 @@
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ИГРОКОВ ====================
 
 const playerPhotos = {
-    mbappe: "Photos (2)/mbappe.jpg",
     raya: "Photos (2)/raya.jpg",
     maradona: "Photos (2)/maradona.jpg",
     sanya: "Photos (2)/sanya.jpg",
     messi: "Photos (2)/messi.jpg",
     batrakov: "Photos (2)/batrakov.jpg",
-    abibas: "Photos (2)/abibas.jpg",
     maxim: "Photos (2)/max.jpg",
-    ramos: "Photos (2)/ramos.jpg",
     andryushka: "Photos (2)/andryushka.jpg",
     hokkeist: "Photos (2)/hokkeist1.jpg",
-    kepa: "Photos (2)/kepa.jpg",
-    vanya: "Photos (2)/Dowman.jpeg",
-    taisia: "Photos (2)/taisia.jpg",
     lesha_podavalny: "Photos (2)/lesha.jpg",
     aleksey_doroshenko: "Photos (2)/doroshenko.jpg",
     elanga: "Photos (2)/elanga.jpg",
@@ -52,7 +46,7 @@ const playstylePhotos = {
     bistro_silver:"Photos (2)/bistro.png",
     bistro_gold:"Photos (2)/bistro_gold.png",
     pushka:"Photos (2)/pushka.png",
-    pushka_silver:"Photos (2)/pushka_silver.png"
+    pushka_silver:"Photos (2)/pushka_silver.png",
     tochno:"Photos (2)/tochno.png",
     tochno_silver:"Photos (2)/tochno_silver.png",
     otraz:"Photos (2)/otraz.png",
@@ -64,6 +58,6 @@ const playstylePhotos = {
     borec_silver: "Photos (2)/borec_silver.png",
     simulant: "Photos (2)/simulant.png",
     parashut: "Photos (2)/parashut.png",
-    parashut_silver: "Photos (2)/parashut_silver.png"
+    parashut_silver: "Photos (2)/parashut_silver.png",
     
 };
