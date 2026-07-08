@@ -1,7 +1,7 @@
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ИГРОКОВ ====================
 
 const playerPhotos = {
-    raya: "Photos (2)/raya.jpg",
+    raya: "Photos (2)/raya.jpg"
     maradona: "Photos (2)/maradona.jpg",
     sanya: "Photos (2)/sanya.jpg",
     batrakov: "Photos (2)/batrakov.jpg",
