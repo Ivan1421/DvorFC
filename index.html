@@ -1143,6 +1143,27 @@
         .dark-theme .playstyle-detail-desc {
             color: #ddd;
         }
+        .video-container {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .video-container {
+            background: linear-gradient(135deg, #4dabf7 0%, #8e44ad 100%);
+            box-shadow: 0 8px 32px rgba(77, 171, 247, 0.3);
+        }
+        .video-container video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            background: #000;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+        }
         footer {
             text-align: center;
             margin-top: 50px;
@@ -1541,7 +1562,7 @@
             }
             nameEl.textContent = styleInfo.name;
             if (styleKey === 'pevec' && typeof pevecVideoUrl !== 'undefined' && pevecVideoUrl) {
-                descEl.innerHTML = `<video controls style="width:100%; max-height:400px; border-radius:10px; background:#000;" src="${pevecVideoUrl}"></video>`;
+                descEl.innerHTML = `<div class="video-container"><video controls style="width:100%; display:block; border-radius:12px; background:#000; aspect-ratio:9/16; object-fit:cover;" src="${pevecVideoUrl}"></video></div>`;
             } else {
                 descEl.textContent = styleInfo.description || 'Описание отсутствует';
             }
@@ -1895,6 +1916,9 @@
             document.body.classList.add('dark-theme');
             document.getElementById('theme-toggle').textContent = '☀️';
         }
+    </script>
+    <script>
+        const pevecVideoUrl = "./Photos (2)/pevec.mp4";
     </script>
 </body>
 </html>
