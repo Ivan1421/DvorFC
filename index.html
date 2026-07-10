@@ -1443,7 +1443,7 @@
     </div>
     <script src="photos.js"></script>
     <script>
-        const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
+        const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'andryushka'];
         const playstyleDescriptions = {
             'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
             'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
@@ -1467,8 +1467,8 @@
             'bombardir': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
             'penalty_silver': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
             'penalty': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
-            'parashut': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
-            'parashut_silver': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
+            'parashut': { name: 'Парашут', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
+            'parashut_silver': { name: 'Парашут', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
             'tiki-taka_silver': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
             'tiki-taka': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
             'prostrel_silver': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
@@ -1479,7 +1479,8 @@
             'intuation': { name: 'Интуиция', description: 'Игрок демонстрирует более высокий уровень мастерства и успешности в выполнении захватов в стойке.' },
             'uskoritel_silver': { name: 'Ускоритель', description: 'Игрок способен быстро набрать скорость при ускорении без мяча.' },
             'simulant': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта: как при падении после минимального зацепа в штрафной, так и в верховой борьбе, где любое касание плеча превращается в драматичный полет с требованием штрафного или пенальти' },
-            'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта: как при падении после минимального зацепа в штрафной, так и в верховой борьбе, где любое касание плеча превращается в драматичный полет с требованием штрафного или пенальти' }
+            'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта: как при падении после минимального зацепа в штрафной, так и в верховой борьбе, где любое касание плеча превращается в драматичный полет с требованием штрафного или пенальти' },
+            'pevec': { name: 'Певец', description: '' }
         };
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
@@ -1497,13 +1498,11 @@
             saveliy: { name: "Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 84, number: "(78)", description: "дриблер, непризнанный гений", playstyles: ['tochno'], playstyleColors: { tochno: 'gold' } },
             artem: { name: "Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "68 кг", rating: 77, number: "(98)", description: "В его весовой он один (На данный момент травмирован)", playstyles: [], playstyleColors: {} },
             bogdan: { name: "Богданчик", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 80, number: "(11)", description: "Самый дисциплинированный игрок двора", playstyles: [], playstyleColors: {} },
-            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "косит под Ямаля", playstyles: [], playstyleColors: {} },
-            demid: { name: "Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 90, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
+            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "косит под Ямаля", playstyles: ['pevec'], playstyleColors: { pevec: 'gold' } },
+            demid: { name: "Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 86, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
             saldaevk: { name: "Салдаев К.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 91, number: "(23)", description: "Братское комбо", playstyles: ['truk_gold','tiki-taka'], playstyleColors: {truk_gold: "gold"} },
             saldaevd: { name: "Салдаев Д.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki-taka'], playstyleColors: {truk_gold: "gold"} },
-            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 95, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki-taka'], playstyleColors: {truk_gold: "gold"} },
-            timofey: { name: "Тимофей", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "53 кг", rating: 75, number: "(84)", description: "Сэйв на лаки, бро", playstyles: [], playstyleColors: {} },
-                kostya: { name: "Костя Лехнер", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 92, number: "(15)", description: "Не бойся творить историю", playstyles: ['vihod'], playstyleColors: {vihod: "gold"} }
+            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 95, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki-taka'], playstyleColors: {truk_gold: "gold"} }
         };
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
@@ -1541,7 +1540,11 @@
                 iconEl.textContent = '🎮';
             }
             nameEl.textContent = styleInfo.name;
-            descEl.textContent = styleInfo.description;
+            if (styleKey === 'pevec' && typeof pevecVideoUrl !== 'undefined' && pevecVideoUrl) {
+                descEl.innerHTML = `<video controls style="width:100%; max-height:400px; border-radius:10px; background:#000;" src="${pevecVideoUrl}"></video>`;
+            } else {
+                descEl.textContent = styleInfo.description || 'Описание отсутствует';
+            }
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
