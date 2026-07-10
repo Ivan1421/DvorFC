@@ -1,61 +1,61 @@
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ИГРОКОВ ====================
 
 const playerPhotos = {
-    raya: "./images/raya.jpg",
-    maradona: "./images/maradona.jpg",
-    sanya: "./images/sanya.jpg",
-    batrakov: "./images/batrakov.jpg",
-    maxim: "./images/max.jpg",
-    andryushka: "./images/andryushka.jpg",
-    hokkeist: "./images/hokkeist1.jpg",
-    lesha_podavalny: "./images/lesha.jpg",
-    aleksey_doroshenko: "./images/doroshenko.jpg",
-    elanga: "./images/elanga.jpg",
-    holland: "./images/haaland.jpg",
-    egor_vulf: "./images/egor_vulf.jpg",
-    matvey: "./images/neymar1.jpg",
-    saveliy: "./images/vini.jpg",
-    artem: "./images/tema.jpg",
-    elisey: "./images/yamal.jpg",
-    bogdan: "./images/artem.jpg",
-    demid: "./images/logo.png",
-    saldaevk: "./images/saldK.jpg",
-    saldaevd: "./images/saldD.jpg",
-    vladimirova: "./images/vladA.png"
+    raya: "./Photos (2)/raya.jpg",
+    maradona: "./Photos (2)/maradona.jpg",
+    sanya: "./Photos (2)/sanya.jpg",
+    batrakov: "./Photos (2)/batrakov.jpg",
+    maxim: "./Photos (2)/max.jpg",
+    andryushka: "./Photos (2)/andryushka.jpg",
+    hokkeist: "./Photos (2)/hokkeist1.jpg",
+    lesha_podavalny: "./Photos (2)/lesha.jpg",
+    aleksey_doroshenko: "./Photos (2)/doroshenko.jpg",
+    elanga: "./Photos (2)/elanga.jpg",
+    holland: "./Photos (2)/haaland.jpg",
+    egor_vulf: "./Photos (2)/egor_vulf.jpg",
+    matvey: "./Photos (2)/neymar1.jpg",
+    saveliy: "./Photos (2)/vini.jpg",
+    artem: "./Photos (2)/tema.jpg",
+    elisey: "./Photos (2)/yamal.jpg",
+    bogdan: "./Photos (2)/artem.jpg",
+    demid: "./Photos (2)/logo.png",
+    saldaevk: "./Photos (2)/saldK.jpg",
+    saldaevd: "./Photos (2)/saldD.jpg",
+    vladimirova: "./Photos (2)/vladA.png"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
 
 const clubPhotos = {
-    legends: "./images/emblema.png"
+    legends: "./Photos (2)/emblema.png"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ===================
 
 const playstylePhotos = {
-    strag: "./images/strag_gold.png",
-    enot: "./images/enot.png",
-    Bezjalostniy: "./images/vinos_gold.png",
-    vinos_silver: "./images/vinos_gold.png",
-    obmanshik_silver: "./images/Truk.png",
-    truk_gold: "./images/truk_gold.png",
-    borec: "./images/borec.png",
-    golova: "./images/golova.png",
-    bistro_silver: "./images/bistro.png",
-    bistro_gold: "./images/bistro_gold.png",
-    pushka: "./images/pushka.png",
-    pushka_silver: "./images/pushka_silver.png",
-    tochno: "./images/tochno.png",
-    tochno_silver: "./images/tochno_silver.png",
-    otraz: "./images/otraz.png",
-    vihod: "./images/vihod.png",
-    bombardir: "./images/bombardir.png",
-    bombardir_silver: "./images/bombardir_silver.png",
-    naves: "./images/naves.png",
-    intuation: "./images/intuation.png",
-    borec_silver: "./images/borec_silver.png",
-    simulant: "./images/simulant.png",
-    parashut: "./images/parashut.png",
-    parashut_silver: "./images/parashut_silver.png",
-    "tiki-taka": "./images/tiki-taka.png"
+    strag: "./Photos (2)/strag_gold.png",
+    enot: "./Photos (2)/enot.png",
+    Bezjalostniy: "./Photos (2)/vinos_gold.png",
+    vinos_silver: "./Photos (2)/vinos_gold.png",
+    obmanshik_silver: "./Photos (2)/Truk.png",
+    truk_gold: "./Photos (2)/truk_gold.png",
+    borec: "./Photos (2)/borec.png",
+    golova: "./Photos (2)/golova.png",
+    bistro_silver: "./Photos (2)/bistro.png",
+    bistro_gold: "./Photos (2)/bistro_gold.png",
+    pushka: "./Photos (2)/pushka.png",
+    pushka_silver: "./Photos (2)/pushka_silver.png",
+    tochno: "./Photos (2)/tochno.png",
+    tochno_silver: "./Photos (2)/tochno_silver.png",
+    otraz: "./Photos (2)/otraz.png",
+    vihod: "./Photos (2)/vihod.png",
+    bombardir: "./Photos (2)/bombardir.png",
+    bombardir_silver: "./Photos (2)/bombardir_silver.png",
+    naves: "./Photos (2)/naves.png",
+    intuation: "./Photos (2)/intuation.png",
+    borec_silver: "./Photos (2)/borec_silver.png",
+    simulant: "./Photos (2)/simulant.png",
+    parashut: "./Photos (2)/parashut.png",
+    parashut_silver: "./Photos (2)/parashut_silver.png",
+    "tiki-taka": "./Photos (2)/tiki-taka.png"
 };
