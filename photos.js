@@ -21,7 +21,8 @@ const playerPhotos = {
     demid: "./Photos (2)/logo.png",
     saldaevk: "./Photos (2)/saldK.jpg",
     saldaevd: "./Photos (2)/saldD.jpg",
-    vladimirova: "./Photos (2)/vladA.png"
+    vladimirova: "./Photos (2)/vladA.png",
+    timofey: "./Photos (2)/F8BE5DFF-01B2-478A-A49D-F3BDE1CE5841.webp"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
