@@ -57,5 +57,6 @@ const playstylePhotos = {
     simulant: "./Photos (2)/simulant.png",
     parashut: "./Photos (2)/parashut.png",
     parashut_silver: "./Photos (2)/parashut_silver.png",
-    "tiki-taka": "./Photos (2)/tiki-taka.png"
+    "tiki-taka": "./Photos (2)/tiki-taka.png",
+    simulant_silver: "./Photos (2)/simulant_silver.png"
 };
