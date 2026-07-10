@@ -61,4 +61,4 @@ const playstylePhotos = {
     "tiki-taka": "./Photos (2)/tiki-taka.png",
     simulant_silver: "./Photos (2)/simulant_silver.png"
 };
-    const pevecVideoUrl = "pevec.mp4";
+    const pevecVideoUrl = "./Photos (2)/pevec.mp4";
