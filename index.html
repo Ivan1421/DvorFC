@@ -1462,7 +1462,6 @@
             <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
         </div>
     </div>
-    <script src="photos.js"></script>
     <script>
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
         const playstyleDescriptions = {
@@ -1530,10 +1529,12 @@
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
+
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
             return player && player.playstyles && player.playstyles.length > 0;
         }
+
         function getPlaystyleColor(playerId, style) {
             const player = playersData[playerId];
             if (player && player.playstyleColors && player.playstyleColors[style]) {
@@ -1541,6 +1542,7 @@
             }
             return 'gold';
         }
+
         function openPlaystyleDetail(styleKey, playerId) {
             const overlay = document.getElementById('playstyle-detail-overlay');
             const iconEl = document.getElementById('playstyle-detail-icon');
@@ -1554,9 +1556,9 @@
             cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
-            if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
+            if (typeof playerPhotos !== 'undefined' && playerPhotos[styleKey]) {
                 const img = document.createElement('img');
-                img.src = playstylePhotos[styleKey];
+                img.src = playerPhotos[styleKey];
                 img.alt = styleInfo.name;
                 iconEl.appendChild(img);
             } else {
@@ -1571,11 +1573,13 @@
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+
         function closePlaystyleDetail() {
             const overlay = document.getElementById('playstyle-detail-overlay');
             overlay.classList.remove('active');
             document.body.style.overflow = '';
         }
+
         function renderPlaystyles(playerId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1592,9 +1596,9 @@
             styles.forEach(style => {
                 const color = getPlaystyleColor(playerId, style);
                 const colorClass = color === 'silver' ? 'silver' : '';
-                if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                if (typeof playerPhotos !== 'undefined' && playerPhotos[style]) {
                     html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}" title="Нажмите для подробной информации">
-                        <img src="${playstylePhotos[style]}" alt="${style}">
+                        <img src="${playerPhotos[style]}" alt="${style}">
                     </div>`;
                 } else {
                     html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}" title="Нажмите для подробной информации">${style}</div>`;
@@ -1612,6 +1616,7 @@
                 });
             });
         }
+
         function renderPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
@@ -1681,6 +1686,7 @@
             });
             document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
         }
+
         function filterPlayers(searchTerm) {
             const term = searchTerm.toLowerCase().trim();
             if (term === '') {
@@ -1692,6 +1698,7 @@
             }
             applySortToFiltered();
         }
+
         function applySortToFiltered() {
             if (activeSort === 'rating') {
                 filteredPlayerIds.sort((a, b) => playersData[b].rating - playersData[a].rating);
@@ -1700,6 +1707,7 @@
             }
             renderPlayerCards();
         }
+
         function resetSortAndFilter() {
             document.getElementById('player-search').value = '';
             filteredPlayerIds = [...currentPlayerIds];
@@ -1707,6 +1715,7 @@
             document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
             renderPlayerCards();
         }
+
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
@@ -1760,9 +1769,9 @@
                 styles.forEach(style => {
                     const color = getPlaystyleColor(playerId, style);
                     const colorClass = color === 'silver' ? 'silver' : '';
-                    if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[style]) {
                         html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
-                            <img src="${playstylePhotos[style]}" alt="${style}">
+                            <img src="${playerPhotos[style]}" alt="${style}">
                         </div>`;
                     } else {
                         html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">${style}</div>`;
@@ -1786,6 +1795,7 @@
             document.getElementById('player-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+
         document.addEventListener('DOMContentLoaded', function() {
             renderPlayerCards();
             const searchInput = document.getElementById('player-search');
@@ -1904,11 +1914,13 @@
                 });
             });
         });
+
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
+
         document.getElementById('theme-toggle')?.addEventListener('click', function() {
             document.body.classList.toggle('dark-theme');
             this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
@@ -1919,6 +1931,7 @@
             document.getElementById('theme-toggle').textContent = '☀️';
         }
     </script>
+    <script src="photos.js"></script>
     <script>
         const pevecVideoUrl = "./Photos (2)/pevec.mp4";
     </script>
