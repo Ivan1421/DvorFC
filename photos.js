@@ -11,7 +11,7 @@ const playerPhotos = {
     lesha_podavalny: "./Photos (2)/lesha.jpg",
     aleksey_doroshenko: "./Photos (2)/doroshenko.jpg",
     elanga: "./Photos (2)/elanga.jpg",
-    holland: "./Photos (2)/haaland.jpg",
+    haaland: "./Photos (2)/haaland.jpg",
     egor_vulf: "./Photos (2)/egor_vulf.jpg",
     matvey: "./Photos (2)/neymar1.jpg",
     saveliy: "./Photos (2)/vini.jpg",
