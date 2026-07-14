@@ -550,16 +550,6 @@
         .player-item:active {
             transform: translateY(-1px);
         }
-        .player-number {
-            color: #0066cc;
-            font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: 4px;
-            transition: all 0.3s ease;
-        }
-        .dark-theme .player-number {
-            color: #4dabf7;
-        }
         .player-photo-small {
             width: 60px;
             height: 60px;
@@ -1191,7 +1181,6 @@
             .player-item { min-width: 70px; max-width: 80px; margin: 0 3px; }
             .player-photo-small { width: 50px; height: 50px; border-width: 2px; }
             .player-name { font-size: 0.8rem; }
-            .player-number { font-size: 0.8rem; }
             .formation { font-size: 0.9rem; }
             .formation-line { min-height: 75px; margin: 12px 0; gap: 8px; }
             .modal { padding: 20px; }
@@ -1556,9 +1545,9 @@
             cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
-            if (typeof playerPhotos !== 'undefined' && playerPhotos[styleKey]) {
+            if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
                 const img = document.createElement('img');
-                img.src = playerPhotos[styleKey];
+                img.src = playstylePhotos[styleKey];
                 img.alt = styleInfo.name;
                 iconEl.appendChild(img);
             } else {
@@ -1596,9 +1585,9 @@
             styles.forEach(style => {
                 const color = getPlaystyleColor(playerId, style);
                 const colorClass = color === 'silver' ? 'silver' : '';
-                if (typeof playerPhotos !== 'undefined' && playerPhotos[style]) {
+                if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
                     html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}" title="Нажмите для подробной информации">
-                        <img src="${playerPhotos[style]}" alt="${style}">
+                        <img src="${playstylePhotos[style]}" alt="${style}">
                     </div>`;
                 } else {
                     html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}" title="Нажмите для подробной информации">${style}</div>`;
@@ -1769,9 +1758,9 @@
                 styles.forEach(style => {
                     const color = getPlaystyleColor(playerId, style);
                     const colorClass = color === 'silver' ? 'silver' : '';
-                    if (typeof playerPhotos !== 'undefined' && playerPhotos[style]) {
+                    if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
                         html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
-                            <img src="${playerPhotos[style]}" alt="${style}">
+                            <img src="${playstylePhotos[style]}" alt="${style}">
                         </div>`;
                     } else {
                         html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">${style}</div>`;
