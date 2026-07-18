@@ -35,6 +35,7 @@ const clubPhotos = {
 
 const playstylePhotos = {
     strag: "./Photos%20(2)/strag_gold.png",
+    strag_silver: "./Photos%20(2)/strag_silver.png",
     enot: "./Photos%20(2)/enot.png",
     Bezjalostniy: "./Photos%20(2)/vinos_gold.png",
     vinos_silver: "./Photos%20(2)/vinos_gold.png",
