@@ -62,7 +62,7 @@ const playstylePhotos = {
     tiki_taka: "./Photos%20(2)/tiki-taka.png",
     tiki_taka_silver: "./Photos%20(2)/tiki-taka_silver.png",
     simulant_silver: "./Photos%20(2)/simulant_silver.png",
-    pevec: "./Photos%20(2)/pevec.PNG",
+    pevec: "./Photos%20(2)/pevec.png",
     pan:   "./Photos%20(2)/pan.png"
 };
     const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
