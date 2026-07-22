@@ -1209,15 +1209,17 @@
             box-shadow: inset 0 0 20px rgba(0, 102, 204, 0.05);
             transition: all 0.1s ease;
             overflow: hidden;
+            padding: 8px;
         }
         .dark-theme .slot-reel {
             background: #1a2a4a;
             border-color: #4dabf7;
         }
         .slot-reel img {
-            width: 70px;
-            height: 70px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+            border-radius: 50%;
         }
         .slot-reel .emoji-icon {
             font-size: 3.5rem;
@@ -1415,7 +1417,7 @@
             .theme-toggle { top: 10px; right: 10px; width: 50px; height: 50px; font-size: 1.5rem; }
             .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
             .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
-            .slot-reel { width: 60px; height: 80px; font-size: 2.2rem; }
+            .slot-reel { width: 60px; height: 80px; font-size: 2.2rem; padding: 5px; }
             .slot-reel img { width: 45px; height: 45px; }
             .slot-reel .emoji-icon { font-size: 2.2rem; }
             .slot-win-card { padding: 30px 20px; }
@@ -1646,11 +1648,11 @@
                 <button class="back-button" id="back-from-burmalda">← Назад к главной</button>
                 <div class="slots-container">
                     <h2 style="text-align:center; color:#0066cc; margin-bottom: 5px;">🎰 Бурмалда</h2>
-                    
+                    <p style="text-align:center; color:#666; margin-bottom: 15px; font-size:0.9rem;">Крути барабаны и лови комбинации!</p>
                     <div class="slot-machine" id="slot-machine">
-                        <div class="slot-reel" id="reel-1"><span class="emoji-icon">⚽</span></div>
-                        <div class="slot-reel" id="reel-2"><span class="emoji-icon">⚽</span></div>
-                        <div class="slot-reel" id="reel-3"><span class="emoji-icon">⚽</span></div>
+                        <div class="slot-reel" id="reel-1"></div>
+                        <div class="slot-reel" id="reel-2"></div>
+                        <div class="slot-reel" id="reel-3"></div>
                     </div>
                     <button class="slot-button" id="slot-spin-btn">🎲 Обурмалдить</button>
                     <div class="slot-result" id="slot-result">Нажми на кнопку, чтобы начать</div>
@@ -1831,7 +1833,18 @@
         function renderReel(reelIndex, symbol) {
             const reel = document.getElementById(`reel-${reelIndex}`);
             if (!reel) return;
-            reel.innerHTML = `<span class="emoji-icon">${symbol.emoji}</span>`;
+            reel.innerHTML = '';
+            if (typeof playerPhotos !== 'undefined' && playerPhotos[symbol.id]) {
+                const img = document.createElement('img');
+                img.src = playerPhotos[symbol.id];
+                img.alt = symbol.label;
+                reel.appendChild(img);
+            } else {
+                const span = document.createElement('span');
+                span.className = 'emoji-icon';
+                span.textContent = symbol.emoji;
+                reel.appendChild(span);
+            }
             reel.dataset.symbolId = symbol.id;
         }
 
