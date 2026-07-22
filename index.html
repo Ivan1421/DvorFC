@@ -706,16 +706,16 @@
         .player-card.mera-player::before {
             content: "⭐ Игрок ФК \"МЕРА\"";
             position: absolute;
-            top: -10px;
-            right: -10px;
+            top: -8px;
+            right: -8px;
             background: #8e44ad;
             color: #fff;
             font-weight: bold;
-            font-size: 0.7rem;
-            padding: 4px 10px;
+            font-size: 0.6rem;
+            padding: 2px 10px;
             border-radius: 20px;
             box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
-            z-index: 5;
+            z-index: 10;
             white-space: nowrap;
             letter-spacing: 0.5px;
             border: 1px solid #fff;
@@ -1493,6 +1493,241 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .player-card.burmalda-player {
+            position: relative;
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player:active {
+            transform: translateY(-2px);
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate, burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player:active {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate, burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        @keyframes burmalda-border-pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 230, 118, 0.4), 0 0 40px rgba(0, 200, 80, 0.2);
+                border-color: #00e676;
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 230, 118, 0.9), 0 0 80px rgba(0, 200, 80, 0.5);
+                border-color: #00c853;
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.6), 0 0 55px rgba(0, 200, 80, 0.3);
+                border-color: #00b248;
+            }
+        }
+        @keyframes burmalda-border-pulse-dark {
+            0% {
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.5), 0 0 50px rgba(0, 200, 80, 0.3);
+                border-color: #00e676;
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(0, 230, 118, 1), 0 0 100px rgba(0, 200, 80, 0.7);
+                border-color: #00c853;
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(0, 230, 118, 0.7), 0 0 70px rgba(0, 200, 80, 0.4);
+                border-color: #00b248;
+            }
+        }
+        @keyframes burmalda-bg-pulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes burmalda-bg-pulse-dark {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .player-card.burmalda-player::after {
+            content: "БУРМАЛДА";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624, #00b248, #00c853, #00e676);
+            background-size: 400% 400%;
+            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 100, 1);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+            z-index: 15;
+            white-space: nowrap;
+            border: 1px solid #a5d6a7;
+            text-transform: uppercase;
+        }
+        .player-card.mera-player::before {
+            content: "⭐ Игрок ФК \"МЕРА\"";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
+            z-index: 10;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            border: 1px solid #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes burmalda-plate-shine {
+            0% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+                text-shadow: 0 0 12px rgba(0, 255, 100, 1);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 0 0 45px rgba(0, 230, 118, 1);
+                text-shadow: 0 0 25px rgba(0, 255, 100, 1);
+            }
+            100% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.7);
+                text-shadow: 0 0 15px rgba(0, 255, 100, 1);
+            }
+        }
+        .player-card.burmalda-player .stat-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .dark-theme .player-card.burmalda-player .stat-item {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        @keyframes burmalda-stat-bg {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes burmalda-stat-bg-dark {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .player-card.burmalda-player .player-photo {
+            border-color: #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player .player-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        .player-item.burmalda-squad .player-photo-small {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .player-item.burmalda-squad .player-photo-small {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
+        }
+        .modal .burmalda-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624);
+            background-size: 300% 300%;
+            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.75rem;
+            padding: 4px 18px;
+            border-radius: 30px;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 15px rgba(0, 255, 100, 1);
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.7);
+            margin-top: 6px;
+            border: 1px solid #a5d6a7;
+            text-transform: uppercase;
+        }
+        .modal.burmalda-modal {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .modal.burmalda-modal {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.7) !important;
+        }
+        .modal.burmalda-modal .modal-description {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-left-color: #00e676;
+        }
+        .dark-theme .modal.burmalda-modal .modal-description {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-left-color: #00e676;
+        }
+        .modal.burmalda-modal .modal-stat-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .dark-theme .modal.burmalda-modal .modal-stat-item {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .modal.burmalda-modal .modal-stat-value {
+            color: #00c853 !important;
+            animation: burmalda-text-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-stat-value {
+            color: #00e676 !important;
+            animation: burmalda-text-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        @keyframes burmalda-text-pulse {
+            0% { color: #00e676; }
+            50% { color: #009624; }
+            100% { color: #00c853; }
+        }
+        @keyframes burmalda-text-pulse-dark {
+            0% { color: #00e676; }
+            50% { color: #4caf50; }
+            100% { color: #00c853; }
+        }
+        .modal.burmalda-modal .modal-description-label {
+            color: #0066cc;
+            animation: burmalda-text-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-description-label {
+            color: #00e676;
+            animation: burmalda-text-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
     </style>
 </head>
 <body>
@@ -1600,7 +1835,7 @@
                                 </div>
                             </div>
                             <div class="formation-line">
-                                <div class="player-item" data-player="elisey">
+                                <div class="player-item burmalda-squad" data-player="elisey">
                                     <div class="player-photo-small" id="elisey-photo-small"></div>
                                     <div class="player-name">Елисей</div>
                                     <span class="player-number">(19)</span>
@@ -1666,7 +1901,7 @@
         </footer>
     </div>
     <div class="modal-overlay" id="player-modal">
-        <div class="modal">
+        <div class="modal" id="modal-window">
             <button class="modal-close-btn" id="modal-close">×</button>
             <div class="modal-header">
                 <div class="modal-photo" id="modal-photo"></div>
@@ -1674,6 +1909,7 @@
                     <h3 id="modal-name">Имя игрока</h3>
                     <p id="modal-position">Позиция • Возраст</p>
                     <div id="modal-mera-tag" class="mera-tag" style="display: none;">⭐ Игрок ФК "МЕРА"</div>
+                    <div id="modal-burmalda-tag" class="burmalda-tag" style="display: none;">🎰 БУРМАЛДА</div>
                 </div>
                 <div class="modal-rating-header">
                     <div class="rating-value" id="modal-rating">0</div>
@@ -1725,6 +1961,7 @@
     </div>
     <script>
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
+        const burmaldaPlayerIds = ['elisey'];
         const playstyleDescriptions = {
             'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
             'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
@@ -1795,7 +2032,6 @@
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
-
         const slotSymbols = [
             { id: 'elanga', emoji: '⚽', label: 'Еланга' },
             { id: 'batrakov', emoji: '⚽', label: 'Батраков' },
@@ -1817,7 +2053,6 @@
             { id: 'maradona', emoji: '⚽', label: 'Марадона' },
             { id: 'haaland', emoji: '⚽', label: 'Холланд' },
         ];
-
         let isSpinning = false;
         let currentSymbols = ['elanga', 'batrakov', 'maxim'];
         let winOverlay = document.getElementById('slot-win-overlay');
@@ -1825,14 +2060,11 @@
         let winIcon = document.getElementById('win-icon');
         let winTitle = document.getElementById('win-title');
         let winDesc = document.getElementById('win-desc');
-
         let themeClickCount = 0;
         let secretActivated = false;
-
         function getRandomSymbol() {
             return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
         }
-
         function renderReel(reelIndex, symbol) {
             const reel = document.getElementById(`reel-${reelIndex}`);
             if (!reel) return;
@@ -1850,11 +2082,9 @@
             }
             reel.dataset.symbolId = symbol.id;
         }
-
         function updateReels(symbols) {
             symbols.forEach((s, i) => renderReel(i + 1, s));
         }
-
         function showWinOverlay(icon, title, desc) {
             winIcon.textContent = icon;
             winTitle.textContent = title;
@@ -1862,30 +2092,24 @@
             winCard.classList.add('active');
             winOverlay.classList.add('active');
         }
-
         function hideWinOverlay() {
             winOverlay.classList.remove('active');
             winCard.classList.remove('active');
         }
-
         function spinSlots() {
             if (isSpinning) return;
-            
             const btn = document.getElementById('slot-spin-btn');
             const resultEl = document.getElementById('slot-result');
-            
             if (secretActivated) {
                 isSpinning = true;
                 btn.disabled = true;
                 resultEl.textContent = '🎰 Крутим...';
                 resultEl.className = 'slot-result';
-                
                 const finalSymbols = [
                     slotSymbols.find(s => s.id === 'elanga'),
                     slotSymbols.find(s => s.id === 'elanga'),
                     slotSymbols.find(s => s.id === 'elanga')
                 ];
-                
                 setTimeout(() => {
                     updateReels(finalSymbols);
                     currentSymbols = finalSymbols.map(s => s.id);
@@ -1899,12 +2123,10 @@
                 }, 500);
                 return;
             }
-
             isSpinning = true;
             btn.disabled = true;
             resultEl.textContent = '🎰 Крутим...';
             resultEl.className = 'slot-result';
-
             const reels = [1, 2, 3];
             let spinCount = 0;
             const maxSpins = 20 + Math.floor(Math.random() * 15);
@@ -1929,19 +2151,16 @@
                 }
             }, 80);
         }
-
         function checkWin(symbols) {
             const resultEl = document.getElementById('slot-result');
             const ids = symbols.map(s => s.id);
             const labels = symbols.map(s => s.label);
-            
             if (ids.every(id => id === 'elanga')) {
                 resultEl.textContent = '🎉🎉🎉 ДЖЕКПОТ! ТРИ ЕЛАНГИ! 🎉🎉🎉';
                 resultEl.className = 'slot-result jackpot';
                 showWinOverlay('🏆', 'ДЖЕКПОТ!', 'Три Еланги! Вы сорвали куш! 🎉');
                 return;
             }
-
             if (ids[0] === ids[1] && ids[1] === ids[2]) {
                 const name = symbols[0].label;
                 resultEl.textContent = `🎉 Три ${name}! Отличная комбинация! 🎉`;
@@ -1949,7 +2168,6 @@
                 showWinOverlay('🎉', 'Три одинаковых!', `Три ${name}! Поздравляем!`);
                 return;
             }
-
             if (ids[0] === ids[1] || ids[1] === ids[2] || ids[0] === ids[2]) {
                 let pairLabel = '';
                 if (ids[0] === ids[1]) pairLabel = symbols[0].label;
@@ -1960,11 +2178,9 @@
                 showWinOverlay('🔁', 'Пара!', `Пара ${pairLabel}! Хороший результат!`);
                 return;
             }
-
             resultEl.textContent = `😐 ${labels.join(' · ')} — попробуй ещё!`;
             resultEl.className = 'slot-result';
         }
-
         let iqInterval = null;
         function startIQCounter() {
             if (iqInterval) {
@@ -1979,12 +2195,10 @@
                 counterEl.textContent = iq;
             }, 1);
         }
-
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
             return player && player.playstyles && player.playstyles.length > 0;
         }
-
         function getPlaystyleColor(playerId, style) {
             const player = playersData[playerId];
             if (player && player.playstyleColors && player.playstyleColors[style]) {
@@ -1992,7 +2206,6 @@
             }
             return 'gold';
         }
-
         function openPlaystyleDetail(styleKey, playerId) {
             const overlay = document.getElementById('playstyle-detail-overlay');
             const iconEl = document.getElementById('playstyle-detail-icon');
@@ -2026,7 +2239,6 @@
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closePlaystyleDetail() {
             const overlay = document.getElementById('playstyle-detail-overlay');
             overlay.classList.remove('active');
@@ -2036,7 +2248,6 @@
                 iqInterval = null;
             }
         }
-
         function renderPlaystyles(playerId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -2073,7 +2284,6 @@
                 });
             });
         }
-
         function renderPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
@@ -2081,7 +2291,10 @@
             filteredPlayerIds.forEach(id => {
                 const p = playersData[id];
                 const isMera = meraPlayerIds.includes(id);
-                const cardClass = isMera ? 'player-card mera-player' : 'player-card';
+                const isBurmalda = burmaldaPlayerIds.includes(id);
+                let cardClass = 'player-card';
+                if (isMera) cardClass += ' mera-player';
+                if (isBurmalda) cardClass += ' burmalda-player';
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `
                     <div class="playstyles-section" id="playstyles-${id}">
@@ -2143,7 +2356,6 @@
             });
             document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
         }
-
         function filterPlayers(searchTerm) {
             const term = searchTerm.toLowerCase().trim();
             if (term === '') {
@@ -2155,7 +2367,6 @@
             }
             applySortToFiltered();
         }
-
         function applySortToFiltered() {
             if (activeSort === 'rating') {
                 filteredPlayerIds.sort((a, b) => playersData[b].rating - playersData[a].rating);
@@ -2164,7 +2375,6 @@
             }
             renderPlayerCards();
         }
-
         function resetSortAndFilter() {
             document.getElementById('player-search').value = '';
             filteredPlayerIds = [...currentPlayerIds];
@@ -2172,17 +2382,28 @@
             document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
             renderPlayerCards();
         }
-
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
+            const modal = document.getElementById('modal-window');
+            if (burmaldaPlayerIds.includes(playerId)) {
+                modal.classList.add('burmalda-modal');
+            } else {
+                modal.classList.remove('burmalda-modal');
+            }
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
             const meraTag = document.getElementById('modal-mera-tag');
+            const burmaldaTag = document.getElementById('modal-burmalda-tag');
             if (meraPlayerIds.includes(playerId)) {
                 meraTag.style.display = 'inline-block';
             } else {
                 meraTag.style.display = 'none';
+            }
+            if (burmaldaPlayerIds.includes(playerId)) {
+                burmaldaTag.style.display = 'inline-block';
+            } else {
+                burmaldaTag.style.display = 'none';
             }
             const ratingElement = document.getElementById('modal-rating');
             ratingElement.textContent = player.rating;
@@ -2252,7 +2473,6 @@
             document.getElementById('player-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         document.addEventListener('DOMContentLoaded', function() {
             renderPlayerCards();
             const searchInput = document.getElementById('player-search');
@@ -2296,11 +2516,13 @@
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
+                document.getElementById('modal-window').classList.remove('burmalda-modal');
                 document.body.style.overflow = '';
             });
             document.getElementById('player-modal')?.addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.classList.remove('active');
+                    document.getElementById('modal-window').classList.remove('burmalda-modal');
                     document.body.style.overflow = '';
                 }
             });
@@ -2313,7 +2535,6 @@
                 if (e.target === this) hideWinOverlay();
             });
             document.getElementById('slot-spin-btn')?.addEventListener('click', spinSlots);
-
             document.getElementById('theme-toggle')?.addEventListener('click', function() {
                 themeClickCount++;
                 if (themeClickCount >= 5) {
@@ -2321,7 +2542,6 @@
                     themeClickCount = 0;
                 }
             });
-
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
             squadTabs.forEach(tab => {
@@ -2390,13 +2610,11 @@
             updateReels(initialSymbols);
             currentSymbols = initialSymbols.map(s => s.id);
         });
-
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
-
         document.getElementById('theme-toggle')?.addEventListener('click', function() {
             document.body.classList.toggle('dark-theme');
             this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
