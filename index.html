@@ -1523,7 +1523,7 @@
                     <div class="main-button" id="burmalda-btn">
                         <div class="button-icon">🎰</div>
                         <div class="button-title">Бурмалда</div>
-                        <div class="button-description">Казино для своих</div>
+                        <div class="button-description">Казик меллстрой ыыы</div>
                     </div>
                 </div>
                 <div class="update-button-container">
@@ -1648,7 +1648,7 @@
                 <button class="back-button" id="back-from-burmalda">← Назад к главной</button>
                 <div class="slots-container">
                     <h2 style="text-align:center; color:#0066cc; margin-bottom: 5px;">🎰 Бурмалда</h2>
-                    <p style="text-align:center; color:#666; margin-bottom: 15px; font-size:0.9rem;">Крути барабаны и лови комбинации!</p>
+                    <p style="text-align:center; color:#666; margin-bottom: 15px; font-size:0.9rem;">Крути Бурмалду</p>
                     <div class="slot-machine" id="slot-machine">
                         <div class="slot-reel" id="reel-1"></div>
                         <div class="slot-reel" id="reel-2"></div>
@@ -1826,6 +1826,9 @@
         let winTitle = document.getElementById('win-title');
         let winDesc = document.getElementById('win-desc');
 
+        let themeClickCount = 0;
+        let secretActivated = false;
+
         function getRandomSymbol() {
             return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
         }
@@ -1867,10 +1870,38 @@
 
         function spinSlots() {
             if (isSpinning) return;
-            isSpinning = true;
+            
             const btn = document.getElementById('slot-spin-btn');
-            btn.disabled = true;
             const resultEl = document.getElementById('slot-result');
+            
+            if (secretActivated) {
+                isSpinning = true;
+                btn.disabled = true;
+                resultEl.textContent = '🎰 Крутим...';
+                resultEl.className = 'slot-result';
+                
+                const finalSymbols = [
+                    slotSymbols.find(s => s.id === 'elanga'),
+                    slotSymbols.find(s => s.id === 'elanga'),
+                    slotSymbols.find(s => s.id === 'elanga')
+                ];
+                
+                setTimeout(() => {
+                    updateReels(finalSymbols);
+                    currentSymbols = finalSymbols.map(s => s.id);
+                    resultEl.textContent = '🎉🎉🎉 ДЖЕКПОТ! ТРИ ЕЛАНГИ! 🎉🎉🎉';
+                    resultEl.className = 'slot-result jackpot';
+                    showWinOverlay('🏆', 'ДЖЕКПОТ!', 'Три Еланги! Отправляй скрин в группу! 🎉');
+                    isSpinning = false;
+                    btn.disabled = false;
+                    secretActivated = false;
+                    themeClickCount = 0;
+                }, 500);
+                return;
+            }
+
+            isSpinning = true;
+            btn.disabled = true;
             resultEl.textContent = '🎰 Крутим...';
             resultEl.className = 'slot-result';
 
@@ -2282,6 +2313,14 @@
                 if (e.target === this) hideWinOverlay();
             });
             document.getElementById('slot-spin-btn')?.addEventListener('click', spinSlots);
+
+            document.getElementById('theme-toggle')?.addEventListener('click', function() {
+                themeClickCount++;
+                if (themeClickCount >= 5) {
+                    secretActivated = true;
+                    themeClickCount = 0;
+                }
+            });
 
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
