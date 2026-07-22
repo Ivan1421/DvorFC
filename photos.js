@@ -64,6 +64,6 @@ const playstylePhotos = {
     simulant_silver: "./Photos%20(2)/simulant_silver.png",
     pevec: "./Photos%20(2)/pevec.png",
     pan:   "./Photos%20(2)/pan.png",
-    geniy: "./Photos%20(2)/truk.png"
+    geniy: "./Photos%20(2)/geniy1.png"
 };
     const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
