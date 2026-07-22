@@ -1554,7 +1554,7 @@
             100% { background-position: 0% 50%; }
         }
         .player-card.burmalda-player::after {
-            content: "🎰БУРМАЛДА🍀";
+            content: "БУРМАЛДА";
             position: absolute;
             top: -8px;
             left: -8px;
@@ -1703,30 +1703,87 @@
             border-color: #00e676;
         }
         .modal.burmalda-modal .modal-stat-value {
-            color: #00c853 !important;
-            animation: burmalda-text-pulse 1.8s ease-in-out infinite alternate !important;
+            color: #0066cc !important;
         }
         .dark-theme .modal.burmalda-modal .modal-stat-value {
-            color: #00e676 !important;
-            animation: burmalda-text-pulse-dark 1.8s ease-in-out infinite alternate !important;
-        }
-        @keyframes burmalda-text-pulse {
-            0% { color: #00e676; }
-            50% { color: #009624; }
-            100% { color: #00c853; }
-        }
-        @keyframes burmalda-text-pulse-dark {
-            0% { color: #00e676; }
-            50% { color: #4caf50; }
-            100% { color: #00c853; }
+            color: #4dabf7 !important;
         }
         .modal.burmalda-modal .modal-description-label {
-            color: #0066cc;
-            animation: burmalda-text-pulse 1.8s ease-in-out infinite alternate !important;
+            color: #0066cc !important;
         }
         .dark-theme .modal.burmalda-modal .modal-description-label {
-            color: #00e676;
-            animation: burmalda-text-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            color: #4dabf7 !important;
+        }
+        .modal.burmalda-modal .modal-photo {
+            border-color: #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player .playstyle-icon {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .player-card.burmalda-player .playstyle-icon {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .player-card.burmalda-player .playstyle-icon.silver {
+            border-color: #c0c0c0 !important;
+        }
+        .player-card.burmalda-player .playstyle-icon img {
+            filter: brightness(1.1);
+        }
+        .modal.burmalda-modal .playstyle-icon {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .modal.burmalda-modal .playstyle-icon {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .modal.burmalda-modal .playstyle-icon.silver {
+            border-color: #c0c0c0 !important;
+        }
+        .modal.burmalda-modal .playstyle-icon img {
+            filter: brightness(1.1);
+        }
+        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon {
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5) !important;
+        }
+        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon.silver {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5) !important;
+        }
+        .playstyle-detail-card.burmalda-detail {
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .playstyle-detail-card.burmalda-detail {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .playstyle-detail-card.burmalda-detail.silver-border {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 20px 60px rgba(192, 192, 192, 0.3) !important;
+        }
+        .dark-theme .playstyle-detail-card.burmalda-detail.silver-border {
+            border-color: #a8a8a8 !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
         }
     </style>
 </head>
@@ -1909,7 +1966,7 @@
                     <h3 id="modal-name">Имя игрока</h3>
                     <p id="modal-position">Позиция • Возраст</p>
                     <div id="modal-mera-tag" class="mera-tag" style="display: none;">⭐ Игрок ФК "МЕРА"</div>
-                    <div id="modal-burmalda-tag" class="burmalda-tag" style="display: none;">🎰 БУРМАЛДА 🍀</div>
+                    <div id="modal-burmalda-tag" class="burmalda-tag" style="display: none;">🎰 БУРМАЛДА</div>
                 </div>
                 <div class="modal-rating-header">
                     <div class="rating-value" id="modal-rating">0</div>
@@ -2217,6 +2274,11 @@
             const color = getPlaystyleColor(playerId, styleKey);
             const colorClass = color === 'silver' ? 'silver' : '';
             cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
+            if (burmaldaPlayerIds.includes(playerId)) {
+                cardEl.classList.add('burmalda-detail');
+            } else {
+                cardEl.classList.remove('burmalda-detail');
+            }
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
             if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
