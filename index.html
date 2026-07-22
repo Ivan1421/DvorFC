@@ -1248,6 +1248,30 @@
             font-size: 0.9rem;
         }
         .dark-theme .modal-description-label { color: #4dabf7; }
+        /* Стиль для переливающегося счетчика IQ */
+        .iq-counter {
+            display: inline-block;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iq-rainbow 2s linear infinite;
+        }
+        @keyframes iq-rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        .dark-theme .iq-counter {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     </style>
 </head>
 <body>
@@ -1491,8 +1515,8 @@
             'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
             'pevec': { name: 'Певец', description: '' },
             'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
-            'pevec': { name: 'Певец', description: '' }
-
+            'pevec': { name: 'Певец', description: '' },
+            'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
         }; 
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
@@ -1500,7 +1524,7 @@
             batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','bistro_silver'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", bistro_silver: 'silver' } },
             andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','simulant_silver'], playstyleColors: {bistro_silver: "silver", simulant_silver: "silver"} },
             haaland: { name: "Леонид Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 85, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} },
-            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 89, number: "(20)", description: "Самый волосатый игрок двора", playstyles: ['pushka',"bombardir_silver"], playstyleColors: { pushka: 'gold', bombardir_silver: "silver"} },
+            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 89, number: "(20)", description: "Самый волосатый игрок двора", playstyles: ['pushka',"bombardir_silver", 'geniy'], playstyleColors: { pushka: 'gold', bombardir_silver: "silver", geniy: "gold" } },
             lesha_podavalny: { name: "Леша Подавальный", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 88, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
             aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 95, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
             maradona: { name: "Стёпа Марадона", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 78, number: "(21)", description: "Не раскрылся полностью", playstyles: ['bistro_silver'], playstyleColors: {bistro_silver: "silver"} },
@@ -1518,11 +1542,27 @@
             timofey: { name: "Тимофей", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "53 кг", rating: 75, number: "(92)", description: "Меллстройность", playstyles: [], playstyleColors: {} },
             kostya: { name: "Костя  Лехнер", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(15)", description: "Не бойся творить историю", playstyles: ['vihod'], playstyleColors: {vihod: "gold"} },
             Stepa: { name: "Шевелев Стёпа", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "152 см", weight: "36 кг", rating: 88, number: "(18)", description: "Баскетбол or Футбол?", playstyles: ['Bezjalostniy'], playstyleColors: {Bezjalostniy: "gold"} },
-            maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 72, number: "(17)", description: "", playstyles: [], playstyleColors: {} },
+            maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 72, number: "(17)", description: "", playstyles: [], playstyleColors: {} }
         };
         let currentPlayerIds = Object.keys(playersData);
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
+
+        // Запускаем анимацию счетчика IQ
+        let iqInterval = null;
+        function startIQCounter() {
+            if (iqInterval) {
+                clearInterval(iqInterval);
+                iqInterval = null;
+            }
+            let iq = 0;
+            const counterEl = document.getElementById('iq-counter');
+            if (!counterEl) return;
+            iqInterval = setInterval(() => {
+                iq = iq + 1;
+                counterEl.textContent = iq;
+            }, 1);
+        }
 
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
@@ -1561,6 +1601,10 @@
             nameEl.textContent = styleInfo.name;
             if (styleKey === 'pevec' && typeof pevecVideoUrl !== 'undefined' && pevecVideoUrl) {
                 descEl.innerHTML = `<div class="video-container"><video controls style="width:100%; display:block; background:#000; aspect-ratio:9/16; object-fit:cover; border-radius:8px;" src="${pevecVideoUrl}"></video></div>`;
+            } else if (styleKey === 'geniy') {
+                // Для плейстайла "Гений" запускаем счетчик
+                descEl.innerHTML = styleInfo.description;
+                startIQCounter();
             } else {
                 descEl.textContent = styleInfo.description || 'Описание отсутствует';
             }
@@ -1572,6 +1616,10 @@
             const overlay = document.getElementById('playstyle-detail-overlay');
             overlay.classList.remove('active');
             document.body.style.overflow = '';
+            if (iqInterval) {
+                clearInterval(iqInterval);
+                iqInterval = null;
+            }
         }
 
         function renderPlaystyles(playerId, containerId) {
