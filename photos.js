@@ -28,7 +28,9 @@ const playerPhotos = {
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
 
 const clubPhotos = {
-    legends: "./Photos%20(2)/emblema.png"
+    legends: "./Photos%20(2)/emblema.png",
+    club: "./Photos%20(2)/club-logo.jpg",       // логотип ФК "МЕРА"
+    club78: "./Photos%20(2)/club-logo-78.jpg"   // логотип ФК 78 школа
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ===================
@@ -66,4 +68,5 @@ const playstylePhotos = {
     pan:   "./Photos%20(2)/pan.png",
     geniy: "./Photos%20(2)/genius.png"
 };
-    const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
+
+const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
