@@ -1377,6 +1377,148 @@
         .dark-theme .slot-win-card .win-close {
             color: #4dabf7;
         }
+
+        /* ===== Стили для страницы матчей ===== */
+        .matches-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .matches-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .matches-container h2 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .matches-container h2 {
+            color: #4dabf7;
+        }
+        .match-card {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 25px 20px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.08);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .match-card {
+            background: #374151;
+            border-color: #4dabf7;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #0066cc;
+            margin-bottom: 20px;
+        }
+        .dark-theme .match-header {
+            color: #4dabf7;
+            border-bottom-color: #4dabf7;
+        }
+        .match-date, .match-time {
+            background: #e6f7ff;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+        .dark-theme .match-date,
+        .dark-theme .match-time {
+            background: #1a2a4a;
+            color: #f0f0f0;
+        }
+        .match-teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 120px;
+        }
+        .team:last-child {
+            justify-content: flex-end;
+        }
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: white;
+            padding: 4px;
+            border: 2px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .team-logo {
+            border-color: #4dabf7;
+            background: #2d3748;
+        }
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .dark-theme .team-name {
+            color: #f0f0f0;
+        }
+        .match-score {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #0066cc;
+            background: #e6f7ff;
+            padding: 5px 25px;
+            border-radius: 40px;
+            border: 2px solid #0066cc;
+            min-width: 120px;
+            justify-content: center;
+        }
+        .dark-theme .match-score {
+            background: #1a2a4a;
+            color: #4dabf7;
+            border-color: #4dabf7;
+        }
+        .match-score .score-divider {
+            color: #999;
+            font-weight: 300;
+        }
+        .match-result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #28a745;
+            padding: 10px;
+            background: #e6f7e6;
+            border-radius: 30px;
+            border: 1px solid #28a745;
+        }
+        .dark-theme .match-result {
+            color: #2ecc71;
+            background: #0a2a0a;
+            border-color: #2ecc71;
+        }
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -1409,6 +1551,11 @@
             .slots-container { padding: 20px 15px; }
             .slot-machine { gap: 8px; padding: 15px 5px; }
             .slot-button { font-size: 1.2rem; padding: 14px 20px; }
+            .match-teams { flex-direction: column; align-items: center; }
+            .team { justify-content: center; }
+            .team:last-child { justify-content: center; }
+            .match-score { font-size: 2rem; min-width: 100px; padding: 5px 15px; }
+            .team-logo { width: 50px; height: 50px; }
         }
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -1817,6 +1964,12 @@
                         <div class="button-title">Бурмалда</div>
                         <div class="button-description">Казик меллстрой ыыы</div>
                     </div>
+                    <!-- Новая кнопка "Матчи" -->
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">⚽</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">История матчей</div>
+                    </div>
                 </div>
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
@@ -1950,6 +2103,35 @@
                     <div class="slot-result" id="slot-result">Нажми на кнопку, чтобы начать</div>
                 </div>
             </div>
+            <!-- Новая страница "Матчи" -->
+            <div id="matches-page" class="page">
+                <button class="back-button" id="back-from-matches">← Назад к главной</button>
+                <div class="matches-container">
+                    <h2>📅 Прошедшие матчи</h2>
+                    <div class="match-card">
+                        <div class="match-header">
+                            <span class="match-date">23 июля 2026</span>
+                            <span class="match-time">18:30</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="./Photos%20(2)/club-logo.jpg" alt="ФК МЕРА" class="team-logo">
+                                <span class="team-name">ФК "МЕРА"</span>
+                            </div>
+                            <div class="match-score">
+                                <span class="score">10</span>
+                                <span class="score-divider">:</span>
+                                <span class="score">4</span>
+                            </div>
+                            <div class="team">
+                                <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="team-logo">
+                                <span class="team-name">ФК 78 школа</span>
+                            </div>
+                        </div>
+                        <div class="match-result">🏆 Победа ФК "МЕРА"</div>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>
             <p>Футбольный Двор "МЕРА" © 2026</p>
@@ -2032,8 +2214,8 @@
             'strag_silver': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
             'bistro_silver': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
             'bistro_gold': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
-            'pushka': { name: 'Пушечный удар', description: 'Игрок может наносить мощные удары.' },
-            'pushka_silver': { name: 'Пушечный удар', description: 'Игрок может наносить мощные удары.' },
+            'pushka': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и точные удары.' },
+            'pushka_silver': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и точные удары.' },
             'tochno': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой, отправляя мяч мимо вратаря.' },
             'tochno_silver': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой, отправляя мяч мимо вратаря.' },
             'vihod': { name: 'Выход вратаря', description: 'Вратарь обладает способностью быстро выбегать из ворот, чтобы оказывать давление на соперника.' },
@@ -2063,7 +2245,7 @@
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 97, number: "(8)", description: "Габриел Магальяинш", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
-            batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: "gold" } },
+            batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','bistro_silver'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", bistro_silver: 'silver' } },
             andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','simulant_silver'], playstyleColors: {bistro_silver: "silver", simulant_silver: "silver"} },
             haaland: { name: "Леонид Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 85, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} },
             elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 89, number: "(20)", description: "Самый волосатый игрок двора", playstyles: ['pushka',"bombardir_silver", 'geniy'], playstyleColors: { pushka: 'gold', bombardir_silver: "silver", geniy: "gold" } },
@@ -2571,10 +2753,13 @@
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
+            // Новая кнопка "Матчи"
+            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
@@ -2689,7 +2874,7 @@
     </script>
     <script src="photos.js"></script>
     <script>
-        const pevecVideoUrl = "./Photos (2)/pevec.mp4";
+        const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
     </script>
 </body>
 </html>
