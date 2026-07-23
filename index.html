@@ -553,12 +553,12 @@
             transform: translateY(-1px);
         }
         .player-photo-small {
-            width: 55px;
-            height: 55px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             overflow: hidden;
             border: 2.5px solid #0066cc;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             flex-shrink: 0;
             transition: all 0.3s ease;
             display: flex;
@@ -577,15 +577,39 @@
             display: block;
         }
         .player-name {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-align: center;
             line-height: 1.2;
-            margin-bottom: 1px;
+            margin-bottom: 0px;
             font-weight: bold;
             transition: all 0.3s ease;
         }
         .dark-theme .player-name {
             color: #f0f0f0;
+        }
+        .player-number {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-top: 0px;
+            transition: all 0.3s ease;
+            line-height: 1.2;
+        }
+        .dark-theme .player-number {
+            color: #4dabf7;
+        }
+        /* Увеличенное расстояние между игроками в ФК МЕРА */
+        .best-squad-container .formation-line {
+            margin: 10px 0;
+            gap: 25px;
+        }
+        .best-squad-container .player-item {
+            min-width: 90px;
+            max-width: 110px;
+        }
+        .best-squad-container .player-photo-small {
+            width: 70px;
+            height: 70px;
         }
         .tactics-info {
             background: #f0f8ff;
@@ -703,6 +727,11 @@
             transition: all 0.3s ease;
             cursor: pointer;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         .yard-card:active {
             transform: scale(0.98);
@@ -715,6 +744,7 @@
             color: #0066cc;
             font-size: 1.8rem;
             transition: all 0.3s ease;
+            margin: 0;
         }
         .dark-theme .yard-card h3 {
             color: #4dabf7;
@@ -723,9 +753,24 @@
             color: #888;
             font-size: 1rem;
             margin-top: 5px;
+            width: 100%;
         }
         .dark-theme .yard-card .yard-subtitle {
             color: #aaa;
+        }
+        .yard-card .yard-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: white;
+            padding: 4px;
+            border: 2px solid #0066cc;
+            flex-shrink: 0;
+        }
+        .dark-theme .yard-card .yard-logo {
+            border-color: #4dabf7;
+            background: #2d3748;
         }
         .player-card.mera-player {
             position: relative;
@@ -1648,22 +1693,22 @@
         .tactics-formation .formation-line {
             margin: 3px 0;
             gap: 15px;
-            min-height: 70px;
+            min-height: 75px;
         }
         .tactics-formation .player-item {
-            min-width: 80px;
-            max-width: 95px;
+            min-width: 85px;
+            max-width: 100px;
         }
         .tactics-formation .player-photo-small {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-width: 3px;
         }
         .tactics-formation .player-name {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         .tactics-formation .player-number {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
         .bench-section {
             margin-top: 8px;
@@ -1810,10 +1855,14 @@
             .stat-value { font-size: 1rem; }
             .stat-label { font-size: 0.7rem; }
             .player-item { min-width: 65px; max-width: 75px; margin: 0 2px; }
-            .player-photo-small { width: 45px; height: 45px; border-width: 2px; }
-            .player-name { font-size: 0.7rem; }
+            .player-photo-small { width: 50px; height: 50px; border-width: 2px; }
+            .player-name { font-size: 0.75rem; }
+            .player-number { font-size: 0.75rem; }
             .formation { font-size: 0.9rem; }
             .formation-line { min-height: 55px; margin: 4px 0; gap: 6px; }
+            .best-squad-container .formation-line { gap: 15px; margin: 8px 0; }
+            .best-squad-container .player-item { min-width: 75px; max-width: 90px; }
+            .best-squad-container .player-photo-small { width: 60px; height: 60px; }
             .modal { padding: 20px; }
             .modal-header { flex-direction: column; text-align: center; padding-bottom: 15px; }
             .modal-rating-header { position: static; margin-top: 10px; }
@@ -1837,10 +1886,11 @@
             .match-header { font-size: 0.9rem; gap: 10px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.8rem; padding: 4px 12px; }
             .match-result { font-size: 1.1rem; }
-            .tactics-formation .player-item { min-width: 65px; max-width: 80px; }
-            .tactics-formation .player-photo-small { width: 48px; height: 48px; }
-            .tactics-formation .player-name { font-size: 0.7rem; }
-            .tactics-formation .formation-line { gap: 8px; min-height: 60px; margin: 2px 0; }
+            .tactics-formation .player-item { min-width: 70px; max-width: 85px; }
+            .tactics-formation .player-photo-small { width: 55px; height: 55px; }
+            .tactics-formation .player-name { font-size: 0.8rem; }
+            .tactics-formation .player-number { font-size: 0.75rem; }
+            .tactics-formation .formation-line { gap: 8px; min-height: 65px; margin: 2px 0; }
             .yard-card h3 { font-size: 1.4rem; }
             .bench-player-photo { width: 38px; height: 38px; }
             .match-tactics-container { padding: 18px 12px; }
@@ -1848,6 +1898,7 @@
             .tactics-team-title { font-size: 1rem; }
             .bench-section { padding: 8px 10px; }
             .bench-section h4 { font-size: 0.85rem; }
+            .yard-card .yard-logo { width: 50px; height: 50px; }
         }
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -1869,12 +1920,16 @@
             .match-header { font-size: 0.8rem; gap: 8px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.7rem; padding: 3px 8px; }
             .match-result { font-size: 1rem; padding: 8px; }
-            .tactics-formation .player-item { min-width: 55px; max-width: 70px; }
-            .tactics-formation .player-photo-small { width: 40px; height: 40px; }
-            .tactics-formation .player-name { font-size: 0.65rem; }
-            .tactics-formation .formation-line { gap: 5px; min-height: 50px; margin: 2px 0; }
+            .tactics-formation .player-item { min-width: 60px; max-width: 75px; }
+            .tactics-formation .player-photo-small { width: 45px; height: 45px; }
+            .tactics-formation .player-name { font-size: 0.7rem; }
+            .tactics-formation .player-number { font-size: 0.7rem; }
+            .tactics-formation .formation-line { gap: 5px; min-height: 55px; margin: 2px 0; }
             .match-tactics-container { padding: 12px 8px; }
             .match-tactics-container h2 { font-size: 1.2rem; margin-bottom: 10px; }
+            .best-squad-container .formation-line { gap: 10px; }
+            .best-squad-container .player-item { min-width: 65px; max-width: 80px; }
+            .best-squad-container .player-photo-small { width: 50px; height: 50px; }
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
@@ -2397,7 +2452,10 @@
                     <h2>Другие дворы</h2>
                     <div class="yards-list">
                         <div class="yard-card" id="yard-78-school">
-                            <h3>⚪ ФК 78 школа <span style="font-size:1rem;">(⚽)</span></h3>
+                            <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="yard-logo">
+                            <div>
+                                <h3>⚪ ФК 78 школа</h3>
+                            </div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                         <div class="yard-card">
