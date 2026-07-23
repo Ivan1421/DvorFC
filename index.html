@@ -522,11 +522,11 @@
             overflow: hidden;
         }
         .formation-line {
-            margin: 15px 0;
+            margin: 8px 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            min-height: 85px;
+            min-height: 75px;
             gap: 15px;
             width: 100%;
         }
@@ -1622,8 +1622,8 @@
             color: #4dabf7;
         }
         .tactics-opponent {
-            margin-top: 30px;
-            padding-top: 30px;
+            margin-top: 25px;
+            padding-top: 20px;
             border-top: 3px dashed #0066cc;
         }
         .dark-theme .tactics-opponent {
@@ -1648,7 +1648,7 @@
         .tactics-formation .formation-line {
             margin: 4px 0;
             gap: 18px;
-            min-height: 100px;
+            min-height: 85px;
         }
         .tactics-formation .player-item {
             min-width: 90px;
@@ -1666,8 +1666,8 @@
             font-size: 0.85rem;
         }
         .bench-section {
-            margin-top: 15px;
-            padding: 15px;
+            margin-top: 12px;
+            padding: 12px 15px;
             background: #f0f8ff;
             border-radius: 10px;
             border: 1px solid #0066cc;
@@ -1678,8 +1678,8 @@
         }
         .bench-section h4 {
             color: #0066cc;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-size: 1rem;
         }
         .dark-theme .bench-section h4 {
             color: #4dabf7;
@@ -1687,7 +1687,7 @@
         .bench-players {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
         }
         .bench-player-item {
@@ -1813,7 +1813,7 @@
             .player-photo-small { width: 50px; height: 50px; border-width: 2px; }
             .player-name { font-size: 0.8rem; }
             .formation { font-size: 0.9rem; }
-            .formation-line { min-height: 75px; margin: 12px 0; gap: 8px; }
+            .formation-line { min-height: 65px; margin: 6px 0; gap: 8px; }
             .modal { padding: 20px; }
             .modal-header { flex-direction: column; text-align: center; padding-bottom: 15px; }
             .modal-rating-header { position: static; margin-top: 10px; }
@@ -1840,7 +1840,7 @@
             .tactics-formation .player-item { min-width: 70px; max-width: 85px; }
             .tactics-formation .player-photo-small { width: 55px; height: 55px; }
             .tactics-formation .player-name { font-size: 0.8rem; }
-            .tactics-formation .formation-line { gap: 10px; min-height: 80px; margin: 3px 0; }
+            .tactics-formation .formation-line { gap: 10px; min-height: 70px; margin: 3px 0; }
             .yard-card h3 { font-size: 1.4rem; }
             .bench-player-photo { width: 42px; height: 42px; }
         }
@@ -1867,7 +1867,7 @@
             .tactics-formation .player-item { min-width: 60px; max-width: 75px; }
             .tactics-formation .player-photo-small { width: 45px; height: 45px; }
             .tactics-formation .player-name { font-size: 0.7rem; }
-            .tactics-formation .formation-line { gap: 6px; min-height: 70px; margin: 2px 0; }
+            .tactics-formation .formation-line { gap: 6px; min-height: 60px; margin: 2px 0; }
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
@@ -2257,6 +2257,11 @@
                         <div class="button-title">Состав Двора</div>
                         <div class="button-description">Все игроки нашего двора</div>
                     </div>
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">⚽</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">История матчей</div>
+                    </div>
                     <div class="main-button" id="squad-btn">
                         <div class="button-icon">🏆</div>
                         <div class="button-title">ФК "МЕРА"</div>
@@ -2271,11 +2276,6 @@
                         <div class="button-icon">🎰</div>
                         <div class="button-title">Бурмалда</div>
                         <div class="button-description">Казик меллстрой ыыы</div>
-                    </div>
-                    <div class="main-button" id="matches-btn">
-                        <div class="button-icon">⚽</div>
-                        <div class="button-title">Матчи</div>
-                        <div class="button-description">История матчей</div>
                     </div>
                 </div>
                 <div class="update-button-container">
