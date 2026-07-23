@@ -28,8 +28,8 @@ const playerPhotos = {
 // ==================== ЛОГОТИПЫ КЛУБОВ ДЛЯ МАТЧЕЙ ====================
 
 const clubLogos = {
-    mera: "./Photos%20(2)/emblema.png",
-    school78: "./Photos%20(2)/school78.png"
+    mera: "./Photos%20(2)/club-logo.jpg",
+    school78: "./Photos%20(2)/club-logo-78.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ===================
