@@ -700,6 +700,104 @@
             background: #374151;
             border-color: #4dabf7;
         }
+        .matches-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .matches-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .matches-container h2 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .dark-theme .matches-container h2 {
+            color: #4dabf7;
+        }
+        .match-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #0066cc;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dark-theme .match-card {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .match-card .match-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .dark-theme .match-card .match-date {
+            color: #aaa;
+        }
+        .match-card .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .match-card .team {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .match-card .team-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #0066cc;
+            flex-shrink: 0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .match-card .team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .match-card .score {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #0066cc;
+            padding: 0 15px;
+        }
+        .dark-theme .match-card .score {
+            color: #4dabf7;
+        }
+        .match-card .match-result {
+            font-size: 1rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .match-card .match-result.loss {
+            color: #dc3545;
+        }
+        .match-card .match-result.draw {
+            color: #ffc107;
+        }
         .player-card.mera-player {
             position: relative;
         }
@@ -1409,6 +1507,8 @@
             .slots-container { padding: 20px 15px; }
             .slot-machine { gap: 8px; padding: 15px 5px; }
             .slot-button { font-size: 1.2rem; padding: 14px 20px; }
+            .match-card .team { font-size: 1rem; }
+            .match-card .score { font-size: 1.5rem; padding: 0 10px; }
         }
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -1423,6 +1523,10 @@
             .slot-win-card { padding: 30px 20px; }
             .slot-win-card .win-icon { font-size: 4rem; }
             .slot-win-card h2 { font-size: 1.8rem; }
+            .match-card .match-teams { gap: 10px; }
+            .match-card .team { font-size: 0.9rem; gap: 5px; }
+            .match-card .score { font-size: 1.3rem; padding: 0 5px; }
+            .match-card .team-logo { width: 30px; height: 30px; }
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
@@ -1817,6 +1921,11 @@
                         <div class="button-title">Бурмалда</div>
                         <div class="button-description">Казик меллстрой ыыы</div>
                     </div>
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">⚽</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">История наших матчей</div>
+                    </div>
                 </div>
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
@@ -1950,6 +2059,13 @@
                     <div class="slot-result" id="slot-result">Нажми на кнопку, чтобы начать</div>
                 </div>
             </div>
+            <div id="matches-page" class="page">
+                <button class="back-button" id="back-from-matches">← Назад к главной</button>
+                <div class="matches-container">
+                    <h2>📋 История матчей</h2>
+                    <div id="matches-list"></div>
+                </div>
+            </div>
         </main>
         <footer>
             <p>Футбольный Двор "МЕРА" © 2026</p>
@@ -2059,7 +2175,7 @@
             'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
             'pevec': { name: 'Певец', description: '' },
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
-        }; 
+        };
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 97, number: "(8)", description: "Габриел Магальяинш", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
@@ -2119,6 +2235,12 @@
         let winDesc = document.getElementById('win-desc');
         let themeClickCount = 0;
         let secretActivated = false;
+
+        const clubLogos = {
+            mera: "./Photos%20(2)/club-logo.jpg",
+            school78: "./Photos%20(2)/club-logo-78.jpg"
+        };
+
         function getRandomSymbol() {
             return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
         }
@@ -2535,8 +2657,62 @@
             document.getElementById('player-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+
+        function renderMatches() {
+            const container = document.getElementById('matches-list');
+            if (!container) return;
+            const matches = [
+                {
+                    id: 1,
+                    date: "23 июля 2026",
+                    time: "18:30",
+                    home: {
+                        name: "ФК МЕРА",
+                        logo: clubLogos.mera,
+                        id: "mera"
+                    },
+                    away: {
+                        name: "Школа 78",
+                        logo: clubLogos.school78,
+                        id: "school78"
+                    },
+                    score: "10 : 4",
+                    result: "Победа",
+                    resultType: "win"
+                }
+            ];
+            let html = '';
+            matches.forEach(match => {
+                const resultClass = match.resultType === 'win' ? '' : (match.resultType === 'loss' ? 'loss' : 'draw');
+                html += `
+                    <div class="match-card">
+                        <div class="match-date">📅 ${match.date} • ⏰ ${match.time}</div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <div class="team-logo">
+                                    <img src="${match.home.logo}" alt="${match.home.name}" onerror="this.style.display='none'">
+                                </div>
+                                <span>${match.home.name}</span>
+                            </div>
+                            <div class="score">${match.score}</div>
+                            <div class="team">
+                                <span>${match.away.name}</span>
+                                <div class="team-logo">
+                                    <img src="${match.away.logo}" alt="${match.away.name}" onerror="this.style.display='none'">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="match-result ${resultClass}">${match.result === 'Победа' ? '🏆 ' : ''}${match.result}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             renderPlayerCards();
+            renderMatches();
+
             const searchInput = document.getElementById('player-search');
             if (searchInput) {
                 searchInput.addEventListener('input', function(e) {
@@ -2571,10 +2747,12 @@
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
+            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
