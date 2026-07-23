@@ -17,6 +17,7 @@
             min-height: 100vh;
             transition: all 0.3s ease;
             -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
         }
         body.dark-theme {
             background: linear-gradient(to bottom, #1a1a2e, #16213e);
@@ -1501,23 +1502,21 @@
         .match-teams {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            flex-wrap: nowrap;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .team {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
-            flex: 1;
-            min-width: 0;
-        }
-        .team:last-child {
-            justify-content: flex-end;
+            gap: 6px;
+            flex: 0 1 auto;
+            min-width: 80px;
         }
         .team-logo {
-            width: 65px;
-            height: 65px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
             border-radius: 12px;
             background: white;
@@ -1531,12 +1530,14 @@
             background: #2d3748;
         }
         .team-name {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             color: #333;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            text-align: center;
+            line-height: 1.2;
+            max-width: 120px;
+            word-wrap: break-word;
+            white-space: normal;
         }
         .dark-theme .team-name {
             color: #f0f0f0;
@@ -1596,45 +1597,6 @@
         }
         .dark-theme .match-result.away .match-result-icon {
             color: #ffd43b;
-        }
-        .match-location-block {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .match-location-block .location-tag {
-            display: inline-block;
-            padding: 4px 18px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            background: #e6f7ff;
-            color: #0066cc;
-            border: 1px solid #0066cc;
-        }
-        .dark-theme .match-location-block .location-tag {
-            background: #1a2a4a;
-            color: #4dabf7;
-            border-color: #4dabf7;
-        }
-        .match-location-block .location-tag.away {
-            background: #fff3cd;
-            color: #856404;
-            border-color: #ffc107;
-        }
-        .dark-theme .match-location-block .location-tag.away {
-            background: #664d03;
-            color: #ffd8a8;
-            border-color: #ffd43b;
-        }
-        .match-location-block .location-tag.home {
-            background: #d4edda;
-            color: #155724;
-            border-color: #28a745;
-        }
-        .dark-theme .match-location-block .location-tag.home {
-            background: #0a2a0a;
-            color: #2ecc71;
-            border-color: #2ecc71;
         }
         .match-tactics-container {
             background: white;
@@ -1868,10 +1830,9 @@
             .slots-container { padding: 20px 15px; }
             .slot-machine { gap: 8px; padding: 15px 5px; }
             .slot-button { font-size: 1.2rem; padding: 14px 20px; }
-            .match-teams { flex-wrap: nowrap; gap: 8px; }
-            .team { min-width: 0; }
-            .team-name { font-size: 0.9rem; }
-            .team-logo { width: 50px; height: 50px; }
+            .match-teams { gap: 8px; }
+            .team-logo { width: 60px; height: 60px; }
+            .team-name { font-size: 0.8rem; max-width: 80px; }
             .match-score { font-size: 1.8rem; min-width: 80px; padding: 5px 15px; }
             .match-header { font-size: 0.9rem; gap: 10px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.8rem; padding: 4px 12px; }
@@ -1896,9 +1857,9 @@
             .slot-win-card { padding: 30px 20px; }
             .slot-win-card .win-icon { font-size: 4rem; }
             .slot-win-card h2 { font-size: 1.8rem; }
-            .match-teams { flex-wrap: nowrap; gap: 5px; }
-            .team-name { font-size: 0.8rem; }
-            .team-logo { width: 40px; height: 40px; }
+            .match-teams { gap: 5px; }
+            .team-name { font-size: 0.7rem; max-width: 60px; }
+            .team-logo { width: 50px; height: 50px; }
             .match-score { font-size: 1.5rem; min-width: 65px; padding: 4px 10px; gap: 4px; }
             .match-header { font-size: 0.8rem; gap: 8px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.7rem; padding: 3px 8px; }
@@ -2269,44 +2230,15 @@
             border-color: #a8a8a8 !important;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
         }
-        .match-location-block {
-            text-align: center;
-            margin-top: 10px;
+        .modal {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        .match-location-block .location-tag {
-            display: inline-block;
-            padding: 4px 18px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            background: #e6f7ff;
-            color: #0066cc;
-            border: 1px solid #0066cc;
+        .modal::-webkit-scrollbar {
+            display: none;
         }
-        .dark-theme .match-location-block .location-tag {
-            background: #1a2a4a;
-            color: #4dabf7;
-            border-color: #4dabf7;
-        }
-        .match-location-block .location-tag.away {
-            background: #fff3cd;
-            color: #856404;
-            border-color: #ffc107;
-        }
-        .dark-theme .match-location-block .location-tag.away {
-            background: #664d03;
-            color: #ffd8a8;
-            border-color: #ffd43b;
-        }
-        .match-location-block .location-tag.home {
-            background: #d4edda;
-            color: #155724;
-            border-color: #28a745;
-        }
-        .dark-theme .match-location-block .location-tag.home {
-            background: #0a2a0a;
-            color: #2ecc71;
-            border-color: #2ecc71;
+        .modal {
+            scrollbar-width: none;
         }
     </style>
 </head>
@@ -2801,7 +2733,7 @@
         };
         
         const yard78Players = [
-            { id: "saveliy", name: "Соколов Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 85, number: "(78)", description: "Игрок ФК 78 школа", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
+            { id: "saveliy_78", name: "Соколов Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 85, number: "(78)", description: "Игрок ФК 78 школа", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
             { id: "timofey_zaytsev", name: "Тимофей Зайцев", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 85, number: "(7)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
             { id: "sanya_bobrikov", name: "Саня Бобриков", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "55 кг", rating: 85, number: "(11)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
             { id: "kirill_beshchasny", name: "Кирилл Бещасный", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "52 кг", rating: 85, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
