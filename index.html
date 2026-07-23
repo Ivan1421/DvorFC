@@ -1403,8 +1403,6 @@
         .dark-theme .slot-win-card .win-close {
             color: #4dabf7;
         }
-
-        /* ===== Стили для страницы матчей ===== */
         .matches-container {
             background: white;
             border-radius: 15px;
@@ -1554,8 +1552,6 @@
             background: #0a2a0a;
             border-color: #2ecc71;
         }
-
-        /* Стили для страницы тактики матча */
         .match-tactics-container {
             background: white;
             border-radius: 15px;
@@ -1698,7 +1694,6 @@
             border-color: #ffc107;
             background: #664d03;
         }
-        /* Зелёная обводка для Елисея на скамейке */
         .bench-player-item.burmalda-bench .bench-player-photo {
             border: 3px solid #00e676 !important;
             animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
@@ -1708,7 +1703,6 @@
             animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
             box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
         }
-
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -2301,7 +2295,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Страница состава ФК 78 школа -->
             <div id="yard-78-page" class="page">
                 <button class="back-button" id="back-from-yard-78">← Назад к другим дворам</button>
                 <div class="best-squad-container">
@@ -2355,11 +2348,6 @@
                 <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
                 <div class="match-tactics-container">
                     <h2>⚽ Тактика матча: ФК "МЕРА" vs ФК 78 школа</h2>
-                    
-                    <!-- ФК 78 школа — сверху: название → скамейка → схема -->
-          
-                    
-                    <!-- Скамейка 78 школы перед схемой -->
                     <div class="bench-section">
                         <h4>Запасные:</h4>
                         <div class="bench-players">
@@ -2367,12 +2355,9 @@
                             </div>
                         </div>
                     </div>
-                    
-                              <div class="tactics-team-title">🟡 ФК 78 школа (1-1-2)</div>
-                    
+                    <div class="tactics-team-title">🟡 ФК 78 школа (1-1-2)</div>
                     <div class="tactics-formation">
                         <div class="formation">
-                            <!-- Вратарь сверху -->
                             <div class="formation-line">
                                 <div class="player-item" data-player="saveliy_78">
                                     <div class="player-photo-small" id="match-saveliy-photo"></div>
@@ -2380,7 +2365,6 @@
                                     <span class="player-number">(78)</span>
                                 </div>
                             </div>
-                            <!-- Защитник ниже -->
                             <div class="formation-line">
                                 <div class="player-item" data-player="kirill_beshchasny">
                                     <div class="player-photo-small" id="match-kirill-photo"></div>
@@ -2388,7 +2372,6 @@
                                     <span class="player-number">(5)</span>
                                 </div>
                             </div>
-                            <!-- Два форварда внизу -->
                             <div class="formation-line">
                                 <div class="player-item" data-player="timofey_zaytsev">
                                     <div class="player-photo-small" id="match-timofey-photo"></div>
@@ -2403,13 +2386,9 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="tactics-opponent">
-                       
-                        
                         <div class="tactics-formation">
                             <div class="formation">
-                                <!-- Нападающий сверху -->
                                 <div class="formation-line">
                                     <div class="player-item" data-player="aleksey_doroshenko">
                                         <div class="player-photo-small" id="match-aleksey-photo"></div>
@@ -2417,7 +2396,6 @@
                                         <span class="player-number">(22)</span>
                                     </div>
                                 </div>
-                                <!-- Два защитника ниже -->
                                 <div class="formation-line">
                                     <div class="player-item" data-player="maxim">
                                         <div class="player-photo-small" id="match-maxim-photo"></div>
@@ -2430,7 +2408,6 @@
                                         <span class="player-number">(41)</span>
                                     </div>
                                 </div>
-                                <!-- Вратарь внизу -->
                                 <div class="formation-line">
                                     <div class="player-item" data-player="raya">
                                         <div class="player-photo-small" id="match-raya-photo"></div>
@@ -2441,7 +2418,6 @@
                             </div>
                         </div>
                          <div class="tactics-team-title">🔵 ФК "МЕРА" (1-2-1)</div>
-                        <!-- Скамейка МЕРЫ под схемой -->
                         <div class="bench-section">
                             <h4>Запасные:</h4>
                             <div class="bench-players">
@@ -2461,7 +2437,6 @@
                                     <div class="bench-player-photo" id="bench-elanga-photo"></div>
                                     <div class="bench-player-name">Еланга</div>
                                 </div>
-                                <!-- Елисей с зелёной обводкой -->
                                 <div class="bench-player-item burmalda-bench" data-player="elisey">
                                     <div class="bench-player-photo" id="bench-elisey-photo"></div>
                                     <div class="bench-player-name">Елисей</div>
@@ -2538,23 +2513,8 @@
         </div>
     </div>
     <script>
-        // ============================================================
-        // ⚡⚡⚡ ЛЕГКО ДОБАВЛЯТЬ ИГРОКОВ В ФК 78 ШКОЛА ⚡⚡⚡
-        // Просто добавьте новый объект в массив yard78Players:
-        // { id: "уникальный_id", name: "Имя", position: "Позиция", age: "возраст", icon: "⚽", foot: "Правая", height: "170 см", weight: "55 кг", rating: 85, number: "(номер)", description: "описание", playstyles: [], playstyleColors: {} }
-        // ============================================================
-        const yard78Players = [
-            { id: "saveliy_78", name: "Соколов Савелий", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 85, number: "(78)", description: "Игрок ФК 78 школа", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
-            { id: "timofey_zaytsev", name: "Тимофей Зайцев", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 85, number: "(7)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "sanya_bobrikov", name: "Саня Бобриков", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "55 кг", rating: 85, number: "(11)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "kirill_beshchasny", name: "Кирилл Бещасный", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "52 кг", rating: 85, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "maxim_dcp", name: "Максим ДЦП", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "58 кг", rating: 85, number: "(10)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} }
-        ];
-        // ============================================================
-
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
         const burmaldaPlayerIds = ['elisey'];
-        const yard78PlayerIds = yard78Players.map(p => p.id);
         
         const playstyleDescriptions = {
             'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
@@ -2595,9 +2555,8 @@
             'pevec': { name: 'Певец', description: '' },
             'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
-        }; 
+        };
         
-        // Базовые игроки (без игроков 78 школы)
         const basePlayers = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 97, number: "(8)", description: "Габриел Магальяинш", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
@@ -2624,11 +2583,20 @@
             maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 72, number: "(17)", description: "", playstyles: [], playstyleColors: {} }
         };
         
-        // Собираем всех игроков (базовые + 78 школа)
+        const yard78Players = [
+            { id: "saveliy_78", name: "Соколов Савелий", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 85, number: "(78)", description: "Игрок ФК 78 школа", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
+            { id: "timofey_zaytsev", name: "Тимофей Зайцев", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 85, number: "(7)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "sanya_bobrikov", name: "Саня Бобриков", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "55 кг", rating: 85, number: "(11)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "kirill_beshchasny", name: "Кирилл Бещасный", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "52 кг", rating: 85, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "maxim_dcp", name: "Максим ДЦП", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "58 кг", rating: 85, number: "(10)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} }
+        ];
+        
         const playersData = { ...basePlayers };
         yard78Players.forEach(p => {
             playersData[p.id] = p;
         });
+        
+        const yard78PlayerIds = yard78Players.map(p => p.id);
         
         let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
@@ -3156,8 +3124,6 @@
         
         document.addEventListener('DOMContentLoaded', function() {
             renderMainPlayerCards();
-            
-            // Рендер состава 78 школы
             renderPlayerCards('yard-78-grid', yard78PlayerIds);
             
             const searchInput = document.getElementById('player-search');
@@ -3244,10 +3210,8 @@
                 }
             });
             
-            // Матч тактика
             document.getElementById('match-card-1')?.addEventListener('click', function() {
                 showPage('match-tactics-page');
-                // Загружаем фото для тактики матча
                 const matchPlayers = ['raya', 'maxim', 'lesha_podavalny', 'aleksey_doroshenko', 'saveliy_78', 'kirill_beshchasny', 'timofey_zaytsev', 'sanya_bobrikov'];
                 const matchPhotoIds = {
                     'raya': 'match-raya-photo',
@@ -3282,7 +3246,6 @@
                     }
                 });
                 
-                // Запасные фото
                 const benchPlayers = ['matvey', 'batrakov', 'andryushka', 'elanga', 'elisey', 'maxim_dcp'];
                 const benchPhotoIds = {
                     'matvey': 'bench-matvey-photo',
@@ -3315,7 +3278,6 @@
                     }
                 });
                 
-                // Делаем кликабельными всех игроков на странице тактики
                 document.querySelectorAll('#match-tactics-page .player-item, #match-tactics-page .bench-player-item').forEach(item => {
                     item.addEventListener('click', function() {
                         const playerId = this.getAttribute('data-player');
