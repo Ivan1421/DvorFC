@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Футбольный Двор "МЕРA"</title>
     <style>
         * {
@@ -16,6 +16,7 @@
             color: #333;
             min-height: 100vh;
             transition: all 0.3s ease;
+            -webkit-text-size-adjust: 100%;
         }
         body.dark-theme {
             background: linear-gradient(to bottom, #1a1a2e, #16213e);
@@ -662,10 +663,9 @@
         .other-yards-container {
             background: white;
             border-radius: 15px;
-            padding: 50px 30px;
+            padding: 30px;
             border: 3px solid #0066cc;
             box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
-            text-align: center;
             transition: all 0.3s ease;
         }
         .dark-theme .other-yards-container {
@@ -676,29 +676,55 @@
         .other-yards-container .big-icon {
             font-size: 5rem;
             margin-bottom: 20px;
+            text-align: center;
         }
         .other-yards-container h2 {
             color: #0066cc;
             font-size: 2.5rem;
             margin-bottom: 15px;
+            text-align: center;
             transition: all 0.3s ease;
         }
         .dark-theme .other-yards-container h2 {
             color: #4dabf7;
         }
-        .other-yards-container .message {
-            font-size: 1.5rem;
-            color: #666;
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border: 2px dashed #0066cc;
-            transition: all 0.3s ease;
+        .yards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
         }
-        .dark-theme .other-yards-container .message {
-            color: #ccc;
+        .yard-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #0066cc;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+        .yard-card:active {
+            transform: scale(0.98);
+        }
+        .dark-theme .yard-card {
             background: #374151;
             border-color: #4dabf7;
+        }
+        .yard-card h3 {
+            color: #0066cc;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .yard-card h3 {
+            color: #4dabf7;
+        }
+        .yard-card .yard-subtitle {
+            color: #888;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        .dark-theme .yard-card .yard-subtitle {
+            color: #aaa;
         }
         .player-card.mera-player {
             position: relative;
@@ -1409,6 +1435,10 @@
             border: 2px solid #0066cc;
             box-shadow: 0 6px 20px rgba(0, 102, 204, 0.08);
             transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .match-card:active {
+            transform: scale(0.99);
         }
         .dark-theme .match-card {
             background: #374151;
@@ -1446,36 +1476,40 @@
             align-items: center;
             justify-content: space-between;
             gap: 15px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
         .team {
             display: flex;
             align-items: center;
             gap: 12px;
             flex: 1;
-            min-width: 120px;
+            min-width: 0;
         }
         .team:last-child {
             justify-content: flex-end;
         }
         .team-logo {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
             border-radius: 12px;
             background: white;
             padding: 4px;
             border: 2px solid #0066cc;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
         .dark-theme .team-logo {
             border-color: #4dabf7;
             background: #2d3748;
         }
         .team-name {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .dark-theme .team-name {
             color: #f0f0f0;
@@ -1483,16 +1517,17 @@
         .match-score {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 2.5rem;
+            gap: 8px;
+            font-size: 2rem;
             font-weight: 900;
             color: #0066cc;
             background: #e6f7ff;
-            padding: 5px 25px;
+            padding: 5px 20px;
             border-radius: 40px;
             border: 2px solid #0066cc;
-            min-width: 120px;
+            min-width: 90px;
             justify-content: center;
+            flex-shrink: 0;
         }
         .dark-theme .match-score {
             background: #1a2a4a;
@@ -1519,6 +1554,161 @@
             background: #0a2a0a;
             border-color: #2ecc71;
         }
+
+        /* Стили для страницы тактики матча */
+        .match-tactics-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .match-tactics-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .match-tactics-container h2 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .match-tactics-container h2 {
+            color: #4dabf7;
+        }
+        .tactics-opponent {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 3px dashed #0066cc;
+        }
+        .dark-theme .tactics-opponent {
+            border-top-color: #4dabf7;
+        }
+        .tactics-team-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        .dark-theme .tactics-team-title {
+            color: #4dabf7;
+        }
+        .tactics-formation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .tactics-formation .formation-line {
+            margin: 8px 0;
+            gap: 20px;
+        }
+        .tactics-formation .player-item {
+            min-width: 70px;
+            max-width: 90px;
+        }
+        .tactics-formation .player-photo-small {
+            width: 50px;
+            height: 50px;
+        }
+        .tactics-formation .player-name {
+            font-size: 0.8rem;
+        }
+        .bench-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            border: 1px solid #0066cc;
+        }
+        .dark-theme .bench-section {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .bench-section h4 {
+            color: #0066cc;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .dark-theme .bench-section h4 {
+            color: #4dabf7;
+        }
+        .bench-players {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .bench-player-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bench-player-item:active {
+            transform: scale(0.95);
+        }
+        .bench-player-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2.5px solid #0066cc;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark-theme .bench-player-photo {
+            border-color: #4dabf7;
+            background: #374151;
+        }
+        .bench-player-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .bench-player-name {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 2px;
+            color: #333;
+        }
+        .dark-theme .bench-player-name {
+            color: #f0f0f0;
+        }
+        .bench-player-tag.youth .bench-player-name {
+            color: #856404;
+        }
+        .dark-theme .bench-player-tag.youth .bench-player-name {
+            color: #ffd8a8;
+        }
+        .bench-player-tag.youth .bench-player-photo {
+            border-color: #ffc107;
+            background: #fff3cd;
+        }
+        .dark-theme .bench-player-tag.youth .bench-player-photo {
+            border-color: #ffc107;
+            background: #664d03;
+        }
+        /* Зелёная обводка для Елисея на скамейке */
+        .bench-player-item.burmalda-bench .bench-player-photo {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .bench-player-item.burmalda-bench .bench-player-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -1551,11 +1741,19 @@
             .slots-container { padding: 20px 15px; }
             .slot-machine { gap: 8px; padding: 15px 5px; }
             .slot-button { font-size: 1.2rem; padding: 14px 20px; }
-            .match-teams { flex-direction: column; align-items: center; }
-            .team { justify-content: center; }
-            .team:last-child { justify-content: center; }
-            .match-score { font-size: 2rem; min-width: 100px; padding: 5px 15px; }
-            .team-logo { width: 50px; height: 50px; }
+            .match-teams { flex-wrap: nowrap; gap: 8px; }
+            .team { min-width: 0; }
+            .team-name { font-size: 0.8rem; }
+            .team-logo { width: 40px; height: 40px; }
+            .match-score { font-size: 1.5rem; min-width: 70px; padding: 3px 12px; }
+            .match-header { font-size: 1rem; flex-wrap: wrap; gap: 8px; justify-content: center; }
+            .match-date, .match-time { font-size: 0.8rem; padding: 4px 12px; }
+            .match-result { font-size: 1.1rem; }
+            .tactics-formation .player-item { min-width: 60px; max-width: 75px; }
+            .tactics-formation .player-photo-small { width: 42px; height: 42px; }
+            .tactics-formation .player-name { font-size: 0.7rem; }
+            .yard-card h3 { font-size: 1.4rem; }
+            .bench-player-photo { width: 42px; height: 42px; }
         }
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -1570,6 +1768,13 @@
             .slot-win-card { padding: 30px 20px; }
             .slot-win-card .win-icon { font-size: 4rem; }
             .slot-win-card h2 { font-size: 1.8rem; }
+            .match-teams { flex-wrap: nowrap; gap: 5px; }
+            .team-name { font-size: 0.65rem; }
+            .team-logo { width: 32px; height: 32px; }
+            .match-score { font-size: 1.2rem; min-width: 55px; padding: 2px 8px; gap: 4px; }
+            .match-header { font-size: 0.8rem; }
+            .match-date, .match-time { font-size: 0.7rem; padding: 3px 8px; }
+            .match-result { font-size: 0.9rem; padding: 6px; }
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
@@ -1964,7 +2169,6 @@
                         <div class="button-title">Бурмалда</div>
                         <div class="button-description">Казик меллстрой ыыы</div>
                     </div>
-                    <!-- Новая кнопка "Матчи" -->
                     <div class="main-button" id="matches-btn">
                         <div class="button-icon">⚽</div>
                         <div class="button-title">Матчи</div>
@@ -1987,7 +2191,7 @@
                         <button class="sort-btn" id="sort-name" data-sort="name">🔤 Сортировать по алфавиту (А-Я)</button>
                         <button class="sort-btn" id="reset-sort">🔄 Сбросить</button>
                     </div>
-                    <div class="players-count" id="players-count">Всего игроков: 15</div>
+                    <div class="players-count" id="players-count">Всего игроков: 0</div>
                 </div>
                 <div class="players-grid" id="players-grid-container"></div>
             </div>
@@ -2050,10 +2254,10 @@
                                     <div class="player-name">Елисей</div>
                                     <span class="player-number">(19)</span>
                                 </div>
-                                <div class="player-item" data-player="saveliy">
-                                    <div class="player-photo-small" id="saveliy-photo-small"></div>
-                                    <div class="player-name">Савелий</div>
-                                    <span class="player-number">(78)</span>
+                                <div class="player-item" data-player="matvey">
+                                    <div class="player-photo-small" id="matvey-photo-small-squad"></div>
+                                    <div class="player-name">Матвей</div>
+                                    <span class="player-number">(3)</span>
                                 </div>
                             </div>
                             <div class="formation-line">
@@ -2081,12 +2285,28 @@
                 <div class="other-yards-container">
                     <div class="big-icon">🏘️</div>
                     <h2>Другие дворы</h2>
-                    <div class="message">
-                        📢 Здесь скоро будут наши соперники:
-                        <p>• ФК ФПК 🟢⚪️</p>
-                        <p>• 78 школа 🏫</p>
-                        <p>• Зеленый Остров 🟢⚪️</p>
+                    <div class="yards-list">
+                        <div class="yard-card" id="yard-78-school">
+                            <h3>⚪ ФК 78 школа</h3>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card">
+                            <h3>🟢 ФК ФПК</h3>
+                            <div class="yard-subtitle">Скоро...</div>
+                        </div>
+                        <div class="yard-card">
+                            <h3>🟢 Зеленый Остров</h3>
+                            <div class="yard-subtitle">Скоро...</div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <!-- Страница состава ФК 78 школа -->
+            <div id="yard-78-page" class="page">
+                <button class="back-button" id="back-from-yard-78">← Назад к другим дворам</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title">⚪ ФК 78 школа — состав</h2>
+                    <div class="players-grid" id="yard-78-grid"></div>
                 </div>
             </div>
             <div id="burmalda-page" class="page">
@@ -2103,12 +2323,11 @@
                     <div class="slot-result" id="slot-result">Нажми на кнопку, чтобы начать</div>
                 </div>
             </div>
-            <!-- Новая страница "Матчи" -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
                     <h2>📅 Прошедшие матчи</h2>
-                    <div class="match-card">
+                    <div class="match-card" id="match-card-1">
                         <div class="match-header">
                             <span class="match-date">23 июля 2026</span>
                             <span class="match-time">18:30</span>
@@ -2129,6 +2348,126 @@
                             </div>
                         </div>
                         <div class="match-result">🏆 Победа ФК "МЕРА"</div>
+                    </div>
+                </div>
+            </div>
+            <div id="match-tactics-page" class="page">
+                <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
+                <div class="match-tactics-container">
+                    <h2>⚽ Тактика матча: ФК "МЕРА" vs ФК 78 школа</h2>
+                    
+                    <!-- ФК 78 школа — сверху: название → скамейка → схема -->
+          
+                    
+                    <!-- Скамейка 78 школы перед схемой -->
+                    <div class="bench-section">
+                        <h4>Запасные:</h4>
+                        <div class="bench-players">
+                            <div class="bench-player-item" data-player="">
+                            </div>
+                        </div>
+                    </div>
+                    
+                              <div class="tactics-team-title">🟡 ФК 78 школа (1-1-2)</div>
+                    
+                    <div class="tactics-formation">
+                        <div class="formation">
+                            <!-- Вратарь сверху -->
+                            <div class="formation-line">
+                                <div class="player-item" data-player="saveliy_78">
+                                    <div class="player-photo-small" id="match-saveliy-photo"></div>
+                                    <div class="player-name">Савелий</div>
+                                    <span class="player-number">(78)</span>
+                                </div>
+                            </div>
+                            <!-- Защитник ниже -->
+                            <div class="formation-line">
+                                <div class="player-item" data-player="kirill_beshchasny">
+                                    <div class="player-photo-small" id="match-kirill-photo"></div>
+                                    <div class="player-name">Кирилл Б.</div>
+                                    <span class="player-number">(5)</span>
+                                </div>
+                            </div>
+                            <!-- Два форварда внизу -->
+                            <div class="formation-line">
+                                <div class="player-item" data-player="timofey_zaytsev">
+                                    <div class="player-photo-small" id="match-timofey-photo"></div>
+                                    <div class="player-name">Тимофей З.</div>
+                                    <span class="player-number">(7)</span>
+                                </div>
+                                <div class="player-item" data-player="sanya_bobrikov">
+                                    <div class="player-photo-small" id="match-sanya-photo"></div>
+                                    <div class="player-name">Саня Б.</div>
+                                    <span class="player-number">(11)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tactics-opponent">
+                       
+                        
+                        <div class="tactics-formation">
+                            <div class="formation">
+                                <!-- Нападающий сверху -->
+                                <div class="formation-line">
+                                    <div class="player-item" data-player="aleksey_doroshenko">
+                                        <div class="player-photo-small" id="match-aleksey-photo"></div>
+                                        <div class="player-name">Дорошенко</div>
+                                        <span class="player-number">(22)</span>
+                                    </div>
+                                </div>
+                                <!-- Два защитника ниже -->
+                                <div class="formation-line">
+                                    <div class="player-item" data-player="maxim">
+                                        <div class="player-photo-small" id="match-maxim-photo"></div>
+                                        <div class="player-name">Максим</div>
+                                        <span class="player-number">(8)</span>
+                                    </div>
+                                    <div class="player-item" data-player="lesha_podavalny">
+                                        <div class="player-photo-small" id="match-lesha-photo"></div>
+                                        <div class="player-name">Подавальный</div>
+                                        <span class="player-number">(41)</span>
+                                    </div>
+                                </div>
+                                <!-- Вратарь внизу -->
+                                <div class="formation-line">
+                                    <div class="player-item" data-player="raya">
+                                        <div class="player-photo-small" id="match-raya-photo"></div>
+                                        <div class="player-name">Рая</div>
+                                        <span class="player-number">(1)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="tactics-team-title">🔵 ФК "МЕРА" (1-2-1)</div>
+                        <!-- Скамейка МЕРЫ под схемой -->
+                        <div class="bench-section">
+                            <h4>Запасные:</h4>
+                            <div class="bench-players">
+                                <div class="bench-player-item" data-player="matvey">
+                                    <div class="bench-player-photo" id="bench-matvey-photo"></div>
+                                    <div class="bench-player-name">Матвей Слащев</div>
+                                </div>
+                                <div class="bench-player-item" data-player="batrakov">
+                                    <div class="bench-player-photo" id="bench-batrakov-photo"></div>
+                                    <div class="bench-player-name">Глебасик</div>
+                                </div>
+                                <div class="bench-player-item bench-player-tag youth" data-player="andryushka">
+                                    <div class="bench-player-photo" id="bench-andryushka-photo"></div>
+                                    <div class="bench-player-name">Андрюшка*</div>
+                                </div>
+                                <div class="bench-player-item" data-player="elanga">
+                                    <div class="bench-player-photo" id="bench-elanga-photo"></div>
+                                    <div class="bench-player-name">Еланга</div>
+                                </div>
+                                <!-- Елисей с зелёной обводкой -->
+                                <div class="bench-player-item burmalda-bench" data-player="elisey">
+                                    <div class="bench-player-photo" id="bench-elisey-photo"></div>
+                                    <div class="bench-player-name">Елисей</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2199,8 +2538,24 @@
         </div>
     </div>
     <script>
+        // ============================================================
+        // ⚡⚡⚡ ЛЕГКО ДОБАВЛЯТЬ ИГРОКОВ В ФК 78 ШКОЛА ⚡⚡⚡
+        // Просто добавьте новый объект в массив yard78Players:
+        // { id: "уникальный_id", name: "Имя", position: "Позиция", age: "возраст", icon: "⚽", foot: "Правая", height: "170 см", weight: "55 кг", rating: 85, number: "(номер)", description: "описание", playstyles: [], playstyleColors: {} }
+        // ============================================================
+        const yard78Players = [
+            { id: "saveliy_78", name: "Соколов Савелий", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 85, number: "(78)", description: "Игрок ФК 78 школа", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
+            { id: "timofey_zaytsev", name: "Тимофей Зайцев", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 85, number: "(7)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "sanya_bobrikov", name: "Саня Бобриков", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "55 кг", rating: 85, number: "(11)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "kirill_beshchasny", name: "Кирилл Бещасный", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "52 кг", rating: 85, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "maxim_dcp", name: "Максим ДЦП", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "58 кг", rating: 85, number: "(10)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} }
+        ];
+        // ============================================================
+
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
         const burmaldaPlayerIds = ['elisey'];
+        const yard78PlayerIds = yard78Players.map(p => p.id);
+        
         const playstyleDescriptions = {
             'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
             'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
@@ -2239,10 +2594,11 @@
             'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
             'pevec': { name: 'Певец', description: '' },
             'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
-            'pevec': { name: 'Певец', description: '' },
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
         }; 
-        const playersData = {
+        
+        // Базовые игроки (без игроков 78 школы)
+        const basePlayers = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 97, number: "(8)", description: "Габриел Магальяинш", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
             batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','bistro_silver'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", bistro_silver: 'silver' } },
@@ -2255,7 +2611,6 @@
             hokkeist: { name: "Захаров Максим", position: "Вратарь", age: "13 лет", icon: "❄️", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)", description: "Играл ещё во времена динозавров (На данный момент карточка заморожена)", playstyles: ["otraz", "vihod"], playstyleColors: {otraz: "gold", vihod: "gold"} },
             egor_vulf: { name: "Егор Ровкин", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Левая", height: "168 см", weight: "50 кг", rating: 84, number: "(5)", description: "Левоногая опасность", playstyles: ['pushka_silver'], playstyleColors: {pushka_silver: "silver"} },
             matvey: { name: "Матвей Слащев", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 85, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
-            saveliy: { name: "Соколов Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 87, number: "(78)", description: "дриблер, непризнанный гений", playstyles: ["truk_gold", 'simulant_silver'], playstyleColors: {truk_gold: 'gold', simulant_silver: "silver"} },
             artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "68 кг", rating: 77, number: "(98)", description: "В его весовой он один (На данный момент травмирован)", playstyles: [], playstyleColors: {} },
             bogdan: { name: "Богданчик", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 80, number: "(11)", description: "Самый дисциплинированный игрок двора", playstyles: [], playstyleColors: {} },
             elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "косит под Ямаля", playstyles: ['pevec','pan'], playstyleColors: { pevec: 'gold', pan: "gold"} },
@@ -2264,11 +2619,18 @@
             saldaevd: { name: "Салдаев Д.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold"} },
             vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 95, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki_taka', 'tochno'], playstyleColors: {truk_gold: "gold", tochno: "gold"} },
             timofey: { name: "Тимофей", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "53 кг", rating: 75, number: "(92)", description: "Меллстройность", playstyles: [], playstyleColors: {} },
-            kostya: { name: "Костя  Лехнер", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(15)", description: "Не бойся творить историю", playstyles: ['vihod'], playstyleColors: {vihod: "gold"} },
+            kostya: { name: "Костя Лехнер", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(15)", description: "Не бойся творить историю", playstyles: ['vihod'], playstyleColors: {vihod: "gold"} },
             Stepa: { name: "Шевелев Стёпа", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "152 см", weight: "36 кг", rating: 88, number: "(18)", description: "Баскетбол or Футбол?", playstyles: ['Bezjalostniy'], playstyleColors: {Bezjalostniy: "gold"} },
             maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 72, number: "(17)", description: "", playstyles: [], playstyleColors: {} }
         };
-        let currentPlayerIds = Object.keys(playersData);
+        
+        // Собираем всех игроков (базовые + 78 школа)
+        const playersData = { ...basePlayers };
+        yard78Players.forEach(p => {
+            playersData[p.id] = p;
+        });
+        
+        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
         const slotSymbols = [
@@ -2281,7 +2643,6 @@
             { id: 'lesha_podavalny', emoji: '⚽', label: 'Подавальный' },
             { id: 'elisey', emoji: '⚽', label: 'Елисей' },
             { id: 'andryushka', emoji: '⚽', label: 'Андрюшка' },
-            { id: 'saveliy', emoji: '⚽', label: 'Савелий' },
             { id: 'matvey', emoji: '⚽', label: 'Матвей' },
             { id: 'demid', emoji: '⚽', label: 'Демид' },
             { id: 'saldaevk', emoji: '⚽', label: 'Салдаев К.' },
@@ -2301,6 +2662,7 @@
         let winDesc = document.getElementById('win-desc');
         let themeClickCount = 0;
         let secretActivated = false;
+        
         function getRandomSymbol() {
             return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
         }
@@ -2528,12 +2890,13 @@
                 });
             });
         }
-        function renderPlayerCards() {
-            const container = document.getElementById('players-grid-container');
+        function renderPlayerCards(containerId, playerIds) {
+            const container = document.getElementById(containerId);
             if (!container) return;
             let html = '';
-            filteredPlayerIds.forEach(id => {
+            playerIds.forEach(id => {
                 const p = playersData[id];
+                if (!p) return;
                 const isMera = meraPlayerIds.includes(id);
                 const isBurmalda = burmaldaPlayerIds.includes(id);
                 let cardClass = 'player-card';
@@ -2564,7 +2927,7 @@
                 </div>`;
             });
             container.innerHTML = html;
-            currentPlayerIds.forEach(id => {
+            playerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
                     cardPhoto.innerHTML = '';
@@ -2592,7 +2955,79 @@
                     renderPlaystyles(id, `playstyles-grid-${id}`);
                 }
             });
-            document.querySelectorAll('.player-card').forEach(card => {
+            container.querySelectorAll('.player-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    openPlayerModal(playerId);
+                });
+            });
+        }
+        function renderMainPlayerCards() {
+            const container = document.getElementById('players-grid-container');
+            if (!container) return;
+            let html = '';
+            filteredPlayerIds.forEach(id => {
+                const p = playersData[id];
+                if (!p) return;
+                const isMera = meraPlayerIds.includes(id);
+                const isBurmalda = burmaldaPlayerIds.includes(id);
+                let cardClass = 'player-card';
+                if (isMera) cardClass += ' mera-player';
+                if (isBurmalda) cardClass += ' burmalda-player';
+                const hasStyles = hasPlaystyles(id);
+                const playstylesBlock = hasStyles ? `
+                    <div class="playstyles-section" id="playstyles-${id}">
+                        <div class="playstyles-title">🎮 Плейстайлы</div>
+                        <div class="playstyles-grid" id="playstyles-grid-${id}"></div>
+                    </div>
+                ` : '';
+                let statsHtml = `
+                    <div class="stat-item"><div class="stat-value">${p.height}</div><div class="stat-label">Рост</div></div>
+                    <div class="stat-item"><div class="stat-value">${p.weight}</div><div class="stat-label">Вес</div></div>
+                    <div class="stat-item"><div class="stat-value">${p.rating}</div><div class="stat-label">Рейтинг</div></div>
+                `;
+                html += `<div class="${cardClass}" data-player="${id}">
+                    <div class="player-photo" id="${id}-photo-card"></div>
+                    <div class="player-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.position} • ${p.age}</p>
+                        <div class="player-number">${p.number}</div>
+                    </div>
+                    <div class="player-stats">${statsHtml}</div>
+                    <div class="player-description">${p.description || 'здесь описание'}</div>
+                    ${playstylesBlock}
+                </div>`;
+            });
+            container.innerHTML = html;
+            filteredPlayerIds.forEach(id => {
+                const cardPhoto = document.getElementById(`${id}-photo-card`);
+                if (cardPhoto) {
+                    cardPhoto.innerHTML = '';
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.alt = playersData[id].name;
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        cardPhoto.appendChild(img);
+                    } else {
+                        const icon = document.createElement('div');
+                        icon.style.fontSize = '2.5rem';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        icon.textContent = playersData[id].icon || '⚽';
+                        cardPhoto.appendChild(icon);
+                    }
+                }
+                if (hasPlaystyles(id)) {
+                    renderPlaystyles(id, `playstyles-grid-${id}`);
+                }
+            });
+            document.querySelectorAll('#players-grid-container .player-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
                     openPlayerModal(playerId);
@@ -2605,9 +3040,10 @@
             if (term === '') {
                 filteredPlayerIds = [...currentPlayerIds];
             } else {
-                filteredPlayerIds = currentPlayerIds.filter(id =>
-                    playersData[id].name.toLowerCase().includes(term)
-                );
+                filteredPlayerIds = currentPlayerIds.filter(id => {
+                    const p = playersData[id];
+                    return p && p.name.toLowerCase().includes(term);
+                });
             }
             applySortToFiltered();
         }
@@ -2617,14 +3053,14 @@
             } else if (activeSort === 'name') {
                 filteredPlayerIds.sort((a, b) => playersData[a].name.localeCompare(playersData[b].name));
             }
-            renderPlayerCards();
+            renderMainPlayerCards();
         }
         function resetSortAndFilter() {
             document.getElementById('player-search').value = '';
             filteredPlayerIds = [...currentPlayerIds];
             activeSort = 'none';
             document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-            renderPlayerCards();
+            renderMainPlayerCards();
         }
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
@@ -2717,14 +3153,20 @@
             document.getElementById('player-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        
         document.addEventListener('DOMContentLoaded', function() {
-            renderPlayerCards();
+            renderMainPlayerCards();
+            
+            // Рендер состава 78 школы
+            renderPlayerCards('yard-78-grid', yard78PlayerIds);
+            
             const searchInput = document.getElementById('player-search');
             if (searchInput) {
                 searchInput.addEventListener('input', function(e) {
                     filterPlayers(e.target.value);
                 });
             }
+            
             const sortRatingBtn = document.getElementById('sort-rating');
             if (sortRatingBtn) {
                 sortRatingBtn.addEventListener('click', function() {
@@ -2749,18 +3191,27 @@
                     resetSortAndFilter();
                 });
             }
+            
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
-            // Новая кнопка "Матчи"
             document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
+            
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-match-tactics')?.addEventListener('click', function() { showPage('matches-page'); });
+            document.getElementById('back-from-yard-78')?.addEventListener('click', function() { showPage('yards-page'); });
+            
+            document.getElementById('yard-78-school')?.addEventListener('click', function() {
+                showPage('yard-78-page');
+            });
+            
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
+            
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
                 document.getElementById('modal-window').classList.remove('burmalda-modal');
@@ -2773,15 +3224,18 @@
                     document.body.style.overflow = '';
                 }
             });
+            
             document.getElementById('playstyle-detail-close')?.addEventListener('click', closePlaystyleDetail);
             document.getElementById('playstyle-detail-overlay')?.addEventListener('click', function(e) {
                 if (e.target === this) closePlaystyleDetail();
             });
+            
             document.getElementById('win-close-btn')?.addEventListener('click', hideWinOverlay);
             document.getElementById('slot-win-overlay')?.addEventListener('click', function(e) {
                 if (e.target === this) hideWinOverlay();
             });
             document.getElementById('slot-spin-btn')?.addEventListener('click', spinSlots);
+            
             document.getElementById('theme-toggle')?.addEventListener('click', function() {
                 themeClickCount++;
                 if (themeClickCount >= 5) {
@@ -2789,6 +3243,89 @@
                     themeClickCount = 0;
                 }
             });
+            
+            // Матч тактика
+            document.getElementById('match-card-1')?.addEventListener('click', function() {
+                showPage('match-tactics-page');
+                // Загружаем фото для тактики матча
+                const matchPlayers = ['raya', 'maxim', 'lesha_podavalny', 'aleksey_doroshenko', 'saveliy_78', 'kirill_beshchasny', 'timofey_zaytsev', 'sanya_bobrikov'];
+                const matchPhotoIds = {
+                    'raya': 'match-raya-photo',
+                    'maxim': 'match-maxim-photo',
+                    'lesha_podavalny': 'match-lesha-photo',
+                    'aleksey_doroshenko': 'match-aleksey-photo',
+                    'saveliy_78': 'match-saveliy-photo',
+                    'kirill_beshchasny': 'match-kirill-photo',
+                    'timofey_zaytsev': 'match-timofey-photo',
+                    'sanya_bobrikov': 'match-sanya-photo'
+                };
+                matchPlayers.forEach(id => {
+                    const el = document.getElementById(matchPhotoIds[id]);
+                    if (el && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                        el.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        el.appendChild(img);
+                    } else if (el) {
+                        const icon = document.createElement('div');
+                        icon.style.fontSize = '1.8rem';
+                        icon.textContent = playersData[id]?.icon || '⚽';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        el.appendChild(icon);
+                    }
+                });
+                
+                // Запасные фото
+                const benchPlayers = ['matvey', 'batrakov', 'andryushka', 'elanga', 'elisey', 'maxim_dcp'];
+                const benchPhotoIds = {
+                    'matvey': 'bench-matvey-photo',
+                    'batrakov': 'bench-batrakov-photo',
+                    'andryushka': 'bench-andryushka-photo',
+                    'elanga': 'bench-elanga-photo',
+                    'elisey': 'bench-elisey-photo',
+                    'maxim_dcp': 'bench-maxim-dcp-photo'
+                };
+                benchPlayers.forEach(id => {
+                    const el = document.getElementById(benchPhotoIds[id]);
+                    if (el && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                        el.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        el.appendChild(img);
+                    } else if (el) {
+                        const icon = document.createElement('div');
+                        icon.style.fontSize = '1.4rem';
+                        icon.textContent = playersData[id]?.icon || '⚽';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        el.appendChild(icon);
+                    }
+                });
+                
+                // Делаем кликабельными всех игроков на странице тактики
+                document.querySelectorAll('#match-tactics-page .player-item, #match-tactics-page .bench-player-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const playerId = this.getAttribute('data-player');
+                        if (playerId && playersData[playerId]) {
+                            openPlayerModal(playerId);
+                        }
+                    });
+                });
+            });
+            
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
             squadTabs.forEach(tab => {
@@ -2806,9 +3343,9 @@
                         tacticsDesc.innerHTML = '<strong>Описание:</strong> Второй состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
                     }
                     if (squadNum === '2') {
-                        const squad2Players = ['andryushka', 'elanga', 'elisey', 'saveliy', 'hokkeist'];
+                        const squad2Players = ['andryushka', 'elanga', 'elisey', 'matvey', 'hokkeist'];
                         squad2Players.forEach(id => {
-                            const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : `${id}-photo-small`;
+                            const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : (id === 'matvey' ? 'matvey-photo-small-squad' : `${id}-photo-small`);
                             const photoEl = document.getElementById(photoId);
                             if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                                 photoEl.innerHTML = '';
@@ -2823,10 +3360,12 @@
                     }
                 });
             });
+            
             const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
             squad1Players.forEach(id => {
                 const photoEl = document.getElementById(`${id}-photo-small`);
                 if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    photoEl.innerHTML = '';
                     const img = document.createElement('img');
                     img.src = playerPhotos[id];
                     img.style.width = '100%';
@@ -2845,7 +3384,23 @@
                     photoEl.appendChild(icon);
                 }
             });
-            document.querySelectorAll('.player-item').forEach(item => {
+            
+            const squad2Players = ['andryushka', 'elanga', 'elisey', 'matvey', 'hokkeist'];
+            squad2Players.forEach(id => {
+                const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : (id === 'matvey' ? 'matvey-photo-small-squad' : `${id}-photo-small`);
+                const photoEl = document.getElementById(photoId);
+                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    photoEl.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = playerPhotos[id];
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    photoEl.appendChild(img);
+                }
+            });
+            
+            document.querySelectorAll('#squad-page .player-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
                     if (playerId && playersData[playerId]) {
@@ -2853,15 +3408,18 @@
                     }
                 });
             });
+            
             const initialSymbols = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
             updateReels(initialSymbols);
             currentSymbols = initialSymbols.map(s => s.id);
         });
+        
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
+        
         document.getElementById('theme-toggle')?.addEventListener('click', function() {
             document.body.classList.toggle('dark-theme');
             this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
