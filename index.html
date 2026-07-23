@@ -92,16 +92,16 @@
             color: #ccc;
         }
 
-        /* ===== СВЕТЯЩАЯСЯ ПЛАШКА О МАТЧЕ ===== */
+        /* ===== КОМПАКТНАЯ СВЕТЯЩАЯСЯ ПЛАШКА О МАТЧЕ ===== */
         .match-announcement {
             background: linear-gradient(135deg, #ff6b6b, #ee5a24, #ff6b6b);
             background-size: 300% 300%;
             animation: match-pulse 1.8s ease-in-out infinite alternate;
-            border-radius: 16px;
-            padding: 18px 25px;
-            margin-bottom: 30px;
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(238, 90, 36, 0.6), 0 0 80px rgba(238, 90, 36, 0.3);
+            box-shadow: 0 0 25px rgba(238, 90, 36, 0.5), 0 0 50px rgba(238, 90, 36, 0.25);
             border: 2px solid #fff;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -125,74 +125,75 @@
         @keyframes match-pulse {
             0% {
                 background-position: 0% 50%;
-                box-shadow: 0 0 30px rgba(238, 90, 36, 0.5), 0 0 60px rgba(238, 90, 36, 0.2);
+                box-shadow: 0 0 20px rgba(238, 90, 36, 0.4), 0 0 40px rgba(238, 90, 36, 0.15);
             }
             50% {
                 background-position: 100% 50%;
-                box-shadow: 0 0 60px rgba(238, 90, 36, 0.8), 0 0 120px rgba(238, 90, 36, 0.4);
+                box-shadow: 0 0 40px rgba(238, 90, 36, 0.7), 0 0 80px rgba(238, 90, 36, 0.35);
             }
             100% {
                 background-position: 0% 50%;
-                box-shadow: 0 0 30px rgba(238, 90, 36, 0.5), 0 0 60px rgba(238, 90, 36, 0.2);
+                box-shadow: 0 0 20px rgba(238, 90, 36, 0.4), 0 0 40px rgba(238, 90, 36, 0.15);
             }
         }
         .match-announcement:hover {
             transform: scale(1.02);
-            box-shadow: 0 0 60px rgba(238, 90, 36, 0.9), 0 0 120px rgba(238, 90, 36, 0.5);
+            box-shadow: 0 0 40px rgba(238, 90, 36, 0.8), 0 0 80px rgba(238, 90, 36, 0.4);
         }
         .match-announcement .announce-title {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
             letter-spacing: 1px;
         }
         .match-announcement .announce-details {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: rgba(255,255,255,0.95);
-            margin-top: 6px;
+            margin-top: 4px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
             text-shadow: 0 1px 6px rgba(0,0,0,0.2);
         }
         .match-announcement .announce-details span {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
         .match-announcement .announce-vs {
             font-weight: 900;
             color: #fff;
-            font-size: 1.3rem;
-            padding: 0 8px;
+            font-size: 1rem;
+            padding: 0 5px;
         }
         .match-announcement .announce-teams {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 700;
         }
         .match-announcement .announce-teams .team-name {
             color: #fff;
+            font-size: 0.95rem;
         }
         .match-announcement .announce-badge {
             background: rgba(255,255,255,0.2);
-            padding: 4px 16px;
+            padding: 2px 12px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: #fff;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             border: 1px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(4px);
         }
         .dark-theme .match-announcement {
             border-color: #ffd700;
-            box-shadow: 0 0 40px rgba(238, 90, 36, 0.7), 0 0 80px rgba(238, 90, 36, 0.4);
+            box-shadow: 0 0 25px rgba(238, 90, 36, 0.6), 0 0 50px rgba(238, 90, 36, 0.3);
         }
 
         .main-buttons {
@@ -1542,22 +1543,22 @@
             background: #ffd43b;
             color: #1a1a2e;
         }
-        .match-teams {
+        /* === ВЕРТИКАЛЬНОЕ РАСПОЛОЖЕНИЕ КОМАНД С VS ПОСЕРЕДИНЕ === */
+        .match-teams-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 0;
+        }
+        .match-team-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 20px;
-            font-size: 1.5rem;
+            gap: 14px;
+            font-size: 1.3rem;
             font-weight: bold;
-            flex-wrap: wrap;
-            text-align: center;
         }
-        .match-team {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .match-team .club-logo {
+        .match-team-row .club-logo {
             width: 55px;
             height: 55px;
             border-radius: 50%;
@@ -1570,12 +1571,12 @@
             font-size: 1.5rem;
             flex-shrink: 0;
         }
-        .match-team .club-logo img {
+        .match-team-row .club-logo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .match-team .club-logo-78 {
+        .match-team-row .club-logo-78 {
             width: 55px;
             height: 55px;
             border-radius: 50%;
@@ -1588,19 +1589,19 @@
             font-size: 1.5rem;
             flex-shrink: 0;
         }
-        .match-team .club-logo-78 img {
+        .match-team-row .club-logo-78 img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .match-vs {
-            font-size: 1.4rem;
+        .match-vs-vertical {
+            font-size: 1.6rem;
             font-weight: 900;
             color: #ff6b6b;
-            padding: 0 10px;
-            text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+            text-shadow: 0 0 25px rgba(255, 107, 107, 0.4);
+            padding: 4px 0;
         }
-        .dark-theme .match-vs {
+        .dark-theme .match-vs-vertical {
             color: #ff6b6b;
         }
         .match-details {
@@ -1631,18 +1632,17 @@
             background: #2d3748;
         }
         @media (max-width: 600px) {
-            .match-teams {
-                font-size: 1.2rem;
-                gap: 12px;
+            .match-team-row {
+                font-size: 1.1rem;
+                gap: 10px;
             }
-            .match-team .club-logo,
-            .match-team .club-logo-78 {
+            .match-team-row .club-logo,
+            .match-team-row .club-logo-78 {
                 width: 42px;
                 height: 42px;
             }
-            .match-vs {
-                font-size: 1.1rem;
-                padding: 0 6px;
+            .match-vs-vertical {
+                font-size: 1.3rem;
             }
             .match-header {
                 flex-direction: column;
@@ -1654,27 +1654,39 @@
                 align-items: center;
             }
             .match-announcement .announce-title {
-                font-size: 1.1rem;
-            }
-            .match-announcement .announce-details {
-                font-size: 0.95rem;
-                gap: 10px;
-            }
-        }
-        @media (max-width: 480px) {
-            .match-announcement {
-                padding: 14px 16px;
-            }
-            .match-announcement .announce-title {
                 font-size: 1rem;
             }
             .match-announcement .announce-details {
                 font-size: 0.85rem;
-                gap: 6px;
+                gap: 8px;
+            }
+        }
+        @media (max-width: 480px) {
+            .match-announcement {
+                padding: 10px 14px;
+            }
+            .match-announcement .announce-title {
+                font-size: 0.9rem;
+            }
+            .match-announcement .announce-details {
+                font-size: 0.8rem;
+                gap: 5px;
                 flex-direction: column;
             }
             .match-announcement .announce-vs {
+                font-size: 0.9rem;
+            }
+            .match-team-row {
                 font-size: 1rem;
+                gap: 8px;
+            }
+            .match-team-row .club-logo,
+            .match-team-row .club-logo-78 {
+                width: 36px;
+                height: 36px;
+            }
+            .match-vs-vertical {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -1689,7 +1701,7 @@
         <main>
             <div id="home-page" class="page active">
                 
-                <!-- ===== СВЕТЯЩАЯСЯ ПЛАШКА О МАТЧЕ ===== -->
+                <!-- ===== КОМПАКТНАЯ СВЕТЯЩАЯСЯ ПЛАШКА О МАТЧЕ ===== -->
                 <div class="match-announcement" id="match-announcement">
                     <div class="announce-title">⚡ СКОРО МАТЧ! ⚡</div>
                     <div class="announce-details">
@@ -1700,9 +1712,9 @@
                         <span class="announce-teams">
                             <span class="team-name">Школа 78</span>
                         </span>
-                        <span>📅 23 июля 2026</span>
+                        <span>📅 23 июля</span>
                         <span>⏰ 18:30</span>
-                        <span class="announce-badge">🏠 Домашний матч</span>
+                        <span class="announce-badge">🏠 Дома</span>
                     </div>
                 </div>
                 <!-- ===== КОНЕЦ ПЛАШКИ ===== -->
@@ -1718,6 +1730,12 @@
                         <div class="button-title">ФК "МЕРА"</div>
                         <div class="button-description">Основной состав нашего двора</div>
                     </div>
+                    <!-- ===== ВКЛАДКА МАТЧИ ПОДНЯТА ВЫШЕ ===== -->
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">⚽</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">Расписание и результаты</div>
+                    </div>
                     <div class="main-button" id="yards-btn">
                         <div class="button-icon">🏘️</div>
                         <div class="button-title">Другие дворы</div>
@@ -1727,11 +1745,6 @@
                         <div class="button-icon">🎰</div>
                         <div class="button-title">Бурмалда</div>
                         <div class="button-description">Казик меллстрой ыыы</div>
-                    </div>
-                    <div class="main-button" id="matches-btn">
-                        <div class="button-icon">⚽</div>
-                        <div class="button-title">Матчи</div>
-                        <div class="button-description">Расписание и результаты</div>
                     </div>
                 </div>
                 <div class="update-button-container">
@@ -1867,7 +1880,7 @@
                 </div>
             </div>
 
-            <!-- СТРАНИЦА МАТЧИ -->
+            <!-- СТРАНИЦА МАТЧИ (VS НА ОТДЕЛЬНОЙ СТРОКЕ) -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
@@ -1878,13 +1891,14 @@
                             <span class="match-status">⚡ Предстоящий</span>
                             <span style="font-size:0.9rem; color:#666;">23 июля 2026</span>
                         </div>
-                        <div class="match-teams">
-                            <div class="match-team">
+                        <!-- ВЕРТИКАЛЬНОЕ РАСПОЛОЖЕНИЕ: команда → VS → команда -->
+                        <div class="match-teams-vertical">
+                            <div class="match-team-row">
                                 <div class="club-logo" id="club-logo-mera"></div>
                                 <span>ФК "МЕРА"</span>
                             </div>
-                            <span class="match-vs">🆚</span>
-                            <div class="match-team">
+                            <div class="match-vs-vertical">🆚</div>
+                            <div class="match-team-row">
                                 <div class="club-logo-78" id="club-logo-78"></div>
                                 <span>Школа 78</span>
                             </div>
@@ -2541,14 +2555,14 @@
             }
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
+            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
-            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
-            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
