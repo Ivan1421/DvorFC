@@ -25,7 +25,7 @@ const playerPhotos = {
     timofey: "./Photos%20(2)/F8BE5DFF-01B2-478A-A49D-F3BDE1CE5841.webp"
 };
 
-// ==================== ЛОГОТИПЫ КЛУБОВ ====================
+// ==================== ЛОГОТИПЫ КЛУБОВ ДЛЯ МАТЧЕЙ ====================
 
 const clubLogos = {
     mera: "./Photos%20(2)/emblema.png",
@@ -53,4 +53,21 @@ const playstylePhotos = {
     otraz: "./Photos%20(2)/otraz.png",
     vihod: "./Photos%20(2)/vihod.png",
     bombardir: "./Photos%20(2)/bombardir.png",
-    bombardir_silver: "./
+    bombardir_silver: "./Photos%20(2)/bombardir_silver.png",
+    naves: "./Photos%20(2)/naves.png",
+    intuation: "./Photos%20(2)/intuation.png",
+    borec_silver: "./Photos%20(2)/borec_silver.png",
+    simulant: "./Photos%20(2)/simulant.png",
+    parashut: "./Photos%20(2)/parashut.png",
+    parashut_silver: "./Photos%20(2)/parashut_silver.png",
+    tiki_taka: "./Photos%20(2)/tiki-taka.png",
+    tiki_taka_silver: "./Photos%20(2)/tiki-taka_silver.png",
+    simulant_silver: "./Photos%20(2)/simulant_silver.png",
+    pevec: "./Photos%20(2)/pevec.png",
+    pan: "./Photos%20(2)/pan.png",
+    geniy: "./Photos%20(2)/genius.png"
+};
+
+// ==================== ВИДЕО ДЛЯ ПЛЕЙСТАЙЛА "ПЕВЕЦ" ===================
+
+const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
