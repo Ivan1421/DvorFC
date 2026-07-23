@@ -91,111 +91,6 @@
         .dark-theme .subtitle {
             color: #ccc;
         }
-
-        /* ===== КОМПАКТНАЯ СВЕТЯЩАЯСЯ ПЛАШКА О МАТЧЕ ===== */
-        .match-announcement {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #ff6b6b);
-            background-size: 300% 300%;
-            animation: match-pulse 1.8s ease-in-out infinite alternate;
-            border-radius: 12px;
-            padding: 12px 20px;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(238, 90, 36, 0.5), 0 0 50px rgba(238, 90, 36, 0.25);
-            border: 2px solid #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .match-announcement::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shine-sweep 3s ease-in-out infinite;
-        }
-        @keyframes shine-sweep {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-        @keyframes match-pulse {
-            0% {
-                background-position: 0% 50%;
-                box-shadow: 0 0 20px rgba(238, 90, 36, 0.4), 0 0 40px rgba(238, 90, 36, 0.15);
-            }
-            50% {
-                background-position: 100% 50%;
-                box-shadow: 0 0 40px rgba(238, 90, 36, 0.7), 0 0 80px rgba(238, 90, 36, 0.35);
-            }
-            100% {
-                background-position: 0% 50%;
-                box-shadow: 0 0 20px rgba(238, 90, 36, 0.4), 0 0 40px rgba(238, 90, 36, 0.15);
-            }
-        }
-        .match-announcement:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 40px rgba(238, 90, 36, 0.8), 0 0 80px rgba(238, 90, 36, 0.4);
-        }
-        .match-announcement .announce-title {
-            font-size: 1.1rem;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            letter-spacing: 1px;
-        }
-        .match-announcement .announce-details {
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.95);
-            margin-top: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.2);
-        }
-        .match-announcement .announce-details span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .match-announcement .announce-vs {
-            font-weight: 900;
-            color: #fff;
-            font-size: 1rem;
-            padding: 0 5px;
-        }
-        .match-announcement .announce-teams {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 700;
-        }
-        .match-announcement .announce-teams .team-name {
-            color: #fff;
-            font-size: 0.95rem;
-        }
-        .match-announcement .announce-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 2px 12px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(4px);
-        }
-        .dark-theme .match-announcement {
-            border-color: #ffd700;
-            box-shadow: 0 0 25px rgba(238, 90, 36, 0.6), 0 0 50px rgba(238, 90, 36, 0.3);
-        }
-
         .main-buttons {
             display: flex;
             justify-content: center;
@@ -1482,8 +1377,416 @@
         .dark-theme .slot-win-card .win-close {
             color: #4dabf7;
         }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            h1 { font-size: 2.2rem; }
+            .theme-toggle { top: 15px; right: 15px; width: 55px; height: 55px; font-size: 1.6rem; }
+            .main-button { width: 100%; height: 160px; }
+            .players-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .player-photo { width: 70px; height: 70px; }
+            .player-info h3 { font-size: 1.1rem; }
+            .player-number { font-size: 1rem; }
+            .stat-value { font-size: 1rem; }
+            .stat-label { font-size: 0.7rem; }
+            .player-item { min-width: 70px; max-width: 80px; margin: 0 3px; }
+            .player-photo-small { width: 50px; height: 50px; border-width: 2px; }
+            .player-name { font-size: 0.8rem; }
+            .formation { font-size: 0.9rem; }
+            .formation-line { min-height: 75px; margin: 12px 0; gap: 8px; }
+            .modal { padding: 20px; }
+            .modal-header { flex-direction: column; text-align: center; padding-bottom: 15px; }
+            .modal-rating-header { position: static; margin-top: 10px; }
+            .modal-photo { width: 80px; height: 80px; }
+            .modal-info h3 { font-size: 1.6rem; }
+            .rating-value { font-size: 2rem; }
+            .other-yards-container .message { font-size: 1.2rem; padding: 20px; }
+            .playstyle-icon { width: 60px; height: 60px; font-size: 1.6rem; border-width: 3px; }
+            .playstyle-detail-icon { width: 160px; height: 160px; font-size: 4rem; border-width: 5px; }
+            .playstyle-detail-name { font-size: 1.6rem; }
+            .slot-reel { width: 70px; height: 90px; font-size: 2.8rem; }
+            .slot-reel img { width: 55px; height: 55px; }
+            .slot-reel .emoji-icon { font-size: 2.8rem; }
+            .slots-container { padding: 20px 15px; }
+            .slot-machine { gap: 8px; padding: 15px 5px; }
+            .slot-button { font-size: 1.2rem; padding: 14px 20px; }
+        }
+        @media (max-width: 480px) {
+            .players-grid { grid-template-columns: 1fr; gap: 15px; }
+            .player-card { padding: 15px; }
+            .player-photo { width: 80px; height: 80px; }
+            .theme-toggle { top: 10px; right: 10px; width: 50px; height: 50px; font-size: 1.5rem; }
+            .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
+            .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
+            .slot-reel { width: 60px; height: 80px; font-size: 2.2rem; padding: 5px; }
+            .slot-reel img { width: 45px; height: 45px; }
+            .slot-reel .emoji-icon { font-size: 2.2rem; }
+            .slot-win-card { padding: 30px 20px; }
+            .slot-win-card .win-icon { font-size: 4rem; }
+            .slot-win-card h2 { font-size: 1.8rem; }
+        }
+        * { -webkit-tap-highlight-color: transparent !important; }
+        @media (hover: none) and (pointer: coarse) {
+            .player-card:active, .player-item:active, .main-button:active, .back-button:active, .update-button:active {
+                background: inherit !important;
+            }
+        }
+        .player-card, .player-item, .main-button, .back-button, .update-button, .modal-close-btn, .theme-toggle, .sort-btn {
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
+        .player-description {
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 8px;
+            width: 100%;
+            text-align: center;
+        }
+        .dark-theme .player-description { color: #bbb; border-top-color: #444; }
+        .modal-description {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #0066cc;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-description {
+            background: #374151;
+            border-left-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .modal-description-label {
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9rem;
+        }
+        .dark-theme .modal-description-label { color: #4dabf7; }
+        .iq-counter {
+            display: inline-block;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iq-rainbow 2s linear infinite;
+        }
+        @keyframes iq-rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        .dark-theme .iq-counter {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .player-card.burmalda-player {
+            position: relative;
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player:active {
+            transform: translateY(-2px);
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate, burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player:active {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate, burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        @keyframes burmalda-border-pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 230, 118, 0.4), 0 0 40px rgba(0, 200, 80, 0.2);
+                border-color: #00e676;
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 230, 118, 0.9), 0 0 80px rgba(0, 200, 80, 0.5);
+                border-color: #00c853;
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.6), 0 0 55px rgba(0, 200, 80, 0.3);
+                border-color: #00b248;
+            }
+        }
+        @keyframes burmalda-border-pulse-dark {
+            0% {
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.5), 0 0 50px rgba(0, 200, 80, 0.3);
+                border-color: #00e676;
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(0, 230, 118, 1), 0 0 100px rgba(0, 200, 80, 0.7);
+                border-color: #00c853;
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(0, 230, 118, 0.7), 0 0 70px rgba(0, 200, 80, 0.4);
+                border-color: #00b248;
+            }
+        }
+        @keyframes burmalda-bg-pulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes burmalda-bg-pulse-dark {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .player-card.burmalda-player::after {
+            content: "🎰БУРМАЛДА🍀";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624, #00b248, #00c853, #00e676);
+            background-size: 400% 400%;
+            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 100, 1);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+            z-index: 15;
+            white-space: nowrap;
+            border: 1px solid #a5d6a7;
+            text-transform: uppercase;
+        }
+        .player-card.mera-player::before {
+            content: "⭐ Игрок ФК \"МЕРА\"";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
+            z-index: 10;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            border: 1px solid #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes burmalda-plate-shine {
+            0% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+                text-shadow: 0 0 12px rgba(0, 255, 100, 1);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 0 0 45px rgba(0, 230, 118, 1);
+                text-shadow: 0 0 25px rgba(0, 255, 100, 1);
+            }
+            100% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.7);
+                text-shadow: 0 0 15px rgba(0, 255, 100, 1);
+            }
+        }
+        .player-card.burmalda-player .stat-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .dark-theme .player-card.burmalda-player .stat-item {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        @keyframes burmalda-stat-bg {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes burmalda-stat-bg-dark {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .player-card.burmalda-player .player-photo {
+            border-color: #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player .player-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        .player-item.burmalda-squad .player-photo-small {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .player-item.burmalda-squad .player-photo-small {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
+        }
+        .modal .burmalda-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624);
+            background-size: 300% 300%;
+            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.75rem;
+            padding: 4px 18px;
+            border-radius: 30px;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 15px rgba(0, 255, 100, 1);
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.7);
+            margin-top: 6px;
+            border: 1px solid #a5d6a7;
+            text-transform: uppercase;
+        }
+        .modal.burmalda-modal {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .modal.burmalda-modal {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.7) !important;
+        }
+        .modal.burmalda-modal .modal-description {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-left-color: #00e676;
+        }
+        .dark-theme .modal.burmalda-modal .modal-description {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-left-color: #00e676;
+        }
+        .modal.burmalda-modal .modal-stat-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .dark-theme .modal.burmalda-modal .modal-stat-item {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .modal.burmalda-modal .modal-stat-value {
+            color: #0066cc !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-stat-value {
+            color: #4dabf7 !important;
+        }
+        .modal.burmalda-modal .modal-description-label {
+            color: #0066cc !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-description-label {
+            color: #4dabf7 !important;
+        }
+        .modal.burmalda-modal .modal-photo {
+            border-color: #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player .playstyle-icon {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .player-card.burmalda-player .playstyle-icon {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .player-card.burmalda-player .playstyle-icon.silver {
+            border-color: #c0c0c0 !important;
+        }
+        .player-card.burmalda-player .playstyle-icon img {
+            filter: brightness(1.1);
+        }
+        .modal.burmalda-modal .playstyle-icon {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .modal.burmalda-modal .playstyle-icon {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .modal.burmalda-modal .playstyle-icon.silver {
+            border-color: #c0c0c0 !important;
+        }
+        .modal.burmalda-modal .playstyle-icon img {
+            filter: brightness(1.1);
+        }
+        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon {
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5) !important;
+        }
+        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon.silver {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5) !important;
+        }
+        .playstyle-detail-card.burmalda-detail {
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .playstyle-detail-card.burmalda-detail {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .playstyle-detail-card.burmalda-detail.silver-border {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 20px 60px rgba(192, 192, 192, 0.3) !important;
+        }
+        .dark-theme .playstyle-detail-card.burmalda-detail.silver-border {
+            border-color: #a8a8a8 !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+        }
 
-        /* ===== СТИЛИ ДЛЯ СТРАНИЦЫ МАТЧЕЙ ===== */
+        /* --- STYLES FOR MATCHES PAGE --- */
         .matches-container {
             background: white;
             border-radius: 15px;
@@ -1543,66 +1846,64 @@
             background: #ffd43b;
             color: #1a1a2e;
         }
-        /* === ВЕРТИКАЛЬНОЕ РАСПОЛОЖЕНИЕ КОМАНД С VS ПОСЕРЕДИНЕ === */
-        .match-teams-vertical {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 0;
-        }
-        .match-team-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        .match-team-row .club-logo {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2.5px solid #0066cc;
-            background: #fff;
+        .match-teams {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        .match-team-row .club-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .match-team-row .club-logo-78 {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2.5px solid #dc3545;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        .match-team-row .club-logo-78 img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .match-vs-vertical {
+            gap: 25px;
             font-size: 1.6rem;
-            font-weight: 900;
-            color: #ff6b6b;
-            text-shadow: 0 0 25px rgba(255, 107, 107, 0.4);
-            padding: 4px 0;
+            font-weight: bold;
+            flex-wrap: wrap;
+            text-align: center;
         }
-        .dark-theme .match-vs-vertical {
-            color: #ff6b6b;
+        .match-team {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .match-team .club-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #0066cc;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .match-team .club-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .match-team .club-logo-78 {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #dc3545;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .match-team .club-logo-78 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .match-vs {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: normal;
+        }
+        .dark-theme .match-vs {
+            color: #aaa;
         }
         .match-details {
             display: flex;
@@ -1632,17 +1933,14 @@
             background: #2d3748;
         }
         @media (max-width: 600px) {
-            .match-team-row {
-                font-size: 1.1rem;
-                gap: 10px;
+            .match-teams {
+                font-size: 1.2rem;
+                gap: 15px;
             }
-            .match-team-row .club-logo,
-            .match-team-row .club-logo-78 {
-                width: 42px;
-                height: 42px;
-            }
-            .match-vs-vertical {
-                font-size: 1.3rem;
+            .match-team .club-logo,
+            .match-team .club-logo-78 {
+                width: 40px;
+                height: 40px;
             }
             .match-header {
                 flex-direction: column;
@@ -1652,41 +1950,6 @@
             .match-details {
                 flex-direction: column;
                 align-items: center;
-            }
-            .match-announcement .announce-title {
-                font-size: 1rem;
-            }
-            .match-announcement .announce-details {
-                font-size: 0.85rem;
-                gap: 8px;
-            }
-        }
-        @media (max-width: 480px) {
-            .match-announcement {
-                padding: 10px 14px;
-            }
-            .match-announcement .announce-title {
-                font-size: 0.9rem;
-            }
-            .match-announcement .announce-details {
-                font-size: 0.8rem;
-                gap: 5px;
-                flex-direction: column;
-            }
-            .match-announcement .announce-vs {
-                font-size: 0.9rem;
-            }
-            .match-team-row {
-                font-size: 1rem;
-                gap: 8px;
-            }
-            .match-team-row .club-logo,
-            .match-team-row .club-logo-78 {
-                width: 36px;
-                height: 36px;
-            }
-            .match-vs-vertical {
-                font-size: 1.1rem;
             }
         }
     </style>
@@ -1700,25 +1963,6 @@
         </header>
         <main>
             <div id="home-page" class="page active">
-                
-                <!-- ===== КОМПАКТНАЯ СВЕТЯЩАЯСЯ ПЛАШКА О МАТЧЕ ===== -->
-                <div class="match-announcement" id="match-announcement">
-                    <div class="announce-title">⚡ СКОРО МАТЧ! ⚡</div>
-                    <div class="announce-details">
-                        <span class="announce-teams">
-                            <span class="team-name">ФК "МЕРА"</span>
-                        </span>
-                        <span class="announce-vs">🆚</span>
-                        <span class="announce-teams">
-                            <span class="team-name">Школа 78</span>
-                        </span>
-                        <span>📅 23 июля</span>
-                        <span>⏰ 18:30</span>
-                        <span class="announce-badge">🏠 Дома</span>
-                    </div>
-                </div>
-                <!-- ===== КОНЕЦ ПЛАШКИ ===== -->
-
                 <div class="main-buttons">
                     <div class="main-button" id="players-btn">
                         <div class="button-icon">👥</div>
@@ -1730,12 +1974,6 @@
                         <div class="button-title">ФК "МЕРА"</div>
                         <div class="button-description">Основной состав нашего двора</div>
                     </div>
-                    <!-- ===== ВКЛАДКА МАТЧИ ПОДНЯТА ВЫШЕ ===== -->
-                    <div class="main-button" id="matches-btn">
-                        <div class="button-icon">⚽</div>
-                        <div class="button-title">Матчи</div>
-                        <div class="button-description">Расписание и результаты</div>
-                    </div>
                     <div class="main-button" id="yards-btn">
                         <div class="button-icon">🏘️</div>
                         <div class="button-title">Другие дворы</div>
@@ -1745,6 +1983,12 @@
                         <div class="button-icon">🎰</div>
                         <div class="button-title">Бурмалда</div>
                         <div class="button-description">Казик меллстрой ыыы</div>
+                    </div>
+                    <!-- НОВАЯ КНОПКА МАТЧИ -->
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">⚽</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">Расписание и результаты</div>
                     </div>
                 </div>
                 <div class="update-button-container">
@@ -1880,25 +2124,25 @@
                 </div>
             </div>
 
-            <!-- СТРАНИЦА МАТЧИ (VS НА ОТДЕЛЬНОЙ СТРОКЕ) -->
+            <!-- НОВАЯ СТРАНИЦА МАТЧИ -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
                     <h2>📅 Расписание матчей</h2>
                     
+                    <!-- Карточка матча -->
                     <div class="match-card">
                         <div class="match-header">
                             <span class="match-status">⚡ Предстоящий</span>
                             <span style="font-size:0.9rem; color:#666;">23 июля 2026</span>
                         </div>
-                        <!-- ВЕРТИКАЛЬНОЕ РАСПОЛОЖЕНИЕ: команда → VS → команда -->
-                        <div class="match-teams-vertical">
-                            <div class="match-team-row">
+                        <div class="match-teams">
+                            <div class="match-team">
                                 <div class="club-logo" id="club-logo-mera"></div>
                                 <span>ФК "МЕРА"</span>
                             </div>
-                            <div class="match-vs-vertical">🆚</div>
-                            <div class="match-team-row">
+                            <span class="match-vs">🆚</span>
+                            <div class="match-team">
                                 <div class="club-logo-78" id="club-logo-78"></div>
                                 <span>Школа 78</span>
                             </div>
@@ -1909,10 +2153,12 @@
                             <span class="match-location">📍 Двор "МЕРА"</span>
                         </div>
                     </div>
+                    <!-- /Карточка матча -->
 
                     <p style="text-align:center; margin-top:20px; color:#888; font-size:0.9rem;">Здесь будут появляться новые матчи и результаты</p>
                 </div>
             </div>
+            <!-- /НОВАЯ СТРАНИЦА МАТЧИ -->
 
         </main>
         <footer>
@@ -1921,8 +2167,6 @@
             <p>𝗧𝗶𝗸 𝗧𝗼𝗸: @fc.mera</p>
         </footer>
     </div>
-
-    <!-- Модалки -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal" id="modal-window">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -1982,7 +2226,6 @@
             <button class="win-close" id="win-close-btn">Закрыть</button>
         </div>
     </div>
-
     <script>
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
         const burmaldaPlayerIds = ['elisey'];
@@ -2024,8 +2267,9 @@
             'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
             'pevec': { name: 'Певец', description: '' },
             'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
+            'pevec': { name: 'Певец', description: '' },
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
-        };
+        }; 
         const playersData = {
             raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
             maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 97, number: "(8)", description: "Габриел Магальяинш", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
@@ -2085,11 +2329,9 @@
         let winDesc = document.getElementById('win-desc');
         let themeClickCount = 0;
         let secretActivated = false;
-
         function getRandomSymbol() {
             return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
         }
-
         function renderReel(reelIndex, symbol) {
             const reel = document.getElementById(`reel-${reelIndex}`);
             if (!reel) return;
@@ -2107,11 +2349,9 @@
             }
             reel.dataset.symbolId = symbol.id;
         }
-
         function updateReels(symbols) {
             symbols.forEach((s, i) => renderReel(i + 1, s));
         }
-
         function showWinOverlay(icon, title, desc) {
             winIcon.textContent = icon;
             winTitle.textContent = title;
@@ -2119,12 +2359,10 @@
             winCard.classList.add('active');
             winOverlay.classList.add('active');
         }
-
         function hideWinOverlay() {
             winOverlay.classList.remove('active');
             winCard.classList.remove('active');
         }
-
         function spinSlots() {
             if (isSpinning) return;
             const btn = document.getElementById('slot-spin-btn');
@@ -2180,7 +2418,6 @@
                 }
             }, 80);
         }
-
         function checkWin(symbols) {
             const resultEl = document.getElementById('slot-result');
             const ids = symbols.map(s => s.id);
@@ -2211,9 +2448,7 @@
             resultEl.textContent = `😐 ${labels.join(' · ')} — попробуй ещё!`;
             resultEl.className = 'slot-result';
         }
-
         let iqInterval = null;
-
         function startIQCounter() {
             if (iqInterval) {
                 clearInterval(iqInterval);
@@ -2227,12 +2462,10 @@
                 counterEl.textContent = iq;
             }, 1);
         }
-
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
             return player && player.playstyles && player.playstyles.length > 0;
         }
-
         function getPlaystyleColor(playerId, style) {
             const player = playersData[playerId];
             if (player && player.playstyleColors && player.playstyleColors[style]) {
@@ -2240,7 +2473,6 @@
             }
             return 'gold';
         }
-
         function openPlaystyleDetail(styleKey, playerId) {
             const overlay = document.getElementById('playstyle-detail-overlay');
             const iconEl = document.getElementById('playstyle-detail-icon');
@@ -2279,7 +2511,6 @@
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         function closePlaystyleDetail() {
             const overlay = document.getElementById('playstyle-detail-overlay');
             overlay.classList.remove('active');
@@ -2289,7 +2520,6 @@
                 iqInterval = null;
             }
         }
-
         function renderPlaystyles(playerId, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -2326,7 +2556,6 @@
                 });
             });
         }
-
         function renderPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
@@ -2399,7 +2628,6 @@
             });
             document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
         }
-
         function filterPlayers(searchTerm) {
             const term = searchTerm.toLowerCase().trim();
             if (term === '') {
@@ -2411,7 +2639,6 @@
             }
             applySortToFiltered();
         }
-
         function applySortToFiltered() {
             if (activeSort === 'rating') {
                 filteredPlayerIds.sort((a, b) => playersData[b].rating - playersData[a].rating);
@@ -2420,7 +2647,6 @@
             }
             renderPlayerCards();
         }
-
         function resetSortAndFilter() {
             document.getElementById('player-search').value = '';
             filteredPlayerIds = [...currentPlayerIds];
@@ -2428,7 +2654,6 @@
             document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
             renderPlayerCards();
         }
-
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
@@ -2520,7 +2745,6 @@
             document.getElementById('player-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-
         document.addEventListener('DOMContentLoaded', function() {
             renderPlayerCards();
             const searchInput = document.getElementById('player-search');
@@ -2555,14 +2779,14 @@
             }
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
-            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
+            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); }); // Новая кнопка
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
-            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); }); // Назад с матчей
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
             document.getElementById('modal-close')?.addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
@@ -2592,12 +2816,6 @@
                     themeClickCount = 0;
                 }
             });
-
-            // Плашка матча → переход на страницу матчей
-            document.getElementById('match-announcement')?.addEventListener('click', function() {
-                showPage('matches-page');
-            });
-
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
             squadTabs.forEach(tab => {
@@ -2632,7 +2850,6 @@
                     }
                 });
             });
-
             const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
             squad1Players.forEach(id => {
                 const photoEl = document.getElementById(`${id}-photo-small`);
@@ -2655,7 +2872,6 @@
                     photoEl.appendChild(icon);
                 }
             });
-
             document.querySelectorAll('.player-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
@@ -2664,36 +2880,15 @@
                     }
                 });
             });
-
             const initialSymbols = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
             updateReels(initialSymbols);
             currentSymbols = initialSymbols.map(s => s.id);
-
-            // ===== ВСТАВКА ЛОГОТИПОВ КЛУБОВ НА СТРАНИЦУ МАТЧЕЙ =====
-            const meraLogoContainer = document.getElementById('club-logo-mera');
-            const school78LogoContainer = document.getElementById('club-logo-78');
-
-            if (meraLogoContainer && typeof clubLogos !== 'undefined' && clubLogos.mera) {
-                meraLogoContainer.innerHTML = `<img src="${clubLogos.mera}" alt="ФК МЕРА">`;
-            } else if (meraLogoContainer) {
-                meraLogoContainer.textContent = '⚽';
-                meraLogoContainer.style.fontSize = '2rem';
-            }
-
-            if (school78LogoContainer && typeof clubLogos !== 'undefined' && clubLogos.school78) {
-                school78LogoContainer.innerHTML = `<img src="${clubLogos.school78}" alt="Школа 78">`;
-            } else if (school78LogoContainer) {
-                school78LogoContainer.textContent = '🏫';
-                school78LogoContainer.style.fontSize = '2rem';
-            }
         });
-
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
-
         document.getElementById('theme-toggle')?.addEventListener('click', function() {
             document.body.classList.toggle('dark-theme');
             this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
@@ -2706,7 +2901,7 @@
     </script>
     <script src="photos.js"></script>
     <script>
-        const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
+        const pevecVideoUrl = "./Photos (2)/pevec.mp4";
     </script>
 </body>
 </html>
