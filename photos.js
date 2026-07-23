@@ -1,73 +1,2873 @@
-// ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ИГРОКОВ ====================
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Футбольный Двор "МЕРA"</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, #f0f8ff, #e6f7ff);
+            color: #333;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        body.dark-theme {
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            color: #f0f0f0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+        .theme-toggle:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .dark-theme .theme-toggle {
+            background: #ffcc00;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 2.8rem;
+            color: #0066cc;
+            text-shadow: 2px 2px 4px rgba(0, 102, 204, 0.1);
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme h1 {
+            color: #4dabf7;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 5px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .subtitle {
+            color: #ccc;
+        }
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .main-button {
+            width: 300px;
+            height: 180px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 3px solid #0066cc;
+            padding: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .main-button:active {
+            background: #f0f8ff;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+        }
+        .dark-theme .main-button {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .dark-theme .main-button:active {
+            background: #374151;
+        }
+        .button-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .button-icon {
+            color: #4dabf7;
+        }
+        .button-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .button-title {
+            color: #4dabf7;
+        }
+        .button-description {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .button-description {
+            color: #ccc;
+        }
+        .update-button-container {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        .update-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .update-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        }
+        .update-button:active {
+            background: #1e7e34;
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+        }
+        .dark-theme .update-button {
+            background: #2ecc71;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        .dark-theme .update-button:hover {
+            background: #27ae60;
+        }
+        .update-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .back-button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .back-button:active {
+            background: #0052a3;
+            transform: none;
+        }
+        .dark-theme .back-button {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        .dark-theme .back-button:active {
+            background: #339af0;
+        }
+        .players-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .players-controls {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .search-icon {
+            font-size: 1.5rem;
+            color: #0066cc;
+        }
+        .dark-theme .search-icon {
+            color: #4dabf7;
+        }
+        #player-search {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #0066cc;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+        }
+        .dark-theme #player-search {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        #player-search::placeholder {
+            color: #999;
+        }
+        .sort-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .sort-btn {
+            background: #f0f8ff;
+            border: 2px solid #0066cc;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #0066cc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .sort-btn.active {
+            background: #0066cc;
+            color: white;
+        }
+        .dark-theme .sort-btn {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #4dabf7;
+        }
+        .dark-theme .sort-btn.active {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
+        }
+        .sort-btn:active {
+            transform: translateY(0);
+        }
+        .players-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        .dark-theme .players-count {
+            color: #ccc;
+        }
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .player-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-user-select: none;
+            user-select: none;
+            position: relative;
+        }
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.15);
+        }
+        .player-card:active {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+        }
+        .dark-theme .player-card {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .dark-theme .player-card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .dark-theme .player-card:active {
+            background: #2d3748;
+            transform: translateY(-2px);
+        }
+        .player-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #0066cc;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        .dark-theme .player-photo {
+            border-color: #4dabf7;
+            background: #374151;
+        }
+        .player-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .player-info {
+            width: 100%;
+        }
+        .player-info h3 {
+            font-size: 1.3rem;
+            color: #0066cc;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .player-info h3 {
+            color: #4dabf7;
+        }
+        .player-info p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .player-info p {
+            color: #ccc;
+        }
+        .player-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .player-number {
+            color: #4dabf7;
+        }
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .stat-item {
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .stat-item {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .stat-value {
+            color: #4dabf7;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 3px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .stat-label {
+            color: #ccc;
+        }
+        .stats-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 30px;
+            color: #856404;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .stats-warning {
+            background: #664d03;
+            border-color: #856404;
+            color: #ffd8a8;
+        }
+        .warning-icon {
+            color: #ffc107;
+            font-size: 1.2rem;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .warning-icon {
+            color: #ffd43b;
+        }
+        .best-squad-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .best-squad-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .formation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            font-weight: bold;
+            width: 100%;
+            overflow: hidden;
+        }
+        .formation-line {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            min-height: 85px;
+            gap: 15px;
+            width: 100%;
+        }
+        .player-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 85px;
+            max-width: 100px;
+            margin: 0 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+            position: relative;
+        }
+        .player-item:hover {
+            transform: translateY(-3px);
+        }
+        .player-item:active {
+            transform: translateY(-1px);
+        }
+        .player-photo-small {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2.5px solid #0066cc;
+            margin-bottom: 4px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        .dark-theme .player-photo-small {
+            border-color: #4dabf7;
+            background: #374151;
+        }
+        .player-photo-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .player-name {
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 2px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .player-name {
+            color: #f0f0f0;
+        }
+        .tactics-info {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .tactics-info {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .tactics-info h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .tactics-info h3 {
+            color: #4dabf7;
+        }
+        .tactics-info p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .tactics-info p {
+            color: #f0f0f0;
+        }
+        .squad-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0 25px 0;
+        }
+        .squad-tab {
+            background: #f0f8ff;
+            border: 2px solid #0066cc;
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .squad-tab.active {
+            background: #0066cc;
+            color: white;
+        }
+        .dark-theme .squad-tab {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #4dabf7;
+        }
+        .dark-theme .squad-tab.active {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        .squad-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
+        }
+        .squad-tab:active {
+            transform: translateY(0);
+        }
+        .squad-content {
+            display: none;
+        }
+        .squad-content.active {
+            display: block;
+        }
+        .other-yards-container {
+            background: white;
+            border-radius: 15px;
+            padding: 50px 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .other-yards-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .other-yards-container .big-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+        .other-yards-container h2 {
+            color: #0066cc;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .other-yards-container h2 {
+            color: #4dabf7;
+        }
+        .other-yards-container .message {
+            font-size: 1.5rem;
+            color: #666;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .other-yards-container .message {
+            color: #ccc;
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .matches-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .matches-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .matches-container h2 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .dark-theme .matches-container h2 {
+            color: #4dabf7;
+        }
+        .match-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #0066cc;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dark-theme .match-card {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .match-card .match-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .dark-theme .match-card .match-date {
+            color: #aaa;
+        }
+        .match-card .match-teams {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .match-card .team {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .match-card .team-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #0066cc;
+            flex-shrink: 0;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .match-card .team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .match-card .score {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #0066cc;
+            padding: 0 15px;
+        }
+        .dark-theme .match-card .score {
+            color: #4dabf7;
+        }
+        .match-card .match-result {
+            font-size: 1rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .match-card .match-result.loss {
+            color: #dc3545;
+        }
+        .match-card .match-result.draw {
+            color: #ffc107;
+        }
+        .player-card.mera-player {
+            position: relative;
+        }
+        .player-card.mera-player::before {
+            content: "⭐ Игрок ФК \"МЕРА\"";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
+            z-index: 10;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            border: 1px solid #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .player-card.mera-player {
+            border: 2px solid #0066cc !important;
+            animation: none !important;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1) !important;
+        }
+        .dark-theme .player-card.mera-player {
+            border: 2px solid #4dabf7 !important;
+            animation: none !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+        .modal .mera-tag {
+            display: inline-block;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.4);
+            border: 1px solid #fff;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .player-item.mera-player {
+            border: none !important;
+            animation: none !important;
+            box-shadow: none !important;
+        }
+        .player-item.mera-player::before {
+            display: none !important;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            display: none;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            border: 3px solid #0066cc;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .modal-close-btn:active {
+            background: #0052a3;
+            transform: none;
+        }
+        .dark-theme .modal-close-btn {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        .dark-theme .modal-close-btn:active {
+            background: #339af0;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-header {
+            border-bottom-color: #4dabf7;
+        }
+        .modal-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #0066cc;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        .dark-theme .modal-photo {
+            border-color: #4dabf7;
+            background: #374151;
+        }
+        .modal-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .modal-info h3 {
+            font-size: 2rem;
+            color: #0066cc;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-info h3 {
+            color: #4dabf7;
+        }
+        .modal-info p {
+            color: #666;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-info p {
+            color: #ccc;
+        }
+        .modal-rating-header {
+            position: absolute;
+            right: 60px;
+            top: 30px;
+            text-align: center;
+            z-index: 1;
+        }
+        .rating-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        .rating-high {
+            color: #28a745;
+        }
+        .rating-medium {
+            color: #ffc107;
+        }
+        .rating-low {
+            color: #dc3545;
+        }
+        .rating-label {
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .rating-label {
+            color: #ccc;
+        }
+        .modal-stats-combined {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .modal-stat-item-wide {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+            grid-column: span 2;
+        }
+        .dark-theme .modal-stat-item-wide {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .modal-stat-item {
+            background: #f0f8ff;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-stat-item {
+            background: #374151;
+            border-color: #4dabf7;
+        }
+        .modal-stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-stat-label {
+            color: #ccc;
+        }
+        .modal-stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-stat-value {
+            color: #4dabf7;
+        }
+        .modal-stat-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .playstyles-section {
+            margin-top: 15px;
+            border-top: 2px solid #0066cc;
+            padding-top: 15px;
+            width: 100%;
+        }
+        .dark-theme .playstyles-section {
+            border-top-color: #4dabf7;
+        }
+        .playstyles-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dark-theme .playstyles-title {
+            color: #4dabf7;
+        }
+        .playstyles-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+        .playstyle-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 12px;
+            background: #f0f8ff;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        .dark-theme .playstyle-icon {
+            background: #2d3748;
+            border-color: #ffd700;
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.4);
+        }
+        .playstyle-icon.silver {
+            border-color: #c0c0c0;
+            box-shadow: 0 0 16px rgba(192, 192, 192, 0.5);
+        }
+        .dark-theme .playstyle-icon.silver {
+            border-color: #a8a8a8;
+            box-shadow: 0 0 16px rgba(192, 192, 192, 0.3);
+        }
+        .playstyle-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+        .playstyle-icon:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.7);
+        }
+        .playstyle-icon.silver:hover {
+            box-shadow: 0 0 28px rgba(192, 192, 192, 0.7);
+        }
+        .playstyles-section-hidden {
+            display: none !important;
+        }
+        .playstyle-detail-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            display: none;
+        }
+        .playstyle-detail-overlay.active {
+            display: flex;
+        }
+        .playstyle-detail-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px 30px 30px;
+            max-width: 450px;
+            width: 100%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .playstyle-detail-card {
+            background: #2d3748;
+            border-color: #ffd700;
+        }
+        .playstyle-detail-card.silver-border {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 20px 60px rgba(192, 192, 192, 0.3) !important;
+        }
+        .dark-theme .playstyle-detail-card.silver-border {
+            border-color: #a8a8a8 !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+        }
+        .playstyle-detail-card .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s ease;
+            line-height: 1;
+            padding: 5px 10px;
+        }
+        .dark-theme .playstyle-detail-card .close-btn {
+            color: #ccc;
+        }
+        .playstyle-detail-card .close-btn:hover {
+            color: #333;
+            transform: scale(1.1);
+        }
+        .playstyle-detail-icon {
+            width: 200px;
+            height: 200px;
+            border-radius: 24px;
+            border: 6px solid #ffd700;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .playstyle-detail-icon.silver {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5) !important;
+        }
+        .dark-theme .playstyle-detail-icon.silver {
+            border-color: #a8a8a8 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.3) !important;
+        }
+        .playstyle-detail-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+            background: transparent;
+        }
+        .playstyle-detail-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 12px;
+        }
+        .dark-theme .playstyle-detail-name {
+            color: #4dabf7;
+        }
+        .playstyle-detail-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #444;
+            padding: 0 5px;
+        }
+        .dark-theme .playstyle-detail-desc {
+            color: #ddd;
+        }
+        .video-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            background: #000;
+        }
+        .dark-theme .video-container {
+            border-color: #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        .video-container video {
+            width: 100%;
+            display: block;
+            background: #000;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        .dark-theme footer {
+            color: #aaa;
+            border-top-color: #444;
+        }
+        .slots-container {
+            background: linear-gradient(145deg, #f0f8ff, #d4e8ff);
+            border-radius: 24px;
+            padding: 30px 20px 20px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 0 40px rgba(0, 102, 204, 0.15);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .dark-theme .slots-container {
+            background: linear-gradient(145deg, #1a2a4a, #0f1f3a);
+            border-color: #4dabf7;
+            box-shadow: 0 0 40px rgba(77, 171, 247, 0.15);
+        }
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            padding: 20px 10px;
+            background: rgba(0, 102, 204, 0.08);
+            border-radius: 16px;
+            border: 2px solid #0066cc;
+            min-height: 120px;
+        }
+        .dark-theme .slot-machine {
+            background: rgba(77, 171, 247, 0.05);
+            border-color: #4dabf7;
+        }
+        .slot-reel {
+            width: 90px;
+            height: 110px;
+            background: white;
+            border-radius: 16px;
+            border: 2px solid #0066cc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            box-shadow: inset 0 0 20px rgba(0, 102, 204, 0.05);
+            transition: all 0.1s ease;
+            overflow: hidden;
+            padding: 8px;
+        }
+        .dark-theme .slot-reel {
+            background: #1a2a4a;
+            border-color: #4dabf7;
+        }
+        .slot-reel img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        .slot-reel .emoji-icon {
+            font-size: 3.5rem;
+            line-height: 1;
+        }
+        .slot-button {
+            background: linear-gradient(145deg, #0066cc, #0052a3);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
+            margin-top: 10px;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+        .slot-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 30px rgba(0, 102, 204, 0.6);
+        }
+        .slot-button:active {
+            transform: scale(0.96);
+        }
+        .slot-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .dark-theme .slot-button {
+            background: linear-gradient(145deg, #4dabf7, #339af0);
+            color: #1a1a2e;
+            box-shadow: 0 4px 20px rgba(77, 171, 247, 0.4);
+        }
+        .dark-theme .slot-button:hover {
+            box-shadow: 0 6px 30px rgba(77, 171, 247, 0.6);
+        }
+        .slot-result {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 18px;
+            min-height: 40px;
+            color: #0066cc;
+            padding: 10px;
+            background: rgba(0, 102, 204, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+        .dark-theme .slot-result {
+            color: #4dabf7;
+            background: rgba(77, 171, 247, 0.05);
+            border-color: rgba(77, 171, 247, 0.2);
+        }
+        .slot-result.win {
+            color: #28a745;
+            text-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
+        }
+        .dark-theme .slot-result.win {
+            color: #2ecc71;
+            text-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+        }
+        .slot-result.jackpot {
+            color: #dc3545;
+            text-shadow: 0 0 30px rgba(220, 53, 69, 0.5);
+            animation: jackpot-pulse 0.5s ease-in-out infinite alternate;
+        }
+        .dark-theme .slot-result.jackpot {
+            color: #ff6b6b;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+        }
+        @keyframes jackpot-pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        .slot-reel.spinning {
+            animation: reel-spin 0.1s linear infinite;
+        }
+        @keyframes reel-spin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .slot-win-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .slot-win-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .slot-win-card {
+            background: linear-gradient(145deg, #0066cc, #0052a3);
+            border-radius: 30px;
+            padding: 40px 50px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        .dark-theme .slot-win-card {
+            background: linear-gradient(145deg, #4dabf7, #339af0);
+        }
+        .slot-win-card.active {
+            transform: scale(1);
+        }
+        .slot-win-card .win-icon {
+            font-size: 5rem;
+            margin-bottom: 10px;
+        }
+        .slot-win-card h2 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .dark-theme .slot-win-card h2 {
+            color: #1a1a2e;
+        }
+        .slot-win-card p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+        }
+        .dark-theme .slot-win-card p {
+            color: #1a1a2e;
+        }
+        .slot-win-card .win-close {
+            margin-top: 20px;
+            background: white;
+            color: #0066cc;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .slot-win-card .win-close:hover {
+            transform: scale(1.05);
+        }
+        .dark-theme .slot-win-card .win-close {
+            color: #4dabf7;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            h1 { font-size: 2.2rem; }
+            .theme-toggle { top: 15px; right: 15px; width: 55px; height: 55px; font-size: 1.6rem; }
+            .main-button { width: 100%; height: 160px; }
+            .players-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .player-photo { width: 70px; height: 70px; }
+            .player-info h3 { font-size: 1.1rem; }
+            .player-number { font-size: 1rem; }
+            .stat-value { font-size: 1rem; }
+            .stat-label { font-size: 0.7rem; }
+            .player-item { min-width: 70px; max-width: 80px; margin: 0 3px; }
+            .player-photo-small { width: 50px; height: 50px; border-width: 2px; }
+            .player-name { font-size: 0.8rem; }
+            .formation { font-size: 0.9rem; }
+            .formation-line { min-height: 75px; margin: 12px 0; gap: 8px; }
+            .modal { padding: 20px; }
+            .modal-header { flex-direction: column; text-align: center; padding-bottom: 15px; }
+            .modal-rating-header { position: static; margin-top: 10px; }
+            .modal-photo { width: 80px; height: 80px; }
+            .modal-info h3 { font-size: 1.6rem; }
+            .rating-value { font-size: 2rem; }
+            .other-yards-container .message { font-size: 1.2rem; padding: 20px; }
+            .playstyle-icon { width: 60px; height: 60px; font-size: 1.6rem; border-width: 3px; }
+            .playstyle-detail-icon { width: 160px; height: 160px; font-size: 4rem; border-width: 5px; }
+            .playstyle-detail-name { font-size: 1.6rem; }
+            .slot-reel { width: 70px; height: 90px; font-size: 2.8rem; }
+            .slot-reel img { width: 55px; height: 55px; }
+            .slot-reel .emoji-icon { font-size: 2.8rem; }
+            .slots-container { padding: 20px 15px; }
+            .slot-machine { gap: 8px; padding: 15px 5px; }
+            .slot-button { font-size: 1.2rem; padding: 14px 20px; }
+            .match-card .team { font-size: 1rem; }
+            .match-card .score { font-size: 1.5rem; padding: 0 10px; }
+        }
+        @media (max-width: 480px) {
+            .players-grid { grid-template-columns: 1fr; gap: 15px; }
+            .player-card { padding: 15px; }
+            .player-photo { width: 80px; height: 80px; }
+            .theme-toggle { top: 10px; right: 10px; width: 50px; height: 50px; font-size: 1.5rem; }
+            .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
+            .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
+            .slot-reel { width: 60px; height: 80px; font-size: 2.2rem; padding: 5px; }
+            .slot-reel img { width: 45px; height: 45px; }
+            .slot-reel .emoji-icon { font-size: 2.2rem; }
+            .slot-win-card { padding: 30px 20px; }
+            .slot-win-card .win-icon { font-size: 4rem; }
+            .slot-win-card h2 { font-size: 1.8rem; }
+            .match-card .match-teams { gap: 10px; }
+            .match-card .team { font-size: 0.9rem; gap: 5px; }
+            .match-card .score { font-size: 1.3rem; padding: 0 5px; }
+            .match-card .team-logo { width: 30px; height: 30px; }
+        }
+        * { -webkit-tap-highlight-color: transparent !important; }
+        @media (hover: none) and (pointer: coarse) {
+            .player-card:active, .player-item:active, .main-button:active, .back-button:active, .update-button:active {
+                background: inherit !important;
+            }
+        }
+        .player-card, .player-item, .main-button, .back-button, .update-button, .modal-close-btn, .theme-toggle, .sort-btn {
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
+        .player-description {
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 8px;
+            font-style: italic;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 8px;
+            width: 100%;
+            text-align: center;
+        }
+        .dark-theme .player-description { color: #bbb; border-top-color: #444; }
+        .modal-description {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #0066cc;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .modal-description {
+            background: #374151;
+            border-left-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .modal-description-label {
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9rem;
+        }
+        .dark-theme .modal-description-label { color: #4dabf7; }
+        .iq-counter {
+            display: inline-block;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iq-rainbow 2s linear infinite;
+        }
+        @keyframes iq-rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        .dark-theme .iq-counter {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .player-card.burmalda-player {
+            position: relative;
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player:active {
+            transform: translateY(-2px);
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate, burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player:active {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate, burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        @keyframes burmalda-border-pulse {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 230, 118, 0.4), 0 0 40px rgba(0, 200, 80, 0.2);
+                border-color: #00e676;
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 230, 118, 0.9), 0 0 80px rgba(0, 200, 80, 0.5);
+                border-color: #00c853;
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.6), 0 0 55px rgba(0, 200, 80, 0.3);
+                border-color: #00b248;
+            }
+        }
+        @keyframes burmalda-border-pulse-dark {
+            0% {
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.5), 0 0 50px rgba(0, 200, 80, 0.3);
+                border-color: #00e676;
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(0, 230, 118, 1), 0 0 100px rgba(0, 200, 80, 0.7);
+                border-color: #00c853;
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(0, 230, 118, 0.7), 0 0 70px rgba(0, 200, 80, 0.4);
+                border-color: #00b248;
+            }
+        }
+        @keyframes burmalda-bg-pulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes burmalda-bg-pulse-dark {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .player-card.burmalda-player::after {
+            content: "🎰БУРМАЛДА🍀";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624, #00b248, #00c853, #00e676);
+            background-size: 400% 400%;
+            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 100, 1);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+            z-index: 15;
+            white-space: nowrap;
+            border: 1px solid #a5d6a7;
+            text-transform: uppercase;
+        }
+        .player-card.mera-player::before {
+            content: "⭐ Игрок ФК \"МЕРА\"";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #8e44ad;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
+            z-index: 10;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            border: 1px solid #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        @keyframes burmalda-plate-shine {
+            0% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+                text-shadow: 0 0 12px rgba(0, 255, 100, 1);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 0 0 45px rgba(0, 230, 118, 1);
+                text-shadow: 0 0 25px rgba(0, 255, 100, 1);
+            }
+            100% {
+                background-position: 0% 50%;
+                box-shadow: 0 0 25px rgba(0, 230, 118, 0.7);
+                text-shadow: 0 0 15px rgba(0, 255, 100, 1);
+            }
+        }
+        .player-card.burmalda-player .stat-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .dark-theme .player-card.burmalda-player .stat-item {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        @keyframes burmalda-stat-bg {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        @keyframes burmalda-stat-bg-dark {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .player-card.burmalda-player .player-photo {
+            border-color: #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player .player-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        .player-item.burmalda-squad .player-photo-small {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .player-item.burmalda-squad .player-photo-small {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
+        }
+        .modal .burmalda-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624);
+            background-size: 300% 300%;
+            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.75rem;
+            padding: 4px 18px;
+            border-radius: 30px;
+            letter-spacing: 1.2px;
+            text-shadow: 0 0 15px rgba(0, 255, 100, 1);
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.7);
+            margin-top: 6px;
+            border: 1px solid #a5d6a7;
+            text-transform: uppercase;
+        }
+        .modal.burmalda-modal {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .modal.burmalda-modal {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.7) !important;
+        }
+        .modal.burmalda-modal .modal-description {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-left-color: #00e676;
+        }
+        .dark-theme .modal.burmalda-modal .modal-description {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-left-color: #00e676;
+        }
+        .modal.burmalda-modal .modal-stat-item {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .dark-theme .modal.burmalda-modal .modal-stat-item {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #00e676;
+        }
+        .modal.burmalda-modal .modal-stat-value {
+            color: #0066cc !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-stat-value {
+            color: #4dabf7 !important;
+        }
+        .modal.burmalda-modal .modal-description-label {
+            color: #0066cc !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-description-label {
+            color: #4dabf7 !important;
+        }
+        .modal.burmalda-modal .modal-photo {
+            border-color: #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .modal.burmalda-modal .modal-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player .playstyle-icon {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .player-card.burmalda-player .playstyle-icon {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .player-card.burmalda-player .playstyle-icon.silver {
+            border-color: #c0c0c0 !important;
+        }
+        .player-card.burmalda-player .playstyle-icon img {
+            filter: brightness(1.1);
+        }
+        .modal.burmalda-modal .playstyle-icon {
+            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .modal.burmalda-modal .playstyle-icon {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 300% 300%;
+            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .modal.burmalda-modal .playstyle-icon.silver {
+            border-color: #c0c0c0 !important;
+        }
+        .modal.burmalda-modal .playstyle-icon img {
+            filter: brightness(1.1);
+        }
+        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon {
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5) !important;
+        }
+        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon.silver {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5) !important;
+        }
+        .playstyle-detail-card.burmalda-detail {
+            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .dark-theme .playstyle-detail-card.burmalda-detail {
+            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
+            background-size: 400% 400%;
+            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+            border-color: #ffd700 !important;
+        }
+        .playstyle-detail-card.burmalda-detail.silver-border {
+            border-color: #c0c0c0 !important;
+            box-shadow: 0 20px 60px rgba(192, 192, 192, 0.3) !important;
+        }
+        .dark-theme .playstyle-detail-card.burmalda-detail.silver-border {
+            border-color: #a8a8a8 !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+    <div class="container">
+        <header>
+            <div class="logo"><h1>Футбольный Двор "МЕРА"</h1></div>
+            <p class="subtitle">Официальная статистика и новости</p>
+        </header>
+        <main>
+            <div id="home-page" class="page active">
+                <div class="main-buttons">
+                    <div class="main-button" id="players-btn">
+                        <div class="button-icon">👥</div>
+                        <div class="button-title">Состав Двора</div>
+                        <div class="button-description">Все игроки нашего двора</div>
+                    </div>
+                    <div class="main-button" id="squad-btn">
+                        <div class="button-icon">🏆</div>
+                        <div class="button-title">ФК "МЕРА"</div>
+                        <div class="button-description">Основной состав нашего двора</div>
+                    </div>
+                    <div class="main-button" id="yards-btn">
+                        <div class="button-icon">🏘️</div>
+                        <div class="button-title">Другие дворы</div>
+                        <div class="button-description">Наши соперники</div>
+                    </div>
+                    <div class="main-button" id="burmalda-btn">
+                        <div class="button-icon">🎰</div>
+                        <div class="button-title">Бурмалда</div>
+                        <div class="button-description">Казик меллстрой ыыы</div>
+                    </div>
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">⚽</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">История наших матчей</div>
+                    </div>
+                </div>
+                <div class="update-button-container">
+                    <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
+                </div>
+            </div>
+            <div id="players-page" class="page">
+                <button class="back-button" id="back-from-players">← Назад к главной</button>
+                <div class="players-controls">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="player-search" placeholder="Поиск игрока по имени...">
+                    </div>
+                    <div class="sort-buttons">
+                        <button class="sort-btn" id="sort-rating" data-sort="rating">⭐ Сортировать по рейтингу</button>
+                        <button class="sort-btn" id="sort-name" data-sort="name">🔤 Сортировать по алфавиту (А-Я)</button>
+                        <button class="sort-btn" id="reset-sort">🔄 Сбросить</button>
+                    </div>
+                    <div class="players-count" id="players-count">Всего игроков: 15</div>
+                </div>
+                <div class="players-grid" id="players-grid-container"></div>
+            </div>
+            <div id="squad-page" class="page">
+                <button class="back-button" id="back-from-squad">← Назад к главной</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title">ФК "МЕРА" — основной состав</h2>
+                    <div class="squad-content active" id="squad-1">
+                        <div class="formation">
+                            <div class="formation-line">
+                                <div class="player-item" data-player="batrakov">
+                                    <div class="player-photo-small" id="batrakov-photo-small"></div>
+                                    <div class="player-name">Батраков</div>
+                                    <span class="player-number">(83)</span>
+                                </div>
+                                <div class="player-item" data-player="aleksey_doroshenko">
+                                    <div class="player-photo-small" id="aleksey_doroshenko-photo-small"></div>
+                                    <div class="player-name">Дорошенко</div>
+                                    <span class="player-number">(22)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="lesha_podavalny">
+                                    <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
+                                    <div class="player-name">Подавальный</div>
+                                    <span class="player-number">(41)</span>
+                                </div>
+                                <div class="player-item" data-player="maxim">
+                                    <div class="player-photo-small" id="maxim-photo-small"></div>
+                                    <div class="player-name">Максим</div>
+                                    <span class="player-number">(8)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="raya">
+                                    <div class="player-photo-small" id="raya-photo-small"></div>
+                                    <div class="player-name">Рая</div>
+                                    <span class="player-number">(1)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="squad-content" id="squad-2">
+                        <div class="formation">
+                            <div class="formation-line">
+                                <div class="player-item" data-player="andryushka">
+                                    <div class="player-photo-small" id="andryushka-photo-small"></div>
+                                    <div class="player-name">Андрюшка</div>
+                                    <span class="player-number">(7)</span>
+                                </div>
+                                <div class="player-item" data-player="elanga">
+                                    <div class="player-photo-small" id="elanga-photo-small"></div>
+                                    <div class="player-name">Еланга</div>
+                                    <span class="player-number">(21)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item burmalda-squad" data-player="elisey">
+                                    <div class="player-photo-small" id="elisey-photo-small"></div>
+                                    <div class="player-name">Елисей</div>
+                                    <span class="player-number">(19)</span>
+                                </div>
+                                <div class="player-item" data-player="saveliy">
+                                    <div class="player-photo-small" id="saveliy-photo-small"></div>
+                                    <div class="player-name">Савелий</div>
+                                    <span class="player-number">(78)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="hokkeist">
+                                    <div class="player-photo-small" id="hokkeist-photo-small-2"></div>
+                                    <div class="player-name">Хоккеист</div>
+                                    <span class="player-number">(30)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="squad-tabs">
+                        <button class="squad-tab active" data-squad="1">1️⃣</button>
+                        <button class="squad-tab" data-squad="2">2️⃣</button>
+                    </div>
+                    <div class="tactics-info" id="tactics-info">
+                        <h3>Тактическая информация</h3>
+                        <p><strong>Схема:</strong> 1-2-2 (вратарь, 2 защитника, 2 полузащитника)</p>
+                        <p id="tactics-description"><strong>Описание:</strong> Первый состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="yards-page" class="page">
+                <button class="back-button" id="back-from-yards">← Назад к главной</button>
+                <div class="other-yards-container">
+                    <div class="big-icon">🏘️</div>
+                    <h2>Другие дворы</h2>
+                    <div class="message">
+                        📢 Здесь скоро будут наши соперники:
+                        <p>• ФК ФПК 🟢⚪️</p>
+                        <p>• 78 школа 🏫</p>
+                        <p>• Зеленый Остров 🟢⚪️</p>
+                    </div>
+                </div>
+            </div>
+            <div id="burmalda-page" class="page">
+                <button class="back-button" id="back-from-burmalda">← Назад к главной</button>
+                <div class="slots-container">
+                    <h2 style="text-align:center; color:#0066cc; margin-bottom: 5px;">🎰 Бурмалда</h2>
+                    <p style="text-align:center; color:#666; margin-bottom: 15px; font-size:0.9rem;">Крути Бурмалду</p>
+                    <div class="slot-machine" id="slot-machine">
+                        <div class="slot-reel" id="reel-1"></div>
+                        <div class="slot-reel" id="reel-2"></div>
+                        <div class="slot-reel" id="reel-3"></div>
+                    </div>
+                    <button class="slot-button" id="slot-spin-btn">🎲 Обурмалдить</button>
+                    <div class="slot-result" id="slot-result">Нажми на кнопку, чтобы начать</div>
+                </div>
+            </div>
+            <div id="matches-page" class="page">
+                <button class="back-button" id="back-from-matches">← Назад к главной</button>
+                <div class="matches-container">
+                    <h2>📋 История матчей</h2>
+                    <div id="matches-list"></div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p>Футбольный Двор "МЕРА" © 2026</p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">FC MERA™</p>
+            <p>𝗧𝗶𝗸 𝗧𝗼𝗸: @fc.mera</p>
+        </footer>
+    </div>
+    <div class="modal-overlay" id="player-modal">
+        <div class="modal" id="modal-window">
+            <button class="modal-close-btn" id="modal-close">×</button>
+            <div class="modal-header">
+                <div class="modal-photo" id="modal-photo"></div>
+                <div class="modal-info">
+                    <h3 id="modal-name">Имя игрока</h3>
+                    <p id="modal-position">Позиция • Возраст</p>
+                    <div id="modal-mera-tag" class="mera-tag" style="display: none;">⭐ Игрок ФК "МЕРА"</div>
+                    <div id="modal-burmalda-tag" class="burmalda-tag" style="display: none;">🎰БУРМАЛДА🍀</div>
+                </div>
+                <div class="modal-rating-header">
+                    <div class="rating-value" id="modal-rating">0</div>
+                    <div class="rating-label">Рейтинг</div>
+                </div>
+            </div>
+            <div class="modal-description" id="modal-description">
+                <span class="modal-description-label">📝 Краткое описание</span>
+                <span id="modal-description-text">здесь описание</span>
+            </div>
+            <div id="modal-stats-container">
+                <div class="modal-stats" id="normal-stats" style="display: none;">
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot">Правая</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height">0 см</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight">0 кг</div></div>
+                </div>
+                <div class="modal-stats" id="goalkeeper-stats" style="display: none;">
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot-gk">Правая</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height-gk">0 см</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-gk">0 кг</div></div>
+                </div>
+                <div class="modal-stats-combined" id="combined-stats" style="display: none;">
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot-combined">Правая</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height-combined">0 см</div></div>
+                    <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight-combined">0 кг</div></div>
+                </div>
+            </div>
+            <div class="playstyles-section" id="modal-playstyles-section">
+                <div class="playstyles-title">🎮 Плейстайлы</div>
+                <div class="playstyles-grid" id="modal-playstyles-grid"></div>
+            </div>
+        </div>
+    </div>
+    <div class="playstyle-detail-overlay" id="playstyle-detail-overlay">
+        <div class="playstyle-detail-card" id="playstyle-detail-card">
+            <button class="close-btn" id="playstyle-detail-close">✕</button>
+            <div class="playstyle-detail-icon" id="playstyle-detail-icon"></div>
+            <div class="playstyle-detail-name" id="playstyle-detail-name">Название</div>
+            <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
+        </div>
+    </div>
+    <div class="slot-win-overlay" id="slot-win-overlay">
+        <div class="slot-win-card" id="slot-win-card">
+            <div class="win-icon" id="win-icon">🎉</div>
+            <h2 id="win-title">Победа!</h2>
+            <p id="win-desc">Вы выиграли!</p>
+            <button class="win-close" id="win-close-btn">Закрыть</button>
+        </div>
+    </div>
+    <script>
+        const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey'];
+        const burmaldaPlayerIds = ['elisey'];
+        const playstyleDescriptions = {
+            'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
+            'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
+            'Bezjalostniy': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
+            'vinos_silver': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
+            'obmanshik_silver': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
+            'truk_gold': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
+            'borec': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах, как при защите мяча во время ведения, так и при борьбе с соперником в схватке.' },
+            'borec_silver': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах, как при защите мяча во время ведения, так и при борьбе с соперником в схватке.' },
+            'strag': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
+            'strag_silver': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
+            'bistro_silver': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
+            'bistro_gold': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
+            'pushka': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и точные удары.' },
+            'pushka_silver': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и точные удары.' },
+            'tochno': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой, отправляя мяч мимо вратаря.' },
+            'tochno_silver': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой, отправляя мяч мимо вратаря.' },
+            'vihod': { name: 'Выход вратаря', description: 'Вратарь обладает способностью быстро выбегать из ворот, чтобы оказывать давление на соперника.' },
+            'otraz': { name: 'Отражение', description: 'Вратарь обладает способностью отбивать мяч далеко, в стороны и в более безопасные зоны.' },
+            'bombardir_silver': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
+            'bombardir': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
+            'penalty_silver': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
+            'penalty': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
+            'parashut': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
+            'parashut_silver': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
+            'tiki_taka_silver': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
+            'tiki_taka': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
+            'prostrel_silver': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
+            'prostrel': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
+            'naves_silver': { name: 'Навес низом на ход', description: 'Игрок может выполнять высокоскоростные навесы в штрафную.' },
+            'naves': { name: 'Навес низом на ход', description: 'Игрок может выполнять высокоскоростные навесы в штрафную.' },
+            'intuation_silver': { name: 'Интуиция', description: 'Игрок демонстрирует более высокий уровень мастерства и успешности в выполнении захватов в стойке.' },
+            'intuation': { name: 'Интуиция', description: 'Игрок демонстрирует более высокий уровень мастерства и успешности в выполнении захватов в стойке.' },
+            'uskoritel_silver': { name: 'Ускоритель', description: 'Игрок способен быстро набрать скорость при ускорении без мяча.' },
+            'simulant': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
+            'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
+            'pevec': { name: 'Певец', description: '' },
+            'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
+            'pevec': { name: 'Певец', description: '' },
+            'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
+        };
+        const playersData = {
+            raya: { name: "Давид Рая", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 97, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
+            maxim: { name: "Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "174 см", weight: "54 кг", rating: 97, number: "(8)", description: "Габриел Магальяинш", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
+            batrakov: { name: "Глебасик", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','bistro_silver'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", bistro_silver: 'silver' } },
+            andryushka: { name: "Андрюшка", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','simulant_silver'], playstyleColors: {bistro_silver: "silver", simulant_silver: "silver"} },
+            haaland: { name: "Леонид Холланд", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 85, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} },
+            elanga: { name: "еЛАНГа", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 89, number: "(20)", description: "Самый волосатый игрок двора", playstyles: ['pushka',"bombardir_silver", 'geniy'], playstyleColors: { pushka: 'gold', bombardir_silver: "silver", geniy: "gold" } },
+            lesha_podavalny: { name: "Леша Подавальный", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 88, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
+            aleksey_doroshenko: { name: "Алексей Дорошенко", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 95, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
+            maradona: { name: "Стёпа Марадона", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 78, number: "(21)", description: "Не раскрылся полностью", playstyles: ['bistro_silver'], playstyleColors: {bistro_silver: "silver"} },
+            hokkeist: { name: "Захаров Максим", position: "Вратарь", age: "13 лет", icon: "❄️", foot: "Правая", height: "168 см", weight: "54 кг", rating: 96, number: "(30)", description: "Играл ещё во времена динозавров (На данный момент карточка заморожена)", playstyles: ["otraz", "vihod"], playstyleColors: {otraz: "gold", vihod: "gold"} },
+            egor_vulf: { name: "Егор Ровкин", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Левая", height: "168 см", weight: "50 кг", rating: 84, number: "(5)", description: "Левоногая опасность", playstyles: ['pushka_silver'], playstyleColors: {pushka_silver: "silver"} },
+            matvey: { name: "Матвей Слащев", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 85, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
+            saveliy: { name: "Соколов Савелий", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 87, number: "(78)", description: "дриблер, непризнанный гений", playstyles: ["truk_gold", 'simulant_silver'], playstyleColors: {truk_gold: 'gold', simulant_silver: "silver"} },
+            artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "68 кг", rating: 77, number: "(98)", description: "В его весовой он один (На данный момент травмирован)", playstyles: [], playstyleColors: {} },
+            bogdan: { name: "Богданчик", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 80, number: "(11)", description: "Самый дисциплинированный игрок двора", playstyles: [], playstyleColors: {} },
+            elisey: { name: "Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "косит под Ямаля", playstyles: ['pevec','pan'], playstyleColors: { pevec: 'gold', pan: "gold"} },
+            demid: { name: "Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 89, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
+            saldaevk: { name: "Салдаев К.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 91, number: "(23)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold"} },
+            saldaevd: { name: "Салдаев Д.", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold"} },
+            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 95, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki_taka', 'tochno'], playstyleColors: {truk_gold: "gold", tochno: "gold"} },
+            timofey: { name: "Тимофей", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "53 кг", rating: 75, number: "(92)", description: "Меллстройность", playstyles: [], playstyleColors: {} },
+            kostya: { name: "Костя  Лехнер", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(15)", description: "Не бойся творить историю", playstyles: ['vihod'], playstyleColors: {vihod: "gold"} },
+            Stepa: { name: "Шевелев Стёпа", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "152 см", weight: "36 кг", rating: 88, number: "(18)", description: "Баскетбол or Футбол?", playstyles: ['Bezjalostniy'], playstyleColors: {Bezjalostniy: "gold"} },
+            maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 72, number: "(17)", description: "", playstyles: [], playstyleColors: {} }
+        };
+        let currentPlayerIds = Object.keys(playersData);
+        let filteredPlayerIds = [...currentPlayerIds];
+        let activeSort = 'none';
+        const slotSymbols = [
+            { id: 'elanga', emoji: '⚽', label: 'Еланга' },
+            { id: 'batrakov', emoji: '⚽', label: 'Батраков' },
+            { id: 'maxim', emoji: '⚽', label: 'Максим' },
+            { id: 'raya', emoji: '🧤', label: 'Рая' },
+            { id: 'hokkeist', emoji: '❄️', label: 'Хоккеист' },
+            { id: 'aleksey_doroshenko', emoji: '⚽', label: 'Дорошенко' },
+            { id: 'lesha_podavalny', emoji: '⚽', label: 'Подавальный' },
+            { id: 'elisey', emoji: '⚽', label: 'Елисей' },
+            { id: 'andryushka', emoji: '⚽', label: 'Андрюшка' },
+            { id: 'saveliy', emoji: '⚽', label: 'Савелий' },
+            { id: 'matvey', emoji: '⚽', label: 'Матвей' },
+            { id: 'demid', emoji: '⚽', label: 'Демид' },
+            { id: 'saldaevk', emoji: '⚽', label: 'Салдаев К.' },
+            { id: 'saldaevd', emoji: '⚽', label: 'Салдаев Д.' },
+            { id: 'vladimirova', emoji: '⚽', label: 'Владимиров' },
+            { id: 'stepa', emoji: '⚽', label: 'Стёпа' },
+            { id: 'kostya', emoji: '⚽', label: 'Костя' },
+            { id: 'maradona', emoji: '⚽', label: 'Марадона' },
+            { id: 'haaland', emoji: '⚽', label: 'Холланд' },
+        ];
+        let isSpinning = false;
+        let currentSymbols = ['elanga', 'batrakov', 'maxim'];
+        let winOverlay = document.getElementById('slot-win-overlay');
+        let winCard = document.getElementById('slot-win-card');
+        let winIcon = document.getElementById('win-icon');
+        let winTitle = document.getElementById('win-title');
+        let winDesc = document.getElementById('win-desc');
+        let themeClickCount = 0;
+        let secretActivated = false;
 
-const playerPhotos = {
-    raya: "./Photos%20(2)/raya.jpg",
-    maradona: "./Photos%20(2)/maradona.jpg",
-    sanya: "./Photos%20(2)/sanya.jpg",
-    batrakov: "./Photos%20(2)/batrakov.jpg",
-    maxim: "./Photos%20(2)/max.jpg",
-    andryushka: "./Photos%20(2)/andryushka.jpg",
-    hokkeist: "./Photos%20(2)/hokkeist1.jpg",
-    lesha_podavalny: "./Photos%20(2)/lesha.jpg",
-    aleksey_doroshenko: "./Photos%20(2)/doroshenko.jpg",
-    elanga: "./Photos%20(2)/elanga.jpg",
-    haaland: "./Photos%20(2)/haaland.jpg",
-    egor_vulf: "./Photos%20(2)/egor_vulf.jpg",
-    matvey: "./Photos%20(2)/neymar1.jpg",
-    saveliy: "./Photos%20(2)/vini.jpg",
-    artem: "./Photos%20(2)/tema.jpg",
-    elisey: "./Photos%20(2)/yamal.jpg",
-    bogdan: "./Photos%20(2)/artem.jpg",
-    demid: "./Photos%20(2)/logo.png",
-    saldaevk: "./Photos%20(2)/saldK.jpg",
-    saldaevd: "./Photos%20(2)/saldD.jpg",
-    vladimirova: "./Photos%20(2)/vladA.png",
-    timofey: "./Photos%20(2)/F8BE5DFF-01B2-478A-A49D-F3BDE1CE5841.webp"
-};
+        const clubLogos = {
+            mera: "./Photos%20(2)/club-logo.jpg",
+            school78: "./Photos%20(2)/club-logo-78.jpg"
+        };
 
-// ==================== ЛОГОТИПЫ КЛУБОВ ДЛЯ МАТЧЕЙ ====================
+        function getRandomSymbol() {
+            return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        }
+        function renderReel(reelIndex, symbol) {
+            const reel = document.getElementById(`reel-${reelIndex}`);
+            if (!reel) return;
+            reel.innerHTML = '';
+            if (typeof playerPhotos !== 'undefined' && playerPhotos[symbol.id]) {
+                const img = document.createElement('img');
+                img.src = playerPhotos[symbol.id];
+                img.alt = symbol.label;
+                reel.appendChild(img);
+            } else {
+                const span = document.createElement('span');
+                span.className = 'emoji-icon';
+                span.textContent = symbol.emoji;
+                reel.appendChild(span);
+            }
+            reel.dataset.symbolId = symbol.id;
+        }
+        function updateReels(symbols) {
+            symbols.forEach((s, i) => renderReel(i + 1, s));
+        }
+        function showWinOverlay(icon, title, desc) {
+            winIcon.textContent = icon;
+            winTitle.textContent = title;
+            winDesc.textContent = desc;
+            winCard.classList.add('active');
+            winOverlay.classList.add('active');
+        }
+        function hideWinOverlay() {
+            winOverlay.classList.remove('active');
+            winCard.classList.remove('active');
+        }
+        function spinSlots() {
+            if (isSpinning) return;
+            const btn = document.getElementById('slot-spin-btn');
+            const resultEl = document.getElementById('slot-result');
+            if (secretActivated) {
+                isSpinning = true;
+                btn.disabled = true;
+                resultEl.textContent = '🎰 Крутим...';
+                resultEl.className = 'slot-result';
+                const finalSymbols = [
+                    slotSymbols.find(s => s.id === 'elanga'),
+                    slotSymbols.find(s => s.id === 'elanga'),
+                    slotSymbols.find(s => s.id === 'elanga')
+                ];
+                setTimeout(() => {
+                    updateReels(finalSymbols);
+                    currentSymbols = finalSymbols.map(s => s.id);
+                    resultEl.textContent = '🎉🎉🎉 ДЖЕКПОТ! ТРИ ЕЛАНГИ! 🎉🎉🎉';
+                    resultEl.className = 'slot-result jackpot';
+                    showWinOverlay('🏆', 'ДЖЕКПОТ!', 'Три Еланги! Отправляй скрин в группу! 🎉');
+                    isSpinning = false;
+                    btn.disabled = false;
+                    secretActivated = false;
+                    themeClickCount = 0;
+                }, 500);
+                return;
+            }
+            isSpinning = true;
+            btn.disabled = true;
+            resultEl.textContent = '🎰 Крутим...';
+            resultEl.className = 'slot-result';
+            const reels = [1, 2, 3];
+            let spinCount = 0;
+            const maxSpins = 20 + Math.floor(Math.random() * 15);
+            let interval = setInterval(() => {
+                reels.forEach(i => {
+                    const sym = getRandomSymbol();
+                    renderReel(i, sym);
+                });
+                spinCount++;
+                if (spinCount >= maxSpins) {
+                    clearInterval(interval);
+                    const finalSymbols = [
+                        getRandomSymbol(),
+                        getRandomSymbol(),
+                        getRandomSymbol()
+                    ];
+                    updateReels(finalSymbols);
+                    currentSymbols = finalSymbols.map(s => s.id);
+                    checkWin(finalSymbols);
+                    isSpinning = false;
+                    btn.disabled = false;
+                }
+            }, 80);
+        }
+        function checkWin(symbols) {
+            const resultEl = document.getElementById('slot-result');
+            const ids = symbols.map(s => s.id);
+            const labels = symbols.map(s => s.label);
+            if (ids.every(id => id === 'elanga')) {
+                resultEl.textContent = '🎉🎉🎉 ДЖЕКПОТ! ТРИ ЕЛАНГИ! 🎉🎉🎉';
+                resultEl.className = 'slot-result jackpot';
+                showWinOverlay('🏆', 'ДЖЕКПОТ!', 'Три Еланги! Вы сорвали куш! 🎉');
+                return;
+            }
+            if (ids[0] === ids[1] && ids[1] === ids[2]) {
+                const name = symbols[0].label;
+                resultEl.textContent = `🎉 Три ${name}! Отличная комбинация! 🎉`;
+                resultEl.className = 'slot-result win';
+                showWinOverlay('🎉', 'Три одинаковых!', `Три ${name}! Поздравляем!`);
+                return;
+            }
+            if (ids[0] === ids[1] || ids[1] === ids[2] || ids[0] === ids[2]) {
+                let pairLabel = '';
+                if (ids[0] === ids[1]) pairLabel = symbols[0].label;
+                else if (ids[1] === ids[2]) pairLabel = symbols[1].label;
+                else if (ids[0] === ids[2]) pairLabel = symbols[0].label;
+                resultEl.textContent = `🔁 Пара ${pairLabel}! Неплохо!`;
+                resultEl.className = 'slot-result win';
+                showWinOverlay('🔁', 'Пара!', `Пара ${pairLabel}! Хороший результат!`);
+                return;
+            }
+            resultEl.textContent = `😐 ${labels.join(' · ')} — попробуй ещё!`;
+            resultEl.className = 'slot-result';
+        }
+        let iqInterval = null;
+        function startIQCounter() {
+            if (iqInterval) {
+                clearInterval(iqInterval);
+                iqInterval = null;
+            }
+            let iq = 0;
+            const counterEl = document.getElementById('iq-counter');
+            if (!counterEl) return;
+            iqInterval = setInterval(() => {
+                iq = iq + 1;
+                counterEl.textContent = iq;
+            }, 1);
+        }
+        function hasPlaystyles(playerId) {
+            const player = playersData[playerId];
+            return player && player.playstyles && player.playstyles.length > 0;
+        }
+        function getPlaystyleColor(playerId, style) {
+            const player = playersData[playerId];
+            if (player && player.playstyleColors && player.playstyleColors[style]) {
+                return player.playstyleColors[style];
+            }
+            return 'gold';
+        }
+        function openPlaystyleDetail(styleKey, playerId) {
+            const overlay = document.getElementById('playstyle-detail-overlay');
+            const iconEl = document.getElementById('playstyle-detail-icon');
+            const nameEl = document.getElementById('playstyle-detail-name');
+            const descEl = document.getElementById('playstyle-detail-desc');
+            const cardEl = document.getElementById('playstyle-detail-card');
+            const styleInfo = playstyleDescriptions[styleKey];
+            if (!styleInfo) return;
+            const color = getPlaystyleColor(playerId, styleKey);
+            const colorClass = color === 'silver' ? 'silver' : '';
+            cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
+            if (burmaldaPlayerIds.includes(playerId)) {
+                cardEl.classList.add('burmalda-detail');
+            } else {
+                cardEl.classList.remove('burmalda-detail');
+            }
+            iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
+            iconEl.innerHTML = '';
+            if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
+                const img = document.createElement('img');
+                img.src = playstylePhotos[styleKey];
+                img.alt = styleInfo.name;
+                iconEl.appendChild(img);
+            } else {
+                iconEl.textContent = '🎮';
+            }
+            nameEl.textContent = styleInfo.name;
+            if (styleKey === 'pevec' && typeof pevecVideoUrl !== 'undefined' && pevecVideoUrl) {
+                descEl.innerHTML = `<div class="video-container"><video controls style="width:100%; display:block; background:#000; aspect-ratio:9/16; object-fit:cover; border-radius:8px;" src="${pevecVideoUrl}"></video></div>`;
+            } else if (styleKey === 'geniy') {
+                descEl.innerHTML = styleInfo.description;
+                startIQCounter();
+            } else {
+                descEl.textContent = styleInfo.description || 'Описание отсутствует';
+            }
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closePlaystyleDetail() {
+            const overlay = document.getElementById('playstyle-detail-overlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            if (iqInterval) {
+                clearInterval(iqInterval);
+                iqInterval = null;
+            }
+        }
+        function renderPlaystyles(playerId, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            if (!hasPlaystyles(playerId)) {
+                const section = container.closest('.playstyles-section');
+                if (section) section.classList.add('playstyles-section-hidden');
+                return;
+            }
+            const section = container.closest('.playstyles-section');
+            if (section) section.classList.remove('playstyles-section-hidden');
+            const player = playersData[playerId];
+            const styles = player.playstyles;
+            let html = '';
+            styles.forEach(style => {
+                const color = getPlaystyleColor(playerId, style);
+                const colorClass = color === 'silver' ? 'silver' : '';
+                if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                    html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}" title="Нажмите для подробной информации">
+                        <img src="${playstylePhotos[style]}" alt="${style}">
+                    </div>`;
+                } else {
+                    html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}" title="Нажмите для подробной информации">${style}</div>`;
+                }
+            });
+            container.innerHTML = html;
+            container.querySelectorAll('.playstyle-icon').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const styleKey = this.getAttribute('data-style');
+                    const playerId = this.getAttribute('data-player');
+                    if (styleKey && playerId) {
+                        openPlaystyleDetail(styleKey, playerId);
+                    }
+                });
+            });
+        }
+        function renderPlayerCards() {
+            const container = document.getElementById('players-grid-container');
+            if (!container) return;
+            let html = '';
+            filteredPlayerIds.forEach(id => {
+                const p = playersData[id];
+                const isMera = meraPlayerIds.includes(id);
+                const isBurmalda = burmaldaPlayerIds.includes(id);
+                let cardClass = 'player-card';
+                if (isMera) cardClass += ' mera-player';
+                if (isBurmalda) cardClass += ' burmalda-player';
+                const hasStyles = hasPlaystyles(id);
+                const playstylesBlock = hasStyles ? `
+                    <div class="playstyles-section" id="playstyles-${id}">
+                        <div class="playstyles-title">🎮 Плейстайлы</div>
+                        <div class="playstyles-grid" id="playstyles-grid-${id}"></div>
+                    </div>
+                ` : '';
+                let statsHtml = `
+                    <div class="stat-item"><div class="stat-value">${p.height}</div><div class="stat-label">Рост</div></div>
+                    <div class="stat-item"><div class="stat-value">${p.weight}</div><div class="stat-label">Вес</div></div>
+                    <div class="stat-item"><div class="stat-value">${p.rating}</div><div class="stat-label">Рейтинг</div></div>
+                `;
+                html += `<div class="${cardClass}" data-player="${id}">
+                    <div class="player-photo" id="${id}-photo-card"></div>
+                    <div class="player-info">
+                        <h3>${p.name}</h3>
+                        <p>${p.position} • ${p.age}</p>
+                        <div class="player-number">${p.number}</div>
+                    </div>
+                    <div class="player-stats">${statsHtml}</div>
+                    <div class="player-description">${p.description || 'здесь описание'}</div>
+                    ${playstylesBlock}
+                </div>`;
+            });
+            container.innerHTML = html;
+            currentPlayerIds.forEach(id => {
+                const cardPhoto = document.getElementById(`${id}-photo-card`);
+                if (cardPhoto) {
+                    cardPhoto.innerHTML = '';
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.alt = playersData[id].name;
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        cardPhoto.appendChild(img);
+                    } else {
+                        const icon = document.createElement('div');
+                        icon.style.fontSize = '2.5rem';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        icon.textContent = playersData[id].icon || '⚽';
+                        cardPhoto.appendChild(icon);
+                    }
+                }
+                if (hasPlaystyles(id)) {
+                    renderPlaystyles(id, `playstyles-grid-${id}`);
+                }
+            });
+            document.querySelectorAll('.player-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    openPlayerModal(playerId);
+                });
+            });
+            document.getElementById('players-count').textContent = `Найдено игроков: ${filteredPlayerIds.length}`;
+        }
+        function filterPlayers(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
+            if (term === '') {
+                filteredPlayerIds = [...currentPlayerIds];
+            } else {
+                filteredPlayerIds = currentPlayerIds.filter(id =>
+                    playersData[id].name.toLowerCase().includes(term)
+                );
+            }
+            applySortToFiltered();
+        }
+        function applySortToFiltered() {
+            if (activeSort === 'rating') {
+                filteredPlayerIds.sort((a, b) => playersData[b].rating - playersData[a].rating);
+            } else if (activeSort === 'name') {
+                filteredPlayerIds.sort((a, b) => playersData[a].name.localeCompare(playersData[b].name));
+            }
+            renderPlayerCards();
+        }
+        function resetSortAndFilter() {
+            document.getElementById('player-search').value = '';
+            filteredPlayerIds = [...currentPlayerIds];
+            activeSort = 'none';
+            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+            renderPlayerCards();
+        }
+        function openPlayerModal(playerId) {
+            const player = playersData[playerId];
+            if (!player) return;
+            const modal = document.getElementById('modal-window');
+            if (burmaldaPlayerIds.includes(playerId)) {
+                modal.classList.add('burmalda-modal');
+            } else {
+                modal.classList.remove('burmalda-modal');
+            }
+            document.getElementById('modal-name').textContent = player.name;
+            document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
+            const meraTag = document.getElementById('modal-mera-tag');
+            const burmaldaTag = document.getElementById('modal-burmalda-tag');
+            if (meraPlayerIds.includes(playerId)) {
+                meraTag.style.display = 'inline-block';
+            } else {
+                meraTag.style.display = 'none';
+            }
+            if (burmaldaPlayerIds.includes(playerId)) {
+                burmaldaTag.style.display = 'inline-block';
+            } else {
+                burmaldaTag.style.display = 'none';
+            }
+            const ratingElement = document.getElementById('modal-rating');
+            ratingElement.textContent = player.rating;
+            if (player.rating >= 80) ratingElement.className = 'rating-value rating-high';
+            else if (player.rating >= 75) ratingElement.className = 'rating-value rating-medium';
+            else ratingElement.className = 'rating-value rating-low';
+            document.getElementById('modal-description-text').textContent = player.description || 'здесь описание';
+            const modalPhoto = document.getElementById('modal-photo');
+            modalPhoto.innerHTML = '';
+            if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+                const img = document.createElement('img');
+                img.src = playerPhotos[playerId];
+                img.alt = player.name;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                modalPhoto.appendChild(img);
+            } else {
+                const icon = document.createElement('div');
+                icon.style.fontSize = '3rem';
+                icon.textContent = player.icon;
+                icon.style.width = '100%';
+                icon.style.height = '100%';
+                icon.style.display = 'flex';
+                icon.style.alignItems = 'center';
+                icon.style.justifyContent = 'center';
+                modalPhoto.appendChild(icon);
+            }
+            document.getElementById('normal-stats').style.display = 'grid';
+            document.getElementById('goalkeeper-stats').style.display = 'none';
+            document.getElementById('combined-stats').style.display = 'none';
+            document.getElementById('modal-foot').textContent = player.foot;
+            document.getElementById('modal-height').textContent = player.height;
+            document.getElementById('modal-weight').textContent = player.weight;
+            const modalPlaystylesSection = document.getElementById('modal-playstyles-section');
+            const modalPlaystylesGrid = document.getElementById('modal-playstyles-grid');
+            if (hasPlaystyles(playerId)) {
+                modalPlaystylesSection.classList.remove('playstyles-section-hidden');
+                const styles = player.playstyles;
+                let html = '';
+                styles.forEach(style => {
+                    const color = getPlaystyleColor(playerId, style);
+                    const colorClass = color === 'silver' ? 'silver' : '';
+                    if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                        html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
+                            <img src="${playstylePhotos[style]}" alt="${style}">
+                        </div>`;
+                    } else {
+                        html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">${style}</div>`;
+                    }
+                });
+                modalPlaystylesGrid.innerHTML = html;
+                modalPlaystylesGrid.querySelectorAll('.playstyle-icon').forEach(el => {
+                    el.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const styleKey = this.getAttribute('data-style');
+                        const playerId = this.getAttribute('data-player');
+                        if (styleKey && playerId) {
+                            openPlaystyleDetail(styleKey, playerId);
+                        }
+                    });
+                });
+            } else {
+                modalPlaystylesSection.classList.add('playstyles-section-hidden');
+                modalPlaystylesGrid.innerHTML = '';
+            }
+            document.getElementById('player-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
 
-const clubLogos = {
-    mera: "./Photos%20(2)/club-logo.jpg",
-    school78: "./Photos%20(2)/club-logo-78.jpg"
-};
+        function renderMatches() {
+            const container = document.getElementById('matches-list');
+            if (!container) return;
+            const matches = [
+                {
+                    id: 1,
+                    date: "23 июля 2026",
+                    time: "18:30",
+                    home: {
+                        name: "ФК МЕРА",
+                        logo: clubLogos.mera,
+                        id: "mera"
+                    },
+                    away: {
+                        name: "Школа 78",
+                        logo: clubLogos.school78,
+                        id: "school78"
+                    },
+                    score: "10 : 4",
+                    result: "Победа",
+                    resultType: "win"
+                }
+            ];
+            let html = '';
+            matches.forEach(match => {
+                const resultClass = match.resultType === 'win' ? '' : (match.resultType === 'loss' ? 'loss' : 'draw');
+                html += `
+                    <div class="match-card">
+                        <div class="match-date">📅 ${match.date} • ⏰ ${match.time}</div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <div class="team-logo">
+                                    <img src="${match.home.logo}" alt="${match.home.name}" onerror="this.style.display='none'">
+                                </div>
+                                <span>${match.home.name}</span>
+                            </div>
+                            <div class="score">${match.score}</div>
+                            <div class="team">
+                                <span>${match.away.name}</span>
+                                <div class="team-logo">
+                                    <img src="${match.away.logo}" alt="${match.away.name}" onerror="this.style.display='none'">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="match-result ${resultClass}">${match.result === 'Победа' ? '🏆 ' : ''}${match.result}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
 
-// ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ===================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPlayerCards();
+            renderMatches();
 
-const playstylePhotos = {
-    strag: "./Photos%20(2)/strag_gold.png",
-    strag_silver: "./Photos%20(2)/strag_silver.png",
-    enot: "./Photos%20(2)/enot.png",
-    Bezjalostniy: "./Photos%20(2)/vinos_gold.png",
-    vinos_silver: "./Photos%20(2)/vinos_gold.png",
-    obmanshik_silver: "./Photos%20(2)/Truk.png",
-    truk_gold: "./Photos%20(2)/truk_gold.png",
-    borec: "./Photos%20(2)/borec.png",
-    golova: "./Photos%20(2)/golova.png",
-    bistro_silver: "./Photos%20(2)/bistro.png",
-    bistro_gold: "./Photos%20(2)/bistro_gold.png",
-    pushka: "./Photos%20(2)/pushka.png",
-    pushka_silver: "./Photos%20(2)/pushka_silver.png",
-    tochno: "./Photos%20(2)/tochno.png",
-    tochno_silver: "./Photos%20(2)/tochno_silver.png",
-    otraz: "./Photos%20(2)/otraz.png",
-    vihod: "./Photos%20(2)/vihod.png",
-    bombardir: "./Photos%20(2)/bombardir.png",
-    bombardir_silver: "./Photos%20(2)/bombardir_silver.png",
-    naves: "./Photos%20(2)/naves.png",
-    intuation: "./Photos%20(2)/intuation.png",
-    borec_silver: "./Photos%20(2)/borec_silver.png",
-    simulant: "./Photos%20(2)/simulant.png",
-    parashut: "./Photos%20(2)/parashut.png",
-    parashut_silver: "./Photos%20(2)/parashut_silver.png",
-    tiki_taka: "./Photos%20(2)/tiki-taka.png",
-    tiki_taka_silver: "./Photos%20(2)/tiki-taka_silver.png",
-    simulant_silver: "./Photos%20(2)/simulant_silver.png",
-    pevec: "./Photos%20(2)/pevec.png",
-    pan: "./Photos%20(2)/pan.png",
-    geniy: "./Photos%20(2)/genius.png"
-};
-
-// ==================== ВИДЕО ДЛЯ ПЛЕЙСТАЙЛА "ПЕВЕЦ" ===================
-
-const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
+            const searchInput = document.getElementById('player-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    filterPlayers(e.target.value);
+                });
+            }
+            const sortRatingBtn = document.getElementById('sort-rating');
+            if (sortRatingBtn) {
+                sortRatingBtn.addEventListener('click', function() {
+                    activeSort = 'rating';
+                    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterPlayers(document.getElementById('player-search').value);
+                });
+            }
+            const sortNameBtn = document.getElementById('sort-name');
+            if (sortNameBtn) {
+                sortNameBtn.addEventListener('click', function() {
+                    activeSort = 'name';
+                    document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterPlayers(document.getElementById('player-search').value);
+                });
+            }
+            const resetBtn = document.getElementById('reset-sort');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    resetSortAndFilter();
+                });
+            }
+            document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
+            document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
+            document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
+            document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
+            document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
+            document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
+            document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
+            document.getElementById('modal-close')?.addEventListener('click', function() {
+                document.getElementById('player-modal').classList.remove('active');
+                document.getElementById('modal-window').classList.remove('burmalda-modal');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('player-modal')?.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.getElementById('modal-window').classList.remove('burmalda-modal');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.getElementById('playstyle-detail-close')?.addEventListener('click', closePlaystyleDetail);
+            document.getElementById('playstyle-detail-overlay')?.addEventListener('click', function(e) {
+                if (e.target === this) closePlaystyleDetail();
+            });
+            document.getElementById('win-close-btn')?.addEventListener('click', hideWinOverlay);
+            document.getElementById('slot-win-overlay')?.addEventListener('click', function(e) {
+                if (e.target === this) hideWinOverlay();
+            });
+            document.getElementById('slot-spin-btn')?.addEventListener('click', spinSlots);
+            document.getElementById('theme-toggle')?.addEventListener('click', function() {
+                themeClickCount++;
+                if (themeClickCount >= 5) {
+                    secretActivated = true;
+                    themeClickCount = 0;
+                }
+            });
+            const squadTabs = document.querySelectorAll('.squad-tab');
+            const tacticsDesc = document.getElementById('tactics-description');
+            squadTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    squadTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    const squadNum = this.getAttribute('data-squad');
+                    document.querySelectorAll('.squad-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`squad-${squadNum}`).classList.add('active');
+                    if (squadNum === '1') {
+                        tacticsDesc.innerHTML = '<strong>Описание:</strong> Первый состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
+                    } else {
+                        tacticsDesc.innerHTML = '<strong>Описание:</strong> Второй состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
+                    }
+                    if (squadNum === '2') {
+                        const squad2Players = ['andryushka', 'elanga', 'elisey', 'saveliy', 'hokkeist'];
+                        squad2Players.forEach(id => {
+                            const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : `${id}-photo-small`;
+                            const photoEl = document.getElementById(photoId);
+                            if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                                photoEl.innerHTML = '';
+                                const img = document.createElement('img');
+                                img.src = playerPhotos[id];
+                                img.style.width = '100%';
+                                img.style.height = '100%';
+                                img.style.objectFit = 'cover';
+                                photoEl.appendChild(img);
+                            }
+                        });
+                    }
+                });
+            });
+            const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
+            squad1Players.forEach(id => {
+                const photoEl = document.getElementById(`${id}-photo-small`);
+                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    const img = document.createElement('img');
+                    img.src = playerPhotos[id];
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    photoEl.appendChild(img);
+                } else if (photoEl) {
+                    const icon = document.createElement('div');
+                    icon.style.fontSize = '1.8rem';
+                    icon.textContent = playersData[id]?.icon || '⚽';
+                    icon.style.display = 'flex';
+                    icon.style.alignItems = 'center';
+                    icon.style.justifyContent = 'center';
+                    icon.style.width = '100%';
+                    icon.style.height = '100%';
+                    photoEl.appendChild(icon);
+                }
+            });
+            document.querySelectorAll('.player-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    if (playerId && playersData[playerId]) {
+                        openPlayerModal(playerId);
+                    }
+                });
+            });
+            const initialSymbols = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
+            updateReels(initialSymbols);
+            currentSymbols = initialSymbols.map(s => s.id);
+        });
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        document.getElementById('theme-toggle')?.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+        });
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.getElementById('theme-toggle').textContent = '☀️';
+        }
+    </script>
+    <script src="photos.js"></script>
+    <script>
+        const pevecVideoUrl = "./Photos (2)/pevec.mp4";
+    </script>
+</body>
+</html>
