@@ -2566,7 +2566,7 @@
                                 </div>
                             </div>
                             <div class="formation-line">
-                                <div class="player-item" data-player="kirill_beshchasny">
+                                <div class="player-item" data-player="kirill_beschastny">
                                     <div class="player-photo-small" id="match-kirill-photo"></div>
                                     <div class="player-name">Кирилл Б.</div>
                                     <span class="player-number">(5)</span>
@@ -3426,14 +3426,14 @@
             
             document.getElementById('match-card-1')?.addEventListener('click', function() {
                 showPage('match-tactics-page');
-                const matchPlayers = ['raya', 'maxim', 'lesha_podavalny', 'aleksey_doroshenko', 'saveliy_78', 'kirill_beshchasny', 'timofey_zaytsev', 'sanya_bobrikov'];
+                const matchPlayers = ['raya', 'maxim', 'lesha_podavalny', 'aleksey_doroshenko', 'saveliy_78', 'kirill_beschastny', 'timofey_zaytsev', 'sanya_bobrikov'];
                 const matchPhotoIds = {
                     'raya': 'match-raya-photo',
                     'maxim': 'match-maxim-photo',
                     'lesha_podavalny': 'match-lesha-photo',
                     'aleksey_doroshenko': 'match-aleksey-photo',
                     'saveliy_78': 'match-saveliy-photo',
-                    'kirill_beshchasny': 'match-kirill-photo',
+                    'kirill_beschastny': 'match-kirill-photo',
                     'timofey_zaytsev': 'match-timofey-photo',
                     'sanya_bobrikov': 'match-sanya-photo'
                 };
@@ -3614,45 +3614,35 @@
     <script>
         const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
     </script>
-    <!-- Исправление кликабельности Кирилла Бесчастного в тактике матча -->
     <script>
         (function fixKirillClick() {
+            function addKirillClickListener() {
+                const kirillItem = document.querySelector('#match-tactics-page .player-item[data-player="kirill_beschastny"]');
+                if (kirillItem) {
+                    kirillItem.style.cursor = 'pointer';
+                    kirillItem.style.pointerEvents = 'auto';
+                    if (!kirillItem._listenerAdded) {
+                        kirillItem.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const playerId = this.getAttribute('data-player');
+                            if (playerId && playersData[playerId]) {
+                                openPlayerModal(playerId);
+                            }
+                        });
+                        kirillItem._listenerAdded = true;
+                    }
+                }
+            }
             document.addEventListener('DOMContentLoaded', function() {
+                addKirillClickListener();
                 const matchCard = document.getElementById('match-card-1');
                 if (matchCard) {
                     matchCard.addEventListener('click', function() {
-                        setTimeout(function() {
-                            const kirillItem = document.querySelector('#match-tactics-page .player-item[data-player="kirill_beshchasny"]');
-                            if (kirillItem) {
-                                kirillItem.style.cursor = 'pointer';
-                                kirillItem.style.pointerEvents = 'auto';
-                                kirillItem.addEventListener('click', function(e) {
-                                    e.stopPropagation();
-                                    const playerId = this.getAttribute('data-player');
-                                    if (playerId && playersData[playerId]) {
-                                        openPlayerModal(playerId);
-                                    }
-                                });
-                            }
-                        }, 100);
+                        setTimeout(addKirillClickListener, 150);
                     });
                 }
                 const observer = new MutationObserver(function() {
-                    const kirillItem = document.querySelector('#match-tactics-page .player-item[data-player="kirill_beshchasny"]');
-                    if (kirillItem) {
-                        kirillItem.style.cursor = 'pointer';
-                        kirillItem.style.pointerEvents = 'auto';
-                        if (!kirillItem._listenerAdded) {
-                            kirillItem.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                const playerId = this.getAttribute('data-player');
-                                if (playerId && playersData[playerId]) {
-                                    openPlayerModal(playerId);
-                                }
-                            });
-                            kirillItem._listenerAdded = true;
-                        }
-                    }
+                    addKirillClickListener();
                 });
                 observer.observe(document.body, { childList: true, subtree: true });
             });
