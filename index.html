@@ -598,7 +598,6 @@
         .dark-theme .player-number {
             color: #4dabf7;
         }
-        /* Увеличенное расстояние между игроками в ФК МЕРА */
         .best-squad-container .formation-line {
             margin: 10px 0;
             gap: 25px;
@@ -3614,6 +3613,50 @@
     <script src="photos.js"></script>
     <script>
         const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
+    </script>
+    <!-- Исправление кликабельности Кирилла Бесчастного в тактике матча -->
+    <script>
+        (function fixKirillClick() {
+            document.addEventListener('DOMContentLoaded', function() {
+                const matchCard = document.getElementById('match-card-1');
+                if (matchCard) {
+                    matchCard.addEventListener('click', function() {
+                        setTimeout(function() {
+                            const kirillItem = document.querySelector('#match-tactics-page .player-item[data-player="kirill_beshchasny"]');
+                            if (kirillItem) {
+                                kirillItem.style.cursor = 'pointer';
+                                kirillItem.style.pointerEvents = 'auto';
+                                kirillItem.addEventListener('click', function(e) {
+                                    e.stopPropagation();
+                                    const playerId = this.getAttribute('data-player');
+                                    if (playerId && playersData[playerId]) {
+                                        openPlayerModal(playerId);
+                                    }
+                                });
+                            }
+                        }, 100);
+                    });
+                }
+                const observer = new MutationObserver(function() {
+                    const kirillItem = document.querySelector('#match-tactics-page .player-item[data-player="kirill_beshchasny"]');
+                    if (kirillItem) {
+                        kirillItem.style.cursor = 'pointer';
+                        kirillItem.style.pointerEvents = 'auto';
+                        if (!kirillItem._listenerAdded) {
+                            kirillItem.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                const playerId = this.getAttribute('data-player');
+                                if (playerId && playersData[playerId]) {
+                                    openPlayerModal(playerId);
+                                }
+                            });
+                            kirillItem._listenerAdded = true;
+                        }
+                    }
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+            });
+        })();
     </script>
 </body>
 </html>
