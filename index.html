@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Футбольный Двор "МЕРA"</title>
+    <!-- Мета-теги для превью ссылки -->
+    <meta property="og:title" content="Футбольный Двор МЕРА">
+    <meta property="og:description" content="Официальная статистика и новости футбольного двора МЕРА">
+    <meta property="og:image" content="./Photos%20(2)/club-logo.jpg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta name="twitter:card" content="summary">
     <style>
         * {
             margin: 0;
@@ -1615,16 +1622,29 @@
             margin-top: 20px;
             font-size: 1.4rem;
             font-weight: bold;
-            color: #28a745;
             padding: 12px;
-            background: #e6f7e6;
             border-radius: 30px;
             border: 1px solid #28a745;
         }
-        .dark-theme .match-result {
+        .match-result.win {
+            color: #28a745;
+            background: #e6f7e6;
+            border-color: #28a745;
+        }
+        .dark-theme .match-result.win {
             color: #2ecc71;
             background: #0a2a0a;
             border-color: #2ecc71;
+        }
+        .match-result.loss {
+            color: #dc3545;
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .dark-theme .match-result.loss {
+            color: #ff6b6b;
+            background: #4a0a0a;
+            border-color: #ff6b6b;
         }
         .match-result.away {
             color: #ffc107;
@@ -2301,6 +2321,10 @@
         .modal {
             scrollbar-width: none;
         }
+        /* Скрытые элементы для превью */
+        .preview-logo {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -2336,8 +2360,7 @@
                     <div class="main-button" id="burmalda-btn">
                         <div class="button-icon">🎰</div>
                         <div class="button-title">Бурмалда</div>
-                        <div class="button-description">Казик меллстройность
-                        </div>
+                        <div class="button-description">Казик меллстройность</div>
                     </div>
                 </div>
                 <div class="update-button-container">
@@ -2531,6 +2554,7 @@
                 <div class="matches-container">
                     <h2>📅 Матчи</h2>
                     
+                    <!-- Матч 1: Победа -->
                     <div class="match-card" id="match-card-1">
                         <div class="match-header">
                             <span class="match-date">23 июля 2026</span>
@@ -2552,13 +2576,39 @@
                                 <span class="team-name">78 школа</span>
                             </div>
                         </div>
-                        <div class="match-result">🏆 Победа ФК "МЕРА"</div>
+                        <div class="match-result win">🏆 Победа ФК "МЕРА"</div>
                     </div>
 
+                    <!-- Матч 2: Поражение -->
                     <div class="match-card" id="match-card-2">
                         <div class="match-header">
                             <span class="match-date">25 июля 2026</span>
                             <span class="match-time">18:30</span>
+                            <span class="match-location-tag home">🏠 Домашний матч</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="./Photos%20(2)/club-logo.jpg" alt="ФК МЕРА" class="team-logo">
+                                <span class="team-name">ФК "МЕРА"</span>
+                            </div>
+                            <div class="match-score">
+                                <span class="score">2</span>
+                                <span class="score-divider">:</span>
+                                <span class="score">6</span>
+                            </div>
+                            <div class="team">
+                                <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="team-logo">
+                                <span class="team-name">78 школа</span>
+                            </div>
+                        </div>
+                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
+                    </div>
+
+                    <!-- Матч 3: Будущий -->
+                    <div class="match-card" id="match-card-3">
+                        <div class="match-header">
+                            <span class="match-date">29 июля 2026</span>
+                            <span class="match-time">15:00</span>
                             <span class="match-location-tag away">✈️ Выездной матч</span>
                         </div>
                         <div class="match-teams">
@@ -2585,21 +2635,15 @@
                 <div class="match-tactics-container" id="match-tactics-container">
                     <h2>⚽ Тактика матча: ФК "МЕРА" vs ФК 78 школа</h2>
                     
-                    <div class="bench-section">
-                        <h4>Запасные:</h4>
-                        <div class="bench-players">
-                            <div class="bench-player-item" data-player="">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Состав 78 школы: 1-1-2 -->
                     <div class="tactics-team-title">🟡 ФК 78 школа (1-1-2)</div>
                     <div class="tactics-formation">
                         <div class="formation">
                             <div class="formation-line">
-                                <div class="player-item" data-player="saveliy_78">
-                                    <div class="player-photo-small" id="match-saveliy-photo"></div>
-                                    <div class="player-name">Савелий</div>
-                                    <span class="player-number">(78)</span>
+                                <div class="player-item" data-player="maxim_dcp">
+                                    <div class="player-photo-small" id="match-maxim_dcp-photo"></div>
+                                    <div class="player-name">Максим ДЦП</div>
+                                    <span class="player-number">(1)</span>
                                 </div>
                             </div>
                             <div class="formation-line">
@@ -2611,12 +2655,19 @@
                             </div>
                             <div class="formation-line">
                                 <div class="player-item" data-player="timofey_zaytsev">
-                                    <div class="player-photo-small" id="match-timofey-photo"></div>
+                                    <div class="player-photo-small" id="match-timofey_zaytsev-photo"></div>
                                     <div class="player-name">Тимофей З.</div>
                                     <span class="player-number">(7)</span>
                                 </div>
+                                <div class="player-item" data-player="tankov">
+                                    <div class="player-photo-small" id="match-tankov-photo"></div>
+                                    <div class="player-name">Танков Т.</div>
+                                    <span class="player-number">(99)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
                                 <div class="player-item" data-player="sanya_bobrikov">
-                                    <div class="player-photo-small" id="match-sanya-photo"></div>
+                                    <div class="player-photo-small" id="match-sanya_bobrikov-photo"></div>
                                     <div class="player-name">Саня Б.</div>
                                     <span class="player-number">(11)</span>
                                 </div>
@@ -2625,14 +2676,27 @@
                     </div>
 
                     <div class="tactics-opponent">
-                        
+                        <!-- Состав МЕРЫ: 1-2-1 (ромб) - Рая внизу, Максим над ним, по флангам Батраков и Подавальный, наверху Демид -->
+                        <div class="tactics-team-title">🔵 ФК "МЕРА" (1-2-1)</div>
                         <div class="tactics-formation">
                             <div class="formation">
                                 <div class="formation-line">
-                                    <div class="player-item" data-player="aleksey_doroshenko">
-                                        <div class="player-photo-small" id="match-aleksey-photo"></div>
-                                        <div class="player-name">Дорошенко</div>
-                                        <span class="player-number">(22)</span>
+                                    <div class="player-item" data-player="demid">
+                                        <div class="player-photo-small" id="match-demid-photo"></div>
+                                        <div class="player-name">Демид</div>
+                                        <span class="player-number">(45)</span>
+                                    </div>
+                                </div>
+                                <div class="formation-line">
+                                    <div class="player-item" data-player="batrakov">
+                                        <div class="player-photo-small" id="match-batrakov-photo"></div>
+                                        <div class="player-name">Батраков</div>
+                                        <span class="player-number">(83)</span>
+                                    </div>
+                                    <div class="player-item" data-player="lesha_podavalny">
+                                        <div class="player-photo-small" id="match-lesha_podavalny-photo"></div>
+                                        <div class="player-name">Подавальный</div>
+                                        <span class="player-number">(41)</span>
                                     </div>
                                 </div>
                                 <div class="formation-line">
@@ -2641,11 +2705,6 @@
                                         <div class="player-name">Максим</div>
                                         <span class="player-number">(8)</span>
                                     </div>
-                                    <div class="player-item" data-player="lesha_podavalny">
-                                        <div class="player-photo-small" id="match-lesha-photo"></div>
-                                        <div class="player-name">Подавальный</div>
-                                        <span class="player-number">(41)</span>
-                                    </div>
                                 </div>
                                 <div class="formation-line">
                                     <div class="player-item" data-player="raya">
@@ -2653,32 +2712,6 @@
                                         <div class="player-name">Рая</div>
                                         <span class="player-number">(1)</span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tactics-team-title">🔵 ФК "МЕРА" (1-2-1)</div>
-                        <div class="bench-section">
-                            <h4>Запасные МЕРЫ:</h4>
-                            <div class="bench-players">
-                                <div class="bench-player-item" data-player="matvey">
-                                    <div class="bench-player-photo" id="bench-matvey-photo"></div>
-                                    <div class="bench-player-name">Матвей Слащев</div>
-                                </div>
-                                <div class="bench-player-item" data-player="batrakov">
-                                    <div class="bench-player-photo" id="bench-batrakov-photo"></div>
-                                    <div class="bench-player-name">Глебасик</div>
-                                </div>
-                                <div class="bench-player-item bench-player-tag youth" data-player="andryushka">
-                                    <div class="bench-player-photo" id="bench-andryushka-photo"></div>
-                                    <div class="bench-player-name">Андрюшка*</div>
-                                </div>
-                                <div class="bench-player-item" data-player="elanga">
-                                    <div class="bench-player-photo" id="bench-elanga-photo"></div>
-                                    <div class="bench-player-name">Еланга</div>
-                                </div>
-                                <div class="bench-player-item burmalda-bench" data-player="elisey">
-                                    <div class="bench-player-photo" id="bench-elisey-photo"></div>
-                                    <div class="bench-player-name">Елисей</div>
                                 </div>
                             </div>
                         </div>
@@ -2692,7 +2725,7 @@
                         <div class="upcoming-icon">⏳</div>
                         <h3>Матч ещё не состоялся</h3>
                         <p>Схема и тактика матча будут доступны <br>только после его проведения!</p>
-                        <div class="match-location-big">✈️ Выездной матч • 25 июля 2026 • 18:30</div>
+                        <div class="match-location-big">✈️ Выездной матч • 29 июля 2026 • 15:00</div>
                     </div>
                 </div>
             </div>
@@ -3464,21 +3497,34 @@
                 }
             });
             
+            // Обработчики для матчей
             document.getElementById('match-card-1')?.addEventListener('click', function() {
                 showPage('match-tactics-page');
-                const matchPlayers = ['raya', 'maxim', 'lesha_podavalny', 'aleksey_doroshenko', 'saveliy_78', 'kirill_beschastny', 'timofey_zaytsev', 'sanya_bobrikov'];
-                const matchPhotoIds = {
+                loadMatchTactics();
+            });
+            
+            document.getElementById('match-card-2')?.addEventListener('click', function() {
+                showPage('match-tactics-page');
+                loadMatchTactics();
+            });
+            
+            document.getElementById('match-card-3')?.addEventListener('click', function() {
+                showPage('match-upcoming-page');
+            });
+            
+            function loadMatchTactics() {
+                // Загрузка фото для состава МЕРЫ (1-2-1 ромб)
+                // Рая внизу, Максим над ним, по флангам Батраков и Подавальный, наверху Демид
+                const meraPlayers = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'demid'];
+                const meraPhotoIds = {
                     'raya': 'match-raya-photo',
                     'maxim': 'match-maxim-photo',
-                    'lesha_podavalny': 'match-lesha-photo',
-                    'aleksey_doroshenko': 'match-aleksey-photo',
-                    'saveliy_78': 'match-saveliy-photo',
-                    'kirill_beschastny': 'match-kirill-photo',
-                    'timofey_zaytsev': 'match-timofey-photo',
-                    'sanya_bobrikov': 'match-sanya-photo'
+                    'batrakov': 'match-batrakov-photo',
+                    'lesha_podavalny': 'match-lesha_podavalny-photo',
+                    'demid': 'match-demid-photo'
                 };
-                matchPlayers.forEach(id => {
-                    const el = document.getElementById(matchPhotoIds[id]);
+                meraPlayers.forEach(id => {
+                    const el = document.getElementById(meraPhotoIds[id]);
                     if (el && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         el.innerHTML = '';
                         const img = document.createElement('img');
@@ -3500,17 +3546,17 @@
                     }
                 });
                 
-                const benchPlayers = ['matvey', 'batrakov', 'andryushka', 'elanga', 'elisey', 'maxim_dcp'];
-                const benchPhotoIds = {
-                    'matvey': 'bench-matvey-photo',
-                    'batrakov': 'bench-batrakov-photo',
-                    'andryushka': 'bench-andryushka-photo',
-                    'elanga': 'bench-elanga-photo',
-                    'elisey': 'bench-elisey-photo',
-                    'maxim_dcp': 'bench-maxim-dcp-photo'
+                // Загрузка фото для состава 78 школы (1-1-2)
+                const school78Players = ['maxim_dcp', 'kirill_beschastny', 'timofey_zaytsev', 'tankov', 'sanya_bobrikov'];
+                const school78PhotoIds = {
+                    'maxim_dcp': 'match-maxim_dcp-photo',
+                    'kirill_beschastny': 'match-kirill-photo',
+                    'timofey_zaytsev': 'match-timofey_zaytsev-photo',
+                    'tankov': 'match-tankov-photo',
+                    'sanya_bobrikov': 'match-sanya_bobrikov-photo'
                 };
-                benchPlayers.forEach(id => {
-                    const el = document.getElementById(benchPhotoIds[id]);
+                school78Players.forEach(id => {
+                    const el = document.getElementById(school78PhotoIds[id]);
                     if (el && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         el.innerHTML = '';
                         const img = document.createElement('img');
@@ -3521,7 +3567,7 @@
                         el.appendChild(img);
                     } else if (el) {
                         const icon = document.createElement('div');
-                        icon.style.fontSize = '1.4rem';
+                        icon.style.fontSize = '1.8rem';
                         icon.textContent = playersData[id]?.icon || '⚽';
                         icon.style.display = 'flex';
                         icon.style.alignItems = 'center';
@@ -3532,7 +3578,8 @@
                     }
                 });
                 
-                document.querySelectorAll('#match-tactics-page .player-item, #match-tactics-page .bench-player-item').forEach(item => {
+                // Добавляем клики по игрокам
+                document.querySelectorAll('#match-tactics-page .player-item').forEach(item => {
                     item.addEventListener('click', function() {
                         const playerId = this.getAttribute('data-player');
                         if (playerId && playersData[playerId]) {
@@ -3540,11 +3587,7 @@
                         }
                     });
                 });
-            });
-            
-            document.getElementById('match-card-2')?.addEventListener('click', function() {
-                showPage('match-upcoming-page');
-            });
+            }
             
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
@@ -3653,40 +3696,6 @@
     <script src="photos.js"></script>
     <script>
         const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
-    </script>
-    <script>
-        (function fixKirillClick() {
-            function addKirillClickListener() {
-                const kirillItem = document.querySelector('#match-tactics-page .player-item[data-player="kirill_beschastny"]');
-                if (kirillItem) {
-                    kirillItem.style.cursor = 'pointer';
-                    kirillItem.style.pointerEvents = 'auto';
-                    if (!kirillItem._listenerAdded) {
-                        kirillItem.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            const playerId = this.getAttribute('data-player');
-                            if (playerId && playersData[playerId]) {
-                                openPlayerModal(playerId);
-                            }
-                        });
-                        kirillItem._listenerAdded = true;
-                    }
-                }
-            }
-            document.addEventListener('DOMContentLoaded', function() {
-                addKirillClickListener();
-                const matchCard = document.getElementById('match-card-1');
-                if (matchCard) {
-                    matchCard.addEventListener('click', function() {
-                        setTimeout(addKirillClickListener, 150);
-                    });
-                }
-                const observer = new MutationObserver(function() {
-                    addKirillClickListener();
-                });
-                observer.observe(document.body, { childList: true, subtree: true });
-            });
-        })();
     </script>
 </body>
 </html>
