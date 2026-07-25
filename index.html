@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Футбольный Двор "МЕРA"</title>
+    <!-- Мета-теги для превью ссылки -->
     <meta property="og:title" content="Футбольный Двор МЕРА">
     <meta property="og:description" content="Официальная статистика и новости футбольного двора МЕРА">
     <meta property="og:image" content="./Photos%20(2)/club-logo.jpg">
@@ -2583,7 +2584,7 @@
                         <div class="match-header">
                             <span class="match-date">25 июля 2026</span>
                             <span class="match-time">18:30</span>
-                            <span <span class="match-location-tag away">✈️ Выездной матч</span>
+                            <span class="match-location-tag home">🏠 Домашний матч</span>
                         </div>
                         <div class="match-teams">
                             <div class="team">
@@ -2673,6 +2674,21 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Скамейка 78 школы -->
+                    <div class="bench-section">
+                        <h4>Запасные 78 школы:</h4>
+                        <div class="bench-players">
+                            <div class="bench-player-item" data-player="saveliy_78">
+                                <div class="bench-player-photo" id="bench-saveliy-photo"></div>
+                                <div class="bench-player-name">Савелий С.</div>
+                            </div>
+                            <div class="bench-player-item" data-player="ostap">
+                                <div class="bench-player-photo" id="bench-ostap-photo"></div>
+                                <div class="bench-player-name">Остап</div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="tactics-opponent">
                         <!-- Состав МЕРЫ: 1-2-1 (ромб) - Рая внизу, Максим над ним, по флангам Батраков и Подавальный, наверху Демид -->
@@ -2711,6 +2727,29 @@
                                         <div class="player-name">Рая</div>
                                         <span class="player-number">(1)</span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Скамейка МЕРЫ -->
+                        <div class="bench-section">
+                            <h4>Запасные МЕРЫ:</h4>
+                            <div class="bench-players">
+                                <div class="bench-player-item" data-player="stepa">
+                                    <div class="bench-player-photo" id="bench-stepa-photo"></div>
+                                    <div class="bench-player-name">Стёпа Ш.</div>
+                                </div>
+                                <div class="bench-player-item bench-player-tag youth" data-player="andryushka">
+                                    <div class="bench-player-photo" id="bench-andryushka-photo"></div>
+                                    <div class="bench-player-name">Андрюшка*</div>
+                                </div>
+                                <div class="bench-player-item burmalda-bench" data-player="elisey">
+                                    <div class="bench-player-photo" id="bench-elisey-photo"></div>
+                                    <div class="bench-player-name">Елисей</div>
+                                </div>
+                                <div class="bench-player-item" data-player="kostya">
+                                    <div class="bench-player-photo" id="bench-kostya-photo"></div>
+                                    <div class="bench-player-name">Костя Л.</div>
                                 </div>
                             </div>
                         </div>
@@ -2873,7 +2912,9 @@
             { id: "sanya_bobrikov", name: "Саня Бобриков", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр ", height: "175 см", weight: "51 кг", rating: 92, number: "(11)", description: "Нападающий ФК 78 школа", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
             { id: "kirill_beschastny", name: "Кирилл Бесчастный", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 81, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
             { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 93, number: "(1)", description: "Вратарь ФК 78 школа", playstyles: ["otraz", "vihod"], playstyleColors: {otraz: "gold", vihod: "gold"} },
-            { id: "tankov", name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 91, number: "(99)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} }
+            { id: "tankov", name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 91, number: "(99)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            // Новый игрок Остап
+            { id: "ostap", name: "Остап", position: "Полузащитник", age: "?", icon: "⚽", foot: "?", height: "?", weight: "?", rating: 67, number: "(?", description: "Новый игрок 78 школы", playstyles: [], playstyleColors: {} }
         ];
         
         const playersData = { ...basePlayers };
@@ -3513,14 +3554,17 @@
             
             function loadMatchTactics() {
                 // Загрузка фото для состава МЕРЫ (1-2-1 ромб)
-                // Рая внизу, Максим над ним, по флангам Батраков и Подавальный, наверху Демид
-                const meraPlayers = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'demid'];
+                const meraPlayers = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'demid', 'stepa', 'andryushka', 'elisey', 'kostya'];
                 const meraPhotoIds = {
                     'raya': 'match-raya-photo',
                     'maxim': 'match-maxim-photo',
                     'batrakov': 'match-batrakov-photo',
                     'lesha_podavalny': 'match-lesha_podavalny-photo',
-                    'demid': 'match-demid-photo'
+                    'demid': 'match-demid-photo',
+                    'stepa': 'bench-stepa-photo',
+                    'andryushka': 'bench-andryushka-photo',
+                    'elisey': 'bench-elisey-photo',
+                    'kostya': 'bench-kostya-photo'
                 };
                 meraPlayers.forEach(id => {
                     const el = document.getElementById(meraPhotoIds[id]);
@@ -3546,13 +3590,15 @@
                 });
                 
                 // Загрузка фото для состава 78 школы (1-1-2)
-                const school78Players = ['maxim_dcp', 'kirill_beschastny', 'timofey_zaytsev', 'tankov', 'sanya_bobrikov'];
+                const school78Players = ['maxim_dcp', 'kirill_beschastny', 'timofey_zaytsev', 'tankov', 'sanya_bobrikov', 'saveliy_78', 'ostap'];
                 const school78PhotoIds = {
                     'maxim_dcp': 'match-maxim_dcp-photo',
                     'kirill_beschastny': 'match-kirill-photo',
                     'timofey_zaytsev': 'match-timofey_zaytsev-photo',
                     'tankov': 'match-tankov-photo',
-                    'sanya_bobrikov': 'match-sanya_bobrikov-photo'
+                    'sanya_bobrikov': 'match-sanya_bobrikov-photo',
+                    'saveliy_78': 'bench-saveliy-photo',
+                    'ostap': 'bench-ostap-photo'
                 };
                 school78Players.forEach(id => {
                     const el = document.getElementById(school78PhotoIds[id]);
@@ -3578,7 +3624,7 @@
                 });
                 
                 // Добавляем клики по игрокам
-                document.querySelectorAll('#match-tactics-page .player-item').forEach(item => {
+                document.querySelectorAll('#match-tactics-page .player-item, #match-tactics-page .bench-player-item').forEach(item => {
                     item.addEventListener('click', function() {
                         const playerId = this.getAttribute('data-player');
                         if (playerId && playersData[playerId]) {
