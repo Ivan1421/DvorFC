@@ -22,7 +22,8 @@ const playerPhotos = {
     saldaevk: "./Photos%20(2)/saldK.jpg",
     saldaevd: "./Photos%20(2)/saldD.jpg",
     vladimirova: "./Photos%20(2)/vladA.png",
-    timofey: "./Photos%20(2)/F8BE5DFF-01B2-478A-A49D-F3BDE1CE5841.webp"
+    timofey: "./Photos%20(2)/F8BE5DFF-01B2-478A-A49D-F3BDE1CE5841.webp",
+    vanya: "./Photos%20(2)/kepa.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
