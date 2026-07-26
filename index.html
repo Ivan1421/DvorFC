@@ -3737,20 +3737,28 @@
                         });
                     }
                     if (squadNum === '3') {
-                        const squad3Players = ['andryushka', 'maradona', 'vanya', 'matvey', 'timofey'];
-                        squad3Players.forEach(id => {
-                            const photoId = id === 'matvey' ? 'matvey-photo-small-squad' : (id === 'timofey' ? 'timofey-photo-small-2' : `${id}-photo-small`);
-                            const photoEl = document.getElementById(photoId);
-                            if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                                photoEl.innerHTML = '';
-                                const img = document.createElement('img');
-                                img.src = playerPhotos[id];
-                                img.style.width = '100%';
-                                img.style.height = '100%';
-                                img.style.objectFit = 'cover';
-                                photoEl.appendChild(img);
-                            }
-                        });
+                        // Загрузка фото для squad-3
+const squad3Players = ['andryushka', 'maradona', 'vanya', 'matvey', 'timofey'];
+squad3Players.forEach(id => {
+    let photoId;
+    if (id === 'matvey') {
+        photoId = 'matvey-photo-small-squad';
+    } else if (id === 'timofey') {
+        photoId = 'timofey-photo-small-2';
+    } else {
+        photoId = `${id}-photo-small`;
+    }
+    const photoEl = document.getElementById(photoId);
+    if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+        photoEl.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = playerPhotos[id];
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        photoEl.appendChild(img);
+    }
+});
                     }
                 });
             });
