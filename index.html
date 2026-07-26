@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Футбольный Двор "МЕРA"</title>
-    <!-- Мета-теги для превью ссылки -->
     <meta property="og:title" content="Футбольный Двор МЕРА">
     <meta property="og:description" content="Официальная статистика и новости футбольного двора МЕРА">
     <meta property="og:image" content="./Photos%20(2)/club-logo.jpg">
@@ -1550,6 +1549,11 @@
             color: #ffd8a8;
             border-color: #ffd43b;
         }
+        .dark-theme .match-location-tag.neutral {
+            background: #545252dc;
+            color: #ffe3e3;
+            border-color: #000;
+        }
         .match-teams {
             display: flex;
             align-items: center;
@@ -1662,6 +1666,18 @@
         .dark-theme .match-result.away .match-result-icon {
             color: #ffd43b;
         }
+        .match-penalty {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #888;
+    background: transparent;
+    padding: 4px 0;
+}
+.dark-theme .match-penalty {
+    color: #999;
+}
         .match-tactics-container {
             background: white;
             border-radius: 15px;
@@ -2321,7 +2337,6 @@
         .modal {
             scrollbar-width: none;
         }
-        /* Скрытые элементы для превью */
         .preview-logo {
             display: none;
         }
@@ -2554,8 +2569,7 @@
                 <div class="matches-container">
                     <h2>📅 Матчи</h2>
                     
-                    <!-- Матч 1: Победа -->
-                    <div class="match-card" id="match-card-1">
+                    <div class="match-card" data-match="1" id="match-card-1">
                         <div class="match-header">
                             <span class="match-date">23 июля 2026</span>
                             <span class="match-time">18:30</span>
@@ -2579,8 +2593,7 @@
                         <div class="match-result win">🏆 Победа ФК "МЕРА"</div>
                     </div>
 
-                    <!-- Матч 2: Поражение -->
-                    <div class="match-card" id="match-card-2">
+                    <div class="match-card" data-match="2" id="match-card-2">
                         <div class="match-header">
                             <span class="match-date">25 июля 2026</span>
                             <span class="match-time">18:30</span>
@@ -2604,116 +2617,57 @@
                         <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
                     </div>
 
-                    <!-- Матч 3: Будущий -->
-                    <div class="match-card" id="match-card-3">
-                        <div class="match-header">
-                            <span class="match-date">29 июля 2026</span>
-                            <span class="match-time">15:00</span>
-                            <span class="match-location-tag away">✈️ Выездной матч</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="team-logo">
-                                <span class="team-name">78 школа</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">?</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">?</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/club-logo.jpg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-result away">⏳ Ожидание матча</div>
-                    </div>
+<div class="match-card" data-match="3" id="match-card-3">
+    <div class="match-header">
+        <span class="match-date">26 июля 2026</span>
+        <span class="match-time">20:00</span>
+        <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
+    </div>
+    <div class="match-teams">
+        <div class="team">
+            <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="team-logo">
+            <span class="team-name">78 школа</span>
+        </div>
+        <div class="match-score">
+            <span class="score">3</span>
+            <span class="score-divider">:</span>
+            <span class="score">3</span>
+        </div>
+        <div class="team">
+            <img src="./Photos%20(2)/club-logo.jpg" alt="ФК МЕРА" class="team-logo">
+            <span class="team-name">ФК "МЕРА"</span>
+        </div>
+    </div>
+    <div class="match-penalty">Пенальти 4:2</div>
+    <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
+</div>
                 </div>
             </div>
             <div id="match-tactics-page" class="page">
                 <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
                 <div class="match-tactics-container" id="match-tactics-container">
-                    <h2>⚽ Тактика матча: ФК 78 школа vs ФК "МЕРА"</h2>
+                    <h2 id="match-tactics-title">⚽ Тактика матча</h2>
                     
-                    <!-- Состав 78 школы: 1-2-1 (ромб) -->
+                    
+                    
+                    <div class="bench-section" id="school78-bench">
+                        <h4>🔄 Запасные (78 школа)</h4>
+                        <div class="bench-players" id="school78-bench-players"></div>
+                    </div>
                     <div class="tactics-team-title">🟡 ФК 78 школа (1-1-2)</div>
                     <div class="tactics-formation">
-                        <div class="formation">
-                            <div class="formation-line">
-                                <div class="player-item" data-player="tankov">
-                                    <div class="player-photo-small" id="match-tankov-photo"></div>
-                                    <div class="player-name">Танков Т.</div>
-                                    <span class="player-number">(99)</span>
-                                </div>
-                            </div>
-                            <div class="formation-line">
-                                <div class="player-item" data-player="maxim_dcp">
-                                    <div class="player-photo-small" id="match-maxim_dcp-photo"></div>
-                                    <div class="player-name">Максим ДЦП</div>
-                                    <span class="player-number">(1)</span>
-                                </div>
-                            </div>
-                            <div class="formation-line">
-                                <div class="player-item" data-player="timofey_zaytsev">
-                                    <div class="player-photo-small" id="match-timofey_zaytsev-photo"></div>
-                                    <div class="player-name">Тимофей З.</div>
-                                    <span class="player-number">(7)</span>
-                                </div>
-                                <div class="player-item" data-player="kirill_beschastny">
-                                    <div class="player-photo-small" id="match-kirill_beschastny-photo"></div>
-                                    <div class="player-name">Кирилл Б.</div>
-                                    <span class="player-number">(5)</span>
-                                </div>
-                            </div>
-                            <div class="formation-line">
-                                <div class="player-item" data-player="sanya_bobrikov">
-                                    <div class="player-photo-small" id="match-sanya_bobrikov-photo"></div>
-                                    <div class="player-name">Саня Б.</div>
-                                    <span class="player-number">(11)</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="formation" id="school78-formation"></div>
                     </div>
 
                     <div class="tactics-opponent">
-                        <!-- Состав МЕРЫ: 1-2-1 (ромб) - Рая внизу, Максим над ним, по флангам Батраков и Подавальный, наверху Демид -->
-                        <div class="tactics-team-title">🔵 ФК "МЕРА" (1-2-1)</div>
+                        
                         <div class="tactics-formation">
-                            <div class="formation">
-                                <div class="formation-line">
-                                    <div class="player-item" data-player="demid">
-                                        <div class="player-photo-small" id="match-demid-photo"></div>
-                                        <div class="player-name">Демид</div>
-                                        <span class="player-number">(45)</span>
-                                    </div>
-                                </div>
-                                <div class="formation-line">
-                                    <div class="player-item" data-player="batrakov">
-                                        <div class="player-photo-small" id="match-batrakov-photo"></div>
-                                        <div class="player-name">Батраков</div>
-                                        <span class="player-number">(83)</span>
-                                    </div>
-                                    <div class="player-item" data-player="lesha_podavalny">
-                                        <div class="player-photo-small" id="match-lesha_podavalny-photo"></div>
-                                        <div class="player-name">Подавальный</div>
-                                        <span class="player-number">(41)</span>
-                                    </div>
-                                </div>
-                                <div class="formation-line">
-                                    <div class="player-item" data-player="maxim">
-                                        <div class="player-photo-small" id="match-maxim-photo"></div>
-                                        <div class="player-name">Максим</div>
-                                        <span class="player-number">(8)</span>
-                                    </div>
-                                </div>
-                                <div class="formation-line">
-                                    <div class="player-item" data-player="raya">
-                                        <div class="player-photo-small" id="match-raya-photo"></div>
-                                        <div class="player-name">Рая</div>
-                                        <span class="player-number">(1)</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="formation" id="mera-formation"></div>
+                        </div>
+                        <div class="tactics-team-title">🔵 ФК "МЕРА" (1-2-1)</div>
+                        <div class="bench-section" id="mera-bench">
+                            <h4>🔄 Запасные (ФК "МЕРА")</h4>
+                            <div class="bench-players" id="mera-bench-players"></div>
                         </div>
                     </div>
                 </div>
@@ -2916,6 +2870,78 @@
         let winDesc = document.getElementById('win-desc');
         let themeClickCount = 0;
         let secretActivated = false;
+        
+        const matchTacticsData = {
+            1: {
+                title: 'ФК 78 школа vs ФК "МЕРА" (Матч 1)',
+                mera: {
+                    formation: [
+                        ['aleksey_doroshenko'],
+                        ['batrakov', 'lesha_podavalny'],
+                        ['maxim'],
+                        ['raya']
+                    ],
+                    players: ['aleksey_doroshenko', 'batrakov', 'lesha_podavalny', 'maxim', 'raya'],
+                    bench: ['matvey', 'andryushka', 'elisey', 'elanga', 'kostya']
+                },
+                school78: {
+                    formation: [
+                        ['tankov'],
+                        ['maxim_dcp'],
+                        ['timofey_zaytsev', 'kirill_beschastny'],
+                        ['sanya_bobrikov']
+                    ],
+                    players: ['tankov', 'maxim_dcp', 'timofey_zaytsev', 'kirill_beschastny', 'sanya_bobrikov'],
+                    bench: ['saveliy_78']
+                }
+            },
+            2: {
+                title: 'ФК 78 школа vs ФК "МЕРА" (Матч 2)',
+                mera: {
+                    formation: [
+                        ['demid'],
+                        ['batrakov', 'lesha_podavalny'],
+                        ['maxim'],
+                        ['raya']
+                    ],
+                    players: ['batrakov', 'demid', 'lesha_podavalny', 'maxim', 'raya'],
+                    bench: ['stepa', 'elisey', 'kostya', 'andryushka']
+                },
+                school78: {
+                    formation: [
+                        ['tankov'],
+                        ['maxim_dcp'],
+                        ['timofey_zaytsev', 'kirill_beschastny'],
+                        ['sanya_bobrikov']
+                    ],
+                    players: ['timofey_zaytsev', 'maxim_dcp', 'tankov', 'kirill_beschastny', 'sanya_bobrikov'],
+                    bench: []
+                }
+            },
+            3: {
+                title: 'ФК 78 школа vs ФК "МЕРА" (Матч 3)',
+                mera: {
+                    formation: [
+                        ['aleksey_doroshenko'],
+                        ['demid', 'lesha_podavalny'],
+                        ['maxim'],
+                        ['raya']
+                    ],
+                    players: ['aleksey_doroshenko', 'demid', 'lesha_podavalny', 'maxim', 'raya'],
+                    bench: ['kostya', 'batrakov', 'elisey', 'andryushka', 'elanga']
+                },
+                school78: {
+                    formation: [
+                        ['kirill_beschastny'],
+                        ['tankov'],
+                        ['sanya_bobrikov', 'maxim_dcp'],
+                        ['timofey_zaytsev']
+                    ],
+                    players: ['kirill_beschastny', 'tankov', 'sanya_bobrikov', 'maxim_dcp', 'timofey_zaytsev'],
+                    bench: []
+                }
+            }
+        };
         
         function getRandomSymbol() {
             return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
@@ -3408,6 +3434,179 @@
             document.body.style.overflow = 'hidden';
         }
         
+        function renderMatchTactics(matchNum) {
+            const data = matchTacticsData[matchNum];
+            if (!data) return;
+            
+            document.getElementById('match-tactics-title').textContent = `⚽ Тактика матча: ${data.title}`;
+            
+            const schoolContainer = document.getElementById('school78-formation');
+            if (schoolContainer) {
+                schoolContainer.innerHTML = '';
+                data.school78.formation.forEach(line => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'formation-line';
+                    line.forEach(playerId => {
+                        const player = playersData[playerId];
+                        if (!player) return;
+                        const item = document.createElement('div');
+                        item.className = 'player-item';
+                        item.setAttribute('data-player', playerId);
+                        item.innerHTML = `
+                            <div class="player-photo-small" id="match-${playerId}-photo"></div>
+                            <div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
+                            <span class="player-number">${player.number}</span>
+                        `;
+                        lineDiv.appendChild(item);
+                    });
+                    schoolContainer.appendChild(lineDiv);
+                });
+            }
+            
+            const meraContainer = document.getElementById('mera-formation');
+            if (meraContainer) {
+                meraContainer.innerHTML = '';
+                data.mera.formation.forEach(line => {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'formation-line';
+                    line.forEach(playerId => {
+                        const player = playersData[playerId];
+                        if (!player) return;
+                        const item = document.createElement('div');
+                        item.className = 'player-item';
+                        item.setAttribute('data-player', playerId);
+                        item.innerHTML = `
+                            <div class="player-photo-small" id="match-${playerId}-photo"></div>
+                            <div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
+                            <span class="player-number">${player.number}</span>
+                        `;
+                        lineDiv.appendChild(item);
+                    });
+                    meraContainer.appendChild(lineDiv);
+                });
+            }
+            
+            const schoolBench = document.getElementById('school78-bench-players');
+            if (schoolBench) {
+                schoolBench.innerHTML = '';
+                if (data.school78.bench && data.school78.bench.length > 0) {
+                    data.school78.bench.forEach(playerId => {
+                        const player = playersData[playerId];
+                        if (!player) return;
+                        const item = document.createElement('div');
+                        item.className = 'bench-player-item';
+                        item.setAttribute('data-player', playerId);
+                        item.innerHTML = `
+                            <div class="bench-player-photo" id="bench-${playerId}-photo"></div>
+                            <div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
+                        `;
+                        schoolBench.appendChild(item);
+                        const photoEl = document.getElementById(`bench-${playerId}-photo`);
+                        if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+                            photoEl.innerHTML = '';
+                            const img = document.createElement('img');
+                            img.src = playerPhotos[playerId];
+                            img.style.width = '100%';
+                            img.style.height = '100%';
+                            img.style.objectFit = 'cover';
+                            photoEl.appendChild(img);
+                        } else if (photoEl) {
+                            const icon = document.createElement('div');
+                            icon.style.fontSize = '1.2rem';
+                            icon.textContent = playersData[playerId]?.icon || '⚽';
+                            icon.style.display = 'flex';
+                            icon.style.alignItems = 'center';
+                            icon.style.justifyContent = 'center';
+                            icon.style.width = '100%';
+                            icon.style.height = '100%';
+                            photoEl.appendChild(icon);
+                        }
+                    });
+                }
+            }
+            
+            const meraBench = document.getElementById('mera-bench-players');
+            if (meraBench) {
+                meraBench.innerHTML = '';
+                if (data.mera.bench && data.mera.bench.length > 0) {
+                    data.mera.bench.forEach(playerId => {
+                        const player = playersData[playerId];
+                        if (!player) return;
+                        const item = document.createElement('div');
+                        item.className = 'bench-player-item';
+                        item.setAttribute('data-player', playerId);
+                        item.innerHTML = `
+                            <div class="bench-player-photo" id="bench-${playerId}-photo"></div>
+                            <div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
+                        `;
+                        meraBench.appendChild(item);
+                        const photoEl = document.getElementById(`bench-${playerId}-photo`);
+                        if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+                            photoEl.innerHTML = '';
+                            const img = document.createElement('img');
+                            img.src = playerPhotos[playerId];
+                            img.style.width = '100%';
+                            img.style.height = '100%';
+                            img.style.objectFit = 'cover';
+                            photoEl.appendChild(img);
+                        } else if (photoEl) {
+                            const icon = document.createElement('div');
+                            icon.style.fontSize = '1.2rem';
+                            icon.textContent = playersData[playerId]?.icon || '⚽';
+                            icon.style.display = 'flex';
+                            icon.style.alignItems = 'center';
+                            icon.style.justifyContent = 'center';
+                            icon.style.width = '100%';
+                            icon.style.height = '100%';
+                            photoEl.appendChild(icon);
+                        }
+                    });
+                }
+            }
+            
+            const allPlayers = [...data.mera.players, ...data.school78.players];
+            allPlayers.forEach(id => {
+                const photoEl = document.getElementById(`match-${id}-photo`);
+                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    photoEl.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = playerPhotos[id];
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    photoEl.appendChild(img);
+                } else if (photoEl) {
+                    const icon = document.createElement('div');
+                    icon.style.fontSize = '1.8rem';
+                    icon.textContent = playersData[id]?.icon || '⚽';
+                    icon.style.display = 'flex';
+                    icon.style.alignItems = 'center';
+                    icon.style.justifyContent = 'center';
+                    icon.style.width = '100%';
+                    icon.style.height = '100%';
+                    photoEl.appendChild(icon);
+                }
+            });
+            
+            document.querySelectorAll('#match-tactics-page .player-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    if (playerId && playersData[playerId]) {
+                        openPlayerModal(playerId);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('#match-tactics-page .bench-player-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const playerId = this.getAttribute('data-player');
+                    if (playerId && playersData[playerId]) {
+                        openPlayerModal(playerId);
+                    }
+                });
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             renderMainPlayerCards();
             renderPlayerCards('yard-78-grid', yard78PlayerIds);
@@ -3497,97 +3696,13 @@
                 }
             });
             
-            // Обработчики для матчей
-            document.getElementById('match-card-1')?.addEventListener('click', function() {
-                showPage('match-tactics-page');
-                loadMatchTactics();
-            });
-            
-            document.getElementById('match-card-2')?.addEventListener('click', function() {
-                showPage('match-tactics-page');
-                loadMatchTactics();
-            });
-            
-            document.getElementById('match-card-3')?.addEventListener('click', function() {
-                showPage('match-upcoming-page');
-            });
-            
-            function loadMatchTactics() {
-                // Загрузка фото для состава МЕРЫ (1-2-1 ромб)
-                // Рая внизу, Максим над ним, по флангам Батраков и Подавальный, наверху Демид
-                const meraPlayers = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'demid'];
-                const meraPhotoIds = {
-                    'raya': 'match-raya-photo',
-                    'maxim': 'match-maxim-photo',
-                    'batrakov': 'match-batrakov-photo',
-                    'lesha_podavalny': 'match-lesha_podavalny-photo',
-                    'demid': 'match-demid-photo'
-                };
-                meraPlayers.forEach(id => {
-                    const el = document.getElementById(meraPhotoIds[id]);
-                    if (el && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                        el.innerHTML = '';
-                        const img = document.createElement('img');
-                        img.src = playerPhotos[id];
-                        img.style.width = '100%';
-                        img.style.height = '100%';
-                        img.style.objectFit = 'cover';
-                        el.appendChild(img);
-                    } else if (el) {
-                        const icon = document.createElement('div');
-                        icon.style.fontSize = '1.8rem';
-                        icon.textContent = playersData[id]?.icon || '⚽';
-                        icon.style.display = 'flex';
-                        icon.style.alignItems = 'center';
-                        icon.style.justifyContent = 'center';
-                        icon.style.width = '100%';
-                        icon.style.height = '100%';
-                        el.appendChild(icon);
-                    }
+            document.querySelectorAll('.match-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const matchNum = parseInt(this.getAttribute('data-match'));
+                    showPage('match-tactics-page');
+                    renderMatchTactics(matchNum);
                 });
-                
-                // Загрузка фото для состава 78 школы (1-1-2)
-                const school78Players = ['maxim_dcp', 'kirill_beschastny', 'timofey_zaytsev', 'tankov', 'sanya_bobrikov'];
-                const school78PhotoIds = {
-                    'maxim_dcp': 'match-maxim_dcp-photo',
-                    'kirill_beschastny': 'match-kirill-photo',
-                    'timofey_zaytsev': 'match-timofey_zaytsev-photo',
-                    'tankov': 'match-tankov-photo',
-                    'sanya_bobrikov': 'match-sanya_bobrikov-photo'
-                };
-                school78Players.forEach(id => {
-                    const el = document.getElementById(school78PhotoIds[id]);
-                    if (el && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                        el.innerHTML = '';
-                        const img = document.createElement('img');
-                        img.src = playerPhotos[id];
-                        img.style.width = '100%';
-                        img.style.height = '100%';
-                        img.style.objectFit = 'cover';
-                        el.appendChild(img);
-                    } else if (el) {
-                        const icon = document.createElement('div');
-                        icon.style.fontSize = '1.8rem';
-                        icon.textContent = playersData[id]?.icon || '⚽';
-                        icon.style.display = 'flex';
-                        icon.style.alignItems = 'center';
-                        icon.style.justifyContent = 'center';
-                        icon.style.width = '100%';
-                        icon.style.height = '100%';
-                        el.appendChild(icon);
-                    }
-                });
-                
-                // Добавляем клики по игрокам
-                document.querySelectorAll('#match-tactics-page .player-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        const playerId = this.getAttribute('data-player');
-                        if (playerId && playersData[playerId]) {
-                            openPlayerModal(playerId);
-                        }
-                    });
-                });
-            }
+            });
             
             const squadTabs = document.querySelectorAll('.squad-tab');
             const tacticsDesc = document.getElementById('tactics-description');
