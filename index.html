@@ -2532,6 +2532,13 @@
                             </div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
+                        <div class="yard-card" id="yard-yuzhka">
+                            <img src="./Photos%20(2)/club-logo-yuzhka.jpg" alt="ФК Южка" class="yard-logo">
+                            <div>
+                                <h3>🟢 ФК Южка</h3>
+                            </div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
                         <div class="yard-card">
                             <h3>🟢 ФК ФПК</h3>
                             <div class="yard-subtitle">Скоро...</div>
@@ -2548,6 +2555,13 @@
                 <div class="best-squad-container">
                     <h2 class="section-title">⚪ ФК 78 школа — состав</h2>
                     <div class="players-grid" id="yard-78-grid"></div>
+                </div>
+            </div>
+            <div id="yard-yuzhka-page" class="page">
+                <button class="back-button" id="back-from-yard-yuzhka">← Назад к другим дворам</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title">🟢 ФК Южка — состав</h2>
+                    <div class="players-grid" id="yard-yuzhka-grid"></div>
                 </div>
             </div>
             <div id="burmalda-page" class="page">
@@ -2819,7 +2833,8 @@
             kostya: { name: "Костя Лехнер", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(15)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
             Stepa: { name: "Шевелев Стёпа", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "152 см", weight: "36 кг", rating: 88, number: "(18)", description: "Баскетбол or Футбол?", playstyles: ['Bezjalostniy'], playstyleColors: {Bezjalostniy: "gold"} },
             maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 72, number: "(17)", description: "", playstyles: [], playstyleColors: {} },
-            vanya: { name: "Ваня Мелкий", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "30 кг", rating: 80, number: "(56)", description: "Молодняк ФК МЕРА", playstyles: [], playstyleColors: {} }
+            vanya: { name: "Ваня Мелкий", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "30 кг", rating: 80, number: "(56)", description: "Молодняк ФК МЕРА", playstyles: [], playstyleColors: {} },
+            russkov_artem: { name: "Руссков Артем", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "Лидер ФК Южка", playstyles: ["pushka","bombardir","tochno"], playstyleColors: {pushka: "gold", bombardir: "gold", tochno: "gold"} }
         };
         
         const yard78Players = [
@@ -2831,14 +2846,22 @@
             { id: "tankov", name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 94, number: "(99)", description: "Универсальный игрок ФК 78 школа", playstyles: [], playstyleColors: {} }
         ];
         
+        const yuzhkaPlayers = [
+            { id: "russkov_artem", name: "Руссков Артем", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "58", rating: 98, number: "(8)", description: "Лидер ФК Южка", playstyles: ["pushka","bombardir","tochno"], playstyleColors: {pushka: "gold", bombardir: "gold", tochno: "gold"} }
+        ];
+        
         const playersData = { ...basePlayers };
         yard78Players.forEach(p => {
             playersData[p.id] = p;
         });
+        yuzhkaPlayers.forEach(p => {
+            playersData[p.id] = p;
+        });
         
         const yard78PlayerIds = yard78Players.map(p => p.id);
+        const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
         
-        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id));
+        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
         const slotSymbols = [
@@ -2860,6 +2883,7 @@
             { id: 'kostya', emoji: '⚽', label: 'Костя' },
             { id: 'maradona', emoji: '⚽', label: 'Марадона' },
             { id: 'haaland', emoji: '⚽', label: 'Холланд' },
+            { id: 'russkov_artem', emoji: '⚽', label: 'Руссков' },
         ];
         let isSpinning = false;
         let currentSymbols = ['elanga', 'batrakov', 'maxim'];
@@ -3610,6 +3634,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderMainPlayerCards();
             renderPlayerCards('yard-78-grid', yard78PlayerIds);
+            renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds);
             
             const searchInput = document.getElementById('player-search');
             if (searchInput) {
@@ -3656,10 +3681,15 @@
             document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-match-tactics')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('back-from-yard-78')?.addEventListener('click', function() { showPage('yards-page'); });
+            document.getElementById('back-from-yard-yuzhka')?.addEventListener('click', function() { showPage('yards-page'); });
             document.getElementById('back-from-upcoming')?.addEventListener('click', function() { showPage('matches-page'); });
             
             document.getElementById('yard-78-school')?.addEventListener('click', function() {
                 showPage('yard-78-page');
+            });
+            
+            document.getElementById('yard-yuzhka')?.addEventListener('click', function() {
+                showPage('yard-yuzhka-page');
             });
             
             document.getElementById('update-btn')?.addEventListener('click', function() { window.location.reload(true); });
