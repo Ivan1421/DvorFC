@@ -1921,11 +1921,11 @@
             .match-header { font-size: 0.9rem; gap: 10px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.8rem; padding: 4px 12px; }
             .match-result { font-size: 1.1rem; }
-            .tactics-formation .player-item { min-width: 70px; max-width: 85px; }
-            .tactics-formation .player-photo-small { width: 55px; height: 55px; }
-            .tactics-formation .player-name { font-size: 0.8rem; }
-            .tactics-formation .player-number { font-size: 0.75rem; }
-            .tactics-formation .formation-line { gap: 8px; min-height: 65px; margin: 2px 0; }
+            .tactics-formation .player-item { min-width: 80px; max-width: 95px; }
+            .tactics-formation .player-photo-small { width: 65px; height: 65px; }
+            .tactics-formation .player-name { font-size: 0.9rem; }
+            .tactics-formation .player-number { font-size: 0.85rem; }
+            .tactics-formation .formation-line { gap: 12px; min-height: 80px; }
             .yard-card h3 { font-size: 1.4rem; }
             .bench-player-photo { width: 38px; height: 38px; }
             .match-tactics-container { padding: 18px 12px; }
@@ -1955,11 +1955,11 @@
             .match-header { font-size: 0.8rem; gap: 8px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.7rem; padding: 3px 8px; }
             .match-result { font-size: 1rem; padding: 8px; }
-            .tactics-formation .player-item { min-width: 60px; max-width: 75px; }
-            .tactics-formation .player-photo-small { width: 45px; height: 45px; }
-            .tactics-formation .player-name { font-size: 0.7rem; }
-            .tactics-formation .player-number { font-size: 0.7rem; }
-            .tactics-formation .formation-line { gap: 5px; min-height: 55px; margin: 2px 0; }
+            .tactics-formation .player-item { min-width: 70px; max-width: 85px; }
+            .tactics-formation .player-photo-small { width: 55px; height: 55px; }
+            .tactics-formation .player-name { font-size: 0.8rem; }
+            .tactics-formation .player-number { font-size: 0.75rem; }
+            .tactics-formation .formation-line { gap: 8px; min-height: 70px; }
             .match-tactics-container { padding: 12px 8px; }
             .match-tactics-container h2 { font-size: 1.2rem; margin-bottom: 10px; }
             .best-squad-container .formation-line { gap: 10px; }
@@ -3720,46 +3720,6 @@
                     } else {
                         tacticsDesc.innerHTML = '<strong>Описание:</strong> Второй состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.';
                     }
-                    if (squadNum === '2') {
-                        const squad2Players = ['andryushka', 'elanga', 'elisey', 'matvey', 'hokkeist','demid'];
-                        squad2Players.forEach(id => {
-                            const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : (id === 'matvey' ? 'matvey-photo-small-squad' : `${id}-photo-small`);
-                            const photoEl = document.getElementById(photoId);
-                            if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                                photoEl.innerHTML = '';
-                                const img = document.createElement('img');
-                                img.src = playerPhotos[id];
-                                img.style.width = '100%';
-                                img.style.height = '100%';
-                                img.style.objectFit = 'cover';
-                                photoEl.appendChild(img);
-                            }
-                        });
-                    }
-                    if (squadNum === '3') {
-                        // Загрузка фото для squad-3
-const squad3Players = ['andryushka', 'maradona', 'vanya', 'matvey', 'timofey'];
-squad3Players.forEach(id => {
-    let photoId;
-    if (id === 'matvey') {
-        photoId = 'matvey-photo-small-squad';
-    } else if (id === 'timofey') {
-        photoId = 'timofey-photo-small-2';
-    } else {
-        photoId = `${id}-photo-small`;
-    }
-    const photoEl = document.getElementById(photoId);
-    if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-        photoEl.innerHTML = '';
-        const img = document.createElement('img');
-        img.src = playerPhotos[id];
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        photoEl.appendChild(img);
-    }
-});
-                    }
                 });
             });
             
@@ -3787,9 +3747,38 @@ squad3Players.forEach(id => {
                 }
             });
             
-            const squad2Players = ['andryushka', 'elanga', 'elisey', 'matvey', 'hokkeist'];
+            const squad2Players = ['andryushka', 'elanga', 'elisey', 'matvey', 'hokkeist', 'demid'];
             squad2Players.forEach(id => {
-                const photoId = id === 'hokkeist' ? 'hokkeist-photo-small-2' : (id === 'matvey' ? 'matvey-photo-small-squad' : `${id}-photo-small`);
+                let photoId;
+                if (id === 'hokkeist') {
+                    photoId = 'hokkeist-photo-small-2';
+                } else if (id === 'matvey') {
+                    photoId = 'matvey-photo-small-squad';
+                } else {
+                    photoId = `${id}-photo-small`;
+                }
+                const photoEl = document.getElementById(photoId);
+                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    photoEl.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = playerPhotos[id];
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    photoEl.appendChild(img);
+                }
+            });
+            
+            const squad3Players = ['andryushka', 'maradona', 'vanya', 'matvey', 'timofey'];
+            squad3Players.forEach(id => {
+                let photoId;
+                if (id === 'matvey') {
+                    photoId = 'matvey-photo-small-squad';
+                } else if (id === 'timofey') {
+                    photoId = 'timofey-photo-small-2';
+                } else {
+                    photoId = `${id}-photo-small`;
+                }
                 const photoEl = document.getElementById(photoId);
                 if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                     photoEl.innerHTML = '';
