@@ -1,6 +1,1 @@
-.env
-.env.local
-config.js
-secrets.js
-.DS_Store
-*.log
+
