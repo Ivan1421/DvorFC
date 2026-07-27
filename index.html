@@ -1878,6 +1878,158 @@
             background: #1a2a4a;
             color: #4dabf7;
         }
+        /* Secret modal styles */
+        .secret-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+        .secret-overlay.active {
+            display: flex;
+        }
+        .secret-modal {
+            background: #1a1a2e;
+            border-radius: 24px;
+            padding: 40px 35px;
+            max-width: 520px;
+            width: 100%;
+            border: 3px solid #8e44ad;
+            box-shadow: 0 0 60px rgba(142, 68, 173, 0.4);
+            position: relative;
+            animation: secretPulse 2s ease-in-out infinite alternate;
+        }
+        .dark-theme .secret-modal {
+            background: #0f0f1f;
+            border-color: #a855f7;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
+        }
+        @keyframes secretPulse {
+            0% { box-shadow: 0 0 40px rgba(142, 68, 173, 0.3); }
+            100% { box-shadow: 0 0 80px rgba(142, 68, 173, 0.7); }
+        }
+        .secret-modal .secret-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .secret-modal .secret-close:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        .secret-modal h2 {
+            color: #a855f7;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+        .secret-modal .secret-icon {
+            text-align: center;
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+        .secret-modal .secret-label {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .secret-modal input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 2px solid #4a4a6a;
+            background: #12122a;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s;
+            margin-bottom: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .secret-modal input:focus {
+            border-color: #8e44ad;
+            box-shadow: 0 0 20px rgba(142, 68, 173, 0.3);
+        }
+        .secret-modal .secret-submit {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #8e44ad, #6c3483);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+        .secret-modal .secret-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(142, 68, 173, 0.5);
+        }
+        .secret-modal .secret-submit:active {
+            transform: scale(0.97);
+        }
+        .secret-modal .secret-error {
+            color: #ff6b6b;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            min-height: 24px;
+        }
+        .secret-modal .secret-content {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #4a4a6a;
+            color: #ddd;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .secret-modal .secret-content.active {
+            display: block;
+        }
+        .secret-modal .secret-content h3 {
+            color: #a855f7;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .secret-modal .secret-content p {
+            margin: 8px 0;
+        }
+        .secret-modal .secret-content .info-block {
+            background: rgba(168, 85, 247, 0.08);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin: 10px 0;
+            border-left: 3px solid #8e44ad;
+        }
+        .dark-theme .secret-modal .secret-content .info-block {
+            background: rgba(168, 85, 247, 0.05);
+        }
+        .secret-modal .secret-content .highlight {
+            color: #a855f7;
+            font-weight: bold;
+        }
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -1934,6 +2086,8 @@
             .bench-section { padding: 8px 10px; }
             .bench-section h4 { font-size: 0.85rem; }
             .yard-card .yard-logo { width: 50px; height: 50px; }
+            .secret-modal { padding: 30px 20px; }
+            .secret-modal h2 { font-size: 1.4rem; }
         }
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -2763,6 +2917,26 @@
             <button class="win-close" id="win-close-btn">Закрыть</button>
         </div>
     </div>
+
+    <!-- Инфа для фк меры -->
+    <div class="secret-overlay" id="secret-overlay">
+        <div class="secret-modal" id="secret-modal">
+            <button class="secret-close" id="secret-close">✕</button>
+            <div class="secret-icon">🔐</div>
+            <h2>⚡ ТОЛЬКО ДЛЯ ФК МЕРА</h2>
+            <div class="secret-label">Введите пароль для доступа</div>
+            <input type="password" id="secret-password" placeholder="Введите пароль...">
+            <button class="secret-submit" id="secret-submit">✅ Войти</button>
+            <div class="secret-error" id="secret-error"></div>
+            <div class="secret-content" id="secret-content">
+                <h3>📋 Информация для членов ФК "МЕРА"</h3>
+                <div class="info-block">
+                    <p><span class="highlight">📅 Следующий матч:</span> хз когда</p>
+                    <p><span class="highlight"></span>мера топ</p>
+                    <p><span class="highlight"></span>макс тут можно писать штуки с новых строк эти блоки можно копировать и типо разную инфу в них </p>
+                </div>
+    </div>
+
     <script>
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey', 'demid'];
         const burmaldaPlayerIds = ['elisey'];
@@ -3718,12 +3892,70 @@
             });
             document.getElementById('slot-spin-btn')?.addEventListener('click', spinSlots);
             
+            // SECRET MODAL LOGIC
+            const secretOverlay = document.getElementById('secret-overlay');
+            const secretClose = document.getElementById('secret-close');
+            const secretSubmit = document.getElementById('secret-submit');
+            const secretPassword = document.getElementById('secret-password');
+            const secretError = document.getElementById('secret-error');
+            const secretContent = document.getElementById('secret-content');
+            const CORRECT_PASSWORD = 'FCMERA_11.04';
+            let secretUnlocked = false;
+
+            function openSecretModal() {
+                secretOverlay.classList.add('active');
+                secretPassword.value = '';
+                secretError.textContent = '';
+                if (secretUnlocked) {
+                    secretContent.classList.add('active');
+                } else {
+                    secretContent.classList.remove('active');
+                }
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSecretModal() {
+                secretOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            secretClose.addEventListener('click', closeSecretModal);
+            secretOverlay.addEventListener('click', function(e) {
+                if (e.target === this) closeSecretModal();
+            });
+
+            secretSubmit.addEventListener('click', function() {
+                const input = secretPassword.value.trim();
+                if (input === CORRECT_PASSWORD) {
+                    secretUnlocked = true;
+                    secretError.textContent = '';
+                    secretContent.classList.add('active');
+                    secretPassword.disabled = true;
+                    secretSubmit.textContent = '✅ Доступ открыт';
+                    secretSubmit.style.background = 'linear-gradient(135deg, #00b894, #00a381)';
+                } else {
+                    secretError.textContent = '❌ Неверный пароль! Попробуйте ещё раз.';
+                    secretPassword.value = '';
+                    secretPassword.focus();
+                }
+            });
+
+            secretPassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    secretSubmit.click();
+                }
+            });
+
+            // Theme toggle with secret counter
             document.getElementById('theme-toggle')?.addEventListener('click', function() {
                 themeClickCount++;
-                if (themeClickCount >= 5) {
-                    secretActivated = true;
+                if (themeClickCount >= 15) {
                     themeClickCount = 0;
+                    openSecretModal();
                 }
+                document.body.classList.toggle('dark-theme');
+                this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
+                localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
             });
             
             document.querySelectorAll('.match-card').forEach(card => {
@@ -3841,11 +4073,6 @@
             window.scrollTo(0, 0);
         }
         
-        document.getElementById('theme-toggle')?.addEventListener('click', function() {
-            document.body.classList.toggle('dark-theme');
-            this.textContent = document.body.classList.contains('dark-theme') ? '☀️' : '🌙';
-            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
-        });
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-theme');
             document.getElementById('theme-toggle').textContent = '☀️';
