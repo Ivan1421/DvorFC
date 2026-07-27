@@ -1244,216 +1244,6 @@
             color: #aaa;
             border-top-color: #444;
         }
-        .slots-container {
-            background: linear-gradient(145deg, #f0f8ff, #d4e8ff);
-            border-radius: 24px;
-            padding: 30px 20px 20px;
-            border: 3px solid #0066cc;
-            box-shadow: 0 0 40px rgba(0, 102, 204, 0.15);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .dark-theme .slots-container {
-            background: linear-gradient(145deg, #1a2a4a, #0f1f3a);
-            border-color: #4dabf7;
-            box-shadow: 0 0 40px rgba(77, 171, 247, 0.15);
-        }
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-            padding: 20px 10px;
-            background: rgba(0, 102, 204, 0.08);
-            border-radius: 16px;
-            border: 2px solid #0066cc;
-            min-height: 120px;
-        }
-        .dark-theme .slot-machine {
-            background: rgba(77, 171, 247, 0.05);
-            border-color: #4dabf7;
-        }
-        .slot-reel {
-            width: 90px;
-            height: 110px;
-            background: white;
-            border-radius: 16px;
-            border: 2px solid #0066cc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            box-shadow: inset 0 0 20px rgba(0, 102, 204, 0.05);
-            transition: all 0.1s ease;
-            overflow: hidden;
-            padding: 8px;
-        }
-        .dark-theme .slot-reel {
-            background: #1a2a4a;
-            border-color: #4dabf7;
-        }
-        .slot-reel img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 50%;
-        }
-        .slot-reel .emoji-icon {
-            font-size: 3.5rem;
-            line-height: 1;
-        }
-        .slot-button {
-            background: linear-gradient(145deg, #0066cc, #0052a3);
-            border: none;
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.4);
-            margin-top: 10px;
-            width: 100%;
-            letter-spacing: 1px;
-        }
-        .slot-button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 30px rgba(0, 102, 204, 0.6);
-        }
-        .slot-button:active {
-            transform: scale(0.96);
-        }
-        .slot-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .dark-theme .slot-button {
-            background: linear-gradient(145deg, #4dabf7, #339af0);
-            color: #1a1a2e;
-            box-shadow: 0 4px 20px rgba(77, 171, 247, 0.4);
-        }
-        .dark-theme .slot-button:hover {
-            box-shadow: 0 6px 30px rgba(77, 171, 247, 0.6);
-        }
-        .slot-result {
-            text-align: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-top: 18px;
-            min-height: 40px;
-            color: #0066cc;
-            padding: 10px;
-            background: rgba(0, 102, 204, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(0, 102, 204, 0.2);
-        }
-        .dark-theme .slot-result {
-            color: #4dabf7;
-            background: rgba(77, 171, 247, 0.05);
-            border-color: rgba(77, 171, 247, 0.2);
-        }
-        .slot-result.win {
-            color: #28a745;
-            text-shadow: 0 0 20px rgba(40, 167, 69, 0.3);
-        }
-        .dark-theme .slot-result.win {
-            color: #2ecc71;
-            text-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
-        }
-        .slot-result.jackpot {
-            color: #dc3545;
-            text-shadow: 0 0 30px rgba(220, 53, 69, 0.5);
-            animation: jackpot-pulse 0.5s ease-in-out infinite alternate;
-        }
-        .dark-theme .slot-result.jackpot {
-            color: #ff6b6b;
-            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
-        }
-        @keyframes jackpot-pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
-        }
-        .slot-reel.spinning {
-            animation: reel-spin 0.1s linear infinite;
-        }
-        @keyframes reel-spin {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
-        }
-        .slot-win-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .slot-win-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .slot-win-card {
-            background: linear-gradient(145deg, #0066cc, #0052a3);
-            border-radius: 30px;
-            padding: 40px 50px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-        .dark-theme .slot-win-card {
-            background: linear-gradient(145deg, #4dabf7, #339af0);
-        }
-        .slot-win-card.active {
-            transform: scale(1);
-        }
-        .slot-win-card .win-icon {
-            font-size: 5rem;
-            margin-bottom: 10px;
-        }
-        .slot-win-card h2 {
-            color: white;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-        .dark-theme .slot-win-card h2 {
-            color: #1a1a2e;
-        }
-        .slot-win-card p {
-            color: rgba(255,255,255,0.9);
-            font-size: 1.2rem;
-        }
-        .dark-theme .slot-win-card p {
-            color: #1a1a2e;
-        }
-        .slot-win-card .win-close {
-            margin-top: 20px;
-            background: white;
-            color: #0066cc;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .slot-win-card .win-close:hover {
-            transform: scale(1.05);
-        }
-        .dark-theme .slot-win-card .win-close {
-            color: #4dabf7;
-        }
         .matches-container {
             background: white;
             border-radius: 15px;
@@ -1667,17 +1457,17 @@
             color: #ffd43b;
         }
         .match-penalty {
-    text-align: center;
-    margin-top: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #888;
-    background: transparent;
-    padding: 4px 0;
-}
-.dark-theme .match-penalty {
-    color: #999;
-}
+            text-align: center;
+            margin-top: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #888;
+            background: transparent;
+            padding: 4px 0;
+        }
+        .dark-theme .match-penalty {
+            color: #999;
+        }
         .match-tactics-container {
             background: white;
             border-radius: 15px;
@@ -1720,31 +1510,31 @@
             color: #4dabf7;
         }
         .tactics-formation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 3px 0;
-}
-.tactics-formation .formation-line {
-    margin: 3px 0;
-    gap: 20px;
-    min-height: 100px;
-}
-.tactics-formation .player-item {
-    min-width: 100px;
-    max-width: 120px;
-}
-.tactics-formation .player-photo-small {
-    width: 85px;
-    height: 85px;
-    border-width: 3.5px;
-}
-.tactics-formation .player-name {
-    font-size: 1rem;
-}
-.tactics-formation .player-number {
-    font-size: 0.95rem;
-}
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 3px 0;
+        }
+        .tactics-formation .formation-line {
+            margin: 3px 0;
+            gap: 20px;
+            min-height: 100px;
+        }
+        .tactics-formation .player-item {
+            min-width: 100px;
+            max-width: 120px;
+        }
+        .tactics-formation .player-photo-small {
+            width: 85px;
+            height: 85px;
+            border-width: 3.5px;
+        }
+        .tactics-formation .player-name {
+            font-size: 1rem;
+        }
+        .tactics-formation .player-number {
+            font-size: 0.95rem;
+        }
         .bench-section {
             margin-top: 8px;
             padding: 10px 12px;
@@ -2060,12 +1850,6 @@
             .playstyle-icon { width: 60px; height: 60px; font-size: 1.6rem; border-width: 3px; }
             .playstyle-detail-icon { width: 160px; height: 160px; font-size: 4rem; border-width: 5px; }
             .playstyle-detail-name { font-size: 1.6rem; }
-            .slot-reel { width: 70px; height: 90px; font-size: 2.8rem; }
-            .slot-reel img { width: 55px; height: 55px; }
-            .slot-reel .emoji-icon { font-size: 2.8rem; }
-            .slots-container { padding: 20px 15px; }
-            .slot-machine { gap: 8px; padding: 15px 5px; }
-            .slot-button { font-size: 1.2rem; padding: 14px 20px; }
             .match-teams { gap: 8px; }
             .team-logo { width: 60px; height: 60px; }
             .team-name { font-size: 0.8rem; max-width: 80px; }
@@ -2096,12 +1880,6 @@
             .theme-toggle { top: 10px; right: 10px; width: 50px; height: 50px; font-size: 1.5rem; }
             .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
             .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
-            .slot-reel { width: 60px; height: 80px; font-size: 2.2rem; padding: 5px; }
-            .slot-reel img { width: 45px; height: 45px; }
-            .slot-reel .emoji-icon { font-size: 2.2rem; }
-            .slot-win-card { padding: 30px 20px; }
-            .slot-win-card .win-icon { font-size: 4rem; }
-            .slot-win-card h2 { font-size: 1.8rem; }
             .match-teams { gap: 5px; }
             .team-name { font-size: 0.7rem; max-width: 60px; }
             .team-logo { width: 50px; height: 50px; }
@@ -2526,11 +2304,7 @@
                         <div class="button-title">Другие дворы</div>
                         <div class="button-description">Наши соперники</div>
                     </div>
-                    <div class="main-button" id="burmalda-btn">
-                        <div class="button-icon">🎰</div>
-                        <div class="button-title">Бурмалда</div>
-                        <div class="button-description">Казик меллстройность</div>
-                    </div>
+                    <!-- Кнопка Бурмалда удалена -->
                 </div>
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
@@ -2718,20 +2492,7 @@
                     <div class="players-grid" id="yard-yuzhka-grid"></div>
                 </div>
             </div>
-            <div id="burmalda-page" class="page">
-                <button class="back-button" id="back-from-burmalda">← Назад к главной</button>
-                <div class="slots-container">
-                    <h2 style="text-align:center; color:#0066cc; margin-bottom: 5px;">🎰 Бурмалда</h2>
-                    <p style="text-align:center; color:#666; margin-bottom: 15px; font-size:0.9rem;">Крути Бурмалду</p>
-                    <div class="slot-machine" id="slot-machine">
-                        <div class="slot-reel" id="reel-1"></div>
-                        <div class="slot-reel" id="reel-2"></div>
-                        <div class="slot-reel" id="reel-3"></div>
-                    </div>
-                    <button class="slot-button" id="slot-spin-btn">🎲 Обурмалдить</button>
-                    <div class="slot-result" id="slot-result">Нажми на кнопку, чтобы начать</div>
-                </div>
-            </div>
+            <!-- Страница Бурмалда удалена -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
@@ -2785,38 +2546,36 @@
                         <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
                     </div>
 
-<div class="match-card" data-match="3" id="match-card-3">
-    <div class="match-header">
-        <span class="match-date">26 июля 2026</span>
-        <span class="match-time">20:00</span>
-        <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-    </div>
-    <div class="match-teams">
-        <div class="team">
-            <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="team-logo">
-            <span class="team-name">78 школа</span>
-        </div>
-        <div class="match-score">
-            <span class="score">3</span>
-            <span class="score-divider">:</span>
-            <span class="score">3</span>
-        </div>
-        <div class="team">
-            <img src="./Photos%20(2)/club-logo.jpg" alt="ФК МЕРА" class="team-logo">
-            <span class="team-name">ФК "МЕРА"</span>
-        </div>
-    </div>
-    <div class="match-penalty">Пенальти 4:2</div>
-    <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
-</div>
+                    <div class="match-card" data-match="3" id="match-card-3">
+                        <div class="match-header">
+                            <span class="match-date">26 июля 2026</span>
+                            <span class="match-time">20:00</span>
+                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="./Photos%20(2)/club-logo-78.jpg" alt="ФК 78 школа" class="team-logo">
+                                <span class="team-name">78 школа</span>
+                            </div>
+                            <div class="match-score">
+                                <span class="score">3</span>
+                                <span class="score-divider">:</span>
+                                <span class="score">3</span>
+                            </div>
+                            <div class="team">
+                                <img src="./Photos%20(2)/club-logo.jpg" alt="ФК МЕРА" class="team-logo">
+                                <span class="team-name">ФК "МЕРА"</span>
+                            </div>
+                        </div>
+                        <div class="match-penalty">Пенальти 4:2</div>
+                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
+                    </div>
                 </div>
             </div>
             <div id="match-tactics-page" class="page">
                 <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
                 <div class="match-tactics-container" id="match-tactics-container">
                     <h2 id="match-tactics-title">⚽ Тактика матча</h2>
-                    
-                    
                     
                     <div class="bench-section" id="school78-bench">
                         <h4>🔄 Запасные (78 школа)</h4>
@@ -2828,7 +2587,6 @@
                     </div>
 
                     <div class="tactics-opponent">
-                        
                         <div class="tactics-formation">
                             <div class="formation" id="mera-formation"></div>
                         </div>
@@ -2909,16 +2667,9 @@
             <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
         </div>
     </div>
-    <div class="slot-win-overlay" id="slot-win-overlay">
-        <div class="slot-win-card" id="slot-win-card">
-            <div class="win-icon" id="win-icon">🎉</div>
-            <h2 id="win-title">Победа!</h2>
-            <p id="win-desc">Вы выиграли!</p>
-            <button class="win-close" id="win-close-btn">Закрыть</button>
-        </div>
-    </div>
+  
 
-    <!-- SECRET MODAL (only for FC MERA members) -->
+    <!-- Инфа для фк меры -->
     <div class="secret-overlay" id="secret-overlay">
         <div class="secret-modal" id="secret-modal">
             <button class="secret-close" id="secret-close">✕</button>
@@ -2931,24 +2682,9 @@
             <div class="secret-content" id="secret-content">
                 <h3>📋 Информация для членов ФК "МЕРА"</h3>
                 <div class="info-block">
-                    <p><span class="highlight">📅 Следующий матч:</span> 29 июля 2026, 15:00</p>
-                    <p><span class="highlight">📍 Место:</span> Выезд, стадион "Южный"</p>
-                    <p><span class="highlight">👕 Форма:</span> Синяя</p>
-                </div>
-                <div class="info-block">
-                    <p><span class="highlight">📊 Текущие лидеры по голам:</span></p>
-                    <p>🥇 Алексей Дорошенко — 14 голов</p>
-                    <p>🥈 Максим — 11 голов</p>
-                    <p>🥉 Елисей — 9 голов</p>
-                </div>
-                <div class="info-block">
-                    <p><span class="highlight">📌 Важное объявление:</span></p>
-                    <p>Тренировка в субботу в 10:00. Явка обязательна!</p>
-                    <p>Состав на матч будет объявлен за 2 дня.</p>
-                </div>
-                <div class="info-block" style="border-left-color: #fbbf24;">
-                    <p><span class="highlight">💡 Совет от капитана:</span></p>
-                    <p>Не забывайте про разминку перед матчем и поддерживайте друг друга на поле!</p>
+                    <p><span class="highlight">📅 Следующий матч:</span> хз когда</p>
+                    <p><span class="highlight"></span>мера топ</p>
+                    <p><span class="highlight"></span>макс тут можно писать штуки с новых строк эти блоки можно копировать и типо разную инфу в них </p>
                 </div>
             </div>
         </div>
@@ -3055,36 +2791,7 @@
         let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
-        const slotSymbols = [
-            { id: 'elanga', emoji: '⚽', label: 'Еланга' },
-            { id: 'batrakov', emoji: '⚽', label: 'Батраков' },
-            { id: 'maxim', emoji: '⚽', label: 'Максим' },
-            { id: 'raya', emoji: '🧤', label: 'Рая' },
-            { id: 'hokkeist', emoji: '❄️', label: 'Хоккеист' },
-            { id: 'aleksey_doroshenko', emoji: '⚽', label: 'Дорошенко' },
-            { id: 'lesha_podavalny', emoji: '⚽', label: 'Подавальный' },
-            { id: 'elisey', emoji: '⚽', label: 'Елисей' },
-            { id: 'andryushka', emoji: '⚽', label: 'Андрюшка' },
-            { id: 'matvey', emoji: '⚽', label: 'Матвей' },
-            { id: 'demid', emoji: '⚽', label: 'Демид' },
-            { id: 'saldaevk', emoji: '⚽', label: 'Салдаев К.' },
-            { id: 'saldaevd', emoji: '⚽', label: 'Салдаев Д.' },
-            { id: 'vladimirova', emoji: '⚽', label: 'Владимиров' },
-            { id: 'stepa', emoji: '⚽', label: 'Стёпа' },
-            { id: 'kostya', emoji: '⚽', label: 'Костя' },
-            { id: 'maradona', emoji: '⚽', label: 'Марадона' },
-            { id: 'haaland', emoji: '⚽', label: 'Холланд' },
-            { id: 'russkov_artem', emoji: '⚽', label: 'Руссков' },
-        ];
-        let isSpinning = false;
-        let currentSymbols = ['elanga', 'batrakov', 'maxim'];
-        let winOverlay = document.getElementById('slot-win-overlay');
-        let winCard = document.getElementById('slot-win-card');
-        let winIcon = document.getElementById('win-icon');
-        let winTitle = document.getElementById('win-title');
-        let winDesc = document.getElementById('win-desc');
         let themeClickCount = 0;
-        let secretActivated = false;
         
         const matchTacticsData = {
             1: {
@@ -3158,139 +2865,6 @@
             }
         };
         
-        function getRandomSymbol() {
-            return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-        }
-        function renderReel(reelIndex, symbol) {
-            const reel = document.getElementById(`reel-${reelIndex}`);
-            if (!reel) return;
-            reel.innerHTML = '';
-            if (typeof playerPhotos !== 'undefined' && playerPhotos[symbol.id]) {
-                const img = document.createElement('img');
-                img.src = playerPhotos[symbol.id];
-                img.alt = symbol.label;
-                reel.appendChild(img);
-            } else {
-                const span = document.createElement('span');
-                span.className = 'emoji-icon';
-                span.textContent = symbol.emoji;
-                reel.appendChild(span);
-            }
-            reel.dataset.symbolId = symbol.id;
-        }
-        function updateReels(symbols) {
-            symbols.forEach((s, i) => renderReel(i + 1, s));
-        }
-        function showWinOverlay(icon, title, desc) {
-            winIcon.textContent = icon;
-            winTitle.textContent = title;
-            winDesc.textContent = desc;
-            winCard.classList.add('active');
-            winOverlay.classList.add('active');
-        }
-        function hideWinOverlay() {
-            winOverlay.classList.remove('active');
-            winCard.classList.remove('active');
-        }
-        function spinSlots() {
-            if (isSpinning) return;
-            const btn = document.getElementById('slot-spin-btn');
-            const resultEl = document.getElementById('slot-result');
-            if (secretActivated) {
-                isSpinning = true;
-                btn.disabled = true;
-                resultEl.textContent = '🎰 Крутим...';
-                resultEl.className = 'slot-result';
-                const finalSymbols = [
-                    slotSymbols.find(s => s.id === 'elanga'),
-                    slotSymbols.find(s => s.id === 'elanga'),
-                    slotSymbols.find(s => s.id === 'elanga')
-                ];
-                setTimeout(() => {
-                    updateReels(finalSymbols);
-                    currentSymbols = finalSymbols.map(s => s.id);
-                    resultEl.textContent = '🎉🎉🎉 ДЖЕКПОТ! ТРИ ЕЛАНГИ! 🎉🎉🎉';
-                    resultEl.className = 'slot-result jackpot';
-                    showWinOverlay('🏆', 'ДЖЕКПОТ!', 'Три Еланги! Отправляй скрин в группу! 🎉');
-                    isSpinning = false;
-                    btn.disabled = false;
-                    secretActivated = false;
-                    themeClickCount = 0;
-                }, 500);
-                return;
-            }
-            isSpinning = true;
-            btn.disabled = true;
-            resultEl.textContent = '🎰 Крутим...';
-            resultEl.className = 'slot-result';
-            const reels = [1, 2, 3];
-            let spinCount = 0;
-            const maxSpins = 20 + Math.floor(Math.random() * 15);
-            let interval = setInterval(() => {
-                reels.forEach(i => {
-                    const sym = getRandomSymbol();
-                    renderReel(i, sym);
-                });
-                spinCount++;
-                if (spinCount >= maxSpins) {
-                    clearInterval(interval);
-                    const finalSymbols = [
-                        getRandomSymbol(),
-                        getRandomSymbol(),
-                        getRandomSymbol()
-                    ];
-                    updateReels(finalSymbols);
-                    currentSymbols = finalSymbols.map(s => s.id);
-                    checkWin(finalSymbols);
-                    isSpinning = false;
-                    btn.disabled = false;
-                }
-            }, 80);
-        }
-        function checkWin(symbols) {
-            const resultEl = document.getElementById('slot-result');
-            const ids = symbols.map(s => s.id);
-            const labels = symbols.map(s => s.label);
-            if (ids.every(id => id === 'elanga')) {
-                resultEl.textContent = '🎉🎉🎉 ДЖЕКПОТ! ТРИ ЕЛАНГИ! 🎉🎉🎉';
-                resultEl.className = 'slot-result jackpot';
-                showWinOverlay('🏆', 'ДЖЕКПОТ!', 'Три Еланги! Вы сорвали куш! 🎉');
-                return;
-            }
-            if (ids[0] === ids[1] && ids[1] === ids[2]) {
-                const name = symbols[0].label;
-                resultEl.textContent = `🎉 Три ${name}! Отличная комбинация! 🎉`;
-                resultEl.className = 'slot-result win';
-                showWinOverlay('🎉', 'Три одинаковых!', `Три ${name}! Поздравляем!`);
-                return;
-            }
-            if (ids[0] === ids[1] || ids[1] === ids[2] || ids[0] === ids[2]) {
-                let pairLabel = '';
-                if (ids[0] === ids[1]) pairLabel = symbols[0].label;
-                else if (ids[1] === ids[2]) pairLabel = symbols[1].label;
-                else if (ids[0] === ids[2]) pairLabel = symbols[0].label;
-                resultEl.textContent = `🔁 Пара ${pairLabel}! Неплохо!`;
-                resultEl.className = 'slot-result win';
-                showWinOverlay('🔁', 'Пара!', `Пара ${pairLabel}! Хороший результат!`);
-                return;
-            }
-            resultEl.textContent = `😐 ${labels.join(' · ')} — попробуй ещё!`;
-            resultEl.className = 'slot-result';
-        }
-        let iqInterval = null;
-        function startIQCounter() {
-            if (iqInterval) {
-                clearInterval(iqInterval);
-                iqInterval = null;
-            }
-            let iq = 0;
-            const counterEl = document.getElementById('iq-counter');
-            if (!counterEl) return;
-            iqInterval = setInterval(() => {
-                iq = iq + 1;
-                counterEl.textContent = iq;
-            }, 1);
-        }
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
             return player && player.playstyles && player.playstyles.length > 0;
@@ -3348,6 +2922,20 @@
                 clearInterval(iqInterval);
                 iqInterval = null;
             }
+        }
+        let iqInterval = null;
+        function startIQCounter() {
+            if (iqInterval) {
+                clearInterval(iqInterval);
+                iqInterval = null;
+            }
+            let iq = 0;
+            const counterEl = document.getElementById('iq-counter');
+            if (!counterEl) return;
+            iqInterval = setInterval(() => {
+                iq = iq + 1;
+                counterEl.textContent = iq;
+            }, 1);
         }
         function renderPlaystyles(playerId, containerId) {
             const container = document.getElementById(containerId);
@@ -3862,13 +3450,11 @@
             document.getElementById('players-btn')?.addEventListener('click', function() { showPage('players-page'); });
             document.getElementById('squad-btn')?.addEventListener('click', function() { showPage('squad-page'); });
             document.getElementById('yards-btn')?.addEventListener('click', function() { showPage('yards-page'); });
-            document.getElementById('burmalda-btn')?.addEventListener('click', function() { showPage('burmalda-page'); });
             document.getElementById('matches-btn')?.addEventListener('click', function() { showPage('matches-page'); });
             
             document.getElementById('back-from-players')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-squad')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-yards')?.addEventListener('click', function() { showPage('home-page'); });
-            document.getElementById('back-from-burmalda')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-matches')?.addEventListener('click', function() { showPage('home-page'); });
             document.getElementById('back-from-match-tactics')?.addEventListener('click', function() { showPage('matches-page'); });
             document.getElementById('back-from-yard-78')?.addEventListener('click', function() { showPage('yards-page'); });
@@ -3903,12 +3489,6 @@
                 if (e.target === this) closePlaystyleDetail();
             });
             
-            document.getElementById('win-close-btn')?.addEventListener('click', hideWinOverlay);
-            document.getElementById('slot-win-overlay')?.addEventListener('click', function(e) {
-                if (e.target === this) hideWinOverlay();
-            });
-            document.getElementById('slot-spin-btn')?.addEventListener('click', spinSlots);
-            
             // SECRET MODAL LOGIC
             const secretOverlay = document.getElementById('secret-overlay');
             const secretClose = document.getElementById('secret-close');
@@ -3916,7 +3496,7 @@
             const secretPassword = document.getElementById('secret-password');
             const secretError = document.getElementById('secret-error');
             const secretContent = document.getElementById('secret-content');
-            const CORRECT_PASSWORD = 'FCMERA_11.04';
+            const CORRECT_PASSWORD = '';
             let secretUnlocked = false;
 
             function openSecretModal() {
@@ -4078,10 +3658,6 @@
                     }
                 });
             });
-            
-            const initialSymbols = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
-            updateReels(initialSymbols);
-            currentSymbols = initialSymbols.map(s => s.id);
         });
         
         function showPage(pageId) {
