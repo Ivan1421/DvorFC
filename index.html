@@ -1668,7 +1668,6 @@
             background: #1a2a4a;
             color: #4dabf7;
         }
-        /* Secret modal styles */
         .secret-overlay {
             position: fixed;
             top: 0;
@@ -2304,7 +2303,6 @@
                         <div class="button-title">Другие дворы</div>
                         <div class="button-description">Наши соперники</div>
                     </div>
-                    <!-- Кнопка Бурмалда удалена -->
                 </div>
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
@@ -2492,7 +2490,6 @@
                     <div class="players-grid" id="yard-yuzhka-grid"></div>
                 </div>
             </div>
-            <!-- Страница Бурмалда удалена -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
@@ -2667,9 +2664,7 @@
             <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
         </div>
     </div>
-  
 
-    <!-- Инфа для фк меры -->
     <div class="secret-overlay" id="secret-overlay">
         <div class="secret-modal" id="secret-modal">
             <button class="secret-close" id="secret-close">✕</button>
@@ -2689,6 +2684,9 @@
             </div>
         </div>
     </div>
+
+    <!-- ПОДКЛЮЧАЕМ secret.js С ПАРОЛЕМ -->
+    <script src="secret.js"></script>
 
     <script>
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'matvey', 'demid'];
@@ -3488,7 +3486,7 @@
             document.getElementById('playstyle-detail-overlay')?.addEventListener('click', function(e) {
                 if (e.target === this) closePlaystyleDetail();
             });
-            <script src="secret.js"></script>
+
             // SECRET MODAL LOGIC
             const secretOverlay = document.getElementById('secret-overlay');
             const secretClose = document.getElementById('secret-close');
@@ -3496,7 +3494,10 @@
             const secretPassword = document.getElementById('secret-password');
             const secretError = document.getElementById('secret-error');
             const secretContent = document.getElementById('secret-content');
-            const CORRECT_PASSWORD = 'FCMERA_11...04';
+            
+            // ПАРОЛЬ БЕРЁТСЯ ИЗ ФАЙЛА secret.js
+            // const CORRECT_PASSWORD = 'FCMERA_11.04'; // ЭТО УДАЛЕНО!
+
             let secretUnlocked = false;
 
             function openSecretModal() {
