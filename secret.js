@@ -1,1 +1,1 @@
-
+const CORRECT_PASSWORD = 'FCMERA_11.04'
