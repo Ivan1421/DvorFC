@@ -28,7 +28,8 @@ const playerPhotos = {
     sanya_bobrikov: "./Photos%20(2)/0C4CE6E9-38D5-4C38-9E92-B7E68933B6B2.webp",
     russkov_artem: "Russkov.jpg",
     shuklin: "shuklin.jpg",
-    bombar: "bombar.jpg"
+    bombar: "bombar.jpg",
+    mes: "mes.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
