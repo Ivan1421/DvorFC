@@ -26,7 +26,7 @@ const playerPhotos = {
     vanya: "./Photos%20(2)/kepa.jpg",
     tankov: "./Photos%20(2)/DC2EE9E5-C247-4920-8D56-02213ECDEB6D.webp",
     sanya_bobrikov: "./Photos%20(2)/0C4CE6E9-38D5-4C38-9E92-B7E68933B6B2.webp",
-    russkov_artem: "russkov.jpg",
+    russkov_artem: "Russkov.jpg",
     shuklin: "shuklin.jpg"
 };
 
