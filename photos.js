@@ -4,7 +4,7 @@ const playerPhotos = {
     raya: "./Photos%20(2)/raya.jpg",
     maradona: "./Photos%20(2)/maradona.jpg",
     sanya: "./Photos%20(2)/sanya.jpg",
-    batrakov: "./Photos%20(2)/batrakov.jpg",
+    batrakov: "./Photos%20(2)/kravchenko.jpg",
     maxim: "./Photos%20(2)/max.jpg",
     andryushka: "./Photos%20(2)/andryushka.jpg",
     hokkeist: "./Photos%20(2)/hokkeist1.jpg",
