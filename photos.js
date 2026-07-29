@@ -35,7 +35,6 @@ const playerPhotos = {
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
 
 const clubPhotos = {
-    legends: "./Photos%20(2)/emblema.png",
     club: "./Photos%20(2)/club-logo.jpg",       // логотип ФК "МЕРА"
     club78: "./Photos%20(2)/club-logo-78.jpg"   // логотип ФК 78 школа
 };
