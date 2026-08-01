@@ -5,20 +5,20 @@ const playerPhotos = {
     maradona: "./Photos%20(2)/maradona.jpg",
     sanya: "./Photos%20(2)/sanya.jpg",
     batrakov: "./Photos%20(2)/kravchenko.jpg",
-    maxim: "./Photos%20(2)/max.jpg",
+    maxim: "./Photos%20(2)/IMG_0755.jpeg",
     andryushka: "./Photos%20(2)/andryushka.jpg",
     hokkeist: "./Photos%20(2)/hokkeist1.jpg",
-    lesha_podavalny: "./Photos%20(2)/lesha.jpg",
-    aleksey_doroshenko: "./Photos%20(2)/doroshenko.jpg",
-    elanga: "./Photos%20(2)/elanga.jpg",
+    lesha_podavalny: "./Photos%20(2)/IMG_0749.jpeg",
+    aleksey_doroshenko: "./Photos%20(2)/IMG_0748.jpeg",
+    elanga: "./Photos%20(2)/IMG_0754.jpeg",
     haaland: "./Photos%20(2)/haaland.jpg",
     egor_vulf: "./Photos%20(2)/egor_vulf.jpg",
-    matvey: "./Photos%20(2)/neymar1.jpg",
+    matvey: "./Photos%20(2)/IMG_0753.jpeg",
     saveliy_78: "./Photos%20(2)/vini.jpg",
     artem: "./Photos%20(2)/tema.jpg",
-    elisey: "./Photos%20(2)/yamal.jpg",
+    elisey: "./Photos%20(2)/IMG_0759.jpeg",
     bogdan: "./Photos%20(2)/artem.jpg",
-    demid: "./Photos%20(2)/logo.png",
+    demid: "./Photos%20(2)/IMG_0752.jpeg",
     saldaevk: "./Photos%20(2)/saldK.jpg",
     saldaevd: "./Photos%20(2)/saldD.jpg",
     vladimirova: "./Photos%20(2)/vladA.png",
@@ -29,7 +29,8 @@ const playerPhotos = {
     russkov_artem: "./Photos%20(2)/Russkov.jpg",
     shuklin: "./Photos%20(2)/shuklin.jpg",
     bombar: "./Photos%20(2)/bombar.jpg",
-    mes: "./Photos%20(2)/mes.jpg"
+    mes: "./Photos%20(2)/mes.jpg",
+    kostya: "./Photos%20(2)/IMG_0750.jpeg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
