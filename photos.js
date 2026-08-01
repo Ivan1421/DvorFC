@@ -3,11 +3,9 @@
 const playerPhotos = {
     raya: "./Photos%20(2)/raya.jpg",
     maradona: "./Photos%20(2)/maradona.jpg",
-    sanya: "./Photos%20(2)/sanya.jpg",
     batrakov: "./Photos%20(2)/kravchenko.jpg",
     maxim: "./Photos%20(2)/IMG_0755.jpeg",
     andryushka: "./Photos%20(2)/andryushka.jpg",
-    hokkeist: "./Photos%20(2)/hokkeist1.jpg",
     lesha_podavalny: "./Photos%20(2)/IMG_0749.jpeg",
     aleksey_doroshenko: "./Photos%20(2)/IMG_0748.jpeg",
     elanga: "./Photos%20(2)/IMG_0754.jpeg",
