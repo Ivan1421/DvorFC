@@ -38,7 +38,7 @@ const playerPhotos = {
 
 const clubPhotos = {
     club: "./Photos%20(2)/club-logo.jpg",       // логотип ФК "МЕРА"
-    club78: "./Photos%20(2)/club-logo-78.jpg"   // логотип ФК 78 школа
+    club78: "./Photos%20(2)/IMG_0797.jpeg"   // логотип ФК 78 школа
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ===================
