@@ -12,7 +12,6 @@ const playerPhotos = {
     aleksey_doroshenko: "./Photos%20(2)/IMG_0748.jpeg",
     elanga: "./Photos%20(2)/IMG_0754.jpeg",
     haaland: "./Photos%20(2)/haaland.jpg",
-    egor_vulf: "./Photos%20(2)/egor_vulf.jpg",
     matvey: "./Photos%20(2)/IMG_0753.jpeg",
     saveliy_78: "./Photos%20(2)/vini.jpg",
     artem: "./Photos%20(2)/tema.jpg",
