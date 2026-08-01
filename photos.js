@@ -30,7 +30,8 @@ const playerPhotos = {
     shuklin: "./Photos%20(2)/shuklin.jpg",
     bombar: "./Photos%20(2)/bombar.jpg",
     mes: "./Photos%20(2)/mes.jpg",
-    kostya: "./Photos%20(2)/IMG_0750.jpeg"
+    kostya: "./Photos%20(2)/IMG_0750.jpeg",
+    gleb: "./Photos%20(2)/IMG_0751.jpeg",
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
