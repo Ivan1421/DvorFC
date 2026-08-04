@@ -29,7 +29,7 @@ window.newsData = [
 window.newsMedia = {
     0: {
         type: 'image', // или 'video' для видосикса
-        url: './Photos%20(2)/IMG_0807.jpeg' //первая новость
+        url: '' //первая новость
     },
     1: {
         type: 'image',
