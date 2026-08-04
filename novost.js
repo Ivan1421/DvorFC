@@ -30,4 +30,4 @@ window.newsMedia = {
         type: 'image',
         url: './Photos%20(2)/IMG_0797.jpeg'
     }
-};
+}; // <-- Здесь была пропущена закрывающая скобка!
