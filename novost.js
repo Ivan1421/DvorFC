@@ -28,7 +28,7 @@ window.newsData = [
 // Если у новости нет медиа - просто не добавляй прост
 window.newsMedia = {
     0: {
-        type: 'video', // или 'video' для видосикса
+        type: 'video', // или 'video' для видосика
         url: './Photos%20(2)/pevec.mp4' //первая новость
     },
     1: {
