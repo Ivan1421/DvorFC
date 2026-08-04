@@ -2272,6 +2272,109 @@
         .preview-logo {
             display: none;
         }
+
+        /* БЛОК НОВОСТЕЙ */
+        .news-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .news-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .news-container h2 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .news-container h2 {
+            color: #4dabf7;
+        }
+        .news-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #0066cc;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .news-item {
+            background: #374151;
+            border-left-color: #4dabf7;
+        }
+        .news-item:last-child {
+            margin-bottom: 0;
+        }
+        .news-item .news-date {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .dark-theme .news-item .news-date {
+            color: #aaa;
+        }
+        .news-item .news-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 8px;
+        }
+        .dark-theme .news-item .news-title {
+            color: #4dabf7;
+        }
+        .news-item .news-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #444;
+        }
+        .dark-theme .news-item .news-text {
+            color: #ddd;
+        }
+        .news-item .news-tag {
+            display: inline-block;
+            background: #0066cc;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+        .dark-theme .news-item .news-tag {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        .news-media {
+            margin-top: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 100%;
+        }
+        .news-media img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        .news-media video {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+            max-height: 400px;
+            object-fit: cover;
+            background: #000;
+        }
+        .news-media-empty {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -2304,7 +2407,11 @@
                         <div class="button-title">Другие дворы</div>
                         <div class="button-description">Наши соперники</div>
                     </div>
-          
+                    <div class="main-button" id="news-btn">
+                        <div class="button-icon">📰</div>
+                        <div class="button-title">Новости</div>
+                        <div class="button-description">Последние новости</div>
+                    </div>
                 </div>
                 <div class="update-button-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
@@ -2651,6 +2758,17 @@
                 <div class="match-tactics-container">
                 </div>
             </div>
+
+            <!-- НОВОСТИ -->
+            <div id="news-page" class="page">
+                <button class="back-button" id="back-from-news">← Назад к главной</button>
+                <div class="news-container" id="news-container">
+                    <h2>📰 Последние новости</h2>
+                    <div id="news-list">
+                        <!-- Новости будут добавляться сюда скриптом -->
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>
             <p>Футбольный Двор "МЕРА" © 2026</p>
@@ -2733,7 +2851,39 @@
         </div>
     </div>
 
+
+    <script src="novost.js"></script>
+
     <script>
+        // тут тупо заглушка если js не работает сюда ниче писать не надо
+        const defaultNewsData = [
+            {
+                date: '5 августа 2026',
+                title: '🏆 Товарищеский матч с ФК "Южный"',
+                text: 'В субботу 7 августа состоится товарищеский матч между ФК "МЕРА" и ФК "Южный". Начало в 18:30 на поле "Южка".',
+                tag: 'Матч'
+            },
+            {
+                date: '3 августа 2026',
+                title: '📸 Фотосессия команды',
+                text: 'Вчера состоялась официальная фотосессия ФК "МЕРА" перед началом сезона. Фотографии будут опубликованы в ближайшее время.',
+                tag: 'Событие'
+            },
+            {
+                date: '2 августа 2026',
+                title: '⚽ Матч с 78 школой',
+                text: 'Состоялся напряженный матч с 78 школой. Итог — поражение по пенальти 11:10. Команда показала характер, но удача была не на нашей стороне.',
+                tag: 'Матч'
+            }
+        ];
+
+        let newsData = [];
+        if (typeof window.newsData !== 'undefined' && Array.isArray(window.newsData)) {
+            newsData = window.newsData;
+        } else {
+            newsData = defaultNewsData;
+        }
+
         const meraPlayerIds = ['elisey', 'batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'demid'];
         const burmaldaPlayerIds = [];
         
@@ -3503,6 +3653,45 @@
         }
         
         document.addEventListener('DOMContentLoaded', function() {
+            // Рендерим новости с поддержкой медиа
+            const newsList = document.getElementById('news-list');
+            if (newsList) {
+                newsList.innerHTML = '';
+                newsData.forEach((news, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'news-item';
+                    
+                    let mediaHtml = '';
+                    // Проверяем наличие медиа в глобальном объекте newsMedia из novost.js
+                    if (typeof window.newsMedia !== 'undefined' && window.newsMedia[index]) {
+                        const media = window.newsMedia[index];
+                        if (media && media.url) {
+                            const isVideo = media.type === 'video';
+                            const mediaClass = 'news-media';
+                            if (isVideo) {
+                                mediaHtml = `<div class="${mediaClass}"><video controls src="${media.url}"></video></div>`;
+                            } else {
+                                mediaHtml = `<div class="${mediaClass}"><img src="${media.url}" alt="Новость ${index+1}"></div>`;
+                            }
+                        }
+                    }
+                    
+                    item.innerHTML = `
+                        <div class="news-date">${news.date}</div>
+                        <div class="news-title">${news.title}</div>
+                        <div class="news-text">${news.text}</div>
+                        <span class="news-tag">${news.tag}</span>
+                        ${mediaHtml}
+                    `;
+                    newsList.appendChild(item);
+                });
+            }
+
+            // Кнопка новостей
+            document.getElementById('news-btn')?.addEventListener('click', function() { showPage('news-page'); });
+            document.getElementById('back-from-news')?.addEventListener('click', function() { showPage('home-page'); });
+
+            // Остальные инициализации
             renderMainPlayerCards();
             renderPlayerCards('yard-78-grid', yard78PlayerIds);
             renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds);
@@ -3580,7 +3769,7 @@
             document.getElementById('playstyle-detail-overlay')?.addEventListener('click', function(e) {
                 if (e.target === this) closePlaystyleDetail();
             });
-            
+
             // SECRET MODAL LOGIC
             const secretOverlay = document.getElementById('secret-overlay');
             const secretClose = document.getElementById('secret-close');
