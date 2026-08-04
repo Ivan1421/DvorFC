@@ -23,11 +23,11 @@ window.newsData = [
 // Медиа для новостей (фото или видео)
 window.newsMedia = {
     0: {
-        type: 'video',
-        url: './Photos%20(2)/pevec.mp4'
+        type: 'image',
+        url: ''
     },
     1: {
-        type: 'image',
-        url: './Photos%20(2)/IMG_0797.jpeg'
+        type: 'video',
+        url: './Photos%20(2)/pevec.mp4'
     }
 }; // <-- Здесь была пропущена закрывающая скобка!
