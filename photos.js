@@ -12,9 +12,9 @@ const playerPhotos = {
     haaland: "./Photos%20(2)/haaland.jpg",
     matvey: "./Photos%20(2)/IMG_0753.jpeg",
     saveliy_78: "./Photos%20(2)/vini.jpg",
-    artem: "./Photos%20(2)/tema.jpg",
+    artem: "./Photos%20(2)/IMG_0814.jpeg",
     elisey: "./Photos%20(2)/IMG_0759.jpeg",
-    bogdan: "./Photos%20(2)/artem.jpg",
+    bogdan: "./Photos%20(2)/IMG_0816.jpeg",
     demid: "./Photos%20(2)/IMG_0752.jpeg",
     saldaevk: "./Photos%20(2)/saldK.jpg",
     saldaevd: "./Photos%20(2)/saldD.jpg",
@@ -27,6 +27,7 @@ const playerPhotos = {
     mes: "./Photos%20(2)/mes.jpg",
     kostya: "./Photos%20(2)/IMG_0750.jpeg",
     gleb: "./Photos%20(2)/IMG_0751.jpeg",
+    maxronaldo: "./Photos%20(2)/IMG_0815.jpeg",
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
