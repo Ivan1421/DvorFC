@@ -36,6 +36,10 @@ window.newsMedia = {
         type: 'image',
         url: './Photos%20(2)/Elisey_Here_We_Go.png'
     },
+    2: {
+        type: 'image',
+        url: './Photos%20(2)/Elisey_Here_We_Go.png'
+    },
     3: {
         type: 'image',
         url: './Photos%20(2)/Sololik_Here_We_Go1.png'
