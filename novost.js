@@ -54,4 +54,4 @@ window.newsMedia = {
         type: 'image',
         url: './Photos%20(2)/Sokolik_Here_We_Go1.png'
     }
-}; // <-- Здесь была пропущена закрывающая скобка!
+};
