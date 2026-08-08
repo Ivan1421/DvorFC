@@ -39,7 +39,7 @@ window.newsMedia = {
         url: ''
     },
     1: {
-        type: 'video',
-        url: './Photos%20(2)/pevec.mp4'
+        type: 'image',
+        url: './Photos%20(2)/Elisey_Here_We_Go.png'
     }
 }; // <-- Здесь была пропущена закрывающая скобка!
