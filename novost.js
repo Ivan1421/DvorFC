@@ -38,6 +38,5 @@ window.newsMedia = {
     },
     3: {
         type: 'image',
-        url: './Photos%20(2)/Sololik_Here_We_Go1.png' // Была пропущена закрывающая кавычка
-    }
+        url: './Photos%20(2)/Sololik_Here_We_Go1.png' 
 };
