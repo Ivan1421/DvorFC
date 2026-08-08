@@ -44,11 +44,11 @@ window.newsMedia = {
     },
     2: {
         type: 'image',
-        url: ''
+        url: './Photos%20(2)/Sokolik_Here_We_Go1.png'
     },
     3: {
         type: 'image',
-        url: ''
+        url: './Photos%20(2)/Sokolik_Here_We_Go1.png'
     },
     4: {
         type: 'image',
