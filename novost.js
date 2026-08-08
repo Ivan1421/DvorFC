@@ -18,7 +18,7 @@ window.newsData = [
         text: '9 августа запланирован матч: ФК МЕРА против ФК ЮЖНЫЙ',
         tag: 'Запланированные матчи'
     },
-     {
+    {
         date: '8 августа 2026',
         title: 'HERE WE GO',
         text: 'Соколов Савелий - игрок ФК Южный!!!',
@@ -37,9 +37,7 @@ window.newsMedia = {
         url: './Photos%20(2)/Elisey_Here_We_Go.png'
     },
     3: {
-   type: 'image',
-        url: './Photos%20(2)/Sololik_Here_We_Go1.png
-}
-
-
+        type: 'image',
+        url: './Photos%20(2)/Sololik_Here_We_Go1.png'
+    }
 };
