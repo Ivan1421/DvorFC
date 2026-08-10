@@ -4668,5 +4668,19 @@
         });
     </script>
     <script src="photos.js"></script>
+<script>
+    // Проверяем, не объявлена ли уже переменная
+    if (typeof pevecVideoUrl === 'undefined') {
+        var pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
+    }
+    
+    // Если playstylePhotos не объявлен в photos.js, создаем
+    if (typeof playstylePhotos === 'undefined') {
+        var playstylePhotos = {};
+    }
+    
+    // Инициализация дополнительных данных
+    console.log('✅ Дополнительные данные загружены');
+</script>
 </body>
 </html>
