@@ -75,4 +75,5 @@ const playstylePhotos = {
     otraz_silver: "./Photos%20(2)/otraz_silver.png"
 };
 
-const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
+// make pevec video available without declaring a duplicate const
+window.pevecVideoUrl = window.pevecVideoUrl || "./Photos%20(2)/pevec.mp4";
