@@ -3,12 +3,12 @@
 // Вы выбрали: projectId = "football-13f55" — оно уже подставлено ниже.
 
 const firebaseConfig = {
-  apiKey: "REPLACE_WITH_API_KEY",
-  authDomain: "REPLACE_WITH_AUTH_DOMAIN", // например "your-project.firebaseapp.com"
+  apiKey: "AIzaSyDT0c3cpwmv5jVLvv3dGe9JlnKXMhNnyjw",
+  authDomain: "football-13f55.firebaseapp.com", // например "your-project.firebaseapp.com"
   projectId: "football-13f55",
-  storageBucket: "REPLACE_WITH_STORAGE_BUCKET",
-  messagingSenderId: "REPLACE_WITH_MESSAGING_SENDER_ID",
-  appId: "REPLACE_WITH_APP_ID"
+  storageBucket: "football-13f55.firebasestorage.app",
+  messagingSenderId: "655636296342",
+  appId: "1:655636296342:web:0be6f1b4d4381b7571c8b7"
 };
 
 (function initFirebase() {
