@@ -28,6 +28,7 @@ const playerPhotos = {
     kostya: "./Photos%20(2)/IMG_0750.jpeg",
     gleb: "./Photos%20(2)/IMG_0751.jpeg",
     maxronaldo: "./Photos%20(2)/IMG_0815.jpeg",
+    egor: "./Photos%20(2)/egor.jpeg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
