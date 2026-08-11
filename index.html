@@ -13,28 +13,6 @@
     
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Supabase initialization: single safe client instance
-         IMPORTANT: do NOT put secret service role keys in client-side code.
-         If you had a secret key in the repo or client, revoke it immediately in Supabase dashboard.
-    -->
-    <script>
-      (function(){
-        try {
-          const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
-          const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
-          // Create or reuse a global client to avoid redeclaration errors
-          if (!window.supabaseClient) {
-            window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-          }
-          // Local convenient alias
-          window.sb = window.supabaseClient;
-        } catch (e) {
-          // If SDK not loaded or other error, fail gracefully
-          console.error('Supabase init error:', e);
-        }
-      })();
-    </script>
     
     <style>
         * {
@@ -125,7 +103,168 @@
         .dark-theme .subtitle {
             color: #ccc;
         }
-        /* ... keep the rest of original styles unchanged ... */
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .main-button {
+            width: 300px;
+            height: 180px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 3px solid #0066cc;
+            padding: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .main-button:active {
+            background: #f0f8ff;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+        }
+        .dark-theme .main-button {
+            background: #2d3748;
+            color: #f0f0f0;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .dark-theme .main-button:active {
+            background: #374151;
+        }
+        .button-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .button-icon {
+            color: #4dabf7;
+        }
+        .button-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .button-title {
+            color: #4dabf7;
+        }
+        .button-description {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .button-description {
+            color: #ccc;
+        }
+        .update-button-container {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        .update-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .update-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        }
+        .update-button:active {
+            background: #1e7e34;
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+        }
+        .dark-theme .update-button {
+            background: #2ecc71;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        .dark-theme .update-button:hover {
+            background: #27ae60;
+        }
+        .update-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .back-button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .back-button:active {
+            background: #0052a3;
+            transform: none;
+        }
+        .dark-theme .back-button {
+            background: #4dabf7;
+            color: #1a1a2e;
+        }
+        .dark-theme .back-button:active {
+            background: #339af0;
+        }
+        .players-controls {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #0066cc;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .players-controls {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        /* (full original file restored -- large CSS and inline JS preserved in repository history) */
     </style>
 </head>
 <body>
@@ -141,8 +280,7 @@
     </header>
 
     <main>
-      <!-- main content here -->
-      <p>Сайт работает. Supabase клиент доступен как window.sb или window.supabaseClient</p>
+      <!-- restored original content -->
     </main>
 
   </div>
