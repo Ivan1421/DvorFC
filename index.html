@@ -11,10 +11,8 @@
     <meta property="og:image:height" content="512">
     <meta name="twitter:card" content="summary">
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         * {
@@ -3205,21 +3203,11 @@
     <!-- ===== ОСНОВНОЙ СКРИПТ ===== -->
     <script>
         // ============================================================
-        // FIREBASE НАСТРОЙКА
+        // SUPABASE НАСТРОЙКА
         // ============================================================
-        const firebaseConfig = {
-    apiKey: "AIzaSyDT0c3cpwmv5jVLvv3dGe9JlnKXMhNnyjw",
-    authDomain: "football-13f55.firebaseapp.com",
-    databaseURL: "https://football-13f55-default-rtdb.firebaseio.com",
-    projectId: "football-13f55",
-    storageBucket: "football-13f55.firebasestorage.app",
-    messagingSenderId: "655636296342",
-    appId: "1:655636296342:web:0be6f1b4d4381b7571c8b7",
-    measurementId: "G-ZTYGN9G3MF"
-};
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
+        const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
         // ============================================================
         // ДАННЫЕ КАПИТАНОВ
@@ -3509,10 +3497,10 @@
         };
         
         // ============================================================
-        // ФУНКЦИИ РЫНКА
+        // ФУНКЦИИ РЫНКА (Supabase)
         // ============================================================
         async function initMarket() {
-            const loaded = await loadMarketFromFirebase();
+            const loaded = await loadMarketFromSupabase();
             if (!loaded) {
                 const saved = localStorage.getItem('marketData');
                 if (saved) {
@@ -3536,10 +3524,10 @@
         }
         
         function saveMarketData() {
-            saveMarketToFirebase();
+            saveMarketToSupabase();
         }
         
-        async function saveMarketToFirebase() {
+        async function saveMarketToSupabase() {
             try {
                 const data = {
                     teams: {},
@@ -3552,32 +3540,44 @@
                         players: CAPTAINS[id].players
                     };
                 });
-                await db.collection('football').doc('market').set(data);
-                console.log('✅ Данные сохранены в Firebase');
+                
+                const { error } = await supabase
+                    .from('market')
+                    .upsert({ id: 'market_data', data: data });
+                
+                if (error) throw error;
+                console.log('✅ Данные сохранены в Supabase');
                 return true;
             } catch (error) {
                 console.error('❌ Ошибка сохранения:', error);
-                showMarketNotification('Ошибка сохранения в Firebase!', 'error');
+                showMarketNotification('Ошибка сохранения в Supabase!', 'error');
                 return false;
             }
         }
         
-        async function loadMarketFromFirebase() {
+        async function loadMarketFromSupabase() {
             try {
-                const doc = await db.collection('football').doc('market').get();
-                if (doc.exists) {
-                    const data = doc.data();
-                    if (data.teams) {
-                        Object.keys(data.teams).forEach(id => {
+                const { data, error } = await supabase
+                    .from('market')
+                    .select('data')
+                    .eq('id', 'market_data')
+                    .single();
+                
+                if (error && error.code !== 'PGRST116') throw error;
+                
+                if (data && data.data) {
+                    const savedData = data.data;
+                    if (savedData.teams) {
+                        Object.keys(savedData.teams).forEach(id => {
                             if (CAPTAINS[id]) {
-                                CAPTAINS[id].budget = data.teams[id].budget;
-                                CAPTAINS[id].players = data.teams[id].players;
+                                CAPTAINS[id].budget = savedData.teams[id].budget;
+                                CAPTAINS[id].players = savedData.teams[id].players;
                             }
                         });
                     }
-                    marketState.transferList = data.transferList || [];
-                    marketState.pendingTransfers = data.pendingTransfers || {};
-                    console.log('✅ Данные загружены из Firebase');
+                    marketState.transferList = savedData.transferList || [];
+                    marketState.pendingTransfers = savedData.pendingTransfers || {};
+                    console.log('✅ Данные загружены из Supabase');
                     return true;
                 } else {
                     console.log('📝 Создаем начальные данные...');
@@ -3590,23 +3590,27 @@
                         marketState.transferList.push(t);
                         marketState.pendingTransfers[t.playerId] = { seller: t.seller, price: t.price };
                     });
-                    await saveMarketToFirebase();
+                    await saveMarketToSupabase();
                     return true;
                 }
             } catch (error) {
-                console.error('❌ Ошибка загрузки из Firebase:', error);
-                showMarketNotification('Ошибка загрузки из Firebase!', 'error');
+                console.error('❌ Ошибка загрузки из Supabase:', error);
+                showMarketNotification('Ошибка загрузки из Supabase!', 'error');
                 return false;
             }
         }
         
         // ============================================================
-        // ЛОГИН ЧЕРЕЗ FIREBASE AUTH (БЕЗОПАСНЫЙ)
+        // ЛОГИН (безопасный через Supabase Auth)
         // ============================================================
         async function loginCaptain(email, password) {
             try {
-                const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
                 
                 let teamId = null;
                 if (email.includes('mera')) teamId = 'mera';
@@ -3641,12 +3645,8 @@
                 
             } catch (error) {
                 console.error('Ошибка входа:', error);
-                if (error.code === 'auth/user-not-found') {
-                    showMarketNotification('❌ Пользователь не найден!', 'error');
-                } else if (error.code === 'auth/wrong-password') {
-                    showMarketNotification('❌ Неверный пароль!', 'error');
-                } else if (error.code === 'auth/invalid-email') {
-                    showMarketNotification('❌ Неверный email!', 'error');
+                if (error.message.includes('Invalid login credentials')) {
+                    showMarketNotification('❌ Неверный email или пароль!', 'error');
                 } else {
                     showMarketNotification(`❌ Ошибка: ${error.message}`, 'error');
                 }
@@ -3659,7 +3659,7 @@
         // ============================================================
         async function logoutCaptain() {
             try {
-                await firebase.auth().signOut();
+                await supabase.auth.signOut();
             } catch(e) {
                 console.error('Ошибка выхода:', e);
             }
