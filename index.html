@@ -1619,6 +1619,15 @@
             border-color: #ffc107;
             background: #664d03;
         }
+        .bench-player-item.burmalda-bench .bench-player-photo {
+            border: 3px solid #00e676 !important;
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
+        }
+        .dark-theme .bench-player-item.burmalda-bench .bench-player-photo {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
+            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
+        }
         .match-upcoming-info {
             text-align: center;
             padding: 40px 20px;
@@ -1954,6 +1963,13 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 300% 50%; }
         }
+        .dark-theme .iq-counter {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         .player-card.burmalda-player {
             position: relative;
             border: 3px solid #00e676 !important;
@@ -1968,6 +1984,13 @@
             background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
             background-size: 400% 400%;
             animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        }
+        .player-card.burmalda-player:active {
+            transform: translateY(-2px);
+            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate, burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.burmalda-player:active {
+            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate, burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
         }
         @keyframes burmalda-border-pulse {
             0% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); border-color: #00e676; }
@@ -2467,6 +2490,36 @@
             background: #374151;
             border-color: #4dabf7;
         }
+        .market-player-card .player-photo-market {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #0066cc;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        .dark-theme .market-player-card .player-photo-market {
+            border-color: #4dabf7;
+            background: #374151;
+        }
+        .market-player-card .player-photo-market img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .market-player-card .player-photo-market .no-photo {
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
         .market-player-card .player-price {
             font-size: 1.5rem;
             font-weight: bold;
@@ -2532,6 +2585,36 @@
         .dark-theme .my-player-card {
             background: #1a2a4a;
             border-color: #2ecc71;
+        }
+        .my-player-card .player-photo-my {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #28a745;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        .dark-theme .my-player-card .player-photo-my {
+            border-color: #2ecc71;
+            background: #374151;
+        }
+        .my-player-card .player-photo-my img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .my-player-card .player-photo-my .no-photo {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         }
         .notification-market {
             position: fixed;
@@ -3359,7 +3442,7 @@
         }
         
         // ============================================================
-        // ЛОГИН ЧЕРЕЗ SUPABASE AUTH
+        // ЛОГИН ЧЕРЕЗ SUPABASE AUTH (фиксированные пароли)
         // ============================================================
         async function loginCaptain(email, password) {
             try {
@@ -3368,41 +3451,24 @@
                     return false;
                 }
 
+                // Пытаемся войти
                 const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email.trim(),
                     password: password.trim()
                 });
 
                 if (error) {
-                    // Если пользователь не существует - создаем
-                    if (error.message.includes('Invalid login credentials')) {
-                        const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
-                            email: email.trim(),
-                            password: password.trim()
-                        });
-
-                        if (signUpError) {
-                            showMarketNotification(`❌ ${signUpError.message}`, 'error');
-                            return false;
-                        }
-
-                        if (signUpData.user) {
-                            showMarketNotification('✅ Пользователь создан! Войдите снова.', 'success');
-                            return false;
-                        }
-                    }
-                    
                     showMarketNotification(`❌ ${error.message}`, 'error');
                     return false;
                 }
 
-                // Определяем команду
+                // Определяем команду по email
                 let teamId = null;
                 const userEmail = data.user.email;
                 
-                if (userEmail.includes('mera')) teamId = 'mera';
-                else if (userEmail.includes('school78')) teamId = 'school78';
-                else if (userEmail.includes('yuzhka')) teamId = 'yuzhka';
+                if (userEmail === 'mera@fc.com') teamId = 'mera';
+                else if (userEmail === 'school78@fc.com') teamId = 'school78';
+                else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
                 else {
                     showMarketNotification('❌ Неизвестная команда!', 'error');
                     await supabaseClient.auth.signOut();
@@ -3484,9 +3550,9 @@
                 const userEmail = session.user.email;
                 let teamId = null;
                 
-                if (userEmail.includes('mera')) teamId = 'mera';
-                else if (userEmail.includes('school78')) teamId = 'school78';
-                else if (userEmail.includes('yuzhka')) teamId = 'yuzhka';
+                if (userEmail === 'mera@fc.com') teamId = 'mera';
+                else if (userEmail === 'school78@fc.com') teamId = 'school78';
+                else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
                 
                 if (teamId && CAPTAINS[teamId]) {
                     marketState.currentCaptain = teamId;
@@ -3754,7 +3820,20 @@
         }
         
         // ============================================================
-        // UI РЫНКА
+        // ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ ФОТО ИГРОКА
+        // ============================================================
+        function getPlayerPhoto(playerId, className = '') {
+            const photo = typeof playerPhotos !== 'undefined' && playerPhotos[playerId] ? playerPhotos[playerId] : null;
+            if (photo) {
+                return `<div class="${className}"><img src="${photo}" alt="Фото игрока"></div>`;
+            } else {
+                const icon = playersData[playerId]?.icon || '⚽';
+                return `<div class="${className}"><div class="no-photo">${icon}</div></div>`;
+            }
+        }
+        
+        // ============================================================
+        // UI РЫНКА (с фотографиями)
         // ============================================================
         function updateMarketUI() {
             const grid = document.getElementById('market-grid');
@@ -3790,7 +3869,7 @@
                 const sellerTeam = CAPTAINS[transfer.seller];
                 
                 html += `<div class="market-player-card">
-                    <div style="font-size:2.5rem;">${player.icon || '⚽'}</div>
+                    ${getPlayerPhoto(transfer.playerId, 'player-photo-market')}
                     <h4>${player.name}</h4>
                     <p style="color:#666;">${player.position} • Рейтинг: ${player.rating}</p>
                     <p style="font-size:0.8rem;color:#888;">Команда: ${sellerTeam ? sellerTeam.name : 'Неизвестно'}</p>
@@ -3823,7 +3902,7 @@
                 if (!player) return;
                 const isOnMarket = !!marketState.pendingTransfers[playerId];
                 html += `<div class="my-player-card">
-                    <div style="font-size:2rem;">${player.icon || '⚽'}</div>
+                    ${getPlayerPhoto(playerId, 'player-photo-my')}
                     <h4>${player.name}</h4>
                     <p style="font-size:0.8rem;color:#666;">${player.position}</p>
                     <p style="font-weight:bold;">⭐ ${player.rating}</p>
@@ -4552,7 +4631,7 @@
                     inputLogin.style.display = 'inline-block';
                     inputPassword.style.display = 'inline-block';
                     inputLogin.placeholder = 'Email (mera@fc.com, school78@fc.com, yuzhka@fc.com)';
-                    inputPassword.placeholder = 'Пароль (придумайте сами)';
+                    inputPassword.placeholder = 'Пароль...';
                     inputLogin.focus();
                 } else {
                     const email = inputLogin.value.trim();
