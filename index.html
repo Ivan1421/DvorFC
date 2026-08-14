@@ -3124,8 +3124,12 @@
         // SUPABASE НАСТРОЙКА
         // ============================================================
         const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
+
+// Проверяем, не объявлен ли уже supabase
+if (typeof supabase === 'undefined') {
+    var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+}
         
         // ============================================================
         // ДАННЫЕ КАПИТАНОВ
