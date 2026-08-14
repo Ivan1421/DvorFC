@@ -3774,7 +3774,7 @@
                 showMarketNotification('❌ Этот игрок уже на рынке!', 'error');
                 return;
             }
-            if (price < 100) {
+            if (price < 50) {
                 showMarketNotification('❌ Минимальная цена - 100 монет!', 'error');
                 return;
             }
@@ -3809,10 +3809,10 @@
         }
         
         function openSellDialog(playerId) {
-            const price = prompt('Введите цену для продажи (минимум 100 монет):', '500');
+            const price = prompt('Введите цену для продажи (минимум 50 монет):', '500');
             if (price === null) return;
             const priceNum = parseInt(price);
-            if (isNaN(priceNum) || priceNum < 100) {
+            if (isNaN(priceNum) || priceNum < 50) {
                 showMarketNotification('❌ Введите корректную цену (минимум 100 монет)!', 'error');
                 return;
             }
