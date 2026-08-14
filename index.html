@@ -2348,6 +2348,125 @@
             display: none;
         }
         
+        /* ============================================================
+           ИСТОРИЯ ТРАНСФЕРОВ
+           ============================================================ */
+        .transfers-history {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #0066cc;
+        }
+        .dark-theme .transfers-history {
+            border-top-color: #4dabf7;
+        }
+        .transfers-history h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .dark-theme .transfers-history h3 {
+            color: #4dabf7;
+        }
+        .transfer-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-left: 4px solid #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .transfer-item {
+            background: #374151;
+            border-left-color: #2ecc71;
+        }
+        .transfer-item .transfer-player {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dark-theme .transfer-item .transfer-player {
+            color: #f0f0f0;
+        }
+        .transfer-item .transfer-player .player-icon {
+            font-size: 1.5rem;
+        }
+        .transfer-item .transfer-from {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .transfer-item .transfer-arrow {
+            color: #666;
+            font-size: 1.2rem;
+            margin: 0 8px;
+        }
+        .transfer-item .transfer-to {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .transfer-item .transfer-price {
+            background: #ffc107;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        .dark-theme .transfer-item .transfer-price {
+            background: #e0a800;
+            color: #1a1a2e;
+        }
+        .transfer-item .transfer-time {
+            color: #888;
+            font-size: 0.8rem;
+        }
+        .dark-theme .transfer-item .transfer-time {
+            color: #aaa;
+        }
+        .transfer-item .transfer-team-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .transfer-item .transfer-team-badge.mera {
+            background: #8e44ad;
+            color: #fff;
+        }
+        .transfer-item .transfer-team-badge.school78 {
+            background: #6c757d;
+            color: #fff;
+        }
+        .transfer-item .transfer-team-badge.yuzhka {
+            background: #28a745;
+            color: #fff;
+        }
+        .transfer-item .transfer-team-badge.unknown {
+            background: #6c757d;
+            color: #fff;
+        }
+        .transfers-empty {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .dark-theme .transfers-empty {
+            color: #aaa;
+        }
+        .transfers-empty .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
         .market-container {
             background: white;
             border-radius: 15px;
@@ -3049,6 +3168,14 @@
                     <div class="market-grid" id="market-grid">
                         <div style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">Загрузка...</div>
                     </div>
+
+                    <!-- ===== ИСТОРИЯ ТРАНСФЕРОВ ===== -->
+                    <div class="transfers-history">
+                        <h3>📜 Последние трансферы</h3>
+                        <div id="transfers-list">
+                            <div style="text-align:center; padding:20px; color:#666;">Загрузка...</div>
+                        </div>
+                    </div>
                     
                     <div class="my-team-section" id="my-team-section" style="display: none;">
                         <h3>⭐ Моя команда</h3>
@@ -3409,7 +3536,8 @@
         let marketState = {
             currentCaptain: null,
             transferList: [],
-            pendingTransfers: {}
+            pendingTransfers: {},
+            transfers: [] // История трансферов
         };
         
         // ============================================================
@@ -3498,6 +3626,7 @@
                 showMarketNotification(`✅ Добро пожаловать, капитан ${captain.captain}!`, 'success');
                 updateMarketUI();
                 renderMyTeam();
+                renderTransfers();
                 return true;
 
             } catch (error) {
@@ -3571,6 +3700,7 @@
                     
                     updateMarketUI();
                     renderMyTeam();
+                    renderTransfers();
                     return true;
                 }
                 return false;
@@ -3588,7 +3718,8 @@
                 const data = {
                     teams: {},
                     transferList: marketState.transferList || [],
-                    pendingTransfers: marketState.pendingTransfers || {}
+                    pendingTransfers: marketState.pendingTransfers || {},
+                    transfers: marketState.transfers || []
                 };
                 
                 Object.keys(CAPTAINS).forEach(id => {
@@ -3616,7 +3747,8 @@
                     const data = {
                         teams: {},
                         transferList: marketState.transferList || [],
-                        pendingTransfers: marketState.pendingTransfers || {}
+                        pendingTransfers: marketState.pendingTransfers || {},
+                        transfers: marketState.transfers || []
                     };
                     Object.keys(CAPTAINS).forEach(id => {
                         data.teams[id] = {
@@ -3703,6 +3835,95 @@
             }
             marketState.transferList = data.transferList || [];
             marketState.pendingTransfers = data.pendingTransfers || {};
+            marketState.transfers = data.transfers || [];
+        }
+        
+        // ============================================================
+        // ИСТОРИЯ ТРАНСФЕРОВ
+        // ============================================================
+        function addTransfer(playerId, fromTeamId, toTeamId, price) {
+            const player = playersData[playerId];
+            if (!player) return;
+            
+            const transfer = {
+                playerId: playerId,
+                playerName: player.name,
+                playerIcon: player.icon || '⚽',
+                fromTeam: fromTeamId,
+                toTeam: toTeamId,
+                price: price,
+                time: new Date().toISOString()
+            };
+            
+            // Добавляем в начало истории
+            marketState.transfers = marketState.transfers || [];
+            marketState.transfers.unshift(transfer);
+            
+            // Ограничиваем историю 50 последними трансферами
+            if (marketState.transfers.length > 50) {
+                marketState.transfers = marketState.transfers.slice(0, 50);
+            }
+            
+            saveMarketData();
+            renderTransfers();
+        }
+
+        function renderTransfers() {
+            const container = document.getElementById('transfers-list');
+            if (!container) return;
+            
+            const transfers = marketState.transfers || [];
+            
+            if (transfers.length === 0) {
+                container.innerHTML = `
+                    <div class="transfers-empty">
+                        <div class="empty-icon">📭</div>
+                        <p>Пока нет совершенных трансферов</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Показываем последние 10 трансферов
+            const recentTransfers = transfers.slice(0, 10);
+            
+            let html = '';
+            recentTransfers.forEach(transfer => {
+                const fromTeam = CAPTAINS[transfer.fromTeam];
+                const toTeam = CAPTAINS[transfer.toTeam];
+                const fromName = fromTeam ? fromTeam.name : 'Неизвестно';
+                const toName = toTeam ? toTeam.name : 'Неизвестно';
+                const fromClass = transfer.fromTeam || 'unknown';
+                const toClass = transfer.toTeam || 'unknown';
+                const time = new Date(transfer.time);
+                const timeStr = time.toLocaleString('ru-RU', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                html += `
+                    <div class="transfer-item">
+                        <div class="transfer-player">
+                            <span class="player-icon">${transfer.playerIcon}</span>
+                            ${transfer.playerName}
+                        </div>
+                        <div>
+                            <span class="transfer-team-badge ${fromClass}">${fromName}</span>
+                            <span class="transfer-arrow">➜</span>
+                            <span class="transfer-team-badge ${toClass}">${toName}</span>
+                        </div>
+                        <div>
+                            <span class="transfer-price">💰 ${transfer.price} монет</span>
+                            <span class="transfer-time">🕐 ${timeStr}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
         }
         
         // ============================================================
@@ -3750,6 +3971,9 @@
             
             marketData.players[playerId].team = captainTeamId;
             
+            // Добавляем в историю трансферов
+            addTransfer(playerId, sellerId, captainTeamId, price);
+            
             showMarketNotification(`✅ ${player.name} куплен за ${price} монет!`, 'success');
             saveMarketData();
             updateMarketUI();
@@ -3775,7 +3999,7 @@
                 return;
             }
             if (price < 50) {
-                showMarketNotification('❌ Минимальная цена - 100 монет!', 'error');
+                showMarketNotification('❌ Минимальная цена - 50 монет!', 'error');
                 return;
             }
             
@@ -3813,7 +4037,7 @@
             if (price === null) return;
             const priceNum = parseInt(price);
             if (isNaN(priceNum) || priceNum < 50) {
-                showMarketNotification('❌ Введите корректную цену (минимум 100 монет)!', 'error');
+                showMarketNotification('❌ Введите корректную цену (минимум 50 монет)!', 'error');
                 return;
             }
             sellPlayer(playerId, priceNum);
@@ -3947,6 +4171,7 @@
             loadMarketFromSupabase().then(() => {
                 updateTeamSelects();
                 updateMarketUI();
+                renderTransfers();
                 if (marketState.currentCaptain) {
                     renderMyTeam();
                     updateBudgetDisplay();
@@ -4542,6 +4767,7 @@
             document.getElementById('market-btn').addEventListener('click', () => {
                 showPage('market-page');
                 updateMarketUI();
+                renderTransfers();
                 if (marketState.currentCaptain) renderMyTeam();
             });
             
