@@ -1619,15 +1619,6 @@
             border-color: #ffc107;
             background: #664d03;
         }
-        .bench-player-item.burmalda-bench .bench-player-photo {
-            border: 3px solid #00e676 !important;
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
-        }
-        .dark-theme .bench-player-item.burmalda-bench .bench-player-photo {
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
-        }
         .match-upcoming-info {
             text-align: center;
             padding: 40px 20px;
@@ -1672,7 +1663,6 @@
             background: #1a2a4a;
             color: #4dabf7;
         }
-        /* Secret modal styles */
         .secret-overlay {
             position: fixed;
             top: 0;
@@ -1964,13 +1954,6 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 300% 50%; }
         }
-        .dark-theme .iq-counter {
-            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #a29bfe, #ff6b6b);
-            background-size: 300% 100%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
         .player-card.burmalda-player {
             position: relative;
             border: 3px solid #00e676 !important;
@@ -1986,40 +1969,15 @@
             background-size: 400% 400%;
             animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
         }
-        .player-card.burmalda-player:active {
-            transform: translateY(-2px);
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate, burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
-        }
-        .dark-theme .player-card.burmalda-player:active {
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate, burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
-        }
         @keyframes burmalda-border-pulse {
-            0% {
-                box-shadow: 0 0 20px rgba(0, 230, 118, 0.4), 0 0 40px rgba(0, 200, 80, 0.2);
-                border-color: #00e676;
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(0, 230, 118, 0.9), 0 0 80px rgba(0, 200, 80, 0.5);
-                border-color: #00c853;
-            }
-            100% {
-                box-shadow: 0 0 25px rgba(0, 230, 118, 0.6), 0 0 55px rgba(0, 200, 80, 0.3);
-                border-color: #00b248;
-            }
+            0% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); border-color: #00e676; }
+            50% { box-shadow: 0 0 40px rgba(0, 230, 118, 0.9); border-color: #00c853; }
+            100% { box-shadow: 0 0 25px rgba(0, 230, 118, 0.6); border-color: #00b248; }
         }
         @keyframes burmalda-border-pulse-dark {
-            0% {
-                box-shadow: 0 0 25px rgba(0, 230, 118, 0.5), 0 0 50px rgba(0, 200, 80, 0.3);
-                border-color: #00e676;
-            }
-            50% {
-                box-shadow: 0 0 50px rgba(0, 230, 118, 1), 0 0 100px rgba(0, 200, 80, 0.7);
-                border-color: #00c853;
-            }
-            100% {
-                box-shadow: 0 0 35px rgba(0, 230, 118, 0.7), 0 0 70px rgba(0, 200, 80, 0.4);
-                border-color: #00b248;
-            }
+            0% { box-shadow: 0 0 25px rgba(0, 230, 118, 0.5); border-color: #00e676; }
+            50% { box-shadow: 0 0 50px rgba(0, 230, 118, 1); border-color: #00c853; }
+            100% { box-shadow: 0 0 35px rgba(0, 230, 118, 0.7); border-color: #00b248; }
         }
         @keyframes burmalda-bg-pulse {
             0% { background-position: 0% 50%; }
@@ -2071,21 +2029,9 @@
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
         @keyframes burmalda-plate-shine {
-            0% {
-                background-position: 0% 50%;
-                box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
-                text-shadow: 0 0 12px rgba(0, 255, 100, 1);
-            }
-            50% {
-                background-position: 100% 50%;
-                box-shadow: 0 0 45px rgba(0, 230, 118, 1);
-                text-shadow: 0 0 25px rgba(0, 255, 100, 1);
-            }
-            100% {
-                background-position: 0% 50%;
-                box-shadow: 0 0 25px rgba(0, 230, 118, 0.7);
-                text-shadow: 0 0 15px rgba(0, 255, 100, 1);
-            }
+            0% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(0, 230, 118, 0.6); }
+            50% { background-position: 100% 50%; box-shadow: 0 0 45px rgba(0, 230, 118, 1); }
+            100% { background-position: 0% 50%; box-shadow: 0 0 25px rgba(0, 230, 118, 0.7); }
         }
         .player-card.burmalda-player .stat-item {
             background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
@@ -2277,7 +2223,6 @@
             display: none;
         }
 
-        /* БЛОК НОВОСТЕЙ */
         .news-container {
             background: white;
             border-radius: 15px;
@@ -2380,7 +2325,6 @@
             display: none;
         }
         
-        /* ===== РЫНОК ===== */
         .market-container {
             background: white;
             border-radius: 15px;
@@ -2623,7 +2567,6 @@
             <p class="subtitle">Официальная статистика и новости</p>
         </header>
         <main>
-            <!-- ===== ГЛАВНАЯ ===== -->
             <div id="home-page" class="page active">
                 <div class="main-buttons">
                     <div class="main-button" id="players-btn">
@@ -2662,7 +2605,6 @@
                 </div>
             </div>
             
-            <!-- ===== ИГРОКИ ===== -->
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
                 <div class="players-controls">
@@ -2680,12 +2622,10 @@
                 <div class="players-grid" id="players-grid-container"></div>
             </div>
             
-            <!-- ===== СОСТАВ ФК МЕРА ===== -->
             <div id="squad-page" class="page">
                 <button class="back-button" id="back-from-squad">← Назад к главной</button>
                 <div class="best-squad-container">
                     <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">ФК "МЕРА" — основной состав</h2>
-                    <!-- Состав 1 -->
                     <div class="squad-content active" id="squad-1">
                         <div class="formation">
                             <div class="formation-line">
@@ -2729,7 +2669,6 @@
                 </div>
             </div>
             
-            <!-- ===== ДРУГИЕ ДВОРЫ ===== -->
             <div id="yards-page" class="page">
                 <button class="back-button" id="back-from-yards">← Назад к главной</button>
                 <div class="other-yards-container">
@@ -2778,7 +2717,6 @@
                 </div>
             </div>
             
-            <!-- ===== МАТЧИ ===== -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
@@ -2957,7 +2895,6 @@
                 </div>
             </div>
             
-            <!-- ===== ТАКТИКА МАТЧА ===== -->
             <div id="match-tactics-page" class="page">
                 <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
                 <div class="match-tactics-container" id="match-tactics-container">
@@ -2985,7 +2922,6 @@
                 </div>
             </div>
             
-            <!-- ===== НОВОСТИ ===== -->
             <div id="news-page" class="page">
                 <button class="back-button" id="back-from-news">← Назад к главной</button>
                 <div class="news-container" id="news-container">
@@ -2994,7 +2930,6 @@
                 </div>
             </div>
             
-            <!-- ===== РЫНОК ===== -->
             <div id="market-page" class="page">
                 <button class="back-button" id="back-from-market">← Назад к главной</button>
                 <div class="market-container">
@@ -3047,7 +2982,6 @@
         </footer>
     </div>
     
-    <!-- ===== МОДАЛЬНОЕ ОКНО ===== -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal" id="modal-window">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -3080,7 +3014,6 @@
         </div>
     </div>
     
-    <!-- ===== ПЛЕЙСТАЙЛ ДЕТАЛИ ===== -->
     <div class="playstyle-detail-overlay" id="playstyle-detail-overlay">
         <div class="playstyle-detail-card" id="playstyle-detail-card">
             <button class="close-btn" id="playstyle-detail-close">✕</button>
@@ -3090,7 +3023,6 @@
         </div>
     </div>
     
-    <!-- ===== СЕКРЕТНЫЙ МОДАЛ ===== -->
     <div class="secret-overlay" id="secret-overlay">
         <div class="secret-modal" id="secret-modal">
             <button class="secret-close" id="secret-close">✕</button>
@@ -3111,26 +3043,140 @@
         </div>
     </div>
     
-    <!-- ===== УВЕДОМЛЕНИЕ ===== -->
     <div class="notification-market" id="notification-market"></div>
 
-    <!-- ===== ПОДКЛЮЧЕНИЕ СКРИПТОВ ===== -->
-    <script src="novost.js"></script>
-    <script src="photos.js"></script>
-    
-    <!-- ===== ОСНОВНОЙ СКРИПТ ===== -->
     <script>
         // ============================================================
-        // SUPABASE НАСТРОЙКА
+        // ВСЕ ДАННЫЕ ИГРОКОВ
         // ============================================================
-        const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
-
-// Проверяем, не объявлен ли уже supabase
-if (typeof supabase === 'undefined') {
-    var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-}
-console.log('✅ Supabase клиент создан:', supabaseClient);
+        const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'demid', 'kostya'];
+        const burmaldaPlayerIds = [];
+        
+        const playstyleDescriptions = {
+            'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
+            'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
+            'Bezjalostniy': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
+            'vinos_silver': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
+            'obmanshik_silver': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
+            'truk_gold': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
+            'borec': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах.' },
+            'borec_silver': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах.' },
+            'strag': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства в отборе мяча.' },
+            'strag_silver': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства в отборе мяча.' },
+            'bistro_silver': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением.' },
+            'bistro_gold': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением.' },
+            'pushka': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и плотные удары.' },
+            'pushka_silver': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и плотные удары.' },
+            'tochno': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары.' },
+            'tochno_silver': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары.' },
+            'vihod': { name: 'Выход вратаря', description: 'Вратарь быстро выбегает из ворот.' },
+            'otraz': { name: 'Отражение', description: 'Вратарь отбивает мяч далеко в стороны.' },
+            'otraz_silver': { name: 'Отражение', description: 'Вратарь отбивает мяч далеко в стороны.' },
+            'bombardir_silver': { name: 'Супер бомбардир', description: 'Игрок точно отправляет мяч в сетку.' },
+            'bombardir': { name: 'Супер бомбардир', description: 'Игрок точно отправляет мяч в сетку.' },
+            'penalty_silver': { name: 'Пенальтист', description: 'Исключительная точность при пенальти.' },
+            'penalty': { name: 'Пенальтист', description: 'Исключительная точность при пенальти.' },
+            'parashut': { name: 'Парашют', description: 'Игрок перебрасывает мяч через вратаря.' },
+            'parashut_silver': { name: 'Парашют', description: 'Игрок перебрасывает мяч через вратаря.' },
+            'tiki_taka_silver': { name: 'Тики-така', description: 'Точные и быстрые пасы по земле.' },
+            'tiki_taka': { name: 'Тики-така', description: 'Точные и быстрые пасы по земле.' },
+            'prostrel_silver': { name: 'Прострел', description: 'Точные и быстрые удары по земле.' },
+            'prostrel': { name: 'Прострел', description: 'Точные и быстрые удары по земле.' },
+            'naves_silver': { name: 'Навес низом на ход', description: 'Высокоскоростные навесы в штрафную.' },
+            'naves': { name: 'Навес низом на ход', description: 'Высокоскоростные навесы в штрафную.' },
+            'intuation_silver': { name: 'Интуиция', description: 'Читает действия соперника в 1 на 1.' },
+            'intuation': { name: 'Интуиция', description: 'Читает действия соперника в 1 на 1.' },
+            'uskoritel_silver': { name: 'Ускоритель', description: 'Быстро набирает скорость без мяча.' },
+            'simulant': { name: 'Симулянт', description: 'Выдающееся актерское мастерство.' },
+            'simulant_silver': { name: 'Симулянт', description: 'Выдающееся актерское мастерство.' },
+            'pevec': { name: 'Певец', description: '' },
+            'pan': { name: 'Мастер Паны', description: 'Превосходный процент прокидывания мяча между ног.' },
+            'geniy': { name: 'Гений', description: 'Невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
+        };
+        
+        // ============================================================
+        // ДАННЫЕ ИГРОКОВ
+        // ============================================================
+        const basePlayers = {
+            raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 90, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
+            maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "55 кг", rating: 85, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
+            batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
+            andryushka: { name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
+            haaland: { name: "Шапов Леонид", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 87, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} },
+            elanga: { name: "Ланг Александр", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 90, number: "(20)", description: "Самый волосатый игрок двора", playstyles: ['pushka', 'geniy'], playstyleColors: { pushka: 'gold', geniy: "gold" } },
+            lesha_podavalny: { name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 89, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
+            aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 97, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
+            maradona: { name: "Гвоздев Степан", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 79, number: "(21)", description: "Не раскрылся полностью", playstyles: ['simulant_silver'], playstyleColors: {simulant_silver: "silver"} },
+            matvey: { name: "Слащев Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 88, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
+            artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "59 кг", rating: 81, number: "(98)", description: "В его весовой он один (На данный момент травмирован)", playstyles: [], playstyleColors: {} },
+            bogdan: { name: "Богдан", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 80, number: "(11)", description: "Самый дисциплинированный игрок двора", playstyles: [], playstyleColors: {} },
+            demid: { name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
+            saldaevk: { name: "Салдаев Кирилл", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(23)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold"} },
+            saldaevd: { name: "Салдаев Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 93, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold"} },
+            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 96, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki_taka', 'tochno'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold", tochno: "gold"} },
+            kostya: { name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
+            maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 77, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
+            vanya: { name: "Ваня", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "30 кг", rating: 82, number: "(56)", description: "Молодняк ФК МЕРА", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
+            gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
+            russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
+            shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
+            bombar: { name: "Бомбарь", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
+            mes: { name: "Мес", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях меса", playstyles: ["borec_silver","otraz"], playstyleColors: {borec_silver: "silver", otraz: "gold"} },
+            EgorNast: { name: "Егор Настоящий", position: "Полузащитник", age: "11 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "45 кг", rating: 83, number: "(7)", description: "Луксмаксер двора", playstyles: [], playstyleColors: {} }
+        };
+        
+        const yard78Players = [
+            { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 91, number: "(7)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 92, number: "(11)", description: "Нападающий ФК 78 школа", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
+            { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 89, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 94, number: "(1)", description: "Вратарь ФК 78 школа", playstyles: ["otraz", "vihod"], playstyleColors: {otraz: "gold", vihod: "gold"} },
+            { id: "tankov", name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 90, number: "(99)", description: "Универсальный игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 88, number: "(76)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
+            { id: "ostap", name: "Остап", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "158 см", weight: "55 кг", rating: 1, number: "(67)", description: "Единица в рейтинге, потому что топ-1 в Кемерово", playstyles: [], playstyleColors: {} },
+            { id: "elisey", name: "Елисей", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 86, number: "(19)", description: "Арендован в ФК 78 по собственному желанию", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} }
+        ];
+        
+        const yuzhkaPlayers = [
+            { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 98, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
+            { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
+            { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
+            { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
+            { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
+        ];
+        
+        const playersData = { ...basePlayers };
+        yard78Players.forEach(p => { playersData[p.id] = p; });
+        yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
+        
+        const yard78PlayerIds = yard78Players.map(p => p.id);
+        const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
+        
+        // ============================================================
+        // ФОТОГРАФИИ ИГРОКОВ (заглушки)
+        // ============================================================
+        const playerPhotos = {
+            raya: null,
+            maxim: null,
+            batrakov: null,
+            aleksey_doroshenko: null,
+            lesha_podavalny: null,
+            demid: null,
+            kostya: null,
+            elanga: null
+        };
+        
+        const playstylePhotos = {};
+        
+        // ============================================================
+        // НОВОСТИ
+        // ============================================================
+        const newsData = [
+            { date: '5 августа 2026', title: '🏆 Товарищеский матч с ФК 78', text: 'В воскресенье, 9 августа, состоится товарищеский матч между ФК "МЕРА" и ФК 78. Начало в 19:00 на поле "Краснуха".', tag: 'Матч' },
+            { date: '8 августа 2026', title: 'Трансферы', text: 'Here we go!!! Пожидаев Елисей - игрок ФК 78 до конца лета.', tag: 'Событие' },
+            { date: '2 августа 2026', title: '⚽ Матч с 78 школой', text: 'Состоялся напряженный матч с 78 школой. Итог — поражение по пенальти 11:10.', tag: 'Матч' }
+        ];
+        
+        const newsMedia = [];
         
         // ============================================================
         // ДАННЫЕ КАПИТАНОВ
@@ -3158,119 +3204,6 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 players: ['russkov_artem', 'shuklin', 'bombar', 'mes']
             }
         };
-        
-        // ============================================================
-        // ВСЕ ДАННЫЕ ИГРОКОВ
-        // ============================================================
-        const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'demid', 'kostya'];
-        const burmaldaPlayerIds = [];
-        
-        const playstyleDescriptions = {
-            'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
-            'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
-            'Bezjalostniy': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
-            'vinos_silver': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
-            'obmanshik_silver': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
-            'truk_gold': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
-            'borec': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах, как при защите мяча во время ведения, так и при борьбе с соперником в схватке.' },
-            'borec_silver': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах, как при защите мяча во время ведения, так и при борьбе с соперником в схватке.' },
-            'strag': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
-            'strag_silver': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
-            'bistro_silver': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
-            'bistro_gold': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
-            'pushka': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и плотные удары.' },
-            'pushka_silver': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и плотные удары.' },
-            'tochno': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой, отправляя мяч мимо вратаря.' },
-            'tochno_silver': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой, отправляя мяч мимо вратаря.' },
-            'vihod': { name: 'Выход вратаря', description: 'Вратарь обладает способностью быстро выбегать из ворот, чтобы оказывать давление на соперника.' },
-            'otraz': { name: 'Отражение', description: 'Вратарь обладает способностью отбивать мяч далеко, в стороны и в более безопасные зоны.' },
-            'otraz_silver': { name: 'Отражение', description: 'Вратарь обладает способностью отбивать мяч далеко, в стороны и в более безопасные зоны.' },
-            'bombardir_silver': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
-            'bombardir': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
-            'penalty_silver': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
-            'penalty': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
-            'parashut': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
-            'parashut_silver': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
-            'tiki_taka_silver': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
-            'tiki_taka': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
-            'prostrel_silver': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
-            'prostrel': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
-            'naves_silver': { name: 'Навес низом на ход', description: 'Игрок может выполнять высокоскоростные навесы в штрафную.' },
-            'naves': { name: 'Навес низом на ход', description: 'Игрок может выполнять высокоскоростные навесы в штрафную.' },
-            'intuation_silver': { name: 'Интуиция', description: 'Игрок обладает способностью читать действия соперника в ситуациях 1 на 1.' },
-            'intuation': { name: 'Интуиция', description: 'Игрок обладает способностью читать действия соперника в ситуациях 1 на 1.' },
-            'uskoritel_silver': { name: 'Ускоритель', description: 'Игрок способен быстро набрать скорость при ускорении без мяча.' },
-            'simulant': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
-            'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
-            'pevec': { name: 'Певец', description: '' },
-            'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
-            'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
-        };
-        
-        const basePlayers = {
-            raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 90, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
-            maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "55 кг", rating: 85, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
-            batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
-            andryushka: { name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
-            haaland: { name: "Шапов Леонид", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 87, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} },
-            elanga: { name: "Ланг Александр", position: "Нападающий", age: "14 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "50 кг", rating: 90, number: "(20)", description: "Самый волосатый игрок двора", playstyles: ['pushka', 'geniy'], playstyleColors: { pushka: 'gold', geniy: "gold" } },
-            lesha_podavalny: { name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 89, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
-            aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 97, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
-            maradona: { name: "Гвоздев Степан", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "33 кг", rating: 79, number: "(21)", description: "Не раскрылся полностью", playstyles: ['simulant_silver'], playstyleColors: {simulant_silver: "silver"} },
-            matvey: { name: "Слащев Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 88, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
-            artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "59 кг", rating: 81, number: "(98)", description: "В его весовой он один (На данный момент травмирован)", playstyles: [], playstyleColors: {} },
-            bogdan: { name: "Богдан", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 80, number: "(11)", description: "Самый дисциплинированный игрок двора", playstyles: [], playstyleColors: {} },
-            demid: { name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
-            saldaevk: { name: "Салдаев Кирилл", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(23)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold"} },
-            saldaevd: { name: "Салдаев Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 93, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold"} },
-            vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 96, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki_taka', 'tochno'], playstyleColors: {truk_gold: "gold", tochno: "gold"} },
-            kostya: { name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
-            maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 77, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
-            vanya: { name: "Ваня", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "30 кг", rating: 82, number: "(56)", description: "Молодняк ФК МЕРА", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
-            gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
-            russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
-            shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
-            bombar: { name: "Бомбарь", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
-            mes: { name: "Мес", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях меса", playstyles: ["borec_silver","otraz"], playstyleColors: {borec: "silver", otraz: "gold"} },
-            EgorNast: { name: "Егор Настоящий", position: "Полузащитник", age: "11 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "45 кг", rating: 83, number: "(7)", description: "Луксмаксер двора", playstyles: [], playstyleColors: {} }
-        };
-        
-        const yard78Players = [
-            { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 91, number: "(7)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр ", height: "175 см", weight: "51 кг", rating: 92, number: "(11)", description: "Нападающий ФК 78 школа", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
-            { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 89, number: "(5)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 94, number: "(1)", description: "Вратарь ФК 78 школа", playstyles: ["otraz", "vihod"], playstyleColors: {otraz: "gold", vihod: "gold"} },
-            { id: "tankov", name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 90, number: "(99)", description: "Универсальный игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 88, number: "(76)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
-            { id: "ostap", name: "Остап", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "158 см", weight: "55 кг", rating: 1, number: "(67)", description: "Единица в рейтинге, потому что топ-1 в Кемерово", playstyles: [], playstyleColors: {} },
-            { id: "elisey", name: "Елисей", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 86, number: "(19)", description: "Арендован в ФК 78 по собственному желанию", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} }
-        ];
-        
-        const yuzhkaPlayers = [
-            { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 98, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
-            { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
-            { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
-            { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
-            { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
-        ];
-        
-        const playersData = { ...basePlayers };
-        yard78Players.forEach(p => { playersData[p.id] = p; });
-        yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
-        
-        const yard78PlayerIds = yard78Players.map(p => p.id);
-        const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
-        
-        // ============================================================
-        // ПЕРЕМЕННАЯ pevecVideoUrl (ТОЛЬКО ЗДЕСЬ, ОДИН РАЗ!)
-        // ============================================================
-        const pevecVideoUrl = "./Photos%20(2)/pevec.mp4";
-        
-        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id));
-        let filteredPlayerIds = [...currentPlayerIds];
-        let activeSort = 'none';
-        let themeClickCount = 0;
-        let iqInterval = null;
         
         // ============================================================
         // МАТЧИ - ТАКТИКА
@@ -3420,43 +3353,45 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
         };
         
         // ============================================================
-        // ФУНКЦИИ РЫНКА (Supabase)
+        // ПЕРЕМЕННЫЕ
         // ============================================================
-        async function initMarket() {
-            const loaded = await loadMarketFromSupabase();
-            if (!loaded) {
-                const saved = localStorage.getItem('marketData');
-                if (saved) {
-                    try {
-                        const parsed = JSON.parse(saved);
-                        marketState.transferList = parsed.transferList || [];
-                        marketState.pendingTransfers = parsed.pendingTransfers || {};
-                        if (parsed.teams) {
-                            Object.keys(parsed.teams).forEach(id => {
-                                if (CAPTAINS[id]) {
-                                    CAPTAINS[id].budget = parsed.teams[id].budget;
-                                    CAPTAINS[id].players = parsed.teams[id].players;
-                                }
-                            });
-                        }
-                    } catch(e) {}
-                }
+        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id));
+        let filteredPlayerIds = [...currentPlayerIds];
+        let activeSort = 'none';
+        let themeClickCount = 0;
+        let iqInterval = null;
+        let supabaseClient = null;
+        
+        // ============================================================
+        // SUPABASE НАСТРОЙКА
+        // ============================================================
+        try {
+            const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
+            const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
+            
+            if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                console.log('✅ Supabase клиент создан');
+            } else {
+                console.warn('⚠️ Supabase SDK не загружен');
+                supabaseClient = null;
             }
-            updateTeamSelects();
-            updateMarketUI();
+        } catch (e) {
+            console.warn('⚠️ Ошибка создания Supabase клиента:', e);
+            supabaseClient = null;
         }
         
-        function saveMarketData() {
-            saveMarketToSupabase();
-        }
-        
+        // ============================================================
+        // ФУНКЦИИ РАБОТЫ С ХРАНИЛИЩЕМ (Supabase + localStorage fallback)
+        // ============================================================
         async function saveMarketToSupabase() {
             try {
                 const data = {
                     teams: {},
-                    transferList: marketState.transferList,
-                    pendingTransfers: marketState.pendingTransfers
+                    transferList: marketState.transferList || [],
+                    pendingTransfers: marketState.pendingTransfers || {}
                 };
+                
                 Object.keys(CAPTAINS).forEach(id => {
                     data.teams[id] = {
                         budget: CAPTAINS[id].budget,
@@ -3464,63 +3399,118 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                     };
                 });
                 
-                const { error } = await supabase
-                    .from('market')
-                    .upsert({ id: 'market_data', data: data });
-                
-                if (error) throw error;
-                console.log('✅ Данные сохранены в Supabase');
+                // Пытаемся сохранить в Supabase
+                if (supabaseClient) {
+                    const { error } = await supabaseClient
+                        .from('market')
+                        .upsert({ id: 'market_data', data: data });
+                    
+                    if (error) throw error;
+                    console.log('✅ Данные сохранены в Supabase');
+                } else {
+                    // Fallback на localStorage
+                    localStorage.setItem('marketData', JSON.stringify(data));
+                    console.log('✅ Данные сохранены в localStorage');
+                }
                 return true;
             } catch (error) {
                 console.error('❌ Ошибка сохранения:', error);
-                showMarketNotification('Ошибка сохранения в Supabase!', 'error');
-                return false;
+                // Пытаемся сохранить в localStorage как fallback
+                try {
+                    const data = {
+                        teams: {},
+                        transferList: marketState.transferList || [],
+                        pendingTransfers: marketState.pendingTransfers || {}
+                    };
+                    Object.keys(CAPTAINS).forEach(id => {
+                        data.teams[id] = {
+                            budget: CAPTAINS[id].budget,
+                            players: CAPTAINS[id].players
+                        };
+                    });
+                    localStorage.setItem('marketData', JSON.stringify(data));
+                    console.log('✅ Данные сохранены в localStorage (fallback)');
+                    return true;
+                } catch (e) {
+                    showMarketNotification('Ошибка сохранения данных!', 'error');
+                    return false;
+                }
             }
         }
         
         async function loadMarketFromSupabase() {
             try {
-                const { data, error } = await supabase
-                    .from('market')
-                    .select('data')
-                    .eq('id', 'market_data')
-                    .single();
+                console.log('🔄 Загрузка данных...');
                 
-                if (error && error.code !== 'PGRST116') throw error;
-                
-                if (data && data.data) {
-                    const savedData = data.data;
-                    if (savedData.teams) {
-                        Object.keys(savedData.teams).forEach(id => {
-                            if (CAPTAINS[id]) {
-                                CAPTAINS[id].budget = savedData.teams[id].budget;
-                                CAPTAINS[id].players = savedData.teams[id].players;
-                            }
-                        });
+                // Пытаемся загрузить из Supabase
+                if (supabaseClient) {
+                    const { data, error } = await supabaseClient
+                        .from('market')
+                        .select('data')
+                        .eq('id', 'market_data')
+                        .single();
+                    
+                    if (!error && data && data.data) {
+                        applyLoadedData(data.data);
+                        console.log('✅ Данные загружены из Supabase');
+                        return true;
                     }
-                    marketState.transferList = savedData.transferList || [];
-                    marketState.pendingTransfers = savedData.pendingTransfers || {};
-                    console.log('✅ Данные загружены из Supabase');
-                    return true;
-                } else {
-                    console.log('📝 Создаем начальные данные...');
-                    const initial = [
-                        { playerId: 'kirill_beschastny', seller: 'school78', price: 600 },
-                        { playerId: 'maxim', seller: 'mera', price: 500 },
-                        { playerId: 'shuklin', seller: 'yuzhka', price: 700 }
-                    ];
-                    initial.forEach(t => {
-                        marketState.transferList.push(t);
-                        marketState.pendingTransfers[t.playerId] = { seller: t.seller, price: t.price };
-                    });
-                    await saveMarketToSupabase();
-                    return true;
                 }
+                
+                // Fallback на localStorage
+                const saved = localStorage.getItem('marketData');
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        applyLoadedData(parsed);
+                        console.log('✅ Данные загружены из localStorage');
+                        return true;
+                    } catch (e) {
+                        console.warn('⚠️ Ошибка парсинга localStorage');
+                    }
+                }
+                
+                // Создаем начальные данные
+                console.log('📝 Создаем начальные данные...');
+                const initial = [
+                    { playerId: 'kirill_beschastny', seller: 'school78', price: 600 },
+                    { playerId: 'maxim', seller: 'mera', price: 500 },
+                    { playerId: 'shuklin', seller: 'yuzhka', price: 700 }
+                ];
+                initial.forEach(t => {
+                    marketState.transferList.push(t);
+                    marketState.pendingTransfers[t.playerId] = { seller: t.seller, price: t.price };
+                });
+                await saveMarketToSupabase();
+                return true;
+                
             } catch (error) {
-                console.error('❌ Ошибка загрузки из Supabase:', error);
-                showMarketNotification('Ошибка загрузки из Supabase!', 'error');
+                console.error('❌ Ошибка загрузки:', error);
+                // Пытаемся загрузить из localStorage
+                try {
+                    const saved = localStorage.getItem('marketData');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        applyLoadedData(parsed);
+                        console.log('✅ Данные загружены из localStorage (fallback)');
+                        return true;
+                    }
+                } catch (e) {}
                 return false;
             }
+        }
+        
+        function applyLoadedData(data) {
+            if (data.teams) {
+                Object.keys(data.teams).forEach(id => {
+                    if (CAPTAINS[id]) {
+                        CAPTAINS[id].budget = data.teams[id].budget;
+                        CAPTAINS[id].players = data.teams[id].players;
+                    }
+                });
+            }
+            marketState.transferList = data.transferList || [];
+            marketState.pendingTransfers = data.pendingTransfers || {};
         }
         
         // ============================================================
@@ -3528,12 +3518,14 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
         // ============================================================
         async function loginCaptain(email, password) {
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
-                    email: email,
-                    password: password
-                });
-                
-                if (error) throw error;
+                if (supabaseClient) {
+                    const { data, error } = await supabaseClient.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    if (error) throw error;
+                }
                 
                 let teamId = null;
                 if (email.includes('mera')) teamId = 'mera';
@@ -3568,21 +3560,20 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 
             } catch (error) {
                 console.error('Ошибка входа:', error);
-                if (error.message.includes('Invalid login credentials')) {
+                if (error.message && error.message.includes('Invalid login credentials')) {
                     showMarketNotification('❌ Неверный email или пароль!', 'error');
                 } else {
-                    showMarketNotification(`❌ Ошибка: ${error.message}`, 'error');
+                    showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
                 }
                 return false;
             }
         }
         
-        // ============================================================
-        // ВЫХОД
-        // ============================================================
         async function logoutCaptain() {
             try {
-                await supabase.auth.signOut();
+                if (supabaseClient) {
+                    await supabaseClient.auth.signOut();
+                }
             } catch(e) {
                 console.error('Ошибка выхода:', e);
             }
@@ -3825,6 +3816,21 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             el._timeout = setTimeout(() => el.classList.remove('show'), 3000);
         }
         
+        function initMarket() {
+            loadMarketFromSupabase().then(() => {
+                updateTeamSelects();
+                updateMarketUI();
+                if (marketState.currentCaptain) {
+                    renderMyTeam();
+                    updateBudgetDisplay();
+                }
+            });
+        }
+        
+        function saveMarketData() {
+            saveMarketToSupabase();
+        }
+        
         // ============================================================
         // ПЛЕЙСТАЙЛЫ
         // ============================================================
@@ -3854,7 +3860,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
-            if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
+            if (playstylePhotos && playstylePhotos[styleKey]) {
                 const img = document.createElement('img');
                 img.src = playstylePhotos[styleKey];
                 img.alt = styleInfo.name;
@@ -3863,8 +3869,8 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 iconEl.textContent = '🎮';
             }
             nameEl.textContent = styleInfo.name;
-            if (styleKey === 'pevec' && pevecVideoUrl) {
-                descEl.innerHTML = `<div class="video-container"><video controls src="${pevecVideoUrl}"></video></div>`;
+            if (styleKey === 'pevec') {
+                descEl.innerHTML = `<div class="video-container"><video controls src="./Photos%20(2)/pevec.mp4"></video></div>`;
             } else if (styleKey === 'geniy') {
                 descEl.innerHTML = styleInfo.description;
                 startIQCounter();
@@ -3915,7 +3921,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             styles.forEach(style => {
                 const color = getPlaystyleColor(playerId, style);
                 const colorClass = color === 'silver' ? 'silver' : '';
-                if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                if (playstylePhotos && playstylePhotos[style]) {
                     html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
                         <img src="${playstylePhotos[style]}" alt="${style}">
                     </div>`;
@@ -3980,7 +3986,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             filteredPlayerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
-                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    if (playerPhotos && playerPhotos[id]) {
                         cardPhoto.innerHTML = `<img src="${playerPhotos[id]}" alt="${playersData[id].name}">`;
                     } else {
                         cardPhoto.textContent = playersData[id].icon || '⚽';
@@ -4042,7 +4048,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             playerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
-                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    if (playerPhotos && playerPhotos[id]) {
                         cardPhoto.innerHTML = `<img src="${playerPhotos[id]}" alt="${playersData[id].name}">`;
                     } else {
                         cardPhoto.textContent = playersData[id].icon || '⚽';
@@ -4128,7 +4134,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             
             const modalPhoto = document.getElementById('modal-photo');
             modalPhoto.innerHTML = '';
-            if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+            if (playerPhotos && playerPhotos[playerId]) {
                 const img = document.createElement('img');
                 img.src = playerPhotos[playerId];
                 img.alt = player.name;
@@ -4154,7 +4160,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 styles.forEach(style => {
                     const color = getPlaystyleColor(playerId, style);
                     const colorClass = color === 'silver' ? 'silver' : '';
-                    if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
+                    if (playstylePhotos && playstylePhotos[style]) {
                         html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
                             <img src="${playstylePhotos[style]}" alt="${style}">
                         </div>`;
@@ -4278,48 +4284,52 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             const allPlayers = [...data.mera.players, ...data.school78.players];
             allPlayers.forEach(id => {
                 const photoEl = document.getElementById(`match-${id}-photo`);
-                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                    photoEl.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = playerPhotos[id];
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    photoEl.appendChild(img);
-                } else if (photoEl) {
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '1.8rem';
-                    icon.textContent = playersData[id]?.icon || '⚽';
-                    icon.style.display = 'flex';
-                    icon.style.alignItems = 'center';
-                    icon.style.justifyContent = 'center';
-                    icon.style.width = '100%';
-                    icon.style.height = '100%';
-                    photoEl.appendChild(icon);
+                if (photoEl) {
+                    if (playerPhotos && playerPhotos[id]) {
+                        photoEl.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        photoEl.appendChild(img);
+                    } else {
+                        const icon = document.createElement('div');
+                        icon.style.fontSize = '1.8rem';
+                        icon.textContent = playersData[id]?.icon || '⚽';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        photoEl.appendChild(icon);
+                    }
                 }
             });
             
             const benchPlayers = [...(data.school78.bench || []), ...(data.mera.bench || [])];
             benchPlayers.forEach(id => {
                 const photoEl = document.getElementById(`bench-${id}-photo`);
-                if (photoEl && typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                    photoEl.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = playerPhotos[id];
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    img.style.objectFit = 'cover';
-                    photoEl.appendChild(img);
-                } else if (photoEl) {
-                    const icon = document.createElement('div');
-                    icon.style.fontSize = '1.2rem';
-                    icon.textContent = playersData[id]?.icon || '⚽';
-                    icon.style.display = 'flex';
-                    icon.style.alignItems = 'center';
-                    icon.style.justifyContent = 'center';
-                    icon.style.width = '100%';
-                    icon.style.height = '100%';
-                    photoEl.appendChild(icon);
+                if (photoEl) {
+                    if (playerPhotos && playerPhotos[id]) {
+                        photoEl.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = playerPhotos[id];
+                        img.style.width = '100%';
+                        img.style.height = '100%';
+                        img.style.objectFit = 'cover';
+                        photoEl.appendChild(img);
+                    } else {
+                        const icon = document.createElement('div');
+                        icon.style.fontSize = '1.2rem';
+                        icon.textContent = playersData[id]?.icon || '⚽';
+                        icon.style.display = 'flex';
+                        icon.style.alignItems = 'center';
+                        icon.style.justifyContent = 'center';
+                        icon.style.width = '100%';
+                        icon.style.height = '100%';
+                        photoEl.appendChild(icon);
+                    }
                 }
             });
             
@@ -4332,15 +4342,6 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 });
             });
         }
-        
-        // ============================================================
-        // НОВОСТИ
-        // ============================================================
-        const defaultNewsData = [
-            { date: '5 августа 2026', title: '🏆 Товарищеский матч с ФК 78', text: 'В воскресенье, 9 августа, состоится товарищеский матч между ФК "МЕРА" и ФК 78. Начало в 19:00 на поле "Краснуха".', tag: 'Матч' },
-            { date: '8 августа 2026', title: 'Трансферы', text: 'Here we go!!! Пожидаев Елисей - игрок ФК 78 до конца лета.', tag: 'Событие' },
-            { date: '2 августа 2026', title: '⚽ Матч с 78 школой', text: 'Состоялся напряженный матч с 78 школой. Итог — поражение по пенальти 11:10. Команда показала характер, но удача была не на нашей стороне.', tag: 'Матч' }
-        ];
         
         // ============================================================
         // НАВИГАЦИЯ
@@ -4375,23 +4376,20 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             // Новости
             const newsList = document.getElementById('news-list');
             if (newsList) {
-                const newsData = typeof window.newsData !== 'undefined' && Array.isArray(window.newsData) ? window.newsData : defaultNewsData;
                 newsList.innerHTML = '';
                 newsData.forEach((news, index) => {
                     const item = document.createElement('div');
                     item.className = 'news-item';
                     
                     let mediaHtml = '';
-                    if (typeof window.newsMedia !== 'undefined' && window.newsMedia[index]) {
-                        const media = window.newsMedia[index];
-                        if (media && media.url) {
-                            const isVideo = media.type === 'video';
-                            const mediaClass = 'news-media';
-                            if (isVideo) {
-                                mediaHtml = `<div class="${mediaClass}"><video controls src="${media.url}"></video></div>`;
-                            } else {
-                                mediaHtml = `<div class="${mediaClass}"><img src="${media.url}" alt="Новость ${index+1}"></div>`;
-                            }
+                    if (newsMedia && newsMedia[index] && newsMedia[index].url) {
+                        const media = newsMedia[index];
+                        const isVideo = media.type === 'video';
+                        const mediaClass = 'news-media';
+                        if (isVideo) {
+                            mediaHtml = `<div class="${mediaClass}"><video controls src="${media.url}"></video></div>`;
+                        } else {
+                            mediaHtml = `<div class="${mediaClass}"><img src="${media.url}" alt="Новость ${index+1}"></div>`;
                         }
                     }
                     
@@ -4474,7 +4472,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             squad1Players.forEach(id => {
                 const photoEl = document.getElementById(`${id}-photo-small`);
                 if (photoEl) {
-                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
+                    if (playerPhotos && playerPhotos[id]) {
                         photoEl.innerHTML = `<img src="${playerPhotos[id]}" alt="${playersData[id].name}">`;
                     } else {
                         photoEl.textContent = playersData[id]?.icon || '⚽';
@@ -4486,21 +4484,6 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 }
             });
             
-            // Вкладки составов
-            document.querySelectorAll('.squad-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.squad-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    const squadNum = this.getAttribute('data-squad');
-                    document.querySelectorAll('.squad-content').forEach(c => c.classList.remove('active'));
-                    document.getElementById(`squad-${squadNum}`).classList.add('active');
-                    
-                    const desc = document.getElementById('tactics-description');
-                    const names = ['Первый', 'Второй', 'Третий'];
-                    desc.innerHTML = `<strong>Описание:</strong> ${names[squadNum-1]} состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.`;
-                });
-            });
-            
             document.querySelectorAll('#squad-page .player-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const playerId = this.getAttribute('data-player');
@@ -4510,7 +4493,7 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
                 });
             });
             
-            // Рынок - логин
+            // Рынок
             document.getElementById('login-btn').addEventListener('click', function() {
                 const inputLogin = document.getElementById('login-input');
                 const inputPassword = document.getElementById('password-input');
@@ -4543,11 +4526,9 @@ console.log('✅ Supabase клиент создан:', supabaseClient);
             
             document.getElementById('logout-btn').addEventListener('click', logoutCaptain);
             
-            // Фильтры рынка
             document.getElementById('market-filter-team').addEventListener('change', updateMarketUI);
             document.getElementById('market-filter-position').addEventListener('change', updateMarketUI);
             
-            // Инициализация рынка
             initMarket();
             
             // Закрытие модального окна
