@@ -13,9 +13,7 @@
     
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- ===== ПОДКЛЮЧЕНИЕ ВНЕШНИХ ФАЙЛОВ ===== -->
-<script src="novost.js"></script>
-<script src="photos.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -3047,6 +3045,10 @@
     
     <div class="notification-market" id="notification-market"></div>
 
+    <!-- ===== ПОДКЛЮЧЕНИЕ ВНЕШНИХ ФАЙЛОВ ===== -->
+    <script src="novost.js"></script>
+    <script src="photos.js"></script>
+
     <script>
         // ============================================================
         // ВСЕ ДАННЫЕ ИГРОКОВ
@@ -3152,33 +3154,6 @@
         
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
-        
-        // ============================================================
-        // ФОТОГРАФИИ ИГРОКОВ (заглушки)
-        // ============================================================
-        const playerPhotos = {
-            raya: null,
-            maxim: null,
-            batrakov: null,
-            aleksey_doroshenko: null,
-            lesha_podavalny: null,
-            demid: null,
-            kostya: null,
-            elanga: null
-        };
-        
-        const playstylePhotos = {};
-        
-        // ============================================================
-        // НОВОСТИ
-        // ============================================================
-        const newsData = [
-            { date: '5 августа 2026', title: '🏆 Товарищеский матч с ФК 78', text: 'В воскресенье, 9 августа, состоится товарищеский матч между ФК "МЕРА" и ФК 78. Начало в 19:00 на поле "Краснуха".', tag: 'Матч' },
-            { date: '8 августа 2026', title: 'Трансферы', text: 'Here we go!!! Пожидаев Елисей - игрок ФК 78 до конца лета.', tag: 'Событие' },
-            { date: '2 августа 2026', title: '⚽ Матч с 78 школой', text: 'Состоялся напряженный матч с 78 школой. Итог — поражение по пенальти 11:10.', tag: 'Матч' }
-        ];
-        
-        const newsMedia = [];
         
         // ============================================================
         // ДАННЫЕ КАПИТАНОВ
@@ -3401,7 +3376,6 @@
                     };
                 });
                 
-                // Пытаемся сохранить в Supabase
                 if (supabaseClient) {
                     const { error } = await supabaseClient
                         .from('market')
@@ -3410,14 +3384,12 @@
                     if (error) throw error;
                     console.log('✅ Данные сохранены в Supabase');
                 } else {
-                    // Fallback на localStorage
                     localStorage.setItem('marketData', JSON.stringify(data));
                     console.log('✅ Данные сохранены в localStorage');
                 }
                 return true;
             } catch (error) {
                 console.error('❌ Ошибка сохранения:', error);
-                // Пытаемся сохранить в localStorage как fallback
                 try {
                     const data = {
                         teams: {},
@@ -3444,7 +3416,6 @@
             try {
                 console.log('🔄 Загрузка данных...');
                 
-                // Пытаемся загрузить из Supabase
                 if (supabaseClient) {
                     const { data, error } = await supabaseClient
                         .from('market')
@@ -3459,7 +3430,6 @@
                     }
                 }
                 
-                // Fallback на localStorage
                 const saved = localStorage.getItem('marketData');
                 if (saved) {
                     try {
@@ -3472,7 +3442,6 @@
                     }
                 }
                 
-                // Создаем начальные данные
                 console.log('📝 Создаем начальные данные...');
                 const initial = [
                     { playerId: 'kirill_beschastny', seller: 'school78', price: 600 },
@@ -3488,7 +3457,6 @@
                 
             } catch (error) {
                 console.error('❌ Ошибка загрузки:', error);
-                // Пытаемся загрузить из localStorage
                 try {
                     const saved = localStorage.getItem('marketData');
                     if (saved) {
@@ -3516,70 +3484,43 @@
         }
         
         // ============================================================
-        // ЛОГИН (безопасный через Supabase Auth)
+        // ЛОГИН (упрощенная версия)
         // ============================================================
         async function loginCaptain(email, password) {
-            try {
-                if (supabaseClient) {
-                    const { data, error } = await supabaseClient.auth.signInWithPassword({
-                        email: email,
-                        password: password
-                    });
-                    
-                    if (error) throw error;
-                }
-                
-                let teamId = null;
-                if (email.includes('mera')) teamId = 'mera';
-                else if (email.includes('school78')) teamId = 'school78';
-                else if (email.includes('yuzhka')) teamId = 'yuzhka';
-                else {
-                    showMarketNotification('❌ Неизвестный аккаунт!', 'error');
-                    return false;
-                }
-                
-                const captain = CAPTAINS[teamId];
-                if (!captain) {
-                    showMarketNotification('❌ Команда не найдена!', 'error');
-                    return false;
-                }
-                
-                marketState.currentCaptain = teamId;
-                document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
-                document.getElementById('budget-display').textContent = `💰 ${captain.budget} монет`;
-                document.getElementById('captain-avatar').textContent = captain.captain.charAt(0);
-                document.getElementById('login-input').style.display = 'none';
-                document.getElementById('password-input').style.display = 'none';
-                document.getElementById('login-btn').textContent = `👤 ${captain.captain}`;
-                document.getElementById('login-btn').style.background = '#28a745';
-                document.getElementById('logout-btn').style.display = 'inline-block';
-                document.getElementById('my-team-section').style.display = 'block';
-                
-                showMarketNotification(`✅ Добро пожаловать, капитан ${captain.captain}!`, 'success');
-                updateMarketUI();
-                renderMyTeam();
-                return true;
-                
-            } catch (error) {
-                console.error('Ошибка входа:', error);
-                if (error.message && error.message.includes('Invalid login credentials')) {
-                    showMarketNotification('❌ Неверный email или пароль!', 'error');
-                } else {
-                    showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
-                }
+            let teamId = null;
+            
+            if (email === 'mera@fc.com' && password === 'mera123') teamId = 'mera';
+            else if (email === 'school78@fc.com' && password === 'school123') teamId = 'school78';
+            else if (email === 'yuzhka@fc.com' && password === 'yuzhka123') teamId = 'yuzhka';
+            else {
+                showMarketNotification('❌ Неверный email или пароль!', 'error');
                 return false;
             }
+            
+            const captain = CAPTAINS[teamId];
+            if (!captain) {
+                showMarketNotification('❌ Команда не найдена!', 'error');
+                return false;
+            }
+            
+            marketState.currentCaptain = teamId;
+            document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
+            document.getElementById('budget-display').textContent = `💰 ${captain.budget} монет`;
+            document.getElementById('captain-avatar').textContent = captain.captain.charAt(0);
+            document.getElementById('login-input').style.display = 'none';
+            document.getElementById('password-input').style.display = 'none';
+            document.getElementById('login-btn').textContent = `👤 ${captain.captain}`;
+            document.getElementById('login-btn').style.background = '#28a745';
+            document.getElementById('logout-btn').style.display = 'inline-block';
+            document.getElementById('my-team-section').style.display = 'block';
+            
+            showMarketNotification(`✅ Добро пожаловать, капитан ${captain.captain}!`, 'success');
+            updateMarketUI();
+            renderMyTeam();
+            return true;
         }
         
         async function logoutCaptain() {
-            try {
-                if (supabaseClient) {
-                    await supabaseClient.auth.signOut();
-                }
-            } catch(e) {
-                console.error('Ошибка выхода:', e);
-            }
-            
             marketState.currentCaptain = null;
             document.getElementById('captain-name').textContent = 'Не авторизован';
             document.getElementById('budget-display').textContent = '💰 0 монет';
@@ -3862,7 +3803,7 @@
             cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
-            if (playstylePhotos && playstylePhotos[styleKey]) {
+            if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
                 const img = document.createElement('img');
                 img.src = playstylePhotos[styleKey];
                 img.alt = styleInfo.name;
@@ -3923,7 +3864,7 @@
             styles.forEach(style => {
                 const color = getPlaystyleColor(playerId, style);
                 const colorClass = color === 'silver' ? 'silver' : '';
-                if (playstylePhotos && playstylePhotos[style]) {
+                if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
                     html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
                         <img src="${playstylePhotos[style]}" alt="${style}">
                     </div>`;
@@ -3988,7 +3929,7 @@
             filteredPlayerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
-                    if (playerPhotos && playerPhotos[id]) {
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         cardPhoto.innerHTML = `<img src="${playerPhotos[id]}" alt="${playersData[id].name}">`;
                     } else {
                         cardPhoto.textContent = playersData[id].icon || '⚽';
@@ -4050,7 +3991,7 @@
             playerIds.forEach(id => {
                 const cardPhoto = document.getElementById(`${id}-photo-card`);
                 if (cardPhoto) {
-                    if (playerPhotos && playerPhotos[id]) {
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         cardPhoto.innerHTML = `<img src="${playerPhotos[id]}" alt="${playersData[id].name}">`;
                     } else {
                         cardPhoto.textContent = playersData[id].icon || '⚽';
@@ -4136,7 +4077,7 @@
             
             const modalPhoto = document.getElementById('modal-photo');
             modalPhoto.innerHTML = '';
-            if (playerPhotos && playerPhotos[playerId]) {
+            if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
                 const img = document.createElement('img');
                 img.src = playerPhotos[playerId];
                 img.alt = player.name;
@@ -4162,7 +4103,7 @@
                 styles.forEach(style => {
                     const color = getPlaystyleColor(playerId, style);
                     const colorClass = color === 'silver' ? 'silver' : '';
-                    if (playstylePhotos && playstylePhotos[style]) {
+                    if (typeof playstylePhotos !== 'undefined' && playstylePhotos[style]) {
                         html += `<div class="playstyle-icon ${colorClass}" data-style="${style}" data-player="${playerId}">
                             <img src="${playstylePhotos[style]}" alt="${style}">
                         </div>`;
@@ -4287,7 +4228,7 @@
             allPlayers.forEach(id => {
                 const photoEl = document.getElementById(`match-${id}-photo`);
                 if (photoEl) {
-                    if (playerPhotos && playerPhotos[id]) {
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         photoEl.innerHTML = '';
                         const img = document.createElement('img');
                         img.src = playerPhotos[id];
@@ -4313,7 +4254,7 @@
             benchPlayers.forEach(id => {
                 const photoEl = document.getElementById(`bench-${id}-photo`);
                 if (photoEl) {
-                    if (playerPhotos && playerPhotos[id]) {
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         photoEl.innerHTML = '';
                         const img = document.createElement('img');
                         img.src = playerPhotos[id];
@@ -4379,31 +4320,33 @@
             const newsList = document.getElementById('news-list');
             if (newsList) {
                 newsList.innerHTML = '';
-                newsData.forEach((news, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'news-item';
-                    
-                    let mediaHtml = '';
-                    if (newsMedia && newsMedia[index] && newsMedia[index].url) {
-                        const media = newsMedia[index];
-                        const isVideo = media.type === 'video';
-                        const mediaClass = 'news-media';
-                        if (isVideo) {
-                            mediaHtml = `<div class="${mediaClass}"><video controls src="${media.url}"></video></div>`;
-                        } else {
-                            mediaHtml = `<div class="${mediaClass}"><img src="${media.url}" alt="Новость ${index+1}"></div>`;
+                if (typeof newsData !== 'undefined' && Array.isArray(newsData)) {
+                    newsData.forEach((news, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'news-item';
+                        
+                        let mediaHtml = '';
+                        if (typeof newsMedia !== 'undefined' && newsMedia[index] && newsMedia[index].url) {
+                            const media = newsMedia[index];
+                            const isVideo = media.type === 'video';
+                            const mediaClass = 'news-media';
+                            if (isVideo) {
+                                mediaHtml = `<div class="${mediaClass}"><video controls src="${media.url}"></video></div>`;
+                            } else {
+                                mediaHtml = `<div class="${mediaClass}"><img src="${media.url}" alt="Новость ${index+1}"></div>`;
+                            }
                         }
-                    }
-                    
-                    item.innerHTML = `
-                        <div class="news-date">${news.date}</div>
-                        <div class="news-title">${news.title}</div>
-                        <div class="news-text">${news.text}</div>
-                        <span class="news-tag">${news.tag}</span>
-                        ${mediaHtml}
-                    `;
-                    newsList.appendChild(item);
-                });
+                        
+                        item.innerHTML = `
+                            <div class="news-date">${news.date}</div>
+                            <div class="news-title">${news.title}</div>
+                            <div class="news-text">${news.text}</div>
+                            <span class="news-tag">${news.tag}</span>
+                            ${mediaHtml}
+                        `;
+                        newsList.appendChild(item);
+                    });
+                }
             }
             
             // Навигация
@@ -4474,7 +4417,7 @@
             squad1Players.forEach(id => {
                 const photoEl = document.getElementById(`${id}-photo-small`);
                 if (photoEl) {
-                    if (playerPhotos && playerPhotos[id]) {
+                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
                         photoEl.innerHTML = `<img src="${playerPhotos[id]}" alt="${playersData[id].name}">`;
                     } else {
                         photoEl.textContent = playersData[id]?.icon || '⚽';
