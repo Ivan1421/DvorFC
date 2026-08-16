@@ -129,6 +129,7 @@
             -webkit-tap-highlight-color: transparent;
             -webkit-user-select: none;
             user-select: none;
+            position: relative;
         }
         .main-button:active {
             background: #f0f8ff;
@@ -172,49 +173,125 @@
         .dark-theme .button-description {
             color: #ccc;
         }
-        .update-button-container {
-            text-align: center;
-            margin: 20px 0 40px;
+        
+        /* Кнопка "Подать заявку" — теперь такого же размера, как и остальные */
+        .main-button.request-btn {
+            border-color: #8e44ad;
         }
-        .update-button {
-            background: #28a745;
+        .main-button.request-btn .button-icon {
+            color: #8e44ad;
+        }
+        .main-button.request-btn .button-title {
+            color: #8e44ad;
+        }
+        .dark-theme .main-button.request-btn {
+            border-color: #9b59b6;
+        }
+        .dark-theme .main-button.request-btn .button-icon {
+            color: #9b59b6;
+        }
+        .dark-theme .main-button.request-btn .button-title {
+            color: #9b59b6;
+        }
+        
+        /* Бейдж NEW на кнопке "Подать заявку" */
+        .main-button .new-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff0000;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 3px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
+            letter-spacing: 0.5px;
+            z-index: 10;
+            border: 2px solid white;
+            animation: newBadgePulse 1.5s ease-in-out infinite;
+        }
+        .dark-theme .main-button .new-badge {
+            border-color: #2d3748;
+        }
+        @keyframes newBadgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .action-btn.tiktok {
+            background: linear-gradient(135deg, #000000, #1a0a2e, #4a148c, #8e44ad, #bb86fc, #ffffff, #bb86fc, #8e44ad, #4a148c, #1a0a2e, #000000);
+            background-size: 300% 300%;
+            border: 3px solid #8e44ad;
+            color: white;
+            animation: tiktokGradient 3s ease-in-out infinite alternate;
+            box-shadow: 0 4px 20px rgba(142, 68, 173, 0.4);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .action-btn.tiktok,
+.action-btn.tiktok .btn-icon,
+.action-btn.tiktok span {
+    color: #ffffff !important;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.2);
+}
+        .action-btn.tiktok:hover {
+            animation: tiktokGradient 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 4px 30px rgba(142, 68, 173, 0.6);
+            transform: translateY(-3px) scale(1.02);
+        }
+        .action-btn.tiktok .btn-icon {
+            font-size: 1.6rem;
+        }
+        .dark-theme .action-btn.tiktok {
+            background: linear-gradient(135deg, #000000, #1a0a2e, #4a148c, #8e44ad, #bb86fc, #ffffff, #bb86fc, #8e44ad, #4a148c, #1a0a2e, #000000);
+            background-size: 300% 300%;
+            border-color: #9b59b6;
+            animation: tiktokGradient 3s ease-in-out infinite alternate;
+        }
+        @keyframes tiktokGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .action-buttons-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0 30px;
+        }
+        .action-btn {
+            background: white;
+            border: 2px solid #0066cc;
+            border-radius: 40px;
+            padding: 14px 32px;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            font-weight: bold;
+            color: #0066cc;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.08);
             -webkit-tap-highlight-color: transparent;
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
             -webkit-user-select: none;
             user-select: none;
+            text-decoration: none;
         }
-        .update-button:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.2);
         }
-        .update-button:active {
-            background: #1e7e34;
-            transform: translateY(0);
-            box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+        .action-btn:active {
+            transform: scale(0.96);
         }
-        .dark-theme .update-button {
-            background: #2ecc71;
-            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
-        }
-        .dark-theme .update-button:hover {
-            background: #27ae60;
-        }
-        .update-button:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .dark-theme .action-btn {
+            background: #2d3748;
+            border-color: #4dabf7;
+            color: #4dabf7;
         }
         .page {
             display: none;
@@ -1875,6 +1952,9 @@
             .yard-card .yard-logo { width: 50px; height: 50px; }
             .secret-modal { padding: 30px 20px; }
             .secret-modal h2 { font-size: 1.4rem; }
+            .action-btn { padding: 12px 24px; font-size: 1rem; }
+            .action-btn.tiktok .btn-icon { font-size: 1.4rem; }
+            .main-button .new-badge { font-size: 0.6rem; padding: 2px 10px; top: -8px; right: -8px; }
         }
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -1900,14 +1980,16 @@
             .best-squad-container .formation-line { gap: 10px; }
             .best-squad-container .player-item { min-width: 65px; max-width: 80px; }
             .best-squad-container .player-photo-small { width: 50px; height: 50px; }
+            .action-btn { padding: 10px 18px; font-size: 0.9rem; gap: 8px; }
+            .main-button .new-badge { font-size: 0.5rem; padding: 2px 8px; top: -6px; right: -6px; }
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
-            .player-card:active, .player-item:active, .main-button:active, .back-button:active, .update-button:active {
+            .player-card:active, .player-item:active, .main-button:active, .back-button:active {
                 background: inherit !important;
             }
         }
-        .player-card, .player-item, .main-button, .back-button, .update-button, .modal-close-btn, .theme-toggle, .sort-btn {
+        .player-card, .player-item, .main-button, .back-button, .theme-toggle, .sort-btn, .action-btn {
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
         .player-description {
@@ -1970,282 +2052,143 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .player-card.burmalda-player {
-            position: relative;
-            border: 3px solid #00e676 !important;
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
-            background-size: 400% 400%;
-            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
+        /* модалка заявки */
+        .team-request-modal .modal {
+            max-width: 600px;
         }
-        .dark-theme .player-card.burmalda-player {
-            border: 3px solid #00e676 !important;
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 400% 400%;
-            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
+        .team-request-modal .form-group {
+            margin-bottom: 18px;
         }
-        .player-card.burmalda-player:active {
-            transform: translateY(-2px);
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate, burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
-        }
-        .dark-theme .player-card.burmalda-player:active {
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate, burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
-        }
-        @keyframes burmalda-border-pulse {
-            0% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); border-color: #00e676; }
-            50% { box-shadow: 0 0 40px rgba(0, 230, 118, 0.9); border-color: #00c853; }
-            100% { box-shadow: 0 0 25px rgba(0, 230, 118, 0.6); border-color: #00b248; }
-        }
-        @keyframes burmalda-border-pulse-dark {
-            0% { box-shadow: 0 0 25px rgba(0, 230, 118, 0.5); border-color: #00e676; }
-            50% { box-shadow: 0 0 50px rgba(0, 230, 118, 1); border-color: #00c853; }
-            100% { box-shadow: 0 0 35px rgba(0, 230, 118, 0.7); border-color: #00b248; }
-        }
-        @keyframes burmalda-bg-pulse {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes burmalda-bg-pulse-dark {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .player-card.burmalda-player::after {
-            content: "🎰БУРМАЛДА🍀";
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624, #00b248, #00c853, #00e676);
-            background-size: 400% 400%;
-            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
-            color: #fff;
-            font-weight: 900;
-            font-size: 0.6rem;
-            padding: 2px 10px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0, 255, 100, 1);
-            box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
-            z-index: 15;
-            white-space: nowrap;
-            border: 1px solid #a5d6a7;
-            text-transform: uppercase;
-        }
-        .player-card.mera-player::before {
-            content: "⭐ Игрок ФК \"МЕРА\"";
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #8e44ad;
-            color: #fff;
+        .team-request-modal .form-group label {
+            display: block;
             font-weight: bold;
-            font-size: 0.6rem;
-            padding: 2px 10px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(142, 68, 173, 0.5);
-            z-index: 10;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-            border: 1px solid #fff;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 5px;
+            color: #0066cc;
         }
-        @keyframes burmalda-plate-shine {
-            0% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(0, 230, 118, 0.6); }
-            50% { background-position: 100% 50%; box-shadow: 0 0 45px rgba(0, 230, 118, 1); }
-            100% { background-position: 0% 50%; box-shadow: 0 0 25px rgba(0, 230, 118, 0.7); }
+        .dark-theme .team-request-modal .form-group label {
+            color: #4dabf7;
         }
-        .player-card.burmalda-player .stat-item {
-            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
-            border-color: #00e676;
+        .team-request-modal .form-group input,
+        .team-request-modal .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            color: #333;
+            transition: 0.3s;
         }
-        .dark-theme .player-card.burmalda-player .stat-item {
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
-            border-color: #00e676;
+        .dark-theme .team-request-modal .form-group input,
+        .dark-theme .team-request-modal .form-group textarea {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
         }
-        @keyframes burmalda-stat-bg {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+        .team-request-modal .form-group input:focus,
+        .team-request-modal .form-group textarea:focus {
+            outline: none;
+            border-color: #8e44ad;
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
         }
-        @keyframes burmalda-stat-bg-dark {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        .player-card.burmalda-player .player-photo {
-            border-color: #00e676 !important;
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-        }
-        .dark-theme .player-card.burmalda-player .player-photo {
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-        }
-        .player-item.burmalda-squad .player-photo-small {
-            border: 3px solid #00e676 !important;
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-            box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
-        }
-        .dark-theme .player-item.burmalda-squad .player-photo-small {
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-            box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
-        }
-        .modal .burmalda-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, #00e676, #00c853, #00b248, #009624);
-            background-size: 300% 300%;
-            animation: burmalda-plate-shine 1.8s ease-in-out infinite alternate;
-            color: #fff;
-            font-weight: 900;
-            font-size: 0.75rem;
-            padding: 4px 18px;
-            border-radius: 30px;
-            letter-spacing: 1.2px;
-            text-shadow: 0 0 15px rgba(0, 255, 100, 1);
-            box-shadow: 0 0 30px rgba(0, 230, 118, 0.7);
-            margin-top: 6px;
-            border: 1px solid #a5d6a7;
-            text-transform: uppercase;
-        }
-        .modal.burmalda-modal {
-            border: 3px solid #00e676 !important;
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
-            background-size: 400% 400%;
-            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
-            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.5) !important;
-        }
-        .dark-theme .modal.burmalda-modal {
-            border: 3px solid #00e676 !important;
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 400% 400%;
-            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
-            box-shadow: 0 10px 30px rgba(0, 230, 118, 0.7) !important;
-        }
-        .modal.burmalda-modal .modal-description {
-            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
-            border-left-color: #00e676;
-        }
-        .dark-theme .modal.burmalda-modal .modal-description {
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
-            border-left-color: #00e676;
-        }
-        .modal.burmalda-modal .modal-stat-item {
-            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
-            border-color: #00e676;
-        }
-        .dark-theme .modal.burmalda-modal .modal-stat-item {
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
-            border-color: #00e676;
-        }
-        .modal.burmalda-modal .modal-stat-value {
-            color: #0066cc !important;
-        }
-        .dark-theme .modal.burmalda-modal .modal-stat-value {
-            color: #4dabf7 !important;
-        }
-        .modal.burmalda-modal .modal-description-label {
-            color: #0066cc !important;
-        }
-        .dark-theme .modal.burmalda-modal .modal-description-label {
-            color: #4dabf7 !important;
-        }
-        .modal.burmalda-modal .modal-photo {
-            border-color: #00e676 !important;
-            animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-        }
-        .dark-theme .modal.burmalda-modal .modal-photo {
-            animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-        }
-        .player-card.burmalda-player .playstyle-icon {
-            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
-            border-color: #ffd700 !important;
-        }
-        .dark-theme .player-card.burmalda-player .playstyle-icon {
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
-            border-color: #ffd700 !important;
-        }
-        .player-card.burmalda-player .playstyle-icon.silver {
-            border-color: #c0c0c0 !important;
-        }
-        .player-card.burmalda-player .playstyle-icon img {
-            filter: brightness(1.1);
-        }
-        .modal.burmalda-modal .playstyle-icon {
-            background: linear-gradient(145deg, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg 2.5s ease-in-out infinite alternate !important;
-            border-color: #ffd700 !important;
-        }
-        .dark-theme .modal.burmalda-modal .playstyle-icon {
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 300% 300%;
-            animation: burmalda-stat-bg-dark 2.5s ease-in-out infinite alternate !important;
-            border-color: #ffd700 !important;
-        }
-        .modal.burmalda-modal .playstyle-icon.silver {
-            border-color: #c0c0c0 !important;
-        }
-        .modal.burmalda-modal .playstyle-icon img {
-            filter: brightness(1.1);
-        }
-        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon {
-            border-color: #ffd700 !important;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5) !important;
-        }
-        .playstyle-detail-card.burmalda-detail .playstyle-detail-icon.silver {
-            border-color: #c0c0c0 !important;
-            box-shadow: 0 0 40px rgba(192, 192, 192, 0.5) !important;
-        }
-        .playstyle-detail-card.burmalda-detail {
-            background: linear-gradient(145deg, #f0fff4, #e8f5e9, #c8e6c9, #a5d6a7, #c8e6c9, #e8f5e9, #f0fff4);
-            background-size: 400% 400%;
-            animation: burmalda-bg-pulse 2.5s ease-in-out infinite alternate !important;
-            border-color: #ffd700 !important;
-        }
-        .dark-theme .playstyle-detail-card.burmalda-detail {
-            background: linear-gradient(145deg, #0a2a0a, #0a3a0a, #0a4a0a, #0a5a0a, #0a4a0a, #0a3a0a, #0a2a0a);
-            background-size: 400% 400%;
-            animation: burmalda-bg-pulse-dark 2.5s ease-in-out infinite alternate !important;
-            border-color: #ffd700 !important;
-        }
-        .playstyle-detail-card.burmalda-detail.silver-border {
-            border-color: #c0c0c0 !important;
-            box-shadow: 0 20px 60px rgba(192, 192, 192, 0.3) !important;
-        }
-        .dark-theme .playstyle-detail-card.burmalda-detail.silver-border {
-            border-color: #a8a8a8 !important;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
-        }
-        .modal {
+        .team-request-modal .players-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 10px 0;
+            max-height: 240px;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            padding-right: 5px;
         }
-        .modal::-webkit-scrollbar {
-            display: none;
+        .team-request-modal .players-list .player-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
-        .modal {
-            scrollbar-width: none;
+        .team-request-modal .players-list .player-row input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: #f8f9fa;
+            color: #333;
         }
-        .preview-logo {
-            display: none;
+        .dark-theme .team-request-modal .players-list .player-row input {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
         }
-
+        .team-request-modal .add-player-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .team-request-modal .add-player-btn:hover {
+            background: #218838;
+        }
+        .team-request-modal .remove-player-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        .team-request-modal .remove-player-btn:hover {
+            background: #c82333;
+        }
+        .team-request-modal .submit-request-btn {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .team-request-modal .submit-request-btn:hover {
+            background: #7d3c98;
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
+        }
+        .team-request-modal .submit-request-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .team-request-modal .request-status {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .team-request-modal .request-status.success {
+            color: #28a745;
+        }
+        .team-request-modal .request-status.error {
+            color: #dc3545;
+        }
+        .dark-theme .team-request-modal .modal {
+            background: #2d3748;
+            border-color: #4dabf7;
+        }
         .news-container {
             background: white;
             border-radius: 15px;
@@ -2347,7 +2290,6 @@
         .news-media-empty {
             display: none;
         }
-        
         /* ============================================================
            ИСТОРИЯ ТРАНСФЕРОВ
            ============================================================ */
@@ -2759,6 +2701,10 @@
             background: #2d3748;
             color: #f0f0f0;
         }
+        /* Класс для скрытия кнопки обновления */
+        .update-button-container.hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -2771,6 +2717,14 @@
         <main>
             <div id="home-page" class="page active">
                 <div class="main-buttons">
+                    <!-- Кнопка "Подать заявку" — ПЕРВАЯ, с бейджем NEW -->
+                    <div class="main-button request-btn" id="team-request-btn-main">
+                        <span class="new-badge">NEW</span>
+                        <div class="button-icon">📝</div>
+                        <div class="button-title">Подать заявку</div>
+                        <div class="button-description">Создать свою команду</div>
+                    </div>
+                    
                     <div class="main-button" id="players-btn">
                         <div class="button-icon">👥</div>
                         <div class="button-title">Состав Двора</div>
@@ -2802,7 +2756,23 @@
                         <div class="button-description">Трансферы и покупки</div>
                     </div>
                 </div>
-                <div class="update-button-container">
+                
+<!-- Кнопка "Я в ТикТоке" — с юзернеймом внутри -->
+<div class="action-buttons-row">
+    <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" target="_blank" class="action-btn tiktok" style="flex-direction: column; padding: 12px 32px; gap: 2px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span class="btn-icon"></span> 
+            <span style="font-size: 1.1rem; font-weight: bold;">Я в ТикТоке</span>
+        </div>
+        <span style="color: #aaaaaa; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px; opacity: 0.9;">
+            @arseenalforever1
+        </span>
+    </a>
+</div>
+                
+
+                <!-- Скрываем старую кнопку обновления -->
+                <div class="update-button-container hidden" id="update-btn-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
                 </div>
             </div>
@@ -3220,6 +3190,7 @@
         </footer>
     </div>
     
+    <!-- Модальное окно игрока -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal" id="modal-window">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -3249,6 +3220,42 @@
                 <div class="playstyles-title">🎮 Плейстайлы</div>
                 <div class="playstyles-grid" id="modal-playstyles-grid"></div>
             </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для заявки на команду -->
+    <div class="modal-overlay team-request-modal" id="team-request-modal">
+        <div class="modal" id="team-request-modal-window">
+            <button class="modal-close-btn" id="team-request-close">×</button>
+            <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">📝 Заявка на создание команды</h2>
+            <p style="text-align:center; margin-bottom:18px; color:#666;">Все игроки должны быть <strong>до 16 лет</strong> НЕ включительно.</p>
+            
+            <div class="form-group">
+                <label for="team-name-input">Название команды</label>
+                <input type="text" id="team-name-input" placeholder="Например: ФК Звезда">
+            </div>
+            
+            <div class="form-group">
+                <label>Состав игроков (минимум 3, максимум 8)</label>
+                <div class="players-list" id="players-list-container">
+                    <!-- Динамически добавляются строки -->
+                </div>
+                <button class="add-player-btn" id="add-player-btn">➕ Добавить игрока</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="team-field-input">Где находится ваше поле?</label>
+                <input type="text" id="team-field-input" placeholder="Адрес или ориентир">
+            </div>
+            
+            <!-- НОВЫЙ ВОПРОС: Как связаться -->
+            <div class="form-group">
+                <label for="team-contact-input">Как с вами связаться?</label>
+                <input type="text" id="team-contact-input" placeholder="Telegram: @username или TikTok: @username">
+            </div>
+            
+            <button class="submit-request-btn" id="submit-request-btn">📨 Отправить заявку</button>
+            <div class="request-status" id="request-status"></div>
         </div>
     </div>
     
@@ -3610,7 +3617,6 @@
                     return false;
                 }
 
-                // Пытаемся войти
                 const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email.trim(),
                     password: password.trim()
@@ -3621,7 +3627,6 @@
                     return false;
                 }
 
-                // Определяем команду по email
                 let teamId = null;
                 const userEmail = data.user.email;
                 
@@ -3886,11 +3891,9 @@
                 time: new Date().toISOString()
             };
             
-            // Добавляем в начало истории
             marketState.transfers = marketState.transfers || [];
             marketState.transfers.unshift(transfer);
             
-            // Ограничиваем историю 50 последними трансферами
             if (marketState.transfers.length > 50) {
                 marketState.transfers = marketState.transfers.slice(0, 50);
             }
@@ -3915,7 +3918,6 @@
                 return;
             }
             
-            // Показываем последние 10 трансферов
             const recentTransfers = transfers.slice(0, 10);
             
             let html = '';
@@ -4002,7 +4004,6 @@
             
             marketData.players[playerId].team = captainTeamId;
             
-            // Добавляем в историю трансферов
             addTransfer(playerId, sellerId, captainTeamId, price);
             
             showMarketNotification(`✅ ${player.name} куплен за ${price} монет!`, 'success');
@@ -4736,6 +4737,142 @@
         }
         
         // ============================================================
+        // ЗАЯВКА НА КОМАНДУ (Supabase)
+        // ============================================================
+        let teamRequestPlayers = [];
+
+        function renderTeamRequestPlayers() {
+            const container = document.getElementById('players-list-container');
+            if (!container) return;
+            if (teamRequestPlayers.length === 0) {
+                teamRequestPlayers.push('');
+            }
+            let html = '';
+            teamRequestPlayers.forEach((name, index) => {
+                html += `
+                    <div class="player-row">
+                        <input type="text" class="player-name-input" value="${name}" placeholder="Имя и фамилия" data-index="${index}">
+                        ${teamRequestPlayers.length > 1 ? `<button class="remove-player-btn" data-index="${index}">✕</button>` : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            
+            container.querySelectorAll('.player-name-input').forEach(inp => {
+                inp.addEventListener('input', function() {
+                    const idx = parseInt(this.dataset.index);
+                    teamRequestPlayers[idx] = this.value.trim();
+                });
+            });
+            container.querySelectorAll('.remove-player-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.index);
+                    teamRequestPlayers.splice(idx, 1);
+                    if (teamRequestPlayers.length === 0) teamRequestPlayers.push('');
+                    renderTeamRequestPlayers();
+                });
+            });
+        }
+
+        document.getElementById('add-player-btn').addEventListener('click', function() {
+            if (teamRequestPlayers.length >= 8) {
+                document.getElementById('request-status').textContent = '❌ Максимум 8 игроков!';
+                document.getElementById('request-status').className = 'request-status error';
+                return;
+            }
+            teamRequestPlayers.push('');
+            renderTeamRequestPlayers();
+            const container = document.getElementById('players-list-container');
+            container.scrollTop = container.scrollHeight;
+        });
+
+        async function submitTeamRequest() {
+            const statusEl = document.getElementById('request-status');
+            statusEl.textContent = '';
+            statusEl.className = 'request-status';
+            
+            const teamName = document.getElementById('team-name-input').value.trim();
+            const fieldLocation = document.getElementById('team-field-input').value.trim();
+            const contact = document.getElementById('team-contact-input').value.trim();
+            
+            const players = teamRequestPlayers.map(p => p.trim()).filter(p => p.length > 0);
+            
+            if (!teamName) {
+                statusEl.textContent = '❌ Введите название команды!';
+                statusEl.className = 'request-status error';
+                return;
+            }
+            if (players.length < 5) {
+                statusEl.textContent = '❌ Минимум 5 игроков!';
+                statusEl.className = 'request-status error';
+                return;
+            }
+            if (players.length > 8) {
+                statusEl.textContent = '❌ Максимум 8 игроков!';
+                statusEl.className = 'request-status error';
+                return;
+            }
+            if (!fieldLocation) {
+                statusEl.textContent = '❌ Укажите местонахождение поля!';
+                statusEl.className = 'request-status error';
+                return;
+            }
+            if (!contact) {
+                statusEl.textContent = '❌ Укажите способ связи (Telegram или TikTok)!';
+                statusEl.className = 'request-status error';
+                return;
+            }
+            
+            const btn = document.getElementById('submit-request-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Отправка...';
+            
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Supabase не подключен!');
+                }
+                
+                const requestData = {
+                    team_name: teamName,
+                    players: players,
+                    field_location: fieldLocation,
+                    contact: contact,
+                    created_at: new Date().toISOString(),
+                    status: 'pending'
+                };
+                
+                const { data, error } = await supabaseClient
+                    .from('team_requests')
+                    .insert([requestData]);
+                
+                if (error) throw error;
+                
+                statusEl.textContent = '✅ Заявка успешно отправлена! Ожидайте подтверждения.';
+                statusEl.className = 'request-status success';
+                
+                document.getElementById('team-name-input').value = '';
+                document.getElementById('team-field-input').value = '';
+                document.getElementById('team-contact-input').value = '';
+                teamRequestPlayers = [''];
+                renderTeamRequestPlayers();
+                btn.disabled = false;
+                btn.textContent = '📨 Отправить заявку';
+                
+                setTimeout(() => {
+                    document.getElementById('team-request-modal').classList.remove('active');
+                    document.body.style.overflow = '';
+                }, 2500);
+                
+            } catch (err) {
+                console.error('Ошибка отправки заявки:', err);
+                statusEl.textContent = `❌ Ошибка: ${err.message || 'Неизвестная ошибка'}`;
+                statusEl.className = 'request-status error';
+                btn.disabled = false;
+                btn.textContent = '📨 Отправить заявку';
+            }
+        }
+
+        // ============================================================
         // ИНИЦИАЛИЗАЦИЯ
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -4802,6 +4939,16 @@
                 if (marketState.currentCaptain) renderMyTeam();
             });
             
+            // Кнопка "Подать заявку" на главной
+            document.getElementById('team-request-btn-main').addEventListener('click', function() {
+                document.getElementById('team-request-modal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.getElementById('request-status').textContent = '';
+                document.getElementById('request-status').className = 'request-status';
+                teamRequestPlayers = [''];
+                renderTeamRequestPlayers();
+            });
+            
             document.getElementById('back-from-players').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-squad').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-matches').addEventListener('click', () => showPage('home-page'));
@@ -4811,7 +4958,6 @@
             document.getElementById('back-from-yard-78').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-yuzhka').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-match-tactics').addEventListener('click', () => showPage('matches-page'));
-            document.getElementById('update-btn').addEventListener('click', () => window.location.reload(true));
             
             // Другие дворы
             document.getElementById('yard-78-school').addEventListener('click', () => showPage('yard-78-page'));
@@ -4915,12 +5061,11 @@
             document.getElementById('market-filter-team').addEventListener('change', updateMarketUI);
             document.getElementById('market-filter-position').addEventListener('change', updateMarketUI);
             
-            // Проверяем авторизацию и инициализируем рынок
             checkAuthStatus().then(() => {
                 initMarket();
             });
             
-            // Закрытие модального окна
+            // Закрытие модального окна игрока
             document.getElementById('modal-close').addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
                 document.body.style.overflow = '';
@@ -4978,6 +5123,22 @@
             secretPassword.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') secretSubmit.click();
             });
+            
+            // ЗАЯВКА НА КОМАНДУ
+            document.getElementById('team-request-close').addEventListener('click', function() {
+                document.getElementById('team-request-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('team-request-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.getElementById('submit-request-btn').addEventListener('click', submitTeamRequest);
+            
+            console.log('✅ Сайт загружен!');
         });
     </script>
 </body>
