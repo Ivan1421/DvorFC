@@ -172,6 +172,50 @@
         .dark-theme .button-description {
             color: #ccc;
         }
+        .update-button-container {
+            text-align: center;
+            margin: 20px 0 40px;
+        }
+        .update-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .update-button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        }
+        .update-button:active {
+            background: #1e7e34;
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+        }
+        .dark-theme .update-button {
+            background: #2ecc71;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+        .dark-theme .update-button:hover {
+            background: #27ae60;
+        }
+        .update-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
         .page {
             display: none;
         }
@@ -1859,11 +1903,11 @@
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
-            .player-card:active, .player-item:active, .main-button:active, .back-button:active {
+            .player-card:active, .player-item:active, .main-button:active, .back-button:active, .update-button:active {
                 background: inherit !important;
             }
         }
-        .player-card, .player-item, .main-button, .back-button, .modal-close-btn, .theme-toggle, .sort-btn {
+        .player-card, .player-item, .main-button, .back-button, .update-button, .modal-close-btn, .theme-toggle, .sort-btn {
             -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
         }
         .player-description {
@@ -2758,6 +2802,9 @@
                         <div class="button-description">Трансферы и покупки</div>
                     </div>
                 </div>
+                <div class="update-button-container">
+                    <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
+                </div>
             </div>
             
             <div id="players-page" class="page">
@@ -3164,41 +3211,6 @@
                     </div>
                 </div>
             </div>
-
-
-<div style="text-align: center; margin: 20px 0 15px;">
-    <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" 
-       target="_blank" 
-       style="display: inline-block; 
-              background: linear-gradient(135deg, #1a0a2e, #2d1b4e, #1a0a2e);
-              background-size: 300% 300%;
-              animation: purpleShift 3s ease-in-out infinite alternate;
-              color: #fff; 
-              padding: 10px 28px; 
-              border-radius: 40px; 
-              font-size: 0.95rem; 
-              font-weight: 600; 
-              text-decoration: none; 
-              border: 1.5px solid rgba(180, 80, 255, 0.5);
-              box-shadow: 0 0 30px rgba(150, 50, 255, 0.15);
-              transition: all 0.3s ease;
-              display: inline-flex;
-              align-items: center;
-              gap: 10px;
-              letter-spacing: 0.3px;">
-        <span style="font-size: 1.2rem;"></span>
-        <span style="opacity: 0.9;">Я в тиктоки</span>
-        <span style="font-size: 0.75rem; opacity: 0.6; font-weight: 400;">@arseenalforever1</span>
-    </a>
-</div>
-
-<style>
-@keyframes purpleShift {
-    0% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(150, 50, 255, 0.15); }
-    50% { background-position: 100% 50%; box-shadow: 0 0 40px rgba(200, 80, 255, 0.3); }
-    100% { background-position: 0% 50%; box-shadow: 0 0 20px rgba(150, 50, 255, 0.15); }
-}
-</style>
         </main>
         
         <footer>
@@ -3352,6 +3364,7 @@
             shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
             bombar: { name: "Бомбарь", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
             mes: { name: "Мес", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях меса", playstyles: ["borec_silver","otraz"], playstyleColors: {borec_silver: "silver", otraz: "gold"} },
+            Maxim30: { name: "Максим Захаров", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "53 кг", rating: 94, number: "(30)", description: "Вратарь Металлург", playstyles: ["otraz","vihod"], playstyleColors: {} },
             EgorNast: { name: "Егор Настоящий", position: "Полузащитник", age: "11 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "45 кг", rating: 83, number: "(7)", description: "Луксмаксер двора", playstyles: [], playstyleColors: {} }
         };
         
@@ -3363,7 +3376,9 @@
             { id: "tankov", name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 90, number: "(99)", description: "Универсальный игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
             { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 88, number: "(76)", description: "Игрок ФК 78 школа", playstyles: [], playstyleColors: {} },
             { id: "ostap", name: "Остап", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "158 см", weight: "55 кг", rating: 1, number: "(67)", description: "Единица в рейтинге, потому что топ-1 в Кемерово", playstyles: [], playstyleColors: {} },
-            { id: "elisey", name: "Елисей", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 86, number: "(19)", description: "Арендован в ФК 78 по собственному желанию", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} }
+            { id: "Maxim30", name: "Максим Захаров", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "53 кг", rating: 94, number: "(30)", description: "Вратарь Металлург", playstyles: ["otraz","vihod"], playstyleColors: {} },
+            { id: "elisey", name: "Елисей", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 86, number: "(19)", description: "Арендован в ФК 78 по собственному желанию", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
+            
         ];
         
         const yuzhkaPlayers = [
@@ -3390,7 +3405,7 @@
                 name: 'ФК "МЕРА"',
                 captain: 'Капитан МЕРЫ',
                 budget: 5000,
-                players: ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elisey', 'andryushka', 'matvey']
+                players: ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elisey']
             },
             school78: {
                 id: 'school78',
@@ -4796,6 +4811,7 @@
             document.getElementById('back-from-yard-78').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-yuzhka').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-match-tactics').addEventListener('click', () => showPage('matches-page'));
+            document.getElementById('update-btn').addEventListener('click', () => window.location.reload(true));
             
             // Другие дворы
             document.getElementById('yard-78-school').addEventListener('click', () => showPage('yard-78-page'));
