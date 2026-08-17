@@ -3427,6 +3427,13 @@
                 captain: 'Капитан Южного',
                 budget: 4500,
                 players: ['russkov_artem', 'shuklin', 'bombar', 'mes']
+            },
+                        arsenal: {
+                id: 'arsenal',
+                name: 'ФК Арсенал',
+                captain: 'Капитан Арсенала',
+                budget: 500,
+                players: ['vanya_melki', 'elanga', 'andryushka']
             }
         };
         
@@ -3633,6 +3640,8 @@
                 if (userEmail === 'mera@fc.com') teamId = 'mera';
                 else if (userEmail === 'school78@fc.com') teamId = 'school78';
                 else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
+                else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
+
                 else {
                     showMarketNotification('❌ Неизвестная команда!', 'error');
                     await supabaseClient.auth.signOut();
