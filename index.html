@@ -2724,10 +2724,16 @@
                         <div class="button-title">Подать заявку</div>
                         <div class="button-description">Создать свою команду</div>
                     </div>
+                    
                     <div class="main-button" id="players-btn">
                         <div class="button-icon">👥</div>
                         <div class="button-title">Состав Двора</div>
                         <div class="button-description">Все игроки нашего двора</div>
+                    </div>
+                    <div class="main-button" id="squad-btn">
+                        <div class="button-icon">🏆</div>
+                        <div class="button-title">ФК "МЕРА"</div>
+                        <div class="button-description">Основной состав нашего двора</div>
                     </div>
                     <div class="main-button" id="matches-btn">
                         <div class="button-icon">📅</div>
@@ -2769,7 +2775,8 @@
                 <div class="update-button-container hidden" id="update-btn-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
                 </div>
-            </div>  
+            </div>
+            
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
                 <div class="players-controls">
@@ -2785,6 +2792,53 @@
                     <div class="players-count" id="players-count">Всего игроков: 0</div>
                 </div>
                 <div class="players-grid" id="players-grid-container"></div>
+            </div>
+            
+            <div id="squad-page" class="page">
+                <button class="back-button" id="back-from-squad">← Назад к главной</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">ФК "МЕРА" — основной состав</h2>
+                    <div class="squad-content active" id="squad-1">
+                        <div class="formation">
+                            <div class="formation-line">
+                                <div class="player-item" data-player="demid">
+                                    <div class="player-photo-small" id="demid-photo-small"></div>
+                                    <div class="player-name">Пасько Д.</div>
+                                    <span class="player-number">(45)</span>
+                                </div>
+                                <div class="player-item" data-player="aleksey_doroshenko">
+                                    <div class="player-photo-small" id="aleksey_doroshenko-photo-small"></div>
+                                    <div class="player-name">Дорошенко А.</div>
+                                    <span class="player-number">(22)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="lesha_podavalny">
+                                    <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
+                                    <div class="player-name">Чурилов А.</div>
+                                    <span class="player-number">(41)</span>
+                                </div>
+                                <div class="player-item" data-player="maxim">
+                                    <div class="player-photo-small" id="maxim-photo-small"></div>
+                                    <div class="player-name">Бузмаков М.</div>
+                                    <span class="player-number">(8)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="raya">
+                                    <div class="player-photo-small" id="raya-photo-small"></div>
+                                    <div class="player-name">Шустов И.</div>
+                                    <span class="player-number">(1)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="tactics-info" id="tactics-info">
+                        <h3>Тактическая информация</h3>
+                        <p><strong>Схема:</strong> 1-2-2 (вратарь, 2 защитника, 2 полузащитника)</p>
+                        <p id="tactics-description"><strong>Описание:</strong> Основной состав ФК МЕРЫ. Нажмите на любого игрока, чтобы увидеть его характеристики.</p>
+                    </div>
+                </div>
             </div>
             
             <div id="yards-page" class="page">
@@ -3010,7 +3064,7 @@
                         <div class="match-penalty">Техническое поражение</div>
                         <div class="match-result loss">❌ Техническое поражение ФК "МЕРА"</div>
                     </div>
-                        <div class="match-card" data-match="8" id="match-card-8">
+                                        <div class="match-card" data-match="8" id="match-card-8">
                         <div class="match-header">
                             <span class="match-date">9 августа 2026</span>
                             <span class="match-time">18:00</span>
@@ -3035,34 +3089,12 @@
                         <div class="match-penalty"></div>
                         <div class="match-result win">🏆 Победа ФК "МЕРА"</div>
                     </div>
-                    <div class="match-card" data-match="9" id="match-card-9">
-                        <div class="match-header">
-                            <span class="match-date">16 августа 2026</span>
-                            <span class="match-time">19:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78" class="team-logo">
-                                <span class="team-name">ФК 78</span>
-                                
-                            </div>
-                            <div class="match-score">
-                                <span class="score">6</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">5</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty"></div>
-                        <div class="match-result loss">🏆 Поражение ФК "МЕРА"</div>
                 </div>
-             </div>
-        </div>
-    </div>    
+            </div>
+
+                </div>
+            </div>
+            
             <div id="match-tactics-page" class="page">
                 <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
                 <div class="match-tactics-container" id="match-tactics-container">
@@ -3157,6 +3189,7 @@
             <p>𝗧𝗶𝗸 𝗧𝗼𝗸: @fc.mera</p>
         </footer>
     </div>
+    
     <!-- Модальное окно игрока -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal" id="modal-window">
@@ -3203,7 +3236,7 @@
             </div>
             
             <div class="form-group">
-                <label>Состав игроков (5, максимум 10)</label>
+                <label>Состав игроков (5, максимум 8)</label>
                 <div class="players-list" id="players-list-container">
                     <!-- Динамически добавляются строки -->
                 </div>
@@ -3247,7 +3280,7 @@
             <div class="secret-content" id="secret-content">
                 <h3>📋 Информация для членов ФК "МЕРА"</h3>
                 <div class="info-block">
-                    <p><span class="highlight">📅 Следующий матч: </span>Запланирован на ??? августа</p>
+                    <p><span class="highlight">📅 Следующий матч: </span>Запланирован на 9 августа</p>
                     <p><span class="highlight"></span>78-я школа - трупы</p>
                     <p><span class="highlight"></span>ФК МЕРА ТОП</p> 
                 </div>
