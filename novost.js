@@ -31,11 +31,11 @@ window.newsData = [
 window.newsMedia = {
     0: {
         type: 'image',
-        url: ''
+        url: './Photos%20(2)/Elisey_Here_We_Go.png'
     },
     1: {
         type: 'image',
-        url: './Photos%20(2)/Elisey_Here_We_Go.png'
+        url: ''
     },
     2: {
         type: 'image',
@@ -43,10 +43,10 @@ window.newsMedia = {
     },
     3: {
         type: 'image',
-        url: ''
+        url: './Photos%20(2)/Sokolik_Here_We_Go1.png'
     },
     4: {
         type: 'image',
-        url: './Photos%20(2)/Sokolik_Here_We_Go1.png'
+        url: ''
     }
 };
