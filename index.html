@@ -3431,7 +3431,14 @@
                 captain: 'Капитан Арсенала',
                 budget: 500,
                 players: ['vanya_melki','andryushka']
-            }
+            },
+                        psg: {
+                id: 'psg',
+                name: 'ФК Арсенал',
+                captain: 'Капитан Арсенала',
+                budget: 500,
+                players: ['']
+
         };
         
         // ============================================================
@@ -3638,6 +3645,8 @@
                 else if (userEmail === 'school78@fc.com') teamId = 'school78';
                 else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
                 else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
+                else if (userEmail === 'psg@fc.com') teamId = 'psg';
+
 
                 else {
                     showMarketNotification('❌ Неизвестная команда!', 'error');
@@ -3725,6 +3734,9 @@
                 else if (userEmail === 'school78@fc.com') teamId = 'school78';
                 else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
                 else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
+                else if (userEmail === 'psg@fc.com') teamId = 'psg';
+
+                
                 
                 if (teamId && CAPTAINS[teamId]) {
                     marketState.currentCaptain = teamId;
