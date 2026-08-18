@@ -2861,13 +2861,6 @@
                             </div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
-                        <div class="yard-card" id="yard-mera">
-                            <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="yard-logo">
-                            <div>
-                                <h3>🟣🔵 ФК МЕРА</h3>
-                            </div>
-                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
-                        </div>
                         <div class="yard-card">
                             <h3>🟢 Зеленый Остров</h3>
                             <div class="yard-subtitle">Скоро...</div>
@@ -2889,14 +2882,6 @@
                 <div class="best-squad-container">
                     <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🟢 ФК Южный — состав</h2>
                     <div class="players-grid" id="yard-yuzhka-grid"></div>
-                </div>
-            </div>
-            
-            <div id="yard-mera-page" class="page">
-                <button class="back-button" id="back-from-yard-mera">← Назад к другим дворам</button>
-                <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;"> ФК МЕРА — состав</h2>
-                    <div class="players-grid" id="yard-mera-grid"></div>
                 </div>
             </div>
             
@@ -3407,22 +3392,13 @@
             { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
             { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
         ];
-        const meraPlayers = [
-            { id: "raya", name: "Шустов Иван", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 94, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
-            { id: "maxim", "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "55 кг", rating: 94, number: "(8)", description: "Капитан ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
-            { id: "aleksey_doroshenko", name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 96, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
-            { id: "demid", name: "Пасько Демид", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр", playstyles: ["pushka", "truk_gold"], playstyleColors: {otraz: "gold", truk_gold: "gold"} },
-            { id: "batrakov", name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 89, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } }
-        ];
         
         const playersData = { ...basePlayers };
         yard78Players.forEach(p => { playersData[p.id] = p; });
         yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
-        meraPlayers.forEach(p => { playersData[p.id] = p; });
         
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
-        const meraPlayerIds = meraPlayers.map(p => p.id);
         
         // ============================================================
         // ДАННЫЕ КАПИТАНОВ
