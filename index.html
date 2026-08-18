@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Футбольный Двор "МЕРA"</title>
     <meta property="og:title" content="Футбольный Двор МЕРА">
-    <meta property="og:description" content="Проведение матчей и новости>
+    <meta property="og:description" content="Проведение матчей и новости">
     <meta property="og:image" content="./Photos%20(2)/IMG_0807.jpeg">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
@@ -2845,7 +2845,7 @@
                 <button class="back-button" id="back-from-yards">← Назад к главной</button>
                 <div class="other-yards-container">
                     <div class="big-icon">🏘️</div>
-                    <h2>Другие дворы</h2>
+                    <h2>Команды</h2>
                     <div class="yards-list">
                         <div class="yard-card" id="yard-78-school">
                             <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="yard-logo">
@@ -2858,6 +2858,20 @@
                             <img src="./Photos%20(2)/IMG_0800.jpeg" alt="ФК Южка" class="yard-logo">
                             <div>
                                 <h3>🟢 ФК Южный</h3>
+                            </div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-arsenal">
+                            <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК Арсенал" class="yard-logo" style="background: white; padding: 4px;">
+                            <div>
+                                <h3>🔴 ФК Арсенал</h3>
+                            </div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-psg">
+                            <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК ПСЖ" class="yard-logo" style="background: white; padding: 4px;">
+                            <div>
+                                <h3>🔵 ФК ПСЖ</h3>
                             </div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
@@ -2882,6 +2896,22 @@
                 <div class="best-squad-container">
                     <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🟢 ФК Южный — состав</h2>
                     <div class="players-grid" id="yard-yuzhka-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-arsenal-page" class="page">
+                <button class="back-button" id="back-from-yard-arsenal">← Назад к другим дворам</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🔴 ФК Арсенал — состав</h2>
+                    <div class="players-grid" id="yard-arsenal-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-psg-page" class="page">
+                <button class="back-button" id="back-from-yard-psg">← Назад к другим дворам</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🔵 ФК ПСЖ — состав</h2>
+                    <div class="players-grid" id="yard-psg-grid"></div>
                 </div>
             </div>
             
@@ -3392,16 +3422,31 @@
             { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
             { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
         ];
+
+        // ===== НОВЫЕ ИГРОКИ ДЛЯ АРСЕНАЛА И ПСЖ =====
+        const arsenalPlayers = [
+            { id: "vanya_melki", name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
+            { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} }
+        ];
+
+        const psgPlayers = [
+            { id: "psg_player1", name: "Игрок ПСЖ 1", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "40 кг", rating: 75, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
+            { id: "psg_player2", name: "Игрок ПСЖ 2", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} }
+        ];
         
         const playersData = { ...basePlayers };
         yard78Players.forEach(p => { playersData[p.id] = p; });
         yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
+        arsenalPlayers.forEach(p => { playersData[p.id] = p; });
+        psgPlayers.forEach(p => { playersData[p.id] = p; });
         
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
+        const arsenalPlayerIds = arsenalPlayers.map(p => p.id);
+        const psgPlayerIds = psgPlayers.map(p => p.id);
         
         // ============================================================
-        // ДАННЫЕ КАПИТАНОВ
+        // ДАННЫЕ КАПИТАНОВ (добавлены Арсенал и ПСЖ)
         // ============================================================
         const CAPTAINS = {
             mera: {
@@ -3425,21 +3470,20 @@
                 budget: 4500,
                 players: ['russkov_artem', 'shuklin', 'bombar', 'mes']
             },
-                        arsenal: {
+            arsenal: {
                 id: 'arsenal',
                 name: 'ФК Арсенал',
                 captain: 'Капитан Арсенала',
                 budget: 500,
-                players: ['vanya_melki','andryushka']
+                players: ['vanya_melki', 'andryushka']
             },
-                        psg: {
+            psg: {
                 id: 'psg',
                 name: 'ФК ПСЖ',
                 captain: 'Капитан ПСЖ',
                 budget: 500,
-                players: ['']
-                }
-
+                players: ['psg_player1', 'psg_player2']
+            }
         };
         
         // ============================================================
@@ -3593,7 +3637,7 @@
         // ============================================================
         // ПЕРЕМЕННЫЕ
         // ============================================================
-        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id));
+        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id) && !arsenalPlayerIds.includes(id) && !psgPlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
         let themeClickCount = 0;
@@ -3647,8 +3691,6 @@
                 else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
                 else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
                 else if (userEmail === 'psg@fc.com') teamId = 'psg';
-
-
                 else {
                     showMarketNotification('❌ Неизвестная команда!', 'error');
                     await supabaseClient.auth.signOut();
@@ -3736,8 +3778,6 @@
                 else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
                 else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
                 else if (userEmail === 'psg@fc.com') teamId = 'psg';
-
-                
                 
                 if (teamId && CAPTAINS[teamId]) {
                     marketState.currentCaptain = teamId;
@@ -4977,16 +5017,22 @@
             document.getElementById('back-from-market').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-yard-78').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-yuzhka').addEventListener('click', () => showPage('yards-page'));
+            document.getElementById('back-from-yard-arsenal').addEventListener('click', () => showPage('yards-page'));
+            document.getElementById('back-from-yard-psg').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-match-tactics').addEventListener('click', () => showPage('matches-page'));
             
             // Другие дворы
             document.getElementById('yard-78-school').addEventListener('click', () => showPage('yard-78-page'));
             document.getElementById('yard-yuzhka').addEventListener('click', () => showPage('yard-yuzhka-page'));
+            document.getElementById('yard-arsenal').addEventListener('click', () => showPage('yard-arsenal-page'));
+            document.getElementById('yard-psg').addEventListener('click', () => showPage('yard-psg-page'));
             
             // Игроки
             renderMainPlayerCards();
             renderPlayerCards('yard-78-grid', yard78PlayerIds);
             renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds);
+            renderPlayerCards('yard-arsenal-grid', arsenalPlayerIds);
+            renderPlayerCards('yard-psg-grid', psgPlayerIds);
             
             // Поиск
             document.getElementById('player-search').addEventListener('input', function(e) {
@@ -5053,7 +5099,7 @@
                 if (inputLogin.style.display === 'none') {
                     inputLogin.style.display = 'inline-block';
                     inputPassword.style.display = 'inline-block';
-                    inputLogin.placeholder = 'Email (mera@fc.com, school78@fc.com, yuzhka@fc.com)';
+                    inputLogin.placeholder = 'Email (mera@fc.com, school78@fc.com, yuzhka@fc.com, arsenal@fc.com, psg@fc.com)';
                     inputPassword.placeholder = 'Пароль...';
                     inputLogin.focus();
                 } else {
