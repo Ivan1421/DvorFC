@@ -2732,8 +2732,11 @@
                         <div class="button-title">Подать заявку</div>
                         <div class="button-description">Создать свою команду</div>
                     </div>
-
-                                      
+                    <div class="main-button" id="players-btn">
+                        <div class="button-icon">👥</div>
+                        <div class="button-title">Состав Двора</div>
+                        <div class="button-description">Все игроки нашего двора</div>
+                    </div>
                     <div class="main-button" id="squad-btn">
                         <div class="button-icon">🏆</div>
                         <div class="button-title">ФК МЕРА</div>
@@ -2880,7 +2883,7 @@
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                         <div class="yard-card" id="yard-psg">
-                            <img src="./Photos%20(2)/IMG_0833.jpeg" alt="ФК ПСЖ" class="yard-logo" style="background: white; padding: 4px;">
+                            <img src="" alt="ФК ПСЖ" class="yard-logo" style="background: white; padding: 4px;">
                             <div>
                                 <h3>🔵 ФК ПСЖ</h3>
                             </div>
@@ -2897,7 +2900,7 @@
             <div id="yard-mera-page" class="page">
                 <button class="back-button" id="back-from-yard-mera">← Назад к другим дворам</button>
                 <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🔵🟣 ФК "МЕРА" — состав</h2>
+                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">⚫ ФК "МЕРА" — состав</h2>
                     <div class="players-grid" id="yard-mera-grid"></div>
                 </div>
             </div>
@@ -3439,20 +3442,19 @@
             { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
             { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
             { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
-            { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
-            { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} }
+            { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
         ];
 
         // ===== НОВЫЕ ИГРОКИ ДЛЯ АРСЕНАЛА И ПСЖ (из вашего кода) =====
         const arsenalPlayers = [
-            { id: "vanya_melki", name: "Ваня Мелкий", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 82, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
+            { id: "vanya", name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
             { id: "gleb", name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
         ];
 
         const psgPlayers = [
             { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "40 кг", rating: 75, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
-            { id: "EgorNast", name: "Зверев Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} }
+            { id: "EgorNast", name: "Волков Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} }
         ];
         
         const playersData = { ...basePlayers };
@@ -3466,7 +3468,7 @@
         psgPlayers.forEach(p => { playersData[p.id] = p; });
         
         // Списки ID игроков по командам
-        const meraTeamIds = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elanga', 'matvey', 'rovkin'];
+        const meraTeamIds = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elisey', 'elanga', 'matvey', 'haaland', 'maradona', 'saldaevk', 'saldaevd', 'vladimirova', 'maxronaldo'];
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
         const arsenalPlayerIds = arsenalPlayers.map(p => p.id);
@@ -5017,7 +5019,8 @@
             }
             
             // Навигация
-                        document.getElementById('squad-btn').addEventListener('click', () => showPage('squad-page'));
+            document.getElementById('players-btn').addEventListener('click', () => showPage('players-page'));
+            document.getElementById('squad-btn').addEventListener('click', () => showPage('squad-page'));
             document.getElementById('matches-btn').addEventListener('click', () => showPage('matches-page'));
             document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
