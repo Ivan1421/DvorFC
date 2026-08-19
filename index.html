@@ -2395,6 +2395,14 @@
             background: #6c757d;
             color: #fff;
         }
+        .transfer-item .transfer-team-badge.arsenal {
+            background: #dc3545;
+            color: #fff;
+        }
+        .transfer-item .transfer-team-badge.psg {
+            background: #0d6efd;
+            color: #fff;
+        }
         .transfers-empty {
             text-align: center;
             padding: 30px;
@@ -2724,11 +2732,8 @@
                         <div class="button-title">Подать заявку</div>
                         <div class="button-description">Создать свою команду</div>
                     </div>
-                    <div class="main-button" id="players-btn">
-                        <div class="button-icon">👥</div>
-                        <div class="button-title">Состав Двора</div>
-                        <div class="button-description">Все игроки нашего двора</div>
-                    </div>
+
+                                      
                     <div class="main-button" id="squad-btn">
                         <div class="button-icon">🏆</div>
                         <div class="button-title">ФК МЕРА</div>
@@ -2846,6 +2851,13 @@
                     <div class="big-icon">🏘️</div>
                     <h2>Команды</h2>
                     <div class="yards-list">
+                        <div class="yard-card" id="yard-mera">
+                            <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="yard-logo">
+                            <div>
+                                <h3>⚫ ФК "МЕРА"</h3>
+                            </div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
                         <div class="yard-card" id="yard-78-school">
                             <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="yard-logo">
                             <div>
@@ -2882,6 +2894,14 @@
                 </div>
             </div>
             
+            <div id="yard-mera-page" class="page">
+                <button class="back-button" id="back-from-yard-mera">← Назад к другим дворам</button>
+                <div class="best-squad-container">
+                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">⚫ ФК "МЕРА" — состав</h2>
+                    <div class="players-grid" id="yard-mera-grid"></div>
+                </div>
+            </div>
+
             <div id="yard-78-page" class="page">
                 <button class="back-button" id="back-from-yard-78">← Назад к другим дворам</button>
                 <div class="best-squad-container">
@@ -3391,7 +3411,7 @@
             vladimirova: { name: "Владимиров Артём", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Амбидекстер", height: "174 см", weight: "51 кг", rating: 96, number: "(76)", description: "Опасность с обеих ног", playstyles: ['truk_gold', 'tiki_taka', 'tochno'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold", tochno: "gold"} },
             kostya: { name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
             maxronaldo: { name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 77, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
-            vanya: { name: "Ваня", position: "Полузащитник", age: "10 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "30 кг", rating: 82, number: "(56)", description: "Молодняк ФК МЕРА", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
+            vanya: { name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
             russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
             shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
@@ -3422,7 +3442,7 @@
             { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
         ];
 
-        // ===== НОВЫЕ ИГРОКИ ДЛЯ АРСЕНАЛА И ПСЖ =====
+        // ===== НОВЫЕ ИГРОКИ ДЛЯ АРСЕНАЛА И ПСЖ (из вашего кода) =====
         const arsenalPlayers = [
             { id: "vanya", name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
@@ -3431,22 +3451,28 @@
 
         const psgPlayers = [
             { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "40 кг", rating: 75, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
-            { id: "egorNast", name: "Волков Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} }
+            { id: "EgorNast", name: "Волков Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} }
         ];
         
         const playersData = { ...basePlayers };
+        // Добавляем игроков 78 школы
         yard78Players.forEach(p => { playersData[p.id] = p; });
+        // Добавляем игроков Южного
         yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
+        // Добавляем игроков Арсенала
         arsenalPlayers.forEach(p => { playersData[p.id] = p; });
+        // Добавляем игроков ПСЖ
         psgPlayers.forEach(p => { playersData[p.id] = p; });
         
+        // Списки ID игроков по командам
+        const meraTeamIds = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elisey', 'elanga', 'matvey', 'haaland', 'maradona', 'saldaevk', 'saldaevd', 'vladimirova', 'maxronaldo'];
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
         const arsenalPlayerIds = arsenalPlayers.map(p => p.id);
         const psgPlayerIds = psgPlayers.map(p => p.id);
         
         // ============================================================
-        // ДАННЫЕ КАПИТАНОВ (добавлены Арсенал и ПСЖ)
+        // ДАННЫЕ КАПИТАНОВ
         // ============================================================
         const CAPTAINS = {
             mera: {
@@ -3454,35 +3480,35 @@
                 name: 'ФК "МЕРА"',
                 captain: 'Капитан МЕРЫ',
                 budget: 5000,
-                players: ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elisey']
+                players: meraTeamIds
             },
             school78: {
                 id: 'school78',
                 name: 'ФК 78 школа',
                 captain: 'Капитан 78 школы',
                 budget: 4000,
-                players: ['timofey_zaytsev', 'sanya_bobrikov', 'kirill_beschastny', 'maxim_dcp', 'tankov']
+                players: yard78PlayerIds
             },
             yuzhka: {
                 id: 'yuzhka',
                 name: 'ФК Южный',
                 captain: 'Капитан Южного',
                 budget: 4500,
-                players: ['russkov_artem', 'shuklin', 'bombar', 'mes']
+                players: yuzhkaPlayerIds
             },
             arsenal: {
                 id: 'arsenal',
                 name: 'ФК Арсенал',
                 captain: 'Капитан Арсенала',
                 budget: 500,
-                players: ['vanya_melki', 'andryushka']
+                players: arsenalPlayerIds
             },
             psg: {
                 id: 'psg',
                 name: 'ФК ПСЖ',
                 captain: 'Капитан ПСЖ',
                 budget: 500,
-                players: ['psg_player1', 'psg_player2']
+                players: psgPlayerIds
             }
         };
         
@@ -3637,7 +3663,10 @@
         // ============================================================
         // ПЕРЕМЕННЫЕ
         // ============================================================
-        let currentPlayerIds = Object.keys(playersData).filter(id => !yard78PlayerIds.includes(id) && !yuzhkaPlayerIds.includes(id) && !arsenalPlayerIds.includes(id) && !psgPlayerIds.includes(id));
+        // Все ID игроков, которые НЕ принадлежат ни одной команде (свободные агенты)
+        const allPlayerIds = Object.keys(playersData);
+        const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds];
+        let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
         let themeClickCount = 0;
@@ -3664,7 +3693,7 @@
         }
         
         // ============================================================
-        // ЛОГИН ЧЕРЕЗ SUPABASE AUTH (фиксированные пароли)
+        // ЛОГИН ЧЕРЕЗ SUPABASE AUTH
         // ============================================================
         async function loginCaptain(email, password) {
             try {
@@ -3807,7 +3836,7 @@
         }
         
         // ============================================================
-        // ФУНКЦИИ РАБОТЫ С ХРАНИЛИЩЕМ (Supabase + localStorage fallback)
+        // ФУНКЦИИ РАБОТЫ С ХРАНИЛИЩЕМ
         // ============================================================
         async function saveMarketToSupabase() {
             try {
@@ -4149,7 +4178,7 @@
         }
         
         // ============================================================
-        // UI РЫНКА (с фотографиями)
+        // UI РЫНКА
         // ============================================================
         function updateMarketUI() {
             const grid = document.getElementById('market-grid');
@@ -4396,7 +4425,7 @@
             filteredPlayerIds.forEach(id => {
                 const p = playersData[id];
                 if (!p) return;
-                const isMera = meraPlayerIds.includes(id);
+                const isMera = meraTeamIds.includes(id);
                 const isBurmalda = burmaldaPlayerIds.includes(id);
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
@@ -4459,7 +4488,7 @@
             playerIds.forEach(id => {
                 const p = playersData[id];
                 if (!p) return;
-                const isMera = meraPlayerIds.includes(id);
+                const isMera = meraTeamIds.includes(id);
                 const isBurmalda = burmaldaPlayerIds.includes(id);
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
@@ -4557,7 +4586,7 @@
             
             const meraTag = document.getElementById('modal-mera-tag');
             const burmaldaTag = document.getElementById('modal-burmalda-tag');
-            if (meraPlayerIds.includes(playerId)) {
+            if (meraTeamIds.includes(playerId)) {
                 meraTag.style.display = 'inline-block';
             } else {
                 meraTag.style.display = 'none';
@@ -4987,8 +5016,7 @@
             }
             
             // Навигация
-            document.getElementById('players-btn').addEventListener('click', () => showPage('players-page'));
-            document.getElementById('squad-btn').addEventListener('click', () => showPage('squad-page'));
+                        document.getElementById('squad-btn').addEventListener('click', () => showPage('squad-page'));
             document.getElementById('matches-btn').addEventListener('click', () => showPage('matches-page'));
             document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
@@ -5015,6 +5043,7 @@
             document.getElementById('back-from-yards').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-news').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-market').addEventListener('click', () => showPage('home-page'));
+            document.getElementById('back-from-yard-mera').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-78').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-yuzhka').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-arsenal').addEventListener('click', () => showPage('yards-page'));
@@ -5022,6 +5051,7 @@
             document.getElementById('back-from-match-tactics').addEventListener('click', () => showPage('matches-page'));
             
             // Другие дворы
+            document.getElementById('yard-mera').addEventListener('click', () => showPage('yard-mera-page'));
             document.getElementById('yard-78-school').addEventListener('click', () => showPage('yard-78-page'));
             document.getElementById('yard-yuzhka').addEventListener('click', () => showPage('yard-yuzhka-page'));
             document.getElementById('yard-arsenal').addEventListener('click', () => showPage('yard-arsenal-page'));
@@ -5029,6 +5059,7 @@
             
             // Игроки
             renderMainPlayerCards();
+            renderPlayerCards('yard-mera-grid', meraTeamIds);
             renderPlayerCards('yard-78-grid', yard78PlayerIds);
             renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds);
             renderPlayerCards('yard-arsenal-grid', arsenalPlayerIds);
