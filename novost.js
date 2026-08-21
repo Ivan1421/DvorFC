@@ -31,7 +31,7 @@ window.newsData = [
 window.newsMedia = {
     0: {
         type: 'image',
-        url: './Photos%20(2)/Elisey_Here_We_Go.png'
+        url: ''
     },
     1: {
         type: 'image',
