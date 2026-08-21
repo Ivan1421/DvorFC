@@ -1363,6 +1363,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             margin-bottom: 25px;
+            position: relative;
         }
         .match-card:last-child {
             margin-bottom: 0;
@@ -2722,6 +2723,479 @@
         .update-button-container.hidden {
             display: none !important;
         }
+
+        /* ============================================
+           ЦВЕТОВЫЕ ТЕМЫ ДЛЯ КОМАНД (обводки карточек)
+           ============================================ */
+        /* ФК МЕРА — фиолетово-синий градиент */
+        .yard-mera-theme .player-card {
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #8e44ad, #3498db, #8e44ad) border-box;
+            box-shadow: 0 0 30px rgba(142, 68, 173, 0.4);
+        }
+        .dark-theme .yard-mera-theme .player-card {
+            background: linear-gradient(#2d3748, #2d3748) padding-box,
+                        linear-gradient(135deg, #8e44ad, #3498db, #8e44ad) border-box;
+            box-shadow: 0 0 30px rgba(142, 68, 173, 0.5);
+        }
+        .yard-mera-theme .player-card .player-photo {
+            border-color: #8e44ad;
+        }
+        .yard-mera-theme .player-card .player-info h3 {
+            color: #8e44ad;
+        }
+        .yard-mera-theme .player-card .stat-item {
+            border-color: #8e44ad;
+        }
+        .yard-mera-theme .player-card .stat-value {
+            color: #8e44ad;
+        }
+        .yard-mera-theme .player-card .player-number {
+            color: #8e44ad;
+        }
+
+        /* ФК 78 школа — фиолетовый */
+        .yard-78-theme .player-card {
+            border: 3px solid #8e44ad;
+            box-shadow: 0 0 20px rgba(142, 68, 173, 0.3);
+        }
+        .dark-theme .yard-78-theme .player-card {
+            border-color: #9b59b6;
+            box-shadow: 0 0 20px rgba(142, 68, 173, 0.4);
+        }
+        .yard-78-theme .player-card .player-photo {
+            border-color: #8e44ad;
+        }
+        .yard-78-theme .player-card .player-info h3 {
+            color: #8e44ad;
+        }
+        .yard-78-theme .player-card .stat-item {
+            border-color: #8e44ad;
+        }
+        .yard-78-theme .player-card .stat-value {
+            color: #8e44ad;
+        }
+        .yard-78-theme .player-card .player-number {
+            color: #8e44ad;
+        }
+
+        /* ФК Южный — салатовый */
+        .yard-yuzhka-theme .player-card {
+            border: 3px solid #32cd32;
+            box-shadow: 0 0 20px rgba(50, 205, 50, 0.4);
+        }
+        .dark-theme .yard-yuzhka-theme .player-card {
+            border-color: #2ecc71;
+            box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+        }
+        .yard-yuzhka-theme .player-card .player-photo {
+            border-color: #32cd32;
+        }
+        .yard-yuzhka-theme .player-card .player-info h3 {
+            color: #32cd32;
+        }
+        .yard-yuzhka-theme .player-card .stat-item {
+            border-color: #32cd32;
+        }
+        .yard-yuzhka-theme .player-card .stat-value {
+            color: #32cd32;
+        }
+        .yard-yuzhka-theme .player-card .player-number {
+            color: #32cd32;
+        }
+
+        /* ФК Арсенал — красный */
+        .yard-arsenal-theme .player-card {
+            border: 3px solid #dc3545;
+            box-shadow: 0 0 20px rgba(220, 53, 69, 0.4);
+        }
+        .dark-theme .yard-arsenal-theme .player-card {
+            border-color: #ff4757;
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.5);
+        }
+        .yard-arsenal-theme .player-card .player-photo {
+            border-color: #dc3545;
+        }
+        .yard-arsenal-theme .player-card .player-info h3 {
+            color: #dc3545;
+        }
+        .yard-arsenal-theme .player-card .stat-item {
+            border-color: #dc3545;
+        }
+        .yard-arsenal-theme .player-card .stat-value {
+            color: #dc3545;
+        }
+        .yard-arsenal-theme .player-card .player-number {
+            color: #dc3545;
+        }
+
+        /* ФК ПСЖ — синий */
+        .yard-psg-theme .player-card {
+            border: 3px solid #0d6efd;
+            box-shadow: 0 0 20px rgba(13, 110, 253, 0.4);
+        }
+        .dark-theme .yard-psg-theme .player-card {
+            border-color: #4dabf7;
+            box-shadow: 0 0 20px rgba(77, 171, 247, 0.5);
+        }
+        .yard-psg-theme .player-card .player-photo {
+            border-color: #0d6efd;
+        }
+        .yard-psg-theme .player-card .player-info h3 {
+            color: #0d6efd;
+        }
+        .yard-psg-theme .player-card .stat-item {
+            border-color: #0d6efd;
+        }
+        .yard-psg-theme .player-card .stat-value {
+            color: #0d6efd;
+        }
+        .yard-psg-theme .player-card .player-number {
+            color: #0d6efd;
+        }
+
+        /* Анимация для карточек при наведении/нажатии */
+        .yard-mera-theme .player-card:hover,
+        .yard-78-theme .player-card:hover,
+        .yard-yuzhka-theme .player-card:hover,
+        .yard-arsenal-theme .player-card:hover,
+        .yard-psg-theme .player-card:hover {
+            transform: translateY(-5px) scale(1.01);
+        }
+        .yard-mera-theme .player-card:active,
+        .yard-78-theme .player-card:active,
+        .yard-yuzhka-theme .player-card:active,
+        .yard-arsenal-theme .player-card:active,
+        .yard-psg-theme .player-card:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== СТИЛИ ДЛЯ АДМИНКИ ===== */
+        .admin-panel {
+            display: none;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            border: 2px solid #0066cc;
+        }
+        .dark-theme .admin-panel {
+            background: #2d3748;
+            border-color: #4dabf7;
+        }
+        .admin-panel.visible {
+            display: block;
+        }
+        .admin-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: 0.3s;
+        }
+        .admin-btn:hover {
+            background: #c82333;
+        }
+        .admin-btn.green {
+            background: #28a745;
+        }
+        .admin-btn.green:hover {
+            background: #218838;
+        }
+        .match-admin-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        /* Модалка редактирования матча */
+        .match-edit-modal .modal {
+            max-width: 700px;
+        }
+        .match-edit-modal .form-group {
+            margin-bottom: 15px;
+        }
+        .match-edit-modal .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+        }
+        .dark-theme .match-edit-modal .form-group label {
+            color: #4dabf7;
+        }
+        .match-edit-modal .form-group input,
+        .match-edit-modal .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            color: #333;
+            transition: 0.3s;
+        }
+        .dark-theme .match-edit-modal .form-group input,
+        .dark-theme .match-edit-modal .form-group select {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .match-edit-modal .form-group input:focus,
+        .match-edit-modal .form-group select:focus {
+            outline: none;
+            border-color: #8e44ad;
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+        }
+        .match-edit-modal .form-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .match-edit-modal .form-row .form-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .match-edit-modal .submit-edit-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .match-edit-modal .submit-edit-btn:hover {
+            background: #218838;
+        }
+        .match-edit-modal .delete-match-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .match-edit-modal .delete-match-btn:hover {
+            background: #c82333;
+        }
+        .match-edit-modal .match-edit-status {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .match-edit-modal .match-edit-status.success {
+            color: #28a745;
+        }
+        .match-edit-modal .match-edit-status.error {
+            color: #dc3545;
+        }
+        /* Админ-кнопка на главной */
+        .admin-login-btn {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+        .admin-login-btn:hover {
+            background: #7d3c98;
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
+        }
+        .admin-login-btn.logged {
+            background: #28a745;
+        }
+        .admin-login-btn.logged:hover {
+            background: #218838;
+        }
+        /* модалка входа админа */
+        .admin-auth-modal .modal {
+            max-width: 400px;
+        }
+        .admin-auth-modal .form-group {
+            margin-bottom: 15px;
+        }
+        .admin-auth-modal .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+        }
+        .dark-theme .admin-auth-modal .form-group label {
+            color: #4dabf7;
+        }
+        .admin-auth-modal .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            color: #333;
+        }
+        .dark-theme .admin-auth-modal .form-group input {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .admin-auth-modal .auth-submit-btn {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .admin-auth-modal .auth-submit-btn:hover {
+            background: #7d3c98;
+        }
+        .admin-auth-modal .auth-status {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .admin-auth-modal .auth-status.success {
+            color: #28a745;
+        }
+        .admin-auth-modal .auth-status.error {
+            color: #dc3545;
+        }
+
+        .admin-panel .admin-welcome {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .admin-panel .admin-welcome span {
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .dark-theme .admin-panel .admin-welcome span {
+            color: #4dabf7;
+        }
+        .admin-panel .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-panel .admin-actions button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .admin-panel .admin-actions button:hover {
+            background: #0052a3;
+        }
+        .admin-panel .admin-actions button.danger {
+            background: #dc3545;
+        }
+        .admin-panel .admin-actions button.danger:hover {
+            background: #c82333;
+        }
+        .admin-panel .admin-actions button.success {
+            background: #28a745;
+        }
+        .admin-panel .admin-actions button.success:hover {
+            background: #218838;
+        }
+
+        /* Модалка добавления матча */
+        .match-add-modal .modal {
+            max-width: 700px;
+        }
+        .match-add-modal .form-group {
+            margin-bottom: 15px;
+        }
+        .match-add-modal .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+        }
+        .dark-theme .match-add-modal .form-group label {
+            color: #4dabf7;
+        }
+        .match-add-modal .form-group input,
+        .match-add-modal .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            color: #333;
+        }
+        .dark-theme .match-add-modal .form-group input,
+        .dark-theme .match-add-modal .form-group select {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .match-add-modal .form-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .match-add-modal .form-row .form-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .match-add-modal .submit-add-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .match-add-modal .submit-add-btn:hover {
+            background: #218838;
+        }
+        .match-add-modal .match-add-status {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .match-add-modal .match-add-status.success {
+            color: #28a745;
+        }
+        .match-add-modal .match-add-status.error {
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -2780,7 +3254,11 @@
         </span>
     </a>
 </div>
-                
+
+                <!-- Кнопка входа для админов -->
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button class="admin-login-btn" id="admin-login-btn">🔐 Вход для админов</button>
+                </div>
 
                 <!-- Скрываем старую кнопку обновления -->
                 <div class="update-button-container hidden" id="update-btn-container">
@@ -2903,300 +3381,62 @@
             
             <div id="yard-mera-page" class="page">
                 <button class="back-button" id="back-from-yard-mera">← Назад к другим дворам</button>
-                <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🔵🟣 ФК "МЕРА" — состав</h2>
+                <div class="best-squad-container yard-mera-theme">
+                    <h2 class="section-title" style="color:#8e44ad; text-align:center; margin-bottom:15px;">🔵🟣 ФК "МЕРА" — состав</h2>
                     <div class="players-grid" id="yard-mera-grid"></div>
                 </div>
             </div>
 
             <div id="yard-78-page" class="page">
                 <button class="back-button" id="back-from-yard-78">← Назад к другим дворам</button>
-                <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">⚪ ФК 78 школа — состав</h2>
+                <div class="best-squad-container yard-78-theme">
+                    <h2 class="section-title" style="color:#8e44ad; text-align:center; margin-bottom:15px;">⚪ ФК 78 школа — состав</h2>
                     <div class="players-grid" id="yard-78-grid"></div>
                 </div>
             </div>
             
             <div id="yard-yuzhka-page" class="page">
                 <button class="back-button" id="back-from-yard-yuzhka">← Назад к другим дворам</button>
-                <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🟢 ФК Южный — состав</h2>
+                <div class="best-squad-container yard-yuzhka-theme">
+                    <h2 class="section-title" style="color:#32cd32; text-align:center; margin-bottom:15px;">🟢 ФК Южный — состав</h2>
                     <div class="players-grid" id="yard-yuzhka-grid"></div>
                 </div>
             </div>
 
             <div id="yard-arsenal-page" class="page">
                 <button class="back-button" id="back-from-yard-arsenal">← Назад к другим дворам</button>
-                <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🔴 ФК Арсенал — состав</h2>
+                <div class="best-squad-container yard-arsenal-theme">
+                    <h2 class="section-title" style="color:#dc3545; text-align:center; margin-bottom:15px;">🔴 ФК Арсенал — состав</h2>
                     <div class="players-grid" id="yard-arsenal-grid"></div>
                 </div>
             </div>
 
             <div id="yard-psg-page" class="page">
                 <button class="back-button" id="back-from-yard-psg">← Назад к другим дворам</button>
-                <div class="best-squad-container">
-                    <h2 class="section-title" style="color:#0066cc; text-align:center; margin-bottom:15px;">🔵 ФК ПСЖ — состав</h2>
+                <div class="best-squad-container yard-psg-theme">
+                    <h2 class="section-title" style="color:#0d6efd; text-align:center; margin-bottom:15px;">🔵 ФК ПСЖ — состав</h2>
                     <div class="players-grid" id="yard-psg-grid"></div>
                 </div>
             </div>
             
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
-                <div class="matches-container">
+                <div class="matches-container" id="matches-container">
                     <h2>📅 Матчи</h2>
-                    
-                    <div class="match-card" data-match="1" id="match-card-1">
-                        <div class="match-header">
-                            <span class="match-date">23 июля 2026</span>
-                            <span class="match-time">18:30</span>
-                            <span class="match-location-tag home">🏠 Домашний матч</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">10</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">4</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="team-logo">
-                                <span class="team-name">78 школа</span>
+                    <!-- Панель администратора -->
+                    <div class="admin-panel" id="admin-panel">
+                        <div class="admin-welcome">
+                            <span>👑 Админ-панель</span>
+                            <div class="admin-actions">
+                                <button class="success" id="admin-add-match-btn">➕ Добавить матч</button>
+                                <button class="danger" id="admin-logout-btn">🚪 Выйти</button>
                             </div>
                         </div>
-                        <div class="match-result win">🏆 Победа ФК "МЕРА"</div>
                     </div>
-
-                    <div class="match-card" data-match="2" id="match-card-2">
-                        <div class="match-header">
-                            <span class="match-date">25 июля 2026</span>
-                            <span class="match-time">18:30</span>
-                            <span class="match-location-tag away">✈️ Выездной матч</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="team-logo">
-                                <span class="team-name">78 школа</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">6</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">2</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
-                    </div>
-
-                    <div class="match-card" data-match="3" id="match-card-3">
-                        <div class="match-header">
-                            <span class="match-date">26 июля 2026</span>
-                            <span class="match-time">20:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="team-logo">
-                                <span class="team-name">78 школа</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">3</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">3</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty">Пенальти 4:2</div>
-                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
-                    </div>
-                    
-                    <div class="match-card" data-match="4" id="match-card-4">
-                        <div class="match-header">
-                            <span class="match-date">28 июля 2026</span>
-                            <span class="match-time">16:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="team-logo">
-                                <span class="team-name">78 школа</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">11</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">13</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0800.jpeg" alt="ФК Южный" class="team-logo">
-                                <span class="team-name">ФК Южный</span>
-                            </div>
-                        </div>
-                        <div class="match-result away">🏆 Победа ФК "Южный"</div>
-                    </div>
-                    
-                    <div class="match-card" data-match="5" id="match-card-5">
-                        <div class="match-header">
-                            <span class="match-date">2 августа 2026</span>
-                            <span class="match-time">19:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="team-logo">
-                                <span class="team-name">78 школа</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">7</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">7</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty">Пенальти 11:10</div>
-                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
-                    </div>
-                    
-                    <div class="match-card" data-match="6" id="match-card-6">
-                        <div class="match-header">
-                            <span class="match-date">13 августа 2026</span>
-                            <span class="match-time">14:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0800.jpeg" alt="ФК Южный" class="team-logo">
-                                <span class="team-name">ФК Южный</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">10</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">9</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
-                    </div>
-                    
-                    <div class="match-card" data-match="7" id="match-card-7">
-                        <div class="match-header">
-                            <span class="match-date">9 августа 2026</span>
-                            <span class="match-time">18:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78" class="team-logo">
-                                <span class="team-name">ФК 78</span>
-                            </div>
-                            <div class="match-score">
-                                <span class="score">5</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">0</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty">Техническое поражение</div>
-                        <div class="match-result loss">❌ Техническое поражение ФК "МЕРА"</div>
-                    </div>
-                        <div class="match-card" data-match="8" id="match-card-8">
-                        <div class="match-header">
-                            <span class="match-date">9 августа 2026</span>
-                            <span class="match-time">18:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0800.jpeg" alt="ФК Южный" class="team-logo">
-                                <span class="team-name">ФК Южный</span>
-                                
-                            </div>
-                            <div class="match-score">
-                                <span class="score">7</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">9</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty"></div>
-                        <div class="match-result win">🏆 Победа ФК "МЕРА"</div>
-                    </div>
-                        <div class="match-card" data-match="9" id="match-card-9">
-                        <div class="match-header">
-                            <span class="match-date">16 августа 2026</span>
-                            <span class="match-time">19:00</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78" class="team-logo">
-                                <span class="team-name">ФК 78</span>
-                                
-                            </div>
-                            <div class="match-score">
-                                <span class="score">6</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">5</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty"></div>
-                        <div class="match-result loss">❌ Поражение ФК "МЕРА"</div>
-                    </div>
-                                            <div class="match-card" data-match="8" id="match-card-8">
-                        <div class="match-header">
-                            <span class="match-date">20 августа 2026</span>
-                            <span class="match-time">18:30</span>
-                            <span class="match-location-tag neutral">Нейтральное поле 🏰</span>
-                        </div>
-                        <div class="match-teams">
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0833.jpeg" alt="ФК ПСЖ" class="team-logo">
-                                <span class="team-name">ФК ПСЖ</span>
-                                
-                            </div>
-                            <div class="match-score">
-                                <span class="score">4</span>
-                                <span class="score-divider">:</span>
-                                <span class="score">30</span>
-                            </div>
-                            <div class="team">
-                                <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="team-logo">
-                                <span class="team-name">ФК "МЕРА"</span>
-                            </div>
-                        </div>
-                        <div class="match-penalty"></div>
-                        <div class="match-result win"> Победа ФК "МЕРА"</div>
-                    </div>
+                    <div id="matches-list"></div>
                 </div>
             </div>
 
-                </div>
-            </div>
-            
             <div id="match-tactics-page" class="page">
                 <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
                 <div class="match-tactics-container" id="match-tactics-container">
@@ -3358,6 +3598,149 @@
             
             <button class="submit-request-btn" id="submit-request-btn">📨 Отправить заявку</button>
             <div class="request-status" id="request-status"></div>
+        </div>
+    </div>
+    
+    <!-- Модалка входа админа -->
+    <div class="modal-overlay admin-auth-modal" id="admin-auth-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="admin-auth-close">×</button>
+            <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">🔐 Вход для администратора</h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="admin-email" placeholder="admin@fcmera.com">
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="admin-password" placeholder="Пароль">
+            </div>
+            <button class="auth-submit-btn" id="admin-auth-submit">✅ Войти</button>
+            <div class="auth-status" id="admin-auth-status"></div>
+        </div>
+    </div>
+
+    <!-- Модалка редактирования матча -->
+    <div class="modal-overlay match-edit-modal" id="match-edit-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="match-edit-close">×</button>
+            <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">✏️ Редактировать матч</h2>
+            <div id="match-edit-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Дата</label>
+                        <input type="date" id="edit-match-date">
+                    </div>
+                    <div class="form-group">
+                        <label>Время</label>
+                        <input type="time" id="edit-match-time">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Команда 1</label>
+                        <select id="edit-match-team1"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Команда 2</label>
+                        <select id="edit-match-team2"></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Счет команды 1</label>
+                        <input type="number" id="edit-score1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Счет команды 2</label>
+                        <input type="number" id="edit-score2" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Тип матча</label>
+                    <select id="edit-match-type">
+                        <option value="home">🏠 Домашний</option>
+                        <option value="away">✈️ Выездной</option>
+                        <option value="neutral">🏰 Нейтральное поле</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Результат</label>
+                    <select id="edit-match-result">
+                        <option value="win">🏆 Победа</option>
+                        <option value="loss">❌ Поражение</option>
+                        <option value="away">🏆 Победа соперника</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Пенальти (если есть)</label>
+                    <input type="text" id="edit-match-penalty" placeholder="Напр. 4:2">
+                </div>
+                <button class="submit-edit-btn" id="submit-edit-btn">💾 Сохранить изменения</button>
+                <button class="delete-match-btn" id="delete-match-btn">🗑️ Удалить матч</button>
+                <div class="match-edit-status" id="match-edit-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка добавления матча -->
+    <div class="modal-overlay match-add-modal" id="match-add-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="match-add-close">×</button>
+            <h2 style="color:#28a745; text-align:center; margin-bottom:20px;">➕ Добавить матч</h2>
+            <div id="match-add-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Дата</label>
+                        <input type="date" id="add-match-date">
+                    </div>
+                    <div class="form-group">
+                        <label>Время</label>
+                        <input type="time" id="add-match-time">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Команда 1</label>
+                        <select id="add-match-team1"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Команда 2</label>
+                        <select id="add-match-team2"></select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Счет команды 1</label>
+                        <input type="number" id="add-score1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Счет команды 2</label>
+                        <input type="number" id="add-score2" min="0" value="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Тип матча</label>
+                    <select id="add-match-type">
+                        <option value="home">🏠 Домашний</option>
+                        <option value="away">✈️ Выездной</option>
+                        <option value="neutral">🏰 Нейтральное поле</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Результат</label>
+                    <select id="add-match-result">
+                        <option value="win">🏆 Победа</option>
+                        <option value="loss">❌ Поражение</option>
+                        <option value="away">🏆 Победа соперника</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Пенальти (если есть)</label>
+                    <input type="text" id="add-match-penalty" placeholder="Напр. 4:2">
+                </div>
+                <button class="submit-add-btn" id="submit-add-btn">➕ Добавить матч</button>
+                <div class="match-add-status" id="match-add-status"></div>
+            </div>
         </div>
     </div>
     
@@ -3539,35 +3922,40 @@
                 name: 'ФК "МЕРА"',
                 captain: 'Капитан МЕРЫ',
                 budget: 5000,
-                players: meraTeamIds
+                players: meraTeamIds,
+                logo: './Photos%20(2)/IMG_0807.jpeg'
             },
             school78: {
                 id: 'school78',
                 name: 'ФК 78 школа',
                 captain: 'Капитан 78 школы',
                 budget: 4000,
-                players: yard78PlayerIds
+                players: yard78PlayerIds,
+                logo: './Photos%20(2)/IMG_0797.jpeg'
             },
             yuzhka: {
                 id: 'yuzhka',
                 name: 'ФК Южный',
                 captain: 'Капитан Южного',
                 budget: 4500,
-                players: yuzhkaPlayerIds
+                players: yuzhkaPlayerIds,
+                logo: './Photos%20(2)/IMG_0800.jpeg'
             },
             arsenal: {
                 id: 'arsenal',
                 name: 'ФК Арсенал',
                 captain: 'Капитан Арсенала',
                 budget: 500,
-                players: arsenalPlayerIds
+                players: arsenalPlayerIds,
+                logo: './Photos%20(2)/IMG_0832.jpeg'
             },
             psg: {
                 id: 'psg',
                 name: 'ФК ПСЖ',
                 captain: 'Капитан ПСЖ',
                 budget: 500,
-                players: psgPlayerIds
+                players: psgPlayerIds,
+                logo: './Photos%20(2)/IMG_0833.jpeg'
             }
         };
         
@@ -3731,6 +4119,9 @@
         let themeClickCount = 0;
         let iqInterval = null;
         let supabaseClient = null;
+        let adminLoggedIn = false;
+        let currentEditingMatchId = null;
+        let matchesData = [];
         
         // ============================================================
         // SUPABASE НАСТРОЙКА
@@ -4540,9 +4931,18 @@
             });
         }
         
-        function renderPlayerCards(containerId, playerIds) {
+        function renderPlayerCards(containerId, playerIds, themeClass = '') {
             const container = document.getElementById(containerId);
             if (!container) return;
+            // Добавляем класс темы к контейнеру, если передан
+            if (themeClass) {
+                const parent = container.closest('.best-squad-container');
+                if (parent) {
+                    // Удаляем старые темы
+                    parent.classList.remove('yard-mera-theme', 'yard-78-theme', 'yard-yuzhka-theme', 'yard-arsenal-theme', 'yard-psg-theme');
+                    parent.classList.add(themeClass);
+                }
+            }
             let html = '';
             playerIds.forEach(id => {
                 const p = playersData[id];
@@ -4677,6 +5077,50 @@
                 modalPhoto.style.display = 'flex';
                 modalPhoto.style.alignItems = 'center';
                 modalPhoto.style.justifyContent = 'center';
+            }
+            
+            // Определяем команду игрока и применяем цветовую тему к модалке
+            let teamTheme = '';
+            if (meraTeamIds.includes(playerId)) teamTheme = 'yard-mera-theme';
+            else if (yard78PlayerIds.includes(playerId)) teamTheme = 'yard-78-theme';
+            else if (yuzhkaPlayerIds.includes(playerId)) teamTheme = 'yard-yuzhka-theme';
+            else if (arsenalPlayerIds.includes(playerId)) teamTheme = 'yard-arsenal-theme';
+            else if (psgPlayerIds.includes(playerId)) teamTheme = 'yard-psg-theme';
+            
+            // Применяем тему к модальному окну
+            const modalWindow = document.getElementById('modal-window');
+            // Удаляем старые темы
+            modalWindow.classList.remove('yard-mera-theme', 'yard-78-theme', 'yard-yuzhka-theme', 'yard-arsenal-theme', 'yard-psg-theme');
+            if (teamTheme) {
+                modalWindow.classList.add(teamTheme);
+                // Меняем цвет рамки модалки
+                const borderColor = teamTheme === 'yard-mera-theme' ? '#8e44ad' :
+                                   teamTheme === 'yard-78-theme' ? '#8e44ad' :
+                                   teamTheme === 'yard-yuzhka-theme' ? '#32cd32' :
+                                   teamTheme === 'yard-arsenal-theme' ? '#dc3545' :
+                                   teamTheme === 'yard-psg-theme' ? '#0d6efd' : '#0066cc';
+                modalWindow.style.borderColor = borderColor;
+                // Меняем цвет заголовка
+                const nameEl = document.getElementById('modal-name');
+                if (nameEl) nameEl.style.color = borderColor;
+                // Меняем цвет рамки фото
+                const photoEl = document.getElementById('modal-photo');
+                if (photoEl) photoEl.style.borderColor = borderColor;
+                // Меняем цвет статистики
+                document.querySelectorAll('.modal-stat-value').forEach(el => {
+                    el.style.color = borderColor;
+                });
+                // Меняем цвет плейстайлов
+                document.querySelector('.playstyles-title')?.style.setProperty('color', borderColor);
+            } else {
+                // Стандартный синий
+                modalWindow.style.borderColor = '#0066cc';
+                document.getElementById('modal-name').style.color = '#0066cc';
+                document.getElementById('modal-photo').style.borderColor = '#0066cc';
+                document.querySelectorAll('.modal-stat-value').forEach(el => {
+                    el.style.color = '#0066cc';
+                });
+                document.querySelector('.playstyles-title')?.style.setProperty('color', '#0066cc');
             }
             
             document.getElementById('modal-foot').textContent = player.foot || 'Правая';
@@ -5023,6 +5467,377 @@
         }
 
         // ============================================================
+        // УПРАВЛЕНИЕ МАТЧАМИ (CRUD через Supabase)
+        // ============================================================
+        async function loadMatches() {
+            try {
+                if (!supabaseClient) {
+                    // Используем локальные данные
+                    matchesData = getDefaultMatches();
+                    renderMatches();
+                    return;
+                }
+                const { data, error } = await supabaseClient
+                    .from('matches')
+                    .select('*')
+                    .order('id', { ascending: true });
+                
+                if (error) throw error;
+                
+                if (data && data.length > 0) {
+                    matchesData = data;
+                } else {
+                    // Если нет данных в БД, создаем дефолтные
+                    matchesData = getDefaultMatches();
+                    await saveMatchesToSupabase();
+                }
+                renderMatches();
+            } catch (error) {
+                console.error('Ошибка загрузки матчей:', error);
+                matchesData = getDefaultMatches();
+                renderMatches();
+            }
+        }
+
+        function getDefaultMatches() {
+            return [
+                { id: 1, date: '23 июля 2026', time: '18:30', team1: 'mera', team2: 'school78', score1: 10, score2: 4, type: 'home', result: 'win', penalty: '' },
+                { id: 2, date: '25 июля 2026', time: '18:30', team1: 'school78', team2: 'mera', score1: 6, score2: 2, type: 'away', result: 'loss', penalty: '' },
+                { id: 3, date: '26 июля 2026', time: '20:00', team1: 'school78', team2: 'mera', score1: 3, score2: 3, type: 'neutral', result: 'loss', penalty: '4:2' },
+                { id: 4, date: '28 июля 2026', time: '16:00', team1: 'school78', team2: 'yuzhka', score1: 11, score2: 13, type: 'neutral', result: 'away', penalty: '' },
+                { id: 5, date: '2 августа 2026', time: '19:00', team1: 'school78', team2: 'mera', score1: 7, score2: 7, type: 'neutral', result: 'loss', penalty: '11:10' },
+                { id: 6, date: '13 августа 2026', time: '14:00', team1: 'yuzhka', team2: 'mera', score1: 10, score2: 9, type: 'neutral', result: 'loss', penalty: '' },
+                { id: 7, date: '9 августа 2026', time: '18:00', team1: 'school78', team2: 'mera', score1: 5, score2: 0, type: 'neutral', result: 'loss', penalty: 'Техническое поражение' },
+                { id: 8, date: '9 августа 2026', time: '18:00', team1: 'yuzhka', team2: 'mera', score1: 7, score2: 9, type: 'neutral', result: 'win', penalty: '' },
+                { id: 9, date: '16 августа 2026', time: '19:00', team1: 'school78', team2: 'mera', score1: 6, score2: 5, type: 'neutral', result: 'loss', penalty: '' },
+                { id: 10, date: '20 августа 2026', time: '18:30', team1: 'psg', team2: 'mera', score1: 4, score2: 30, type: 'neutral', result: 'win', penalty: '' }
+            ];
+        }
+
+        async function saveMatchesToSupabase() {
+            try {
+                if (!supabaseClient) return;
+                
+                // Удаляем старые
+                await supabaseClient.from('matches').delete().neq('id', 0);
+                
+                // Вставляем новые
+                const { error } = await supabaseClient
+                    .from('matches')
+                    .insert(matchesData);
+                
+                if (error) throw error;
+                console.log('✅ Матчи сохранены в Supabase');
+            } catch (error) {
+                console.error('Ошибка сохранения матчей:', error);
+            }
+        }
+
+        function renderMatches() {
+            const container = document.getElementById('matches-list');
+            if (!container) return;
+            
+            if (matchesData.length === 0) {
+                container.innerHTML = '<p style="text-align:center;color:#666;padding:30px;">Нет матчей</p>';
+                return;
+            }
+            
+            let html = '';
+            matchesData.forEach(match => {
+                const team1 = CAPTAINS[match.team1];
+                const team2 = CAPTAINS[match.team2];
+                const team1Name = team1 ? team1.name : match.team1;
+                const team2Name = team2 ? team2.name : match.team2;
+                const team1Logo = team1 ? team1.logo : '';
+                const team2Logo = team2 ? team2.logo : '';
+                
+                const typeLabels = {
+                    home: '🏠 Домашний матч',
+                    away: '✈️ Выездной матч',
+                    neutral: '🏰 Нейтральное поле'
+                };
+                const typeClass = match.type || 'neutral';
+                
+                const resultLabels = {
+                    win: '🏆 Победа',
+                    loss: '❌ Поражение',
+                    away: '🏆 Победа соперника'
+                };
+                const resultClass = match.result || 'win';
+                
+                let resultText = resultLabels[resultClass] || '';
+                if (match.result === 'win') {
+                    resultText = `🏆 Победа ${team1Name}`;
+                } else if (match.result === 'loss') {
+                    resultText = `❌ Поражение ${team1Name}`;
+                } else if (match.result === 'away') {
+                    resultText = `🏆 Победа ${team2Name}`;
+                }
+                
+                const penaltyHtml = match.penalty ? `<div class="match-penalty">Пенальти ${match.penalty}</div>` : '';
+                
+                html += `
+                    <div class="match-card" data-match-id="${match.id}">
+                        <div class="match-header">
+                            <span class="match-date">${match.date}</span>
+                            <span class="match-time">${match.time}</span>
+                            <span class="match-location-tag ${typeClass}">${typeLabels[typeClass] || typeClass}</span>
+                            ${adminLoggedIn ? `<button class="admin-btn" onclick="editMatch('${match.id}')">✏️ Изменить</button>` : ''}
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                ${team1Logo ? `<img src="${team1Logo}" alt="${team1Name}" class="team-logo">` : `<span style="font-size:2rem;">🏆</span>`}
+                                <span class="team-name">${team1Name}</span>
+                            </div>
+                            <div class="match-score">
+                                <span class="score">${match.score1}</span>
+                                <span class="score-divider">:</span>
+                                <span class="score">${match.score2}</span>
+                            </div>
+                            <div class="team">
+                                ${team2Logo ? `<img src="${team2Logo}" alt="${team2Name}" class="team-logo">` : `<span style="font-size:2rem;">🏆</span>`}
+                                <span class="team-name">${team2Name}</span>
+                            </div>
+                        </div>
+                        ${penaltyHtml}
+                        <div class="match-result ${resultClass}">${resultText}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            
+            // Обработчики для карточек матчей
+            container.querySelectorAll('.match-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.admin-btn')) return;
+                    const matchId = parseInt(this.dataset.matchId);
+                    if (matchId && matchTacticsData[matchId]) {
+                        showPage('match-tactics-page');
+                        renderMatchTactics(matchId);
+                    } else {
+                        showPage('match-tactics-page');
+                        // Показываем заглушку
+                        document.getElementById('match-tactics-title').textContent = '⚽ Тактика матча (нет данных)';
+                        document.getElementById('school78-formation').innerHTML = '<p style="text-align:center;color:#666;">Нет данных о тактике</p>';
+                        document.getElementById('mera-formation').innerHTML = '<p style="text-align:center;color:#666;">Нет данных о тактике</p>';
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // АДМИН-ФУНКЦИИ
+        // ============================================================
+        async function adminLogin(email, password) {
+            try {
+                if (!supabaseClient) {
+                    document.getElementById('admin-auth-status').textContent = '❌ Supabase не подключен!';
+                    document.getElementById('admin-auth-status').className = 'auth-status error';
+                    return;
+                }
+                
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email.trim(),
+                    password: password.trim()
+                });
+                
+                if (error) {
+                    document.getElementById('admin-auth-status').textContent = `❌ ${error.message}`;
+                    document.getElementById('admin-auth-status').className = 'auth-status error';
+                    return;
+                }
+                
+                // Проверяем, что это админ (email должен быть admin@fcmera.com)
+                if (data.user.email !== 'admin@fcmera.com') {
+                    await supabaseClient.auth.signOut();
+                    document.getElementById('admin-auth-status').textContent = '❌ У вас нет прав администратора!';
+                    document.getElementById('admin-auth-status').className = 'auth-status error';
+                    return;
+                }
+                
+                adminLoggedIn = true;
+                document.getElementById('admin-auth-modal').classList.remove('active');
+                document.body.style.overflow = '';
+                document.getElementById('admin-panel').classList.add('visible');
+                document.getElementById('admin-login-btn').textContent = '👑 Админ';
+                document.getElementById('admin-login-btn').classList.add('logged');
+                document.getElementById('admin-auth-status').textContent = '';
+                document.getElementById('admin-auth-status').className = 'auth-status';
+                
+                // Обновляем кнопки в матчах
+                renderMatches();
+                showMarketNotification('✅ Вы вошли как администратор!', 'success');
+                
+            } catch (err) {
+                console.error('Ошибка входа админа:', err);
+                document.getElementById('admin-auth-status').textContent = `❌ ${err.message || 'Ошибка'}`;
+                document.getElementById('admin-auth-status').className = 'auth-status error';
+            }
+        }
+
+        function adminLogout() {
+            adminLoggedIn = false;
+            if (supabaseClient) {
+                supabaseClient.auth.signOut();
+            }
+            document.getElementById('admin-panel').classList.remove('visible');
+            document.getElementById('admin-login-btn').textContent = '🔐 Вход для админов';
+            document.getElementById('admin-login-btn').classList.remove('logged');
+            renderMatches();
+            showMarketNotification('👋 Вы вышли из админ-панели', 'success');
+        }
+
+        function openAddMatchModal() {
+            document.getElementById('match-add-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('match-add-status').textContent = '';
+            document.getElementById('match-add-status').className = 'match-add-status';
+            
+            // Заполняем селекты команд
+            populateTeamSelects('add-match-team1', 'add-match-team2');
+            
+            // Устанавливаем сегодняшнюю дату
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('add-match-date').value = today;
+            document.getElementById('add-match-time').value = '18:00';
+        }
+
+        function openEditMatchModal(matchId) {
+            const match = matchesData.find(m => m.id == matchId);
+            if (!match) return;
+            
+            currentEditingMatchId = matchId;
+            document.getElementById('match-edit-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('match-edit-status').textContent = '';
+            document.getElementById('match-edit-status').className = 'match-edit-status';
+            
+            // Заполняем селекты
+            populateTeamSelects('edit-match-team1', 'edit-match-team2');
+            
+            // Заполняем данные
+            document.getElementById('edit-match-date').value = match.date || '';
+            document.getElementById('edit-match-time').value = match.time || '';
+            document.getElementById('edit-match-team1').value = match.team1 || '';
+            document.getElementById('edit-match-team2').value = match.team2 || '';
+            document.getElementById('edit-score1').value = match.score1 || 0;
+            document.getElementById('edit-score2').value = match.score2 || 0;
+            document.getElementById('edit-match-type').value = match.type || 'neutral';
+            document.getElementById('edit-match-result').value = match.result || 'win';
+            document.getElementById('edit-match-penalty').value = match.penalty || '';
+        }
+
+        function populateTeamSelects(select1Id, select2Id) {
+            const select1 = document.getElementById(select1Id);
+            const select2 = document.getElementById(select2Id);
+            if (!select1 || !select2) return;
+            
+            const teams = Object.values(CAPTAINS);
+            select1.innerHTML = '';
+            select2.innerHTML = '';
+            
+            teams.forEach(team => {
+                const opt1 = document.createElement('option');
+                opt1.value = team.id;
+                opt1.textContent = team.name;
+                select1.appendChild(opt1);
+                
+                const opt2 = document.createElement('option');
+                opt2.value = team.id;
+                opt2.textContent = team.name;
+                select2.appendChild(opt2);
+            });
+        }
+
+        async function addMatch() {
+            const date = document.getElementById('add-match-date').value;
+            const time = document.getElementById('add-match-time').value;
+            const team1 = document.getElementById('add-match-team1').value;
+            const team2 = document.getElementById('add-match-team2').value;
+            const score1 = parseInt(document.getElementById('add-score1').value) || 0;
+            const score2 = parseInt(document.getElementById('add-score2').value) || 0;
+            const type = document.getElementById('add-match-type').value;
+            const result = document.getElementById('add-match-result').value;
+            const penalty = document.getElementById('add-match-penalty').value.trim();
+            
+            if (!date || !time || !team1 || !team2) {
+                document.getElementById('match-add-status').textContent = '❌ Заполните все поля!';
+                document.getElementById('match-add-status').className = 'match-add-status error';
+                return;
+            }
+            
+            if (team1 === team2) {
+                document.getElementById('match-add-status').textContent = '❌ Команды должны быть разные!';
+                document.getElementById('match-add-status').className = 'match-add-status error';
+                return;
+            }
+            
+            const newMatch = {
+                id: Date.now(),
+                date: date,
+                time: time,
+                team1: team1,
+                team2: team2,
+                score1: score1,
+                score2: score2,
+                type: type,
+                result: result,
+                penalty: penalty
+            };
+            
+            matchesData.push(newMatch);
+            await saveMatchesToSupabase();
+            renderMatches();
+            
+            document.getElementById('match-add-modal').classList.remove('active');
+            document.body.style.overflow = '';
+            showMarketNotification('✅ Матч добавлен!', 'success');
+        }
+
+        async function saveEditMatch() {
+            if (!currentEditingMatchId) return;
+            
+            const match = matchesData.find(m => m.id == currentEditingMatchId);
+            if (!match) return;
+            
+            match.date = document.getElementById('edit-match-date').value;
+            match.time = document.getElementById('edit-match-time').value;
+            match.team1 = document.getElementById('edit-match-team1').value;
+            match.team2 = document.getElementById('edit-match-team2').value;
+            match.score1 = parseInt(document.getElementById('edit-score1').value) || 0;
+            match.score2 = parseInt(document.getElementById('edit-score2').value) || 0;
+            match.type = document.getElementById('edit-match-type').value;
+            match.result = document.getElementById('edit-match-result').value;
+            match.penalty = document.getElementById('edit-match-penalty').value.trim();
+            
+            if (match.team1 === match.team2) {
+                document.getElementById('match-edit-status').textContent = '❌ Команды должны быть разные!';
+                document.getElementById('match-edit-status').className = 'match-edit-status error';
+                return;
+            }
+            
+            await saveMatchesToSupabase();
+            renderMatches();
+            
+            document.getElementById('match-edit-modal').classList.remove('active');
+            document.body.style.overflow = '';
+            showMarketNotification('✅ Матч обновлен!', 'success');
+        }
+
+        async function deleteMatch() {
+            if (!currentEditingMatchId) return;
+            if (!confirm('Вы уверены, что хотите удалить этот матч?')) return;
+            
+            matchesData = matchesData.filter(m => m.id != currentEditingMatchId);
+            await saveMatchesToSupabase();
+            renderMatches();
+            
+            document.getElementById('match-edit-modal').classList.remove('active');
+            document.body.style.overflow = '';
+            showMarketNotification('🗑️ Матч удален', 'success');
+        }
+
+        // ============================================================
         // ИНИЦИАЛИЗАЦИЯ
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -5076,8 +5891,11 @@
                 }
             }
             
-            // Навигация (кнопка "ФК МЕРА" УДАЛЕНА с главной)
-            document.getElementById('matches-btn').addEventListener('click', () => showPage('matches-page'));
+            // Навигация
+            document.getElementById('matches-btn').addEventListener('click', () => {
+                showPage('matches-page');
+                loadMatches();
+            });
             document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
             document.getElementById('market-btn').addEventListener('click', () => {
@@ -5119,11 +5937,11 @@
             
             // Игроки
             renderMainPlayerCards();
-            renderPlayerCards('yard-mera-grid', meraTeamIds);
-            renderPlayerCards('yard-78-grid', yard78PlayerIds);
-            renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds);
-            renderPlayerCards('yard-arsenal-grid', arsenalPlayerIds);
-            renderPlayerCards('yard-psg-grid', psgPlayerIds);
+            renderPlayerCards('yard-mera-grid', meraTeamIds, 'yard-mera-theme');
+            renderPlayerCards('yard-78-grid', yard78PlayerIds, 'yard-78-theme');
+            renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds, 'yard-yuzhka-theme');
+            renderPlayerCards('yard-arsenal-grid', arsenalPlayerIds, 'yard-arsenal-theme');
+            renderPlayerCards('yard-psg-grid', psgPlayerIds, 'yard-psg-theme');
             
             // Поиск
             document.getElementById('player-search').addEventListener('input', function(e) {
@@ -5147,15 +5965,7 @@
                 resetSortAndFilter();
             });
             
-            // Матчи
-            document.querySelectorAll('.match-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const matchNum = parseInt(this.getAttribute('data-match'));
-                    showPage('match-tactics-page');
-                    renderMatchTactics(matchNum);
-                });
-            });
-            
+            // Матчи - теперь загружаются через loadMatches()
             // Состав - фото
             const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
             squad1Players.forEach(id => {
@@ -5294,6 +6104,84 @@
             });
             
             document.getElementById('submit-request-btn').addEventListener('click', submitTeamRequest);
+            
+            // ===== АДМИН-ФУНКЦИИ =====
+            // Кнопка входа админа
+            document.getElementById('admin-login-btn').addEventListener('click', function() {
+                if (adminLoggedIn) {
+                    adminLogout();
+                } else {
+                    document.getElementById('admin-auth-modal').classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    document.getElementById('admin-auth-status').textContent = '';
+                    document.getElementById('admin-auth-status').className = 'auth-status';
+                }
+            });
+            
+            document.getElementById('admin-auth-close').addEventListener('click', function() {
+                document.getElementById('admin-auth-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('admin-auth-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.getElementById('admin-auth-submit').addEventListener('click', function() {
+                const email = document.getElementById('admin-email').value.trim();
+                const password = document.getElementById('admin-password').value.trim();
+                if (email && password) {
+                    adminLogin(email, password);
+                } else {
+                    document.getElementById('admin-auth-status').textContent = '❌ Введите email и пароль!';
+                    document.getElementById('admin-auth-status').className = 'auth-status error';
+                }
+            });
+            
+            document.getElementById('admin-password').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('admin-auth-submit').click();
+            });
+            document.getElementById('admin-email').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') document.getElementById('admin-auth-submit').click();
+            });
+            
+            // Админ-панель
+            document.getElementById('admin-add-match-btn').addEventListener('click', openAddMatchModal);
+            document.getElementById('admin-logout-btn').addEventListener('click', adminLogout);
+            
+            // Модалка добавления матча
+            document.getElementById('match-add-close').addEventListener('click', function() {
+                document.getElementById('match-add-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('match-add-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.getElementById('submit-add-btn').addEventListener('click', addMatch);
+            
+            // Модалка редактирования матча
+            document.getElementById('match-edit-close').addEventListener('click', function() {
+                document.getElementById('match-edit-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('match-edit-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.getElementById('submit-edit-btn').addEventListener('click', saveEditMatch);
+            document.getElementById('delete-match-btn').addEventListener('click', deleteMatch);
+            
+            // Глобальная функция для редактирования матча
+            window.editMatch = function(matchId) {
+                openEditMatchModal(matchId);
+            };
             
             console.log('✅ Сайт загружен!');
         });
