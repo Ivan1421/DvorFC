@@ -3889,6 +3889,7 @@
             { id: "vanya_melki", name: "Ваня Мелкий", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 82, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
             { id: "gleb", name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
+            { id: "rovkin", name: "Ровкин Егор", position: "Защитник", age: "13 лет", icon: "🧰", foot: "Правая", height: "175 см", weight: "59 кг", rating: 89, number: "(22)", description: "🤚✋", playstyles: [], playstyleColors: {} },
         ];
 
         const psgPlayers = [
@@ -3907,7 +3908,7 @@
         psgPlayers.forEach(p => { playersData[p.id] = p; });
         
         // Списки ID игроков по командам
-        const meraTeamIds = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elanga', 'matvey', 'rovkin'];
+        const meraTeamIds = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'kostya', 'elanga', 'matvey'];
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
         const arsenalPlayerIds = arsenalPlayers.map(p => p.id);
