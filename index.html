@@ -481,6 +481,7 @@
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
+            font-size: 2.5rem;
         }
         .dark-theme .player-photo {
             border-color: #4dabf7;
@@ -652,6 +653,7 @@
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
+            font-size: 1.8rem;
         }
         .dark-theme .player-photo-small {
             border-color: #4dabf7;
@@ -999,6 +1001,10 @@
             flex-shrink: 0;
             transition: all 0.3s ease;
             background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
         }
         .dark-theme .modal-photo {
             border-color: #4dabf7;
@@ -1661,6 +1667,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.2rem;
         }
         .dark-theme .bench-player-photo {
             border-color: #4dabf7;
@@ -2570,6 +2577,7 @@
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
+            font-size: 2.5rem;
         }
         .dark-theme .market-player-card .player-photo-market {
             border-color: #4dabf7;
@@ -2666,6 +2674,7 @@
             align-items: center;
             justify-content: center;
             background: #f8f9fa;
+            font-size: 2rem;
         }
         .dark-theme .my-player-card .player-photo-my {
             border-color: #2ecc71;
@@ -2732,28 +2741,26 @@
                         <div class="button-title">Подать заявку</div>
                         <div class="button-description">Создать свою команду</div>
                     </div>
-
-                                      
-                    <div class="main-button" id="squad-btn">
-                        <div class="button-icon">🏆</div>
-                        <div class="button-title">ФК МЕРА</div>
-                        <div class="button-description">Основной состав нашего двора</div>
-                    </div>
+                    
+                    <!-- Кнопка "Матчи" -->
                     <div class="main-button" id="matches-btn">
                         <div class="button-icon">📅</div>
                         <div class="button-title">Матчи</div>
                         <div class="button-description">История матчей</div>
                     </div>
+                    <!-- Кнопка "Команды" -->
                     <div class="main-button" id="yards-btn">
                         <div class="button-icon">👥</div>
                         <div class="button-title">Команды</div>
                         <div class="button-description">Все команды</div>
                     </div>
+                    <!-- Кнопка "Новости" -->
                     <div class="main-button" id="news-btn">
                         <div class="button-icon">📰</div>
                         <div class="button-title">Новости</div>
                         <div class="button-description">Последние новости</div>
                     </div>
+                    <!-- Кнопка "Рынок" -->
                     <div class="main-button" id="market-btn">
                         <div class="button-icon">💰</div>
                         <div class="button-title">Рынок</div>
@@ -3503,9 +3510,7 @@
 
         const psgPlayers = [
             { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "40 кг", rating: 75, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
-            { id: "EgorNast", name: "Зверев Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
-            { id: "bogdan", name: "Богдан", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Левая", height: "165 см", weight: "67 кг", rating: 80, number: "(11)", description: "Самый дисциплинированный игрок двора", playstyles: [], playstyleColors: {} },
-            { id: "maxronaldo", name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 77, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
+            { id: "EgorNast", name: "Зверев Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "38 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} }
         ];
         
         const playersData = { ...basePlayers };
@@ -4821,6 +4826,7 @@
                         img.style.objectFit = 'cover';
                         photoEl.appendChild(img);
                     } else {
+                        photoEl.innerHTML = '';
                         const icon = document.createElement('div');
                         icon.style.fontSize = '1.8rem';
                         icon.textContent = playersData[id]?.icon || '⚽';
@@ -4847,6 +4853,7 @@
                         img.style.objectFit = 'cover';
                         photoEl.appendChild(img);
                     } else {
+                        photoEl.innerHTML = '';
                         const icon = document.createElement('div');
                         icon.style.fontSize = '1.2rem';
                         icon.textContent = playersData[id]?.icon || '⚽';
@@ -5069,8 +5076,7 @@
                 }
             }
             
-            // Навигация
-                        document.getElementById('squad-btn').addEventListener('click', () => showPage('squad-page'));
+            // Навигация (кнопка "ФК МЕРА" УДАЛЕНА с главной)
             document.getElementById('matches-btn').addEventListener('click', () => showPage('matches-page'));
             document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
