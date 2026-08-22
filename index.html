@@ -174,7 +174,6 @@
             color: #ccc;
         }
         
-        /* Кнопка "Подать заявку" — теперь такого же размера, как и остальные */
         .main-button.request-btn {
             border-color: #8e44ad;
         }
@@ -194,7 +193,6 @@
             color: #9b59b6;
         }
         
-        /* Бейдж NEW на кнопке "Подать заявку" */
         .main-button .new-badge {
             position: absolute;
             top: -10px;
@@ -1432,63 +1430,73 @@
             color: #ffe3e3;
             border-color: #000;
         }
+
+        /* ============================================
+           СТИЛИ ДЛЯ МАТЧЕЙ (ИСПРАВЛЕННЫЕ)
+           ============================================ */
         .match-teams {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             flex-wrap: nowrap;
         }
+        
         .team {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 4px;
             flex: 0 1 auto;
-            min-width: 60px;
-            max-width: 100px;
+            min-width: 70px;
+            max-width: 110px;
         }
-.team-logo {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-    border-radius: 12px;
-    background: white;
-    padding: 6px;
-    border: 2px solid #0066cc;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}        .dark-theme .team-logo {
+        
+        .team-logo {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: white;
+            padding: 6px;
+            border: 2px solid #0066cc;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .dark-theme .team-logo {
             border-color: #4dabf7;
             background: #2d3748;
         }
+        
         .team-name {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: bold;
             color: #333;
             text-align: center;
             line-height: 1.2;
-            max-width: 90px;
+            max-width: 100px;
             word-wrap: break-word;
             white-space: normal;
         }
         .dark-theme .team-name {
             color: #f0f0f0;
         }
+        
+        /* ===== СЧЕТ - БОЛЬШОЙ И ЖИРНЫЙ ===== */
         .match-score {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 12px;
             font-weight: 900;
             color: #0066cc;
             background: #e6f7ff;
-            padding: 4px 14px;
+            padding: 10px 28px;
             border-radius: 30px;
-            border: 2px solid #0066cc;
-            min-width: 60px;
+            border: 3px solid #0066cc;
+            min-width: 100px;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 1.4rem;
+            font-size: 2.4rem;
         }
         .dark-theme .match-score {
             background: #1a2a4a;
@@ -1496,13 +1504,15 @@
             border-color: #4dabf7;
         }
         .match-score .score {
-            min-width: 20px;
+            min-width: 32px;
             text-align: center;
         }
         .match-score .score-divider {
             color: #999;
             font-weight: 300;
+            margin: 0 4px;
         }
+
         .match-result {
             text-align: center;
             margin-top: 20px;
@@ -1542,12 +1552,6 @@
             background: #664d03;
             border-color: #ffd43b;
         }
-        .match-result.away .match-result-icon {
-            color: #ffc107;
-        }
-        .dark-theme .match-result.away .match-result-icon {
-            color: #ffd43b;
-        }
         .match-penalty {
             text-align: center;
             margin-top: 8px;
@@ -1560,6 +1564,7 @@
         .dark-theme .match-penalty {
             color: #999;
         }
+
         .match-tactics-container {
             background: white;
             border-radius: 15px;
@@ -1913,7 +1918,7 @@
             font-weight: bold;
         }
         
-        /* Медиа-запросы для матчей */
+        /* ===== АДАПТИВ ДЛЯ МАТЧЕЙ ===== */
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -1945,20 +1950,13 @@
             .playstyle-detail-icon { width: 160px; height: 160px; font-size: 4rem; border-width: 5px; }
             .playstyle-detail-name { font-size: 1.6rem; }
             
-            /* Матчи */
-            .match-teams { gap: 5px; }
-.team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    flex: 0 1 auto;
-    min-width: 70px;
-    max-width: 110px;
-}            .team-logo { width: 45px; height: 45px; padding: 3px; border-width: 2px; }
-            .team-name { font-size: 0.65rem; max-width: 65px; }
-            .match-score { font-size: 1.1rem; padding: 3px 10px; min-width: 50px; gap: 4px; border-width: 2px; }
-            .match-score .score { min-width: 16px; }
+            /* Адаптив матчей */
+            .match-teams { gap: 10px; }
+            .team { min-width: 55px; max-width: 85px; }
+            .team-logo { width: 55px; height: 55px; padding: 4px; border-width: 2px; }
+            .team-name { font-size: 0.7rem; max-width: 75px; }
+            .match-score { font-size: 1.8rem; padding: 6px 18px; min-width: 75px; gap: 8px; border-width: 2px; }
+            .match-score .score { min-width: 24px; }
             .match-header { font-size: 0.9rem; gap: 10px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.8rem; padding: 4px 12px; }
             .match-result { font-size: 1.1rem; }
@@ -1981,6 +1979,7 @@
             .action-btn.tiktok .btn-icon { font-size: 1.4rem; }
             .main-button .new-badge { font-size: 0.6rem; padding: 2px 10px; top: -8px; right: -8px; }
         }
+        
         @media (max-width: 480px) {
             .players-grid { grid-template-columns: 1fr; gap: 15px; }
             .player-card { padding: 15px; }
@@ -1989,13 +1988,13 @@
             .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
             .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
             
-            /* Матчи */
-            .match-teams { gap: 3px; }
-            .team { min-width: 35px; max-width: 60px; }
-            .team-logo { width: 35px; height: 35px; padding: 2px; border-width: 1.5px; }
-            .team-name { font-size: 0.55rem; max-width: 50px; }
-            .match-score { font-size: 0.9rem; padding: 2px 8px; min-width: 40px; gap: 2px; border-width: 1.5px; }
-            .match-score .score { min-width: 12px; }
+            /* Адаптив матчей для телефонов */
+            .match-teams { gap: 6px; }
+            .team { min-width: 45px; max-width: 70px; }
+            .team-logo { width: 45px; height: 45px; padding: 3px; border-width: 2px; }
+            .team-name { font-size: 0.6rem; max-width: 60px; }
+            .match-score { font-size: 1.4rem; padding: 4px 14px; min-width: 60px; gap: 5px; border-width: 2px; }
+            .match-score .score { min-width: 18px; }
             .match-header { font-size: 0.8rem; gap: 8px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.7rem; padding: 3px 8px; }
             .match-result { font-size: 1rem; padding: 8px; }
@@ -2012,14 +2011,16 @@
             .action-btn { padding: 10px 18px; font-size: 0.9rem; gap: 8px; }
             .main-button .new-badge { font-size: 0.5rem; padding: 2px 8px; top: -6px; right: -6px; }
         }
+        
         @media (max-width: 380px) {
-            .match-teams { gap: 2px; }
-            .team { min-width: 30px; max-width: 45px; }
-            .team-logo { width: 28px; height: 28px; padding: 1px; border-width: 1px; }
-            .team-name { font-size: 0.45rem; max-width: 40px; }
-            .match-score { font-size: 0.75rem; padding: 1px 5px; min-width: 30px; gap: 1px; border-width: 1px; }
-            .match-score .score { min-width: 9px; }
+            .match-teams { gap: 4px; }
+            .team { min-width: 38px; max-width: 55px; }
+            .team-logo { width: 38px; height: 38px; padding: 2px; border-width: 1.5px; }
+            .team-name { font-size: 0.5rem; max-width: 48px; }
+            .match-score { font-size: 1.1rem; padding: 3px 10px; min-width: 48px; gap: 4px; border-width: 1.5px; }
+            .match-score .score { min-width: 14px; }
         }
+        
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
             .player-card:active, .player-item:active, .main-button:active, .back-button:active {
@@ -3236,17 +3237,17 @@
                     </div>
                 </div>
                 
-<div class="action-buttons-row">
-    <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" target="_blank" class="action-btn tiktok" style="flex-direction: column; padding: 12px 32px; gap: 2px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-            <span class="btn-icon"></span> 
-            <span style="font-size: 1.1rem; font-weight: bold;">Я в ТикТоке</span>
-        </div>
-        <span style="color: #aaaaaa; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px; opacity: 0.9;">
-            @arseenalforever1
-        </span>
-    </a>
-</div>
+                <div class="action-buttons-row">
+                    <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" target="_blank" class="action-btn tiktok" style="flex-direction: column; padding: 12px 32px; gap: 2px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="btn-icon"></span> 
+                            <span style="font-size: 1.1rem; font-weight: bold;">Я в ТикТоке</span>
+                        </div>
+                        <span style="color: #aaaaaa; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px; opacity: 0.9;">
+                            @arseenalforever1
+                        </span>
+                    </a>
+                </div>
 
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
                     <button class="admin-login-btn" id="admin-login-btn">🔐 Вход для админов</button>
