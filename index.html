@@ -230,11 +230,11 @@
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
         .action-btn.tiktok,
-.action-btn.tiktok .btn-icon,
-.action-btn.tiktok span {
-    color: #ffffff !important;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.2);
-}
+        .action-btn.tiktok .btn-icon,
+        .action-btn.tiktok span {
+            color: #ffffff !important;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.2);
+        }
         .action-btn.tiktok:hover {
             animation: tiktokGradient 1.5s ease-in-out infinite alternate;
             box-shadow: 0 4px 30px rgba(142, 68, 173, 0.6);
@@ -1435,40 +1435,40 @@
         .match-teams {
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: center;
             gap: 10px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
         .team {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             flex: 0 1 auto;
-            min-width: 80px;
+            min-width: 60px;
+            max-width: 100px;
         }
-        .team-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            border-radius: 12px;
-            background: white;
-            padding: 6px;
-            border: 2px solid #0066cc;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-        .dark-theme .team-logo {
+.team-logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: white;
+    padding: 6px;
+    border: 2px solid #0066cc;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}        .dark-theme .team-logo {
             border-color: #4dabf7;
             background: #2d3748;
         }
         .team-name {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             font-weight: bold;
             color: #333;
             text-align: center;
             line-height: 1.2;
-            max-width: 120px;
+            max-width: 90px;
             word-wrap: break-word;
             white-space: normal;
         }
@@ -1478,22 +1478,26 @@
         .match-score {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 2.4rem;
+            gap: 6px;
             font-weight: 900;
             color: #0066cc;
             background: #e6f7ff;
-            padding: 8px 25px;
-            border-radius: 40px;
+            padding: 4px 14px;
+            border-radius: 30px;
             border: 2px solid #0066cc;
-            min-width: 100px;
+            min-width: 60px;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 1.4rem;
         }
         .dark-theme .match-score {
             background: #1a2a4a;
             color: #4dabf7;
             border-color: #4dabf7;
+        }
+        .match-score .score {
+            min-width: 20px;
+            text-align: center;
         }
         .match-score .score-divider {
             color: #999;
@@ -1908,6 +1912,8 @@
             color: #a855f7;
             font-weight: bold;
         }
+        
+        /* Медиа-запросы для матчей */
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -1938,10 +1944,21 @@
             .playstyle-icon { width: 60px; height: 60px; font-size: 1.6rem; border-width: 3px; }
             .playstyle-detail-icon { width: 160px; height: 160px; font-size: 4rem; border-width: 5px; }
             .playstyle-detail-name { font-size: 1.6rem; }
-            .match-teams { gap: 8px; }
-            .team-logo { width: 60px; height: 60px; }
-            .team-name { font-size: 0.8rem; max-width: 80px; }
-            .match-score { font-size: 1.8rem; min-width: 80px; padding: 5px 15px; }
+            
+            /* Матчи */
+            .match-teams { gap: 5px; }
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 0 1 auto;
+    min-width: 70px;
+    max-width: 110px;
+}            .team-logo { width: 45px; height: 45px; padding: 3px; border-width: 2px; }
+            .team-name { font-size: 0.65rem; max-width: 65px; }
+            .match-score { font-size: 1.1rem; padding: 3px 10px; min-width: 50px; gap: 4px; border-width: 2px; }
+            .match-score .score { min-width: 16px; }
             .match-header { font-size: 0.9rem; gap: 10px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.8rem; padding: 4px 12px; }
             .match-result { font-size: 1.1rem; }
@@ -1971,10 +1988,14 @@
             .theme-toggle { top: 10px; right: 10px; width: 50px; height: 50px; font-size: 1.5rem; }
             .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
             .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
-            .match-teams { gap: 5px; }
-            .team-name { font-size: 0.7rem; max-width: 60px; }
-            .team-logo { width: 50px; height: 50px; }
-            .match-score { font-size: 1.5rem; min-width: 65px; padding: 4px 10px; gap: 4px; }
+            
+            /* Матчи */
+            .match-teams { gap: 3px; }
+            .team { min-width: 35px; max-width: 60px; }
+            .team-logo { width: 35px; height: 35px; padding: 2px; border-width: 1.5px; }
+            .team-name { font-size: 0.55rem; max-width: 50px; }
+            .match-score { font-size: 0.9rem; padding: 2px 8px; min-width: 40px; gap: 2px; border-width: 1.5px; }
+            .match-score .score { min-width: 12px; }
             .match-header { font-size: 0.8rem; gap: 8px; }
             .match-date, .match-time, .match-location-tag { font-size: 0.7rem; padding: 3px 8px; }
             .match-result { font-size: 1rem; padding: 8px; }
@@ -1990,6 +2011,14 @@
             .best-squad-container .player-photo-small { width: 50px; height: 50px; }
             .action-btn { padding: 10px 18px; font-size: 0.9rem; gap: 8px; }
             .main-button .new-badge { font-size: 0.5rem; padding: 2px 8px; top: -6px; right: -6px; }
+        }
+        @media (max-width: 380px) {
+            .match-teams { gap: 2px; }
+            .team { min-width: 30px; max-width: 45px; }
+            .team-logo { width: 28px; height: 28px; padding: 1px; border-width: 1px; }
+            .team-name { font-size: 0.45rem; max-width: 40px; }
+            .match-score { font-size: 0.75rem; padding: 1px 5px; min-width: 30px; gap: 1px; border-width: 1px; }
+            .match-score .score { min-width: 9px; }
         }
         * { -webkit-tap-highlight-color: transparent !important; }
         @media (hover: none) and (pointer: coarse) {
@@ -2060,7 +2089,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        /* модалка заявки */
         .team-request-modal .modal {
             max-width: 600px;
         }
@@ -2298,9 +2326,6 @@
         .news-media-empty {
             display: none;
         }
-        /* ============================================================
-           ИСТОРИЯ ТРАНСФЕРОВ
-           ============================================================ */
         .transfers-history {
             margin-top: 30px;
             padding-top: 30px;
@@ -2424,7 +2449,6 @@
             font-size: 3rem;
             margin-bottom: 10px;
         }
-
         .market-container {
             background: white;
             border-radius: 15px;
@@ -2719,15 +2743,9 @@
             background: #2d3748;
             color: #f0f0f0;
         }
-        /* Класс для скрытия кнопки обновления */
         .update-button-container.hidden {
             display: none !important;
         }
-
-        /* ============================================
-           ЦВЕТОВЫЕ ТЕМЫ ДЛЯ КОМАНД (обводки карточек)
-           ============================================ */
-        /* ФК МЕРА — фиолетово-синий градиент */
         .yard-mera-theme .player-card {
             border: 3px solid transparent;
             background: linear-gradient(white, white) padding-box,
@@ -2754,8 +2772,6 @@
         .yard-mera-theme .player-card .player-number {
             color: #8e44ad;
         }
-
-        /* ФК 78 школа — фиолетовый */
         .yard-78-theme .player-card {
             border: 3px solid #8e44ad;
             box-shadow: 0 0 20px rgba(142, 68, 173, 0.3);
@@ -2779,8 +2795,6 @@
         .yard-78-theme .player-card .player-number {
             color: #8e44ad;
         }
-
-        /* ФК Южный — салатовый */
         .yard-yuzhka-theme .player-card {
             border: 3px solid #32cd32;
             box-shadow: 0 0 20px rgba(50, 205, 50, 0.4);
@@ -2804,8 +2818,6 @@
         .yard-yuzhka-theme .player-card .player-number {
             color: #32cd32;
         }
-
-        /* ФК Арсенал — красный */
         .yard-arsenal-theme .player-card {
             border: 3px solid #dc3545;
             box-shadow: 0 0 20px rgba(220, 53, 69, 0.4);
@@ -2829,8 +2841,6 @@
         .yard-arsenal-theme .player-card .player-number {
             color: #dc3545;
         }
-
-        /* ФК ПСЖ — синий */
         .yard-psg-theme .player-card {
             border: 3px solid #0d6efd;
             box-shadow: 0 0 20px rgba(13, 110, 253, 0.4);
@@ -2854,8 +2864,6 @@
         .yard-psg-theme .player-card .player-number {
             color: #0d6efd;
         }
-
-        /* Анимация для карточек при наведении/нажатии */
         .yard-mera-theme .player-card:hover,
         .yard-78-theme .player-card:hover,
         .yard-yuzhka-theme .player-card:hover,
@@ -2870,8 +2878,6 @@
         .yard-psg-theme .player-card:active {
             transform: scale(0.98);
         }
-
-        /* ===== СТИЛИ ДЛЯ АДМИНКИ ===== */
         .admin-panel {
             display: none;
             margin-bottom: 20px;
@@ -2914,8 +2920,6 @@
             margin-top: 10px;
             justify-content: center;
         }
-
-        /* Модалка редактирования матча */
         .match-edit-modal .modal {
             max-width: 700px;
         }
@@ -3005,7 +3009,6 @@
         .match-edit-modal .match-edit-status.error {
             color: #dc3545;
         }
-        /* Админ-кнопка на главной */
         .admin-login-btn {
             background: #8e44ad;
             color: white;
@@ -3027,7 +3030,6 @@
         .admin-login-btn.logged:hover {
             background: #218838;
         }
-        /* модалка входа админа */
         .admin-auth-modal .modal {
             max-width: 400px;
         }
@@ -3083,7 +3085,6 @@
         .admin-auth-modal .auth-status.error {
             color: #dc3545;
         }
-
         .admin-panel .admin-welcome {
             display: flex;
             justify-content: space-between;
@@ -3128,8 +3129,6 @@
         .admin-panel .admin-actions button.success:hover {
             background: #218838;
         }
-
-        /* Модалка добавления матча */
         .match-add-modal .modal {
             max-width: 700px;
         }
@@ -3208,7 +3207,6 @@
         <main>
             <div id="home-page" class="page active">
                 <div class="main-buttons">
-                    <!-- Кнопка "Подать заявку" — ПЕРВАЯ, с бейджем NEW -->
                     <div class="main-button request-btn" id="team-request-btn-main">
                         <span class="new-badge">NEW</span>
                         <div class="button-icon">📝</div>
@@ -3216,25 +3214,21 @@
                         <div class="button-description">Создать свою команду</div>
                     </div>
                     
-                    <!-- Кнопка "Матчи" -->
                     <div class="main-button" id="matches-btn">
                         <div class="button-icon">📅</div>
                         <div class="button-title">Матчи</div>
                         <div class="button-description">История матчей</div>
                     </div>
-                    <!-- Кнопка "Команды" -->
                     <div class="main-button" id="yards-btn">
                         <div class="button-icon">👥</div>
                         <div class="button-title">Команды</div>
                         <div class="button-description">Все команды</div>
                     </div>
-                    <!-- Кнопка "Новости" -->
                     <div class="main-button" id="news-btn">
                         <div class="button-icon">📰</div>
                         <div class="button-title">Новости</div>
                         <div class="button-description">Последние новости</div>
                     </div>
-                    <!-- Кнопка "Рынок" -->
                     <div class="main-button" id="market-btn">
                         <div class="button-icon">💰</div>
                         <div class="button-title">Рынок</div>
@@ -3242,7 +3236,6 @@
                     </div>
                 </div>
                 
-<!-- Кнопка "Я в ТикТоке" — с юзернеймом внутри -->
 <div class="action-buttons-row">
     <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" target="_blank" class="action-btn tiktok" style="flex-direction: column; padding: 12px 32px; gap: 2px;">
         <div style="display: flex; align-items: center; gap: 12px;">
@@ -3255,12 +3248,10 @@
     </a>
 </div>
 
-                <!-- Кнопка входа для админов -->
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
                     <button class="admin-login-btn" id="admin-login-btn">🔐 Вход для админов</button>
                 </div>
 
-                <!-- Скрываем старую кнопку обновления -->
                 <div class="update-button-container hidden" id="update-btn-container">
                     <button class="update-button" id="update-btn"><span>🔄</span><span>Обновить сайт</span></button>
                 </div>
@@ -3423,7 +3414,6 @@
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container" id="matches-container">
                     <h2>📅 Матчи</h2>
-                    <!-- Панель администратора -->
                     <div class="admin-panel" id="admin-panel">
                         <div class="admin-welcome">
                             <span>👑 Админ-панель</span>
@@ -3509,7 +3499,6 @@
                         <div style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">Загрузка...</div>
                     </div>
 
-                    <!-- ===== ИСТОРИЯ ТРАНСФЕРОВ ===== -->
                     <div class="transfers-history">
                         <h3>📜 Последние трансферы</h3>
                         <div id="transfers-list">
@@ -3532,7 +3521,6 @@
         </footer>
     </div>
     
-    <!-- Модальное окно игрока -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal" id="modal-window">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -3565,7 +3553,6 @@
         </div>
     </div>
     
-    <!-- Модальное окно для заявки на команду -->
     <div class="modal-overlay team-request-modal" id="team-request-modal">
         <div class="modal" id="team-request-modal-window">
             <button class="modal-close-btn" id="team-request-close">×</button>
@@ -3580,7 +3567,6 @@
             <div class="form-group">
                 <label>Состав игроков (5, максимум 8)</label>
                 <div class="players-list" id="players-list-container">
-                    <!-- Динамически добавляются строки -->
                 </div>
                 <button class="add-player-btn" id="add-player-btn">➕ Добавить игрока</button>
             </div>
@@ -3590,7 +3576,6 @@
                 <input type="text" id="team-field-input" placeholder="Адрес или ориентир">
             </div>
             
-            <!-- НОВЫЙ ВОПРОС: Как связаться -->
             <div class="form-group">
                 <label for="team-contact-input">Как с вами связаться?</label>
                 <input type="text" id="team-contact-input" placeholder="Telegram: @username или TikTok: @username">
@@ -3601,7 +3586,6 @@
         </div>
     </div>
     
-    <!-- Модалка входа админа -->
     <div class="modal-overlay admin-auth-modal" id="admin-auth-modal">
         <div class="modal">
             <button class="modal-close-btn" id="admin-auth-close">×</button>
@@ -3619,7 +3603,6 @@
         </div>
     </div>
 
-    <!-- Модалка редактирования матча -->
     <div class="modal-overlay match-edit-modal" id="match-edit-modal">
         <div class="modal">
             <button class="modal-close-btn" id="match-edit-close">×</button>
@@ -3682,7 +3665,6 @@
         </div>
     </div>
 
-    <!-- Модалка добавления матча -->
     <div class="modal-overlay match-add-modal" id="match-add-modal">
         <div class="modal">
             <button class="modal-close-btn" id="match-add-close">×</button>
@@ -3775,14 +3757,10 @@
     
     <div class="notification-market" id="notification-market"></div>
 
-    <!-- ===== ПОДКЛЮЧЕНИЕ ВНЕШНИХ ФАЙЛОВ ===== -->
     <script src="novost.js"></script>
     <script src="photos.js"></script>
 
     <script>
-        // ============================================================
-        // ВСЕ ДАННЫЕ ИГРОКОВ
-        // ============================================================
         const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'lesha_podavalny', 'maxim', 'raya', 'elanga', 'demid'];
         const burmaldaPlayerIds = [];
         
@@ -3828,9 +3806,6 @@
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' }
         };
         
-        // ============================================================
-        // ДАННЫЕ ИГРОКОВ
-        // ============================================================
         const basePlayers = {
             raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 94, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz'], playstyleColors: {vihod: "gold", otraz: "gold"} },
             maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "55 кг", rating: 94, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
@@ -3879,7 +3854,6 @@
             { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
         ];
 
-        // ===== НОВЫЕ ИГРОКИ ДЛЯ АРСЕНАЛА И ПСЖ (из вашего кода) =====
         const arsenalPlayers = [
             { id: "vanya_melki", name: "Ваня Мелкий", position: "Вратарь", age: "10 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 82, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
@@ -3897,25 +3871,17 @@
         ];
         
         const playersData = { ...basePlayers };
-        // Добавляем игроков 78 школы
         yard78Players.forEach(p => { playersData[p.id] = p; });
-        // Добавляем игроков Южного
         yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
-        // Добавляем игроков Арсенала
         arsenalPlayers.forEach(p => { playersData[p.id] = p; });
-        // Добавляем игроков ПСЖ
         psgPlayers.forEach(p => { playersData[p.id] = p; });
         
-        // Списки ID игроков по командам
         const meraTeamIds = ['raya', 'maxim', 'batrakov', 'lesha_podavalny', 'aleksey_doroshenko', 'demid', 'elanga', 'matvey'];
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
         const arsenalPlayerIds = arsenalPlayers.map(p => p.id);
         const psgPlayerIds = psgPlayers.map(p => p.id);
         
-        // ============================================================
-        // ДАННЫЕ КАПИТАНОВ
-        // ============================================================
         const CAPTAINS = {
             mera: {
                 id: 'mera',
@@ -3959,9 +3925,6 @@
             }
         };
         
-        // ============================================================
-        // МАТЧИ - ТАКТИКА
-        // ============================================================
         const matchTacticsData = {
             1: {
                 title: 'ФК 78 школа vs ФК "МЕРА" (Матч 1)',
@@ -4079,9 +4042,6 @@
             }
         };
         
-        // ============================================================
-        // РЫНОК
-        // ============================================================
         const marketData = {
             teams: CAPTAINS,
             players: {}
@@ -4104,13 +4064,9 @@
             currentCaptain: null,
             transferList: [],
             pendingTransfers: {},
-            transfers: [] // История трансферов
+            transfers: []
         };
         
-        // ============================================================
-        // ПЕРЕМЕННЫЕ
-        // ============================================================
-        // Все ID игроков, которые НЕ принадлежат ни одной команде (свободные агенты)
         const allPlayerIds = Object.keys(playersData);
         const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds];
         let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
@@ -4123,9 +4079,6 @@
         let currentEditingMatchId = null;
         let matchesData = [];
         
-        // ============================================================
-        // SUPABASE НАСТРОЙКА
-        // ============================================================
         try {
             const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
             const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
@@ -4142,9 +4095,6 @@
             supabaseClient = null;
         }
         
-        // ============================================================
-        // ЛОГИН ЧЕРЕЗ SUPABASE AUTH
-        // ============================================================
         async function loginCaptain(email, password) {
             try {
                 if (!supabaseClient) {
@@ -4209,9 +4159,6 @@
             }
         }
 
-        // ============================================================
-        // ВЫХОД
-        // ============================================================
         async function logoutCaptain() {
             try {
                 if (supabaseClient) {
@@ -4238,9 +4185,6 @@
             showMarketNotification('👋 Вы вышли из системы', 'success');
         }
 
-        // ============================================================
-        // ПРОВЕРКА СТАТУСА АВТОРИЗАЦИИ
-        // ============================================================
         async function checkAuthStatus() {
             try {
                 if (!supabaseClient) return false;
@@ -4285,9 +4229,6 @@
             }
         }
         
-        // ============================================================
-        // ФУНКЦИИ РАБОТЫ С ХРАНИЛИЩЕМ
-        // ============================================================
         async function saveMarketToSupabase() {
             try {
                 const data = {
@@ -4413,9 +4354,6 @@
             marketState.transfers = data.transfers || [];
         }
         
-        // ============================================================
-        // ИСТОРИЯ ТРАНСФЕРОВ
-        // ============================================================
         function addTransfer(playerId, fromTeamId, toTeamId, price) {
             const player = playersData[playerId];
             if (!player) return;
@@ -4498,9 +4436,6 @@
             container.innerHTML = html;
         }
         
-        // ============================================================
-        // ПОКУПКА/ПРОДАЖА ИГРОКОВ
-        // ============================================================
         function buyPlayer(playerId, price, sellerId) {
             const captainTeamId = marketState.currentCaptain;
             if (!captainTeamId) {
@@ -4614,9 +4549,6 @@
             sellPlayer(playerId, priceNum);
         }
         
-        // ============================================================
-        // ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ ФОТО ИГРОКА
-        // ============================================================
         function getPlayerPhoto(playerId, className = '') {
             const photo = typeof playerPhotos !== 'undefined' && playerPhotos[playerId] ? playerPhotos[playerId] : null;
             if (photo) {
@@ -4627,9 +4559,6 @@
             }
         }
         
-        // ============================================================
-        // UI РЫНКА
-        // ============================================================
         function updateMarketUI() {
             const grid = document.getElementById('market-grid');
             const filterTeam = document.getElementById('market-filter-team').value;
@@ -4754,9 +4683,6 @@
             saveMarketToSupabase();
         }
         
-        // ============================================================
-        // ПЛЕЙСТАЙЛЫ
-        // ============================================================
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
             return player && player.playstyles && player.playstyles.length > 0;
@@ -4865,9 +4791,6 @@
             });
         }
         
-        // ============================================================
-        // ИГРОКИ
-        // ============================================================
         function renderMainPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
@@ -4934,11 +4857,9 @@
         function renderPlayerCards(containerId, playerIds, themeClass = '') {
             const container = document.getElementById(containerId);
             if (!container) return;
-            // Добавляем класс темы к контейнеру, если передан
             if (themeClass) {
                 const parent = container.closest('.best-squad-container');
                 if (parent) {
-                    // Удаляем старые темы
                     parent.classList.remove('yard-mera-theme', 'yard-78-theme', 'yard-yuzhka-theme', 'yard-arsenal-theme', 'yard-psg-theme');
                     parent.classList.add(themeClass);
                 }
@@ -5032,9 +4953,6 @@
             renderMainPlayerCards();
         }
         
-        // ============================================================
-        // МОДАЛЬНОЕ ОКНО
-        // ============================================================
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
@@ -5079,7 +4997,6 @@
                 modalPhoto.style.justifyContent = 'center';
             }
             
-            // Определяем команду игрока и применяем цветовую тему к модалке
             let teamTheme = '';
             if (meraTeamIds.includes(playerId)) teamTheme = 'yard-mera-theme';
             else if (yard78PlayerIds.includes(playerId)) teamTheme = 'yard-78-theme';
@@ -5087,33 +5004,25 @@
             else if (arsenalPlayerIds.includes(playerId)) teamTheme = 'yard-arsenal-theme';
             else if (psgPlayerIds.includes(playerId)) teamTheme = 'yard-psg-theme';
             
-            // Применяем тему к модальному окну
             const modalWindow = document.getElementById('modal-window');
-            // Удаляем старые темы
             modalWindow.classList.remove('yard-mera-theme', 'yard-78-theme', 'yard-yuzhka-theme', 'yard-arsenal-theme', 'yard-psg-theme');
             if (teamTheme) {
                 modalWindow.classList.add(teamTheme);
-                // Меняем цвет рамки модалки
                 const borderColor = teamTheme === 'yard-mera-theme' ? '#8e44ad' :
                                    teamTheme === 'yard-78-theme' ? '#8e44ad' :
                                    teamTheme === 'yard-yuzhka-theme' ? '#32cd32' :
                                    teamTheme === 'yard-arsenal-theme' ? '#dc3545' :
                                    teamTheme === 'yard-psg-theme' ? '#0d6efd' : '#0066cc';
                 modalWindow.style.borderColor = borderColor;
-                // Меняем цвет заголовка
                 const nameEl = document.getElementById('modal-name');
                 if (nameEl) nameEl.style.color = borderColor;
-                // Меняем цвет рамки фото
                 const photoEl = document.getElementById('modal-photo');
                 if (photoEl) photoEl.style.borderColor = borderColor;
-                // Меняем цвет статистики
                 document.querySelectorAll('.modal-stat-value').forEach(el => {
                     el.style.color = borderColor;
                 });
-                // Меняем цвет плейстайлов
                 document.querySelector('.playstyles-title')?.style.setProperty('color', borderColor);
             } else {
-                // Стандартный синий
                 modalWindow.style.borderColor = '#0066cc';
                 document.getElementById('modal-name').style.color = '#0066cc';
                 document.getElementById('modal-photo').style.borderColor = '#0066cc';
@@ -5164,9 +5073,6 @@
             document.body.style.overflow = 'hidden';
         }
         
-        // ============================================================
-        // ТАКТИКА МАТЧЕЙ
-        // ============================================================
         function renderMatchTactics(matchNum) {
             const data = matchTacticsData[matchNum];
             if (!data) return;
@@ -5321,18 +5227,12 @@
             });
         }
         
-        // ============================================================
-        // НАВИГАЦИЯ
-        // ============================================================
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0, 0);
         }
         
-        // ============================================================
-        // ЗАЯВКА НА КОМАНДУ (Supabase)
-        // ============================================================
         let teamRequestPlayers = [];
 
         function renderTeamRequestPlayers() {
@@ -5466,13 +5366,9 @@
             }
         }
 
-        // ============================================================
-        // УПРАВЛЕНИЕ МАТЧАМИ (CRUD через Supabase)
-        // ============================================================
         async function loadMatches() {
             try {
                 if (!supabaseClient) {
-                    // Используем локальные данные
                     matchesData = getDefaultMatches();
                     renderMatches();
                     return;
@@ -5487,7 +5383,6 @@
                 if (data && data.length > 0) {
                     matchesData = data;
                 } else {
-                    // Если нет данных в БД, создаем дефолтные
                     matchesData = getDefaultMatches();
                     await saveMatchesToSupabase();
                 }
@@ -5518,10 +5413,8 @@
             try {
                 if (!supabaseClient) return;
                 
-                // Удаляем старые
                 await supabaseClient.from('matches').delete().neq('id', 0);
                 
-                // Вставляем новые
                 const { error } = await supabaseClient
                     .from('matches')
                     .insert(matchesData);
@@ -5606,7 +5499,6 @@
             });
             container.innerHTML = html;
             
-            // Обработчики для карточек матчей
             container.querySelectorAll('.match-card').forEach(card => {
                 card.addEventListener('click', function(e) {
                     if (e.target.closest('.admin-btn')) return;
@@ -5616,7 +5508,6 @@
                         renderMatchTactics(matchId);
                     } else {
                         showPage('match-tactics-page');
-                        // Показываем заглушку
                         document.getElementById('match-tactics-title').textContent = '⚽ Тактика матча (нет данных)';
                         document.getElementById('school78-formation').innerHTML = '<p style="text-align:center;color:#666;">Нет данных о тактике</p>';
                         document.getElementById('mera-formation').innerHTML = '<p style="text-align:center;color:#666;">Нет данных о тактике</p>';
@@ -5625,9 +5516,6 @@
             });
         }
 
-        // ============================================================
-        // АДМИН-ФУНКЦИИ
-        // ============================================================
         async function adminLogin(email, password) {
             try {
                 if (!supabaseClient) {
@@ -5647,7 +5535,6 @@
                     return;
                 }
                 
-                // Проверяем, что это админ (email должен быть admin@fcmera.com)
                 if (data.user.email !== 'admin@fcmera.com') {
                     await supabaseClient.auth.signOut();
                     document.getElementById('admin-auth-status').textContent = '❌ У вас нет прав администратора!';
@@ -5656,7 +5543,6 @@
                 }
                 
                 adminLoggedIn = true;
-                // Сохраняем сессию в localStorage
                 localStorage.setItem('adminLoggedIn', 'true');
                 localStorage.setItem('adminEmail', data.user.email);
                 
@@ -5668,7 +5554,6 @@
                 document.getElementById('admin-auth-status').textContent = '';
                 document.getElementById('admin-auth-status').className = 'auth-status';
                 
-                // Обновляем кнопки в матчах
                 renderMatches();
                 showMarketNotification('✅ Вы вошли как администратор!', 'success');
                 
@@ -5694,7 +5579,6 @@
             showMarketNotification('👋 Вы вышли из админ-панели', 'success');
         }
 
-        // Проверка сохраненной сессии админа при загрузке
         function checkAdminSession() {
             const savedAdmin = localStorage.getItem('adminLoggedIn');
             if (savedAdmin === 'true') {
@@ -5712,10 +5596,8 @@
             document.getElementById('match-add-status').textContent = '';
             document.getElementById('match-add-status').className = 'match-add-status';
             
-            // Заполняем селекты команд
             populateTeamSelects('add-match-team1', 'add-match-team2');
             
-            // Устанавливаем сегодняшнюю дату
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('add-match-date').value = today;
             document.getElementById('add-match-time').value = '18:00';
@@ -5731,10 +5613,8 @@
             document.getElementById('match-edit-status').textContent = '';
             document.getElementById('match-edit-status').className = 'match-edit-status';
             
-            // Заполняем селекты
             populateTeamSelects('edit-match-team1', 'edit-match-team2');
             
-            // Заполняем данные
             document.getElementById('edit-match-date').value = match.date || '';
             document.getElementById('edit-match-time').value = match.time || '';
             document.getElementById('edit-match-team1').value = match.team1 || '';
@@ -5856,11 +5736,7 @@
             showMarketNotification('🗑️ Матч удален', 'success');
         }
 
-        // ============================================================
-        // ИНИЦИАЛИЗАЦИЯ
-        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Тема
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-theme');
                 document.getElementById('theme-toggle').textContent = '☀️';
@@ -5877,7 +5753,6 @@
                 localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
             });
             
-            // Новости
             const newsList = document.getElementById('news-list');
             if (newsList) {
                 newsList.innerHTML = '';
@@ -5910,10 +5785,8 @@
                 }
             }
             
-            // Проверяем сохраненную сессию админа
             checkAdminSession();
             
-            // Навигация
             document.getElementById('matches-btn').addEventListener('click', () => {
                 showPage('matches-page');
                 loadMatches();
@@ -5927,7 +5800,6 @@
                 if (marketState.currentCaptain) renderMyTeam();
             });
             
-            // Кнопка "Подать заявку" на главной
             document.getElementById('team-request-btn-main').addEventListener('click', function() {
                 document.getElementById('team-request-modal').classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -5950,14 +5822,12 @@
             document.getElementById('back-from-yard-psg').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-match-tactics').addEventListener('click', () => showPage('matches-page'));
             
-            // Другие дворы
             document.getElementById('yard-mera').addEventListener('click', () => showPage('yard-mera-page'));
             document.getElementById('yard-78-school').addEventListener('click', () => showPage('yard-78-page'));
             document.getElementById('yard-yuzhka').addEventListener('click', () => showPage('yard-yuzhka-page'));
             document.getElementById('yard-arsenal').addEventListener('click', () => showPage('yard-arsenal-page'));
             document.getElementById('yard-psg').addEventListener('click', () => showPage('yard-psg-page'));
             
-            // Игроки
             renderMainPlayerCards();
             renderPlayerCards('yard-mera-grid', meraTeamIds, 'yard-mera-theme');
             renderPlayerCards('yard-78-grid', yard78PlayerIds, 'yard-78-theme');
@@ -5965,12 +5835,10 @@
             renderPlayerCards('yard-arsenal-grid', arsenalPlayerIds, 'yard-arsenal-theme');
             renderPlayerCards('yard-psg-grid', psgPlayerIds, 'yard-psg-theme');
             
-            // Поиск
             document.getElementById('player-search').addEventListener('input', function(e) {
                 filterPlayers(e.target.value);
             });
             
-            // Сортировка
             document.getElementById('sort-rating').addEventListener('click', function() {
                 activeSort = 'rating';
                 document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
@@ -5987,8 +5855,6 @@
                 resetSortAndFilter();
             });
             
-            // Матчи - теперь загружаются через loadMatches()
-            // Состав - фото
             const squad1Players = ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'];
             squad1Players.forEach(id => {
                 const photoEl = document.getElementById(`${id}-photo-small`);
@@ -6014,7 +5880,6 @@
                 });
             });
             
-            // Рынок
             document.getElementById('login-btn').addEventListener('click', function() {
                 const inputLogin = document.getElementById('login-input');
                 const inputPassword = document.getElementById('password-input');
@@ -6054,7 +5919,6 @@
                 initMarket();
             });
             
-            // Закрытие модального окна игрока
             document.getElementById('modal-close').addEventListener('click', function() {
                 document.getElementById('player-modal').classList.remove('active');
                 document.body.style.overflow = '';
@@ -6066,13 +5930,11 @@
                 }
             });
             
-            // Закрытие плейстайла
             document.getElementById('playstyle-detail-close').addEventListener('click', closePlaystyleDetail);
             document.getElementById('playstyle-detail-overlay').addEventListener('click', function(e) {
                 if (e.target === this) closePlaystyleDetail();
             });
             
-            // Секретный модал
             const secretOverlay = document.getElementById('secret-overlay');
             const secretClose = document.getElementById('secret-close');
             const secretSubmit = document.getElementById('secret-submit');
@@ -6113,7 +5975,6 @@
                 if (e.key === 'Enter') secretSubmit.click();
             });
             
-            // ЗАЯВКА НА КОМАНДУ
             document.getElementById('team-request-close').addEventListener('click', function() {
                 document.getElementById('team-request-modal').classList.remove('active');
                 document.body.style.overflow = '';
@@ -6127,8 +5988,6 @@
             
             document.getElementById('submit-request-btn').addEventListener('click', submitTeamRequest);
             
-            // ===== АДМИН-ФУНКЦИИ =====
-            // Кнопка входа админа
             document.getElementById('admin-login-btn').addEventListener('click', function() {
                 if (adminLoggedIn) {
                     adminLogout();
@@ -6169,11 +6028,9 @@
                 if (e.key === 'Enter') document.getElementById('admin-auth-submit').click();
             });
             
-            // Админ-панель
             document.getElementById('admin-add-match-btn').addEventListener('click', openAddMatchModal);
             document.getElementById('admin-logout-btn').addEventListener('click', adminLogout);
             
-            // Модалка добавления матча
             document.getElementById('match-add-close').addEventListener('click', function() {
                 document.getElementById('match-add-modal').classList.remove('active');
                 document.body.style.overflow = '';
@@ -6186,7 +6043,6 @@
             });
             document.getElementById('submit-add-btn').addEventListener('click', addMatch);
             
-            // Модалка редактирования матча
             document.getElementById('match-edit-close').addEventListener('click', function() {
                 document.getElementById('match-edit-modal').classList.remove('active');
                 document.body.style.overflow = '';
@@ -6200,7 +6056,6 @@
             document.getElementById('submit-edit-btn').addEventListener('click', saveEditMatch);
             document.getElementById('delete-match-btn').addEventListener('click', deleteMatch);
             
-            // Глобальная функция для редактирования матча
             window.editMatch = function(matchId) {
                 openEditMatchModal(matchId);
             };
