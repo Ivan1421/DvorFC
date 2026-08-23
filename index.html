@@ -5467,7 +5467,7 @@
                     resultText = `🏆 Победа ${team2Name}`;
                 }
                 
-                const penaltyHtml = match.penalty ? `<div class="match-penalty">Пенальти ${match.penalty}</div>` : '';
+                const penaltyHtml = match.penalty ? `<div class="match-penalty">${match.penalty}</div>` : '';
                 
                 html += `
                     <div class="match-card" data-match-id="${match.id}">
@@ -6065,3 +6065,4 @@
     </script>
 </body>
 </html>
+
