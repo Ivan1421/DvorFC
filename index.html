@@ -3196,6 +3196,143 @@
         .match-add-modal .match-add-status.error {
             color: #dc3545;
         }
+        
+        /* Стили для модальных окон рыночных функций */
+        .market-action-modal .modal {
+            max-width: 500px;
+        }
+        .market-action-modal .form-group {
+            margin-bottom: 15px;
+        }
+        .market-action-modal .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0066cc;
+        }
+        .dark-theme .market-action-modal .form-group label {
+            color: #4dabf7;
+        }
+        .market-action-modal .form-group input,
+        .market-action-modal .form-group select,
+        .market-action-modal .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            color: #333;
+            transition: 0.3s;
+        }
+        .dark-theme .market-action-modal .form-group input,
+        .dark-theme .market-action-modal .form-group select,
+        .dark-theme .market-action-modal .form-group textarea {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .market-action-modal .form-group input:focus,
+        .market-action-modal .form-group select:focus,
+        .market-action-modal .form-group textarea:focus {
+            outline: none;
+            border-color: #8e44ad;
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+        }
+        .market-action-modal .submit-action-btn {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        .market-action-modal .submit-action-btn:hover {
+            background: #7d3c98;
+            box-shadow: 0 4px 15px rgba(142, 68, 173, 0.4);
+        }
+        .market-action-modal .submit-action-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .market-action-modal .action-status {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+        .market-action-modal .action-status.success {
+            color: #28a745;
+        }
+        .market-action-modal .action-status.error {
+            color: #dc3545;
+        }
+        .offer-item {
+            background: #f0f8ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            border: 2px solid #ffc107;
+            position: relative;
+        }
+        .dark-theme .offer-item {
+            background: #1a2a4a;
+            border-color: #ffc107;
+        }
+        .offer-item .offer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .offer-item .offer-header .offer-from {
+            font-weight: bold;
+            color: #0066cc;
+        }
+        .dark-theme .offer-item .offer-header .offer-from {
+            color: #4dabf7;
+        }
+        .offer-item .offer-details {
+            color: #444;
+            font-size: 0.95rem;
+        }
+        .dark-theme .offer-item .offer-details {
+            color: #ddd;
+        }
+        .offer-item .offer-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .offer-item .offer-actions button {
+            padding: 6px 20px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .offer-item .offer-actions .accept-btn {
+            background: #28a745;
+            color: white;
+        }
+        .offer-item .offer-actions .accept-btn:hover {
+            background: #218838;
+        }
+        .offer-item .offer-actions .reject-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .offer-item .offer-actions .reject-btn:hover {
+            background: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -3482,6 +3619,12 @@
                         </div>
                     </div>
                     
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <button class="action-btn" id="transfer-money-btn" style="padding: 10px 20px; font-size: 0.9rem;">💰 Перевод денег</button>
+                        <button class="action-btn" id="make-offer-btn" style="padding: 10px 20px; font-size: 0.9rem;">📤 Предложение по игроку</button>
+                        <button class="action-btn" id="view-offers-btn" style="padding: 10px 20px; font-size: 0.9rem;">📋 Мои предложения</button>
+                    </div>
+                    
                     <div class="market-filters">
                         <select id="market-filter-team">
                             <option value="all">Все команды</option>
@@ -3727,6 +3870,76 @@
         </div>
     </div>
     
+    <!-- Модальное окно для перевода денег -->
+    <div class="modal-overlay market-action-modal" id="transfer-money-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="transfer-money-close">×</button>
+            <h2 style="color:#28a745; text-align:center; margin-bottom:20px;">💰 Перевод денег</h2>
+            <div class="form-group">
+                <label>Кому перевести</label>
+                <select id="transfer-to-team"></select>
+            </div>
+            <div class="form-group">
+                <label>Сумма</label>
+                <input type="number" id="transfer-amount" min="1" placeholder="Введите сумму">
+            </div>
+            <div class="form-group">
+                <label>Комментарий (необязательно)</label>
+                <input type="text" id="transfer-comment" placeholder="Например: За победу в матче">
+            </div>
+            <button class="submit-action-btn" id="transfer-submit-btn">💰 Перевести</button>
+            <div class="action-status" id="transfer-status"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для предложения по игроку -->
+    <div class="modal-overlay market-action-modal" id="make-offer-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="make-offer-close">×</button>
+            <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">📤 Предложение по игроку</h2>
+            <div class="form-group">
+                <label>Игрок</label>
+                <select id="offer-player-select"></select>
+            </div>
+            <div class="form-group">
+                <label>Тип предложения</label>
+                <select id="offer-type">
+                    <option value="transfer">🛒 Покупка (своя цена)</option>
+                    <option value="loan">🔄 Аренда</option>
+                </select>
+            </div>
+            <div class="form-group" id="offer-price-group">
+                <label>Цена (монет)</label>
+                <input type="number" id="offer-price" min="1" placeholder="Введите цену">
+            </div>
+            <div class="form-group" id="offer-loan-days-group" style="display: none;">
+                <label>Срок аренды (дней)</label>
+                <input type="number" id="offer-loan-days" min="1" placeholder="Напр. 7" value="7">
+            </div>
+            <div class="form-group" id="offer-loan-price-group" style="display: none;">
+                <label>Цена аренды (монет)</label>
+                <input type="number" id="offer-loan-price" min="1" placeholder="Введите цену аренды">
+            </div>
+            <div class="form-group">
+                <label>Комментарий (необязательно)</label>
+                <input type="text" id="offer-comment" placeholder="Например: Отличный игрок!">
+            </div>
+            <button class="submit-action-btn" id="offer-submit-btn">📤 Отправить предложение</button>
+            <div class="action-status" id="offer-status"></div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для просмотра предложений -->
+    <div class="modal-overlay market-action-modal" id="view-offers-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="view-offers-close">×</button>
+            <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">📋 Мои предложения</h2>
+            <div id="offers-list-container">
+                <p style="text-align:center;color:#666;padding:20px;">Загрузка...</p>
+            </div>
+        </div>
+    </div>
+    
     <div class="playstyle-detail-overlay" id="playstyle-detail-overlay">
         <div class="playstyle-detail-card" id="playstyle-detail-card">
             <button class="close-btn" id="playstyle-detail-close">✕</button>
@@ -3887,7 +4100,7 @@
                 id: 'mera',
                 name: 'ФК "МЕРА"',
                 captain: 'Капитан МЕРЫ',
-                budget: 5000,
+                budget: 1678,
                 players: meraTeamIds,
                 logo: './Photos%20(2)/IMG_0807.jpeg'
             },
@@ -3895,7 +4108,7 @@
                 id: 'school78',
                 name: 'ФК 78 школа',
                 captain: 'Капитан 78 школы',
-                budget: 4000,
+                budget: 470,
                 players: yard78PlayerIds,
                 logo: './Photos%20(2)/IMG_0797.jpeg'
             },
@@ -3903,7 +4116,7 @@
                 id: 'yuzhka',
                 name: 'ФК Южный',
                 captain: 'Капитан Южного',
-                budget: 4500,
+                budget: 625,
                 players: yuzhkaPlayerIds,
                 logo: './Photos%20(2)/IMG_0800.jpeg'
             },
@@ -3911,7 +4124,7 @@
                 id: 'arsenal',
                 name: 'ФК Арсенал',
                 captain: 'Капитан Арсенала',
-                budget: 500,
+                budget: 175,
                 players: arsenalPlayerIds,
                 logo: './Photos%20(2)/IMG_0853.jpeg'
             },
@@ -3919,7 +4132,7 @@
                 id: 'psg',
                 name: 'ФК ПСЖ',
                 captain: 'Капитан ПСЖ',
-                budget: 500,
+                budget: 375,
                 players: psgPlayerIds,
                 logo: './Photos%20(2)/IMG_0833.jpeg'
             }
@@ -4064,7 +4277,8 @@
             currentCaptain: null,
             transferList: [],
             pendingTransfers: {},
-            transfers: []
+            transfers: [],
+            offers: [] // { id, fromTeam, toTeam, playerId, type, price, comment, status, time, loanDays, loanPrice }
         };
         
         const allPlayerIds = Object.keys(playersData);
@@ -4235,7 +4449,8 @@
                     teams: {},
                     transferList: marketState.transferList || [],
                     pendingTransfers: marketState.pendingTransfers || {},
-                    transfers: marketState.transfers || []
+                    transfers: marketState.transfers || [],
+                    offers: marketState.offers || []
                 };
                 
                 Object.keys(CAPTAINS).forEach(id => {
@@ -4264,7 +4479,8 @@
                         teams: {},
                         transferList: marketState.transferList || [],
                         pendingTransfers: marketState.pendingTransfers || {},
-                        transfers: marketState.transfers || []
+                        transfers: marketState.transfers || [],
+                        offers: marketState.offers || []
                     };
                     Object.keys(CAPTAINS).forEach(id => {
                         data.teams[id] = {
@@ -4344,6 +4560,7 @@
             marketState.transferList = data.transferList || [];
             marketState.pendingTransfers = data.pendingTransfers || {};
             marketState.transfers = data.transfers || [];
+            marketState.offers = data.offers || [];
             
             if (marketState.transferList.length === 0) {
                 renderMarketEmpty('📭 На рынке нет игроков');
@@ -5723,6 +5940,500 @@
             showMarketNotification('🗑️ Матч удален', 'success');
         }
 
+        // ==================== НОВЫЕ ФУНКЦИИ ДЛЯ РЫНКА ====================
+
+        // Перевод денег
+        function openTransferMoney() {
+            if (!marketState.currentCaptain) {
+                showMarketNotification('❌ Сначала войдите как капитан!', 'error');
+                return;
+            }
+            
+            const modal = document.getElementById('transfer-money-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('transfer-status').textContent = '';
+            document.getElementById('transfer-status').className = 'action-status';
+            document.getElementById('transfer-amount').value = '';
+            document.getElementById('transfer-comment').value = '';
+            
+            const select = document.getElementById('transfer-to-team');
+            select.innerHTML = '';
+            Object.values(CAPTAINS).forEach(team => {
+                if (team.id !== marketState.currentCaptain) {
+                    const opt = document.createElement('option');
+                    opt.value = team.id;
+                    opt.textContent = `${team.name} (💰 ${team.budget} монет)`;
+                    select.appendChild(opt);
+                }
+            });
+            
+            if (select.options.length === 0) {
+                select.innerHTML = '<option value="">Нет других команд</option>';
+            }
+        }
+
+        async function submitTransferMoney() {
+            const fromTeamId = marketState.currentCaptain;
+            if (!fromTeamId) {
+                showMarketNotification('❌ Вы не авторизованы!', 'error');
+                return;
+            }
+            
+            const toTeamId = document.getElementById('transfer-to-team').value;
+            const amount = parseInt(document.getElementById('transfer-amount').value);
+            const comment = document.getElementById('transfer-comment').value.trim();
+            
+            const statusEl = document.getElementById('transfer-status');
+            
+            if (!toTeamId) {
+                statusEl.textContent = '❌ Выберите команду!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            if (!amount || amount < 1) {
+                statusEl.textContent = '❌ Введите корректную сумму!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            const fromTeam = CAPTAINS[fromTeamId];
+            const toTeam = CAPTAINS[toTeamId];
+            
+            if (!fromTeam || !toTeam) {
+                statusEl.textContent = '❌ Команда не найдена!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            if (fromTeam.budget < amount) {
+                statusEl.textContent = `❌ Недостаточно средств! У вас ${fromTeam.budget} монет.`;
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            const btn = document.getElementById('transfer-submit-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Перевод...';
+            
+            try {
+                fromTeam.budget -= amount;
+                toTeam.budget += amount;
+                
+                // Записываем как трансфер (чтобы было в истории)
+                const transfer = {
+                    playerId: 'transfer_money',
+                    playerName: `💰 Перевод ${amount} монет`,
+                    playerIcon: '💰',
+                    fromTeam: fromTeamId,
+                    toTeam: toTeamId,
+                    price: amount,
+                    time: new Date().toISOString(),
+                    comment: comment || 'Без комментария'
+                };
+                
+                marketState.transfers = marketState.transfers || [];
+                marketState.transfers.unshift(transfer);
+                
+                if (marketState.transfers.length > 50) {
+                    marketState.transfers = marketState.transfers.slice(0, 50);
+                }
+                
+                await saveMarketData();
+                updateBudgetDisplay();
+                renderTransfers();
+                
+                statusEl.textContent = `✅ ${amount} монет переведено команде ${toTeam.name}! ${comment ? '📝 ' + comment : ''}`;
+                statusEl.className = 'action-status success';
+                
+                setTimeout(() => {
+                    document.getElementById('transfer-money-modal').classList.remove('active');
+                    document.body.style.overflow = '';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Ошибка перевода:', error);
+                statusEl.textContent = `❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`;
+                statusEl.className = 'action-status error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '💰 Перевести';
+            }
+        }
+
+        // Предложение по игроку (с арендой)
+        function openMakeOffer() {
+            if (!marketState.currentCaptain) {
+                showMarketNotification('❌ Сначала войдите как капитан!', 'error');
+                return;
+            }
+            
+            const modal = document.getElementById('make-offer-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('offer-status').textContent = '';
+            document.getElementById('offer-status').className = 'action-status';
+            document.getElementById('offer-price').value = '';
+            document.getElementById('offer-comment').value = '';
+            document.getElementById('offer-loan-days').value = '7';
+            document.getElementById('offer-loan-price').value = '';
+            
+            const select = document.getElementById('offer-player-select');
+            select.innerHTML = '';
+            
+            // Показываем игроков из других команд (не своей)
+            const myTeam = CAPTAINS[marketState.currentCaptain];
+            Object.keys(playersData).forEach(id => {
+                const player = playersData[id];
+                const teamId = Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(id));
+                if (teamId && teamId !== marketState.currentCaptain) {
+                    const opt = document.createElement('option');
+                    opt.value = id;
+                    const teamName = CAPTAINS[teamId]?.name || 'Неизвестно';
+                    opt.textContent = `${player.name} (${player.position}) - ${teamName}`;
+                    select.appendChild(opt);
+                }
+            });
+            
+            if (select.options.length === 0) {
+                select.innerHTML = '<option value="">Нет доступных игроков</option>';
+            }
+            
+            document.getElementById('offer-type').addEventListener('change', function() {
+                const priceGroup = document.getElementById('offer-price-group');
+                const loanDaysGroup = document.getElementById('offer-loan-days-group');
+                const loanPriceGroup = document.getElementById('offer-loan-price-group');
+                if (this.value === 'loan') {
+                    priceGroup.style.display = 'none';
+                    loanDaysGroup.style.display = 'block';
+                    loanPriceGroup.style.display = 'block';
+                } else {
+                    priceGroup.style.display = 'block';
+                    loanDaysGroup.style.display = 'none';
+                    loanPriceGroup.style.display = 'none';
+                }
+            });
+            // Инициализация
+            document.getElementById('offer-type').dispatchEvent(new Event('change'));
+        }
+
+        async function submitOffer() {
+            const fromTeamId = marketState.currentCaptain;
+            if (!fromTeamId) {
+                showMarketNotification('❌ Вы не авторизованы!', 'error');
+                return;
+            }
+            
+            const playerId = document.getElementById('offer-player-select').value;
+            const offerType = document.getElementById('offer-type').value;
+            const price = parseInt(document.getElementById('offer-price').value);
+            const loanDays = parseInt(document.getElementById('offer-loan-days').value);
+            const loanPrice = parseInt(document.getElementById('offer-loan-price').value);
+            const comment = document.getElementById('offer-comment').value.trim();
+            
+            const statusEl = document.getElementById('offer-status');
+            
+            if (!playerId) {
+                statusEl.textContent = '❌ Выберите игрока!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            if (offerType === 'transfer' && (!price || price < 1)) {
+                statusEl.textContent = '❌ Введите корректную цену!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            if (offerType === 'loan') {
+                if (!loanDays || loanDays < 1) {
+                    statusEl.textContent = '❌ Введите корректный срок аренды!';
+                    statusEl.className = 'action-status error';
+                    return;
+                }
+                if (!loanPrice || loanPrice < 1) {
+                    statusEl.textContent = '❌ Введите цену аренды!';
+                    statusEl.className = 'action-status error';
+                    return;
+                }
+            }
+            
+            const player = playersData[playerId];
+            const toTeamId = Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId));
+            
+            if (!toTeamId) {
+                statusEl.textContent = '❌ Игрок не принадлежит ни одной команде!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            if (toTeamId === fromTeamId) {
+                statusEl.textContent = '❌ Это ваш игрок!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            const btn = document.getElementById('offer-submit-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Отправка...';
+            
+            try {
+                const offer = {
+                    id: Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                    fromTeam: fromTeamId,
+                    toTeam: toTeamId,
+                    playerId: playerId,
+                    playerName: player.name,
+                    playerIcon: player.icon || '⚽',
+                    type: offerType,
+                    price: offerType === 'transfer' ? price : loanPrice,
+                    loanDays: offerType === 'loan' ? loanDays : null,
+                    comment: comment || '',
+                    status: 'pending', // pending, accepted, rejected
+                    time: new Date().toISOString()
+                };
+                
+                marketState.offers = marketState.offers || [];
+                marketState.offers.push(offer);
+                
+                await saveMarketData();
+                
+                statusEl.textContent = `✅ Предложение отправлено! Ожидайте ответа капитана ${CAPTAINS[toTeamId]?.name || ''}.`;
+                statusEl.className = 'action-status success';
+                
+                setTimeout(() => {
+                    document.getElementById('make-offer-modal').classList.remove('active');
+                    document.body.style.overflow = '';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Ошибка отправки предложения:', error);
+                statusEl.textContent = `❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`;
+                statusEl.className = 'action-status error';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '📤 Отправить предложение';
+            }
+        }
+
+        // Просмотр предложений
+        function openViewOffers() {
+            if (!marketState.currentCaptain) {
+                showMarketNotification('❌ Сначала войдите как капитан!', 'error');
+                return;
+            }
+            
+            const modal = document.getElementById('view-offers-modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            renderOffers();
+        }
+
+        function renderOffers() {
+            const container = document.getElementById('offers-list-container');
+            if (!container) return;
+            
+            const captainId = marketState.currentCaptain;
+            if (!captainId) {
+                container.innerHTML = '<p style="text-align:center;color:#666;padding:20px;">Вы не авторизованы</p>';
+                return;
+            }
+            
+            // Предложения, которые адресованы этому капитану (входящие)
+            const incomingOffers = (marketState.offers || []).filter(o => o.toTeam === captainId && o.status === 'pending');
+            // Предложения, которые этот капитан отправил (исходящие)
+            const outgoingOffers = (marketState.offers || []).filter(o => o.fromTeam === captainId);
+            
+            let html = '';
+            
+            if (incomingOffers.length === 0 && outgoingOffers.length === 0) {
+                html = '<p style="text-align:center;color:#666;padding:20px;">Нет предложений</p>';
+            }
+            
+            if (incomingOffers.length > 0) {
+                html += `<h4 style="color:#28a745;margin-top:10px;margin-bottom:10px;">📥 Входящие предложения (${incomingOffers.length})</h4>`;
+                incomingOffers.forEach(offer => {
+                    const fromTeam = CAPTAINS[offer.fromTeam];
+                    const fromName = fromTeam ? fromTeam.name : 'Неизвестно';
+                    let typeLabel = offer.type === 'loan' ? '🔄 Аренда' : '🛒 Покупка';
+                    let priceText = '';
+                    if (offer.type === 'loan') {
+                        priceText = `💰 ${offer.price} монет • ${offer.loanDays} дней`;
+                    } else {
+                        priceText = `💰 ${offer.price} монет`;
+                    }
+                    
+                    html += `
+                        <div class="offer-item" data-offer-id="${offer.id}">
+                            <div class="offer-header">
+                                <span class="offer-from">📤 от ${fromName}</span>
+                                <span style="font-size:0.8rem;color:#888;">${new Date(offer.time).toLocaleString('ru-RU')}</span>
+                            </div>
+                            <div class="offer-details">
+                                <strong>${offer.playerIcon} ${offer.playerName}</strong> • ${typeLabel} • ${priceText}
+                                ${offer.comment ? `<br>📝 ${offer.comment}` : ''}
+                            </div>
+                            <div class="offer-actions">
+                                <button class="accept-btn" onclick="respondToOffer('${offer.id}', 'accepted')">✅ Принять</button>
+                                <button class="reject-btn" onclick="respondToOffer('${offer.id}', 'rejected')">❌ Отказать</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (outgoingOffers.length > 0) {
+                html += `<h4 style="color:#0066cc;margin-top:15px;margin-bottom:10px;">📤 Исходящие предложения (${outgoingOffers.length})</h4>`;
+                outgoingOffers.forEach(offer => {
+                    const toTeam = CAPTAINS[offer.toTeam];
+                    const toName = toTeam ? toTeam.name : 'Неизвестно';
+                    let typeLabel = offer.type === 'loan' ? '🔄 Аренда' : '🛒 Покупка';
+                    let priceText = '';
+                    if (offer.type === 'loan') {
+                        priceText = `💰 ${offer.price} монет • ${offer.loanDays} дней`;
+                    } else {
+                        priceText = `💰 ${offer.price} монет`;
+                    }
+                    const statusMap = {
+                        'pending': '⏳ Ожидает ответа',
+                        'accepted': '✅ Принято',
+                        'rejected': '❌ Отказано'
+                    };
+                    const statusText = statusMap[offer.status] || offer.status;
+                    
+                    html += `
+                        <div class="offer-item" style="border-color: ${offer.status === 'accepted' ? '#28a745' : offer.status === 'rejected' ? '#dc3545' : '#ffc107'};">
+                            <div class="offer-header">
+                                <span class="offer-from">📥 для ${toName}</span>
+                                <span style="font-size:0.8rem;color:#888;">${new Date(offer.time).toLocaleString('ru-RU')}</span>
+                            </div>
+                            <div class="offer-details">
+                                <strong>${offer.playerIcon} ${offer.playerName}</strong> • ${typeLabel} • ${priceText}
+                                ${offer.comment ? `<br>📝 ${offer.comment}` : ''}
+                                <br><span style="font-weight:bold;">Статус: ${statusText}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            container.innerHTML = html;
+        }
+
+        async function respondToOffer(offerId, response) {
+            const offer = (marketState.offers || []).find(o => o.id === offerId);
+            if (!offer) {
+                showMarketNotification('❌ Предложение не найдено!', 'error');
+                return;
+            }
+            
+            if (offer.status !== 'pending') {
+                showMarketNotification('❌ Это предложение уже обработано!', 'error');
+                renderOffers();
+                return;
+            }
+            
+            const captainId = marketState.currentCaptain;
+            if (!captainId || offer.toTeam !== captainId) {
+                showMarketNotification('❌ У вас нет прав на это предложение!', 'error');
+                return;
+            }
+            
+            try {
+                if (response === 'accepted') {
+                    // Принятие предложения
+                    const fromTeam = CAPTAINS[offer.fromTeam];
+                    const toTeam = CAPTAINS[offer.toTeam];
+                    
+                    if (offer.type === 'transfer') {
+                        // Покупка
+                        const price = offer.price || 0;
+                        if (toTeam.budget < price) {
+                            showMarketNotification(`❌ У вас недостаточно средств! Нужно ${price} монет.`, 'error');
+                            return;
+                        }
+                        if (toTeam.players.includes(offer.playerId)) {
+                            showMarketNotification('❌ Игрок уже в вашей команде!', 'error');
+                            return;
+                        }
+                        
+                        toTeam.budget -= price;
+                        fromTeam.budget += price;
+                        
+                        // Перемещаем игрока
+                        const fromIndex = fromTeam.players.indexOf(offer.playerId);
+                        if (fromIndex !== -1) fromTeam.players.splice(fromIndex, 1);
+                        toTeam.players.push(offer.playerId);
+                        marketData.players[offer.playerId].team = offer.toTeam;
+                        
+                        // Добавляем в историю трансферов
+                        addTransfer(offer.playerId, offer.fromTeam, offer.toTeam, price);
+                        
+                        showMarketNotification(`✅ ${offer.playerName} куплен за ${price} монет!`, 'success');
+                        updateBudgetDisplay();
+                        renderMyTeam();
+                        updateMarketUI();
+                    } else if (offer.type === 'loan') {
+                        // Аренда с указанным сроком и ценой
+                        const price = offer.price || 0;
+                        const days = offer.loanDays || 7;
+                        
+                        if (toTeam.budget < price) {
+                            showMarketNotification(`❌ У вас недостаточно средств для аренды! Нужно ${price} монет.`, 'error');
+                            return;
+                        }
+                        
+                        // Списываем деньги за аренду с арендатора
+                        toTeam.budget -= price;
+                        // Зачисляем деньги владельцу игрока
+                        fromTeam.budget += price;
+                        
+                        // Перемещаем игрока (временная аренда)
+                        const fromIndex = fromTeam.players.indexOf(offer.playerId);
+                        if (fromIndex !== -1) fromTeam.players.splice(fromIndex, 1);
+                        toTeam.players.push(offer.playerId);
+                        marketData.players[offer.playerId].team = offer.toTeam;
+                        
+                        // Добавляем в историю как аренду
+                        const transfer = {
+                            playerId: offer.playerId,
+                            playerName: `${offer.playerName} (аренда ${days} дней)`,
+                            playerIcon: offer.playerIcon || '⚽',
+                            fromTeam: offer.fromTeam,
+                            toTeam: offer.toTeam,
+                            price: price,
+                            time: new Date().toISOString(),
+                            comment: `Аренда на ${days} дней: ${offer.comment || ''}`
+                        };
+                        marketState.transfers = marketState.transfers || [];
+                        marketState.transfers.unshift(transfer);
+                        if (marketState.transfers.length > 50) {
+                            marketState.transfers = marketState.transfers.slice(0, 50);
+                        }
+                        
+                        showMarketNotification(`✅ ${offer.playerName} арендован на ${days} дней за ${price} монет!`, 'success');
+                        updateBudgetDisplay();
+                        renderMyTeam();
+                        renderTransfers();
+                    }
+                    
+                    offer.status = 'accepted';
+                    await saveMarketData();
+                    renderTransfers();
+                    
+                } else if (response === 'rejected') {
+                    offer.status = 'rejected';
+                    await saveMarketData();
+                    showMarketNotification(`❌ Предложение отклонено`, 'info');
+                }
+                
+                renderOffers();
+                
+            } catch (error) {
+                console.error('Ошибка обработки предложения:', error);
+                showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-theme');
@@ -6046,6 +6757,49 @@
             window.editMatch = function(matchId) {
                 openEditMatchModal(matchId);
             };
+            
+            // ==================== НОВЫЕ ОБРАБОТЧИКИ ДЛЯ РЫНКА ====================
+            
+            // Перевод денег
+            document.getElementById('transfer-money-btn').addEventListener('click', openTransferMoney);
+            document.getElementById('transfer-money-close').addEventListener('click', function() {
+                document.getElementById('transfer-money-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('transfer-money-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.getElementById('transfer-submit-btn').addEventListener('click', submitTransferMoney);
+            
+            // Предложение по игроку
+            document.getElementById('make-offer-btn').addEventListener('click', openMakeOffer);
+            document.getElementById('make-offer-close').addEventListener('click', function() {
+                document.getElementById('make-offer-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('make-offer-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.getElementById('offer-submit-btn').addEventListener('click', submitOffer);
+            
+            // Просмотр предложений
+            document.getElementById('view-offers-btn').addEventListener('click', openViewOffers);
+            document.getElementById('view-offers-close').addEventListener('click', function() {
+                document.getElementById('view-offers-modal').classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            document.getElementById('view-offers-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
             
             console.log('✅ Сайт загружен!');
         });
