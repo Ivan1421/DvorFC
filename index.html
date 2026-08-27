@@ -278,6 +278,7 @@
             -webkit-user-select: none;
             user-select: none;
             text-decoration: none;
+            position: relative;
         }
         .action-btn:hover {
             transform: translateY(-3px);
@@ -291,6 +292,40 @@
             border-color: #4dabf7;
             color: #4dabf7;
         }
+        
+        /* Красный кружок с количеством предложений */
+        .offer-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff0000;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 900;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
+            border: 2px solid white;
+            padding: 0 4px;
+            animation: badgePulse 1.5s ease-in-out infinite;
+            z-index: 10;
+        }
+        .dark-theme .offer-badge {
+            border-color: #2d3748;
+        }
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        .offer-badge.hidden {
+            display: none;
+        }
+        
         .page {
             display: none;
         }
@@ -1978,6 +2013,7 @@
             .action-btn { padding: 12px 24px; font-size: 1rem; }
             .action-btn.tiktok .btn-icon { font-size: 1.4rem; }
             .main-button .new-badge { font-size: 0.6rem; padding: 2px 10px; top: -8px; right: -8px; }
+            .offer-badge { min-width: 18px; height: 18px; font-size: 0.6rem; top: -6px; right: -6px; }
         }
         
         @media (max-width: 480px) {
@@ -2010,6 +2046,7 @@
             .best-squad-container .player-photo-small { width: 50px; height: 50px; }
             .action-btn { padding: 10px 18px; font-size: 0.9rem; gap: 8px; }
             .main-button .new-badge { font-size: 0.5rem; padding: 2px 8px; top: -6px; right: -6px; }
+            .offer-badge { min-width: 16px; height: 16px; font-size: 0.55rem; top: -5px; right: -5px; }
         }
         
         @media (max-width: 380px) {
@@ -3333,6 +3370,76 @@
         .offer-item .offer-actions .reject-btn:hover {
             background: #c82333;
         }
+        
+        /* Стили для админ-панели управления балансом */
+        .admin-balance-panel {
+            background: #f0f8ff;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border: 2px solid #0066cc;
+        }
+        .dark-theme .admin-balance-panel {
+            background: #2d3748;
+            border-color: #4dabf7;
+        }
+        .admin-balance-panel h4 {
+            color: #0066cc;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .dark-theme .admin-balance-panel h4 {
+            color: #4dabf7;
+        }
+        .admin-balance-panel .balance-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+        .admin-balance-panel .balance-row label {
+            font-weight: bold;
+            min-width: 120px;
+            color: #333;
+        }
+        .dark-theme .admin-balance-panel .balance-row label {
+            color: #f0f0f0;
+        }
+        .admin-balance-panel .balance-row input {
+            flex: 1;
+            min-width: 100px;
+            padding: 6px 12px;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: white;
+            color: #333;
+        }
+        .dark-theme .admin-balance-panel .balance-row input {
+            background: #374151;
+            border-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .admin-balance-panel .balance-row .balance-btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #28a745;
+            color: white;
+        }
+        .admin-balance-panel .balance-row .balance-btn:hover {
+            background: #218838;
+        }
+        .admin-balance-panel .balance-row .balance-btn.danger {
+            background: #dc3545;
+        }
+        .admin-balance-panel .balance-row .balance-btn.danger:hover {
+            background: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -3619,10 +3726,19 @@
                         </div>
                     </div>
                     
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; align-items: center;">
                         <button class="action-btn" id="transfer-money-btn" style="padding: 10px 20px; font-size: 0.9rem;">💰 Перевод денег</button>
                         <button class="action-btn" id="make-offer-btn" style="padding: 10px 20px; font-size: 0.9rem;">📤 Предложение по игроку</button>
-                        <button class="action-btn" id="view-offers-btn" style="padding: 10px 20px; font-size: 0.9rem;">📋 Мои предложения</button>
+                        <button class="action-btn" id="view-offers-btn" style="padding: 10px 20px; font-size: 0.9rem; position: relative;">
+                            📋 Мои предложения
+                            <span class="offer-badge hidden" id="offer-badge">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Админ-панель управления балансом -->
+                    <div class="admin-balance-panel" id="admin-balance-panel" style="display: none;">
+                        <h4>💰 Управление балансами клубов (Админ)</h4>
+                        <div id="balance-teams-container"></div>
                     </div>
                     
                     <div class="market-filters">
@@ -3885,7 +4001,7 @@
             </div>
             <div class="form-group">
                 <label>Комментарий (необязательно)</label>
-                <input type="text" id="transfer-comment" placeholder="Например: В подарок">
+                <input type="text" id="transfer-comment" placeholder="Например: За победу в матче">
             </div>
             <button class="submit-action-btn" id="transfer-submit-btn">💰 Перевести</button>
             <div class="action-status" id="transfer-status"></div>
@@ -4364,6 +4480,7 @@
                 updateMarketUI();
                 renderMyTeam();
                 renderTransfers();
+                updateOfferBadge();
                 return true;
 
             } catch (error) {
@@ -4396,6 +4513,7 @@
             document.getElementById('my-team-section').style.display = 'none';
             
             updateMarketUI();
+            updateOfferBadge();
             showMarketNotification('👋 Вы вышли из системы', 'success');
         }
 
@@ -4434,12 +4552,36 @@
                     updateMarketUI();
                     renderMyTeam();
                     renderTransfers();
+                    updateOfferBadge();
                     return true;
                 }
                 return false;
             } catch (error) {
                 console.error('Ошибка проверки авторизации:', error);
                 return false;
+            }
+        }
+        
+        // Функция обновления красного кружка с количеством предложений
+        function updateOfferBadge() {
+            const badge = document.getElementById('offer-badge');
+            if (!badge) return;
+            
+            const captainId = marketState.currentCaptain;
+            if (!captainId) {
+                badge.classList.add('hidden');
+                badge.textContent = '0';
+                return;
+            }
+            
+            const incomingPending = (marketState.offers || []).filter(o => o.toTeam === captainId && o.status === 'pending');
+            const count = incomingPending.length;
+            
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
             }
         }
         
@@ -4565,6 +4707,7 @@
             if (marketState.transferList.length === 0) {
                 renderMarketEmpty('📭 На рынке нет игроков');
             }
+            updateOfferBadge();
         }
         
         function addTransfer(playerId, fromTeamId, toTeamId, price) {
@@ -4698,6 +4841,7 @@
             updateMarketUI();
             renderMyTeam();
             updateBudgetDisplay();
+            updateOfferBadge();
         }
         
         function sellPlayer(playerId, price) {
@@ -4885,9 +5029,14 @@
                 updateTeamSelects();
                 updateMarketUI();
                 renderTransfers();
+                updateOfferBadge();
                 if (marketState.currentCaptain) {
                     renderMyTeam();
                     updateBudgetDisplay();
+                }
+                // Если админ залогинен, показываем панель баланса
+                if (adminLoggedIn) {
+                    showAdminBalancePanel();
                 }
             });
         }
@@ -5759,6 +5908,7 @@
                 document.getElementById('admin-auth-status').className = 'auth-status';
                 
                 renderMatches();
+                showAdminBalancePanel();
                 showMarketNotification('✅ Вы вошли как администратор!', 'success');
                 
             } catch (err) {
@@ -5779,6 +5929,7 @@
             document.getElementById('admin-panel').classList.remove('visible');
             document.getElementById('admin-login-btn').textContent = '🔐 Вход для админов';
             document.getElementById('admin-login-btn').classList.remove('logged');
+            document.getElementById('admin-balance-panel').style.display = 'none';
             renderMatches();
             showMarketNotification('👋 Вы вышли из админ-панели', 'success');
         }
@@ -5791,7 +5942,77 @@
                 document.getElementById('admin-login-btn').textContent = '👑 Админ';
                 document.getElementById('admin-login-btn').classList.add('logged');
                 renderMatches();
+                showAdminBalancePanel();
             }
+        }
+
+        // Показать админ-панель управления балансом
+        function showAdminBalancePanel() {
+            const panel = document.getElementById('admin-balance-panel');
+            if (!adminLoggedIn) {
+                panel.style.display = 'none';
+                return;
+            }
+            panel.style.display = 'block';
+            const container = document.getElementById('balance-teams-container');
+            container.innerHTML = '';
+            
+            Object.values(CAPTAINS).forEach(team => {
+                const row = document.createElement('div');
+                row.className = 'balance-row';
+                row.innerHTML = `
+                    <label>${team.name}</label>
+                    <input type="number" id="balance-input-${team.id}" value="${team.budget}" min="0">
+                    <button class="balance-btn" onclick="setTeamBalance('${team.id}')">💾 Установить</button>
+                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 100)">➕ 100</button>
+                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 500)">➕ 500</button>
+                    <button class="balance-btn danger" onclick="addTeamBalance('${team.id}', -100)">➖ 100</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Установить баланс команды
+        async function setTeamBalance(teamId) {
+            const input = document.getElementById(`balance-input-${teamId}`);
+            if (!input) return;
+            const newBalance = parseInt(input.value);
+            if (isNaN(newBalance) || newBalance < 0) {
+                showMarketNotification('❌ Введите корректную сумму!', 'error');
+                return;
+            }
+            
+            const team = CAPTAINS[teamId];
+            if (!team) {
+                showMarketNotification('❌ Команда не найдена!', 'error');
+                return;
+            }
+            
+            team.budget = newBalance;
+            await saveMarketData();
+            updateBudgetDisplay();
+            showAdminBalancePanel();
+            showMarketNotification(`✅ Баланс ${team.name} установлен на ${newBalance} монет!`, 'success');
+        }
+
+        // Добавить/убавить баланс команды
+        async function addTeamBalance(teamId, amount) {
+            const input = document.getElementById(`balance-input-${teamId}`);
+            const team = CAPTAINS[teamId];
+            if (!team) {
+                showMarketNotification('❌ Команда не найдена!', 'error');
+                return;
+            }
+            
+            const current = team.budget;
+            const newBalance = Math.max(0, current + amount);
+            team.budget = newBalance;
+            if (input) input.value = newBalance;
+            
+            await saveMarketData();
+            updateBudgetDisplay();
+            showAdminBalancePanel();
+            showMarketNotification(`✅ Баланс ${team.name} изменён на ${newBalance} монет!`, 'success');
         }
 
         function openAddMatchModal() {
@@ -6198,6 +6419,7 @@
                 
                 statusEl.textContent = `✅ Предложение отправлено! Ожидайте ответа капитана ${CAPTAINS[toTeamId]?.name || ''}.`;
                 statusEl.className = 'action-status success';
+                updateOfferBadge();
                 
                 setTimeout(() => {
                     document.getElementById('make-offer-modal').classList.remove('active');
@@ -6329,6 +6551,7 @@
             if (offer.status !== 'pending') {
                 showMarketNotification('❌ Это предложение уже обработано!', 'error');
                 renderOffers();
+                updateOfferBadge();
                 return;
             }
             
@@ -6419,10 +6642,12 @@
                     offer.status = 'accepted';
                     await saveMarketData();
                     renderTransfers();
+                    updateOfferBadge();
                     
                 } else if (response === 'rejected') {
                     offer.status = 'rejected';
                     await saveMarketData();
+                    updateOfferBadge();
                     showMarketNotification(`❌ Предложение отклонено`, 'info');
                 }
                 
@@ -6496,6 +6721,8 @@
                 updateMarketUI();
                 renderTransfers();
                 if (marketState.currentCaptain) renderMyTeam();
+                updateOfferBadge();
+                if (adminLoggedIn) showAdminBalancePanel();
             });
             
             document.getElementById('team-request-btn-main').addEventListener('click', function() {
@@ -6800,6 +7027,14 @@
                     document.body.style.overflow = '';
                 }
             });
+            
+            // Делаем функции глобальными для HTML-вызовов
+            window.setTeamBalance = setTeamBalance;
+            window.addTeamBalance = addTeamBalance;
+            window.removeFromMarket = removeFromMarket;
+            window.buyPlayer = buyPlayer;
+            window.respondToOffer = respondToOffer;
+            window.openSellDialog = openSellDialog;
             
             console.log('✅ Сайт загружен!');
         });
