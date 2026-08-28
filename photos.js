@@ -74,7 +74,9 @@ const playstylePhotos = {
     pevec: "./Photos%20(2)/pevec.png",
     pan:   "./Photos%20(2)/pan.png",
     geniy: "./Photos%20(2)/genius.png",
-    otraz_silver: "./Photos%20(2)/otraz_silver.png"
+    otraz_silver: "./Photos%20(2)/otraz_silver.png",
+    far_silver: "./Photos%20(2)/far_silver.png",
+    far: "./Photos%20(2)/far.png",
 };
 
 // make pevec video available without declaring a duplicate const
