@@ -3440,6 +3440,70 @@
         .admin-balance-panel .balance-row .balance-btn.danger:hover {
             background: #c82333;
         }
+
+        /* Стили для метки "В аренде" */
+        .player-card.on-loan {
+            border: 3px solid #ff6b00 !important;
+            box-shadow: 0 0 25px rgba(255, 107, 0, 0.5) !important;
+            animation: loanPulse 2s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.on-loan {
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.6) !important;
+            border-color: #ff8c00 !important;
+        }
+        @keyframes loanPulse {
+            0% { box-shadow: 0 0 15px rgba(255, 107, 0, 0.3); }
+            100% { box-shadow: 0 0 35px rgba(255, 107, 0, 0.7); }
+        }
+        .player-card.on-loan::after {
+            content: "📋 В АРЕНДЕ";
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 900;
+            font-size: 0.55rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(255, 107, 0, 0.5);
+            z-index: 10;
+            border: 1px solid white;
+            letter-spacing: 0.5px;
+        }
+        .dark-theme .player-card.on-loan::after {
+            border-color: #2d3748;
+        }
+
+        .my-player-card.on-loan {
+            border-color: #ff6b00 !important;
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.3) !important;
+        }
+        .my-player-card.on-loan::after {
+            content: "📋 В АРЕНДЕ";
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 900;
+            font-size: 0.5rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .loan-tag {
+            display: inline-block;
+            background: #ff6b00;
+            color: white;
+            font-weight: 900;
+            font-size: 0.6rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -4136,7 +4200,6 @@
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' },
             'far': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади, предотвращая голы с дальней дистанции.' },
             'far_silver': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади, предотвращая голы с дальней дистанции.' }
-
         };
         
         const basePlayers = {
@@ -4282,6 +4345,12 @@
             offers: [] // { id, fromTeam, toTeam, playerId, type, price, comment, status, time, loanDays, loanPrice }
         };
         
+        // ============================================================
+        // НОВОЕ: Глобальное хранилище активных аренд
+        // ============================================================
+        let activeLoans = {}; // { playerId: { fromTeam, toTeam, endDate, loanPrice, startDate } }
+        const LOAN_CHECK_INTERVAL = 60000; // Проверка каждую минуту
+        
         const allPlayerIds = Object.keys(playersData);
         const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds];
         let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
@@ -4294,22 +4363,101 @@
         let currentEditingMatchId = null;
         let matchesData = [];
         
-        try {
-            const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
-            const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
+        // ============================================================
+        // НОВАЯ ФУНКЦИЯ: Проверка и возврат арендованных игроков
+        // ============================================================
+        function checkAndReturnLoans() {
+            const now = new Date();
+            let changed = false;
             
-            if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
-                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                console.log('✅ Supabase клиент создан');
-            } else {
-                console.warn('⚠️ Supabase SDK не загружен');
-                supabaseClient = null;
+            Object.keys(activeLoans).forEach(playerId => {
+                const loan = activeLoans[playerId];
+                const endDate = new Date(loan.endDate);
+                
+                if (now >= endDate) {
+                    // Возвращаем игрока
+                    const fromTeam = CAPTAINS[loan.fromTeam];
+                    const toTeam = CAPTAINS[loan.toTeam];
+                    
+                    if (fromTeam && toTeam) {
+                        // Удаляем из команды-арендатора
+                        const toIndex = toTeam.players.indexOf(playerId);
+                        if (toIndex !== -1) {
+                            toTeam.players.splice(toIndex, 1);
+                        }
+                        // Добавляем обратно владельцу
+                        if (!fromTeam.players.includes(playerId)) {
+                            fromTeam.players.push(playerId);
+                        }
+                        // Обновляем marketData
+                        marketData.players[playerId].team = loan.fromTeam;
+                        
+                        // Добавляем запись в историю
+                        const player = playersData[playerId];
+                        const transfer = {
+                            playerId: playerId,
+                            playerName: `${player.name} (возврат из аренды)`,
+                            playerIcon: player.icon || '⚽',
+                            fromTeam: loan.toTeam,
+                            toTeam: loan.fromTeam,
+                            price: 0,
+                            time: new Date().toISOString(),
+                            comment: `Автоматический возврат после ${Math.round((endDate - new Date(loan.startDate)) / (1000*60*60*24))} дней аренды`
+                        };
+                        marketState.transfers = marketState.transfers || [];
+                        marketState.transfers.unshift(transfer);
+                        if (marketState.transfers.length > 50) {
+                            marketState.transfers = marketState.transfers.slice(0, 50);
+                        }
+                        
+                        // Удаляем запись об аренде
+                        delete activeLoans[playerId];
+                        changed = true;
+                        
+                        // Уведомление
+                        showMarketNotification(`⏰ Аренда игрока ${player.name} завершена! Возврат в ${fromTeam.name}`, 'success');
+                    } else {
+                        // Если команды нет, просто удаляем запись
+                        delete activeLoans[playerId];
+                    }
+                }
+            });
+            
+            if (changed) {
+                saveMarketData();
+                updateMarketUI();
+                renderMyTeam();
+                renderTransfers();
+                updateOfferBadge();
             }
-        } catch (e) {
-            console.warn('⚠️ Ошибка создания Supabase клиента:', e);
-            supabaseClient = null;
         }
         
+        // ============================================================
+        // НОВАЯ ФУНКЦИЯ: Получение текущей команды игрока (с учётом аренды)
+        // ============================================================
+        function getPlayerCurrentTeam(playerId) {
+            // Если игрок в аренде, возвращаем команду-арендатора
+            if (activeLoans[playerId]) {
+                return activeLoans[playerId].toTeam;
+            }
+            // Иначе ищем в CAPTAINS
+            return Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId)) || null;
+        }
+        
+        // ============================================================
+        // НОВАЯ ФУНКЦИЯ: Проверка, находится ли игрок в аренде
+        // ============================================================
+        function isPlayerOnLoan(playerId) {
+            return !!activeLoans[playerId];
+        }
+        
+        // ============================================================
+        // НОВАЯ ФУНКЦИЯ: Получение информации об аренде игрока
+        // ============================================================
+        function getPlayerLoanInfo(playerId) {
+            return activeLoans[playerId] || null;
+        }
+
         async function loginCaptain(email, password) {
             try {
                 if (!supabaseClient) {
@@ -4447,7 +4595,6 @@
             }
         }
         
-        // Функция обновления красного кружка с количеством предложений
         function updateOfferBadge() {
             const badge = document.getElementById('offer-badge');
             if (!badge) return;
@@ -4470,6 +4617,41 @@
             }
         }
         
+        // ============================================================
+        // НОВАЯ ФУНКЦИЯ: Сохранение аренд в localStorage/Supabase
+        // ============================================================
+        function saveLoansData() {
+            try {
+                localStorage.setItem('activeLoans', JSON.stringify(activeLoans));
+            } catch (e) {
+                console.warn('Не удалось сохранить аренды в localStorage:', e);
+            }
+        }
+        
+        function loadLoansData() {
+            try {
+                const saved = localStorage.getItem('activeLoans');
+                if (saved) {
+                    activeLoans = JSON.parse(saved);
+                    // Проверяем и возвращаем просроченные аренды сразу
+                    const now = new Date();
+                    let changed = false;
+                    Object.keys(activeLoans).forEach(playerId => {
+                        const loan = activeLoans[playerId];
+                        if (new Date(loan.endDate) < now) {
+                            delete activeLoans[playerId];
+                            changed = true;
+                        }
+                    });
+                    if (changed) {
+                        saveLoansData();
+                    }
+                }
+            } catch (e) {
+                console.warn('Не удалось загрузить аренды из localStorage:', e);
+            }
+        }
+        
         async function saveMarketToSupabase() {
             try {
                 const data = {
@@ -4477,7 +4659,8 @@
                     transferList: marketState.transferList || [],
                     pendingTransfers: marketState.pendingTransfers || {},
                     transfers: marketState.transfers || [],
-                    offers: marketState.offers || []
+                    offers: marketState.offers || [],
+                    activeLoans: activeLoans || {}
                 };
                 
                 Object.keys(CAPTAINS).forEach(id => {
@@ -4498,6 +4681,7 @@
                     localStorage.setItem('marketData', JSON.stringify(data));
                     console.log('✅ Данные сохранены в localStorage');
                 }
+                saveLoansData();
                 return true;
             } catch (error) {
                 console.error('❌ Ошибка сохранения:', error);
@@ -4507,7 +4691,8 @@
                         transferList: marketState.transferList || [],
                         pendingTransfers: marketState.pendingTransfers || {},
                         transfers: marketState.transfers || [],
-                        offers: marketState.offers || []
+                        offers: marketState.offers || [],
+                        activeLoans: activeLoans || {}
                     };
                     Object.keys(CAPTAINS).forEach(id => {
                         data.teams[id] = {
@@ -4516,6 +4701,7 @@
                         };
                     });
                     localStorage.setItem('marketData', JSON.stringify(data));
+                    saveLoansData();
                     console.log('✅ Данные сохранены в localStorage (fallback)');
                     return true;
                 } catch (e) {
@@ -4528,6 +4714,7 @@
         async function loadMarketFromSupabase() {
             try {
                 console.log('🔄 Загрузка данных рынка...');
+                loadLoansData();
                 
                 if (!supabaseClient) {
                     console.warn('⚠️ Supabase не подключен');
@@ -4588,6 +4775,35 @@
             marketState.pendingTransfers = data.pendingTransfers || {};
             marketState.transfers = data.transfers || [];
             marketState.offers = data.offers || [];
+            
+            // Загрузка аренд
+            if (data.activeLoans) {
+                activeLoans = data.activeLoans;
+                // Проверка просроченных аренд
+                const now = new Date();
+                let changed = false;
+                Object.keys(activeLoans).forEach(playerId => {
+                    const loan = activeLoans[playerId];
+                    if (new Date(loan.endDate) < now) {
+                        // Возвращаем игрока
+                        const fromTeam = CAPTAINS[loan.fromTeam];
+                        const toTeam = CAPTAINS[loan.toTeam];
+                        if (fromTeam && toTeam) {
+                            const toIndex = toTeam.players.indexOf(playerId);
+                            if (toIndex !== -1) toTeam.players.splice(toIndex, 1);
+                            if (!fromTeam.players.includes(playerId)) {
+                                fromTeam.players.push(playerId);
+                            }
+                            marketData.players[playerId].team = loan.fromTeam;
+                        }
+                        delete activeLoans[playerId];
+                        changed = true;
+                    }
+                });
+                if (changed) {
+                    saveLoansData();
+                }
+            }
             
             if (marketState.transferList.length === 0) {
                 renderMarketEmpty('📭 На рынке нет игроков');
@@ -4677,12 +4893,24 @@
             container.innerHTML = html;
         }
         
+        // ============================================================
+        // ИЗМЕНЁННАЯ ФУНКЦИЯ: Покупка игрока (с проверкой аренды)
+        // ============================================================
         function buyPlayer(playerId, price, sellerId) {
             const captainTeamId = marketState.currentCaptain;
             if (!captainTeamId) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
                 return;
             }
+            
+            // Проверка: игрок в аренде?
+            if (isPlayerOnLoan(playerId)) {
+                const loanInfo = getPlayerLoanInfo(playerId);
+                const loanTeam = CAPTAINS[loanInfo.toTeam];
+                showMarketNotification(`❌ Игрок находится в аренде у ${loanTeam ? loanTeam.name : 'другой команды'}! Дождитесь окончания аренды.`, 'error');
+                return;
+            }
+            
             const buyerTeam = CAPTAINS[captainTeamId];
             const player = marketData.players[playerId];
             if (!player) { showMarketNotification('❌ Игрок не найден!', 'error'); return; }
@@ -4729,12 +4957,22 @@
             updateOfferBadge();
         }
         
+        // ============================================================
+        // ИЗМЕНЁННАЯ ФУНКЦИЯ: Продажа игрока (с проверкой аренды)
+        // ============================================================
         function sellPlayer(playerId, price) {
             const captainTeamId = marketState.currentCaptain;
             if (!captainTeamId) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
                 return;
             }
+            
+            // Проверка: игрок в аренде?
+            if (isPlayerOnLoan(playerId)) {
+                showMarketNotification('❌ Нельзя продать игрока, который находится в аренде!', 'error');
+                return;
+            }
+            
             const team = CAPTAINS[captainTeamId];
             const player = marketData.players[playerId];
             if (!player) { showMarketNotification('❌ Игрок не найден!', 'error'); return; }
@@ -4781,6 +5019,11 @@
         }
         
         function openSellDialog(playerId) {
+            // Проверка на аренду
+            if (isPlayerOnLoan(playerId)) {
+                showMarketNotification('❌ Нельзя продать игрока в аренде!', 'error');
+                return;
+            }
             const price = prompt('Введите цену для продажи (минимум 50 монет):', '500');
             if (price === null) return;
             const priceNum = parseInt(price);
@@ -4801,10 +5044,16 @@
             }
         }
         
+        // ============================================================
+        // ИЗМЕНЁННАЯ ФУНКЦИЯ: Обновление рынка (с учётом аренды)
+        // ============================================================
         function updateMarketUI() {
             const grid = document.getElementById('market-grid');
             const filterTeam = document.getElementById('market-filter-team').value;
             const filterPosition = document.getElementById('market-filter-position').value;
+            
+            // Проверяем просроченные аренды перед обновлением
+            checkAndReturnLoans();
             
             let filtered = [...marketState.transferList];
             if (filterTeam !== 'all') {
@@ -4816,6 +5065,9 @@
                     return p && p.position === filterPosition;
                 });
             }
+            
+            // Фильтруем игроков, которые в аренде (их нельзя купить, но они не должны отображаться на рынке)
+            filtered = filtered.filter(t => !isPlayerOnLoan(t.playerId));
             
             if (filtered.length === 0) {
                 grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#666;">
@@ -4853,6 +5105,9 @@
             grid.innerHTML = html;
         }
         
+        // ============================================================
+        // ИЗМЕНЁННАЯ ФУНКЦИЯ: Отображение моей команды (с учётом аренды)
+        // ============================================================
         function renderMyTeam() {
             const grid = document.getElementById('my-team-grid');
             const captainTeamId = marketState.currentCaptain;
@@ -4867,15 +5122,28 @@
                 const player = marketData.players[playerId];
                 if (!player) return;
                 const isOnMarket = !!marketState.pendingTransfers[playerId];
-                html += `<div class="my-player-card">
+                const isOnLoan = isPlayerOnLoan(playerId);
+                const loanInfo = isOnLoan ? getPlayerLoanInfo(playerId) : null;
+                const loanClass = isOnLoan ? 'on-loan' : '';
+                
+                let loanLabel = '';
+                if (isOnLoan && loanInfo) {
+                    const toTeam = CAPTAINS[loanInfo.toTeam];
+                    const endDate = new Date(loanInfo.endDate);
+                    const daysLeft = Math.ceil((endDate - new Date()) / (1000*60*60*24));
+                    loanLabel = `<span class="loan-tag">📋 В аренде у ${toTeam ? toTeam.name : 'другой команды'} (${daysLeft} дн.)</span>`;
+                }
+                
+                html += `<div class="my-player-card ${loanClass}">
                     ${getPlayerPhoto(playerId, 'player-photo-my')}
                     <h4>${player.name}</h4>
                     <p style="font-size:0.8rem;color:#666;">${player.position}</p>
                     <p style="font-weight:bold;">⭐ ${player.rating}</p>
-                    ${isOnMarket ? 
+                    ${loanLabel}
+                    ${isOnLoan ? '' : (isOnMarket ? 
                         `<span style="display:inline-block;background:#ffc107;padding:3px 12px;border-radius:20px;font-size:0.7rem;font-weight:bold;margin-top:5px;">📢 В продаже</span>` :
                         `<button class="sell-btn" onclick="openSellDialog('${playerId}')">📤 Выставить на продажу</button>`
-                    }
+                    )}
                 </div>`;
             });
             grid.innerHTML = html;
@@ -4919,10 +5187,11 @@
                     renderMyTeam();
                     updateBudgetDisplay();
                 }
-                // Если админ залогинен, показываем панель баланса
                 if (adminLoggedIn) {
                     showAdminBalancePanel();
                 }
+                // Запускаем периодическую проверку аренд
+                setInterval(checkAndReturnLoans, LOAN_CHECK_INTERVAL);
             });
         }
         
@@ -5050,6 +5319,10 @@
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
                 if (isBurmalda) cardClass += ' burmalda-player';
+                // Проверка на аренду для отображения
+                const isOnLoan = isPlayerOnLoan(id);
+                if (isOnLoan) cardClass += ' on-loan';
+                
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `
                     <div class="playstyles-section" id="playstyles-${id}">
@@ -5120,6 +5393,10 @@
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
                 if (isBurmalda) cardClass += ' burmalda-player';
+                
+                const isOnLoan = isPlayerOnLoan(id);
+                if (isOnLoan) cardClass += ' on-loan';
+                
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `
                     <div class="playstyles-section" id="playstyles-${id}">
@@ -5831,7 +6108,6 @@
             }
         }
 
-        // Показать админ-панель управления балансом
         function showAdminBalancePanel() {
             const panel = document.getElementById('admin-balance-panel');
             if (!adminLoggedIn) {
@@ -5857,7 +6133,6 @@
             });
         }
 
-        // Установить баланс команды
         async function setTeamBalance(teamId) {
             const input = document.getElementById(`balance-input-${teamId}`);
             if (!input) return;
@@ -5880,7 +6155,6 @@
             showMarketNotification(`✅ Баланс ${team.name} установлен на ${newBalance} монет!`, 'success');
         }
 
-        // Добавить/убавить баланс команды
         async function addTeamBalance(teamId, amount) {
             const input = document.getElementById(`balance-input-${teamId}`);
             const team = CAPTAINS[teamId];
@@ -6046,9 +6320,8 @@
             showMarketNotification('🗑️ Матч удален', 'success');
         }
 
-        // ==================== НОВЫЕ ФУНКЦИИ ДЛЯ РЫНКА ====================
+        // ==================== ФУНКЦИИ ДЛЯ РЫНКА ====================
 
-        // Перевод денег
         function openTransferMoney() {
             if (!marketState.currentCaptain) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
@@ -6125,7 +6398,6 @@
                 fromTeam.budget -= amount;
                 toTeam.budget += amount;
                 
-                // Записываем как трансфер (чтобы было в истории)
                 const transfer = {
                     playerId: 'transfer_money',
                     playerName: `💰 Перевод ${amount} монет`,
@@ -6166,7 +6438,6 @@
             }
         }
 
-        // Предложение по игроку (с арендой)
         function openMakeOffer() {
             if (!marketState.currentCaptain) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
@@ -6186,10 +6457,12 @@
             const select = document.getElementById('offer-player-select');
             select.innerHTML = '';
             
-            // Показываем игроков из других команд (не своей)
             const myTeam = CAPTAINS[marketState.currentCaptain];
             Object.keys(playersData).forEach(id => {
                 const player = playersData[id];
+                // Игрок не должен быть в аренде
+                if (isPlayerOnLoan(id)) return;
+                
                 const teamId = Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(id));
                 if (teamId && teamId !== marketState.currentCaptain) {
                     const opt = document.createElement('option');
@@ -6218,7 +6491,6 @@
                     loanPriceGroup.style.display = 'none';
                 }
             });
-            // Инициализация
             document.getElementById('offer-type').dispatchEvent(new Event('change'));
         }
 
@@ -6240,6 +6512,13 @@
             
             if (!playerId) {
                 statusEl.textContent = '❌ Выберите игрока!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            // Проверка: игрок не должен быть в аренде
+            if (isPlayerOnLoan(playerId)) {
+                statusEl.textContent = '❌ Игрок уже находится в аренде!';
                 statusEl.className = 'action-status error';
                 return;
             }
@@ -6293,7 +6572,7 @@
                     price: offerType === 'transfer' ? price : loanPrice,
                     loanDays: offerType === 'loan' ? loanDays : null,
                     comment: comment || '',
-                    status: 'pending', // pending, accepted, rejected
+                    status: 'pending',
                     time: new Date().toISOString()
                 };
                 
@@ -6321,7 +6600,6 @@
             }
         }
 
-        // Просмотр предложений
         function openViewOffers() {
             if (!marketState.currentCaptain) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
@@ -6345,9 +6623,7 @@
                 return;
             }
             
-            // Предложения, которые адресованы этому капитану (входящие)
             const incomingOffers = (marketState.offers || []).filter(o => o.toTeam === captainId && o.status === 'pending');
-            // Предложения, которые этот капитан отправил (исходящие)
             const outgoingOffers = (marketState.offers || []).filter(o => o.fromTeam === captainId);
             
             let html = '';
@@ -6426,6 +6702,9 @@
             container.innerHTML = html;
         }
 
+        // ============================================================
+        // ИЗМЕНЁННАЯ ФУНКЦИЯ: Обработка ответа на предложение (с арендой)
+        // ============================================================
         async function respondToOffer(offerId, response) {
             const offer = (marketState.offers || []).find(o => o.id === offerId);
             if (!offer) {
@@ -6448,7 +6727,6 @@
             
             try {
                 if (response === 'accepted') {
-                    // Принятие предложения
                     const fromTeam = CAPTAINS[offer.fromTeam];
                     const toTeam = CAPTAINS[offer.toTeam];
                     
@@ -6467,41 +6745,63 @@
                         toTeam.budget -= price;
                         fromTeam.budget += price;
                         
-                        // Перемещаем игрока
                         const fromIndex = fromTeam.players.indexOf(offer.playerId);
                         if (fromIndex !== -1) fromTeam.players.splice(fromIndex, 1);
                         toTeam.players.push(offer.playerId);
                         marketData.players[offer.playerId].team = offer.toTeam;
                         
-                        // Добавляем в историю трансферов
                         addTransfer(offer.playerId, offer.fromTeam, offer.toTeam, price);
                         
                         showMarketNotification(`✅ ${offer.playerName} куплен за ${price} монет!`, 'success');
                         updateBudgetDisplay();
                         renderMyTeam();
                         updateMarketUI();
+                        
                     } else if (offer.type === 'loan') {
-                        // Аренда с указанным сроком и ценой
+                        // ============================================
+                        // АРЕНДА: платит арендатор (toTeam), получает владелец (fromTeam)
+                        // ============================================
                         const price = offer.price || 0;
                         const days = offer.loanDays || 7;
                         
+                        // Проверка: игрок не должен быть уже в аренде
+                        if (isPlayerOnLoan(offer.playerId)) {
+                            showMarketNotification('❌ Игрок уже находится в аренде!', 'error');
+                            return;
+                        }
+                        
+                        // Проверка средств у арендатора
                         if (toTeam.budget < price) {
                             showMarketNotification(`❌ У вас недостаточно средств для аренды! Нужно ${price} монет.`, 'error');
                             return;
                         }
                         
-                        // Списываем деньги за аренду с арендатора
+                        // Списываем деньги с арендатора (toTeam)
                         toTeam.budget -= price;
-                        // Зачисляем деньги владельцу игрока
+                        // Зачисляем деньги владельцу (fromTeam)
                         fromTeam.budget += price;
                         
-                        // Перемещаем игрока (временная аренда)
+                        // Вычисляем дату окончания аренды
+                        const endDate = new Date();
+                        endDate.setDate(endDate.getDate() + days);
+                        
+                        // Записываем активную аренду
+                        activeLoans[offer.playerId] = {
+                            fromTeam: offer.fromTeam,
+                            toTeam: offer.toTeam,
+                            endDate: endDate.toISOString(),
+                            loanPrice: price,
+                            startDate: new Date().toISOString(),
+                            days: days
+                        };
+                        
+                        // Перемещаем игрока в команду-арендатора
                         const fromIndex = fromTeam.players.indexOf(offer.playerId);
                         if (fromIndex !== -1) fromTeam.players.splice(fromIndex, 1);
                         toTeam.players.push(offer.playerId);
                         marketData.players[offer.playerId].team = offer.toTeam;
                         
-                        // Добавляем в историю как аренду
+                        // Добавляем запись в историю
                         const transfer = {
                             playerId: offer.playerId,
                             playerName: `${offer.playerName} (аренда ${days} дней)`,
@@ -6510,7 +6810,7 @@
                             toTeam: offer.toTeam,
                             price: price,
                             time: new Date().toISOString(),
-                            comment: `Аренда на ${days} дней: ${offer.comment || ''}`
+                            comment: `Аренда на ${days} дней. Возврат: ${endDate.toLocaleDateString('ru-RU')}`
                         };
                         marketState.transfers = marketState.transfers || [];
                         marketState.transfers.unshift(transfer);
@@ -6518,9 +6818,13 @@
                             marketState.transfers = marketState.transfers.slice(0, 50);
                         }
                         
+                        // Сохраняем аренду
+                        saveLoansData();
+                        
                         showMarketNotification(`✅ ${offer.playerName} арендован на ${days} дней за ${price} монет!`, 'success');
                         updateBudgetDisplay();
                         renderMyTeam();
+                        updateMarketUI();
                         renderTransfers();
                     }
                     
@@ -6870,9 +7174,7 @@
                 openEditMatchModal(matchId);
             };
             
-            // ==================== НОВЫЕ ОБРАБОТЧИКИ ДЛЯ РЫНКА ====================
-            
-            // Перевод денег
+            // Обработчики для рынка
             document.getElementById('transfer-money-btn').addEventListener('click', openTransferMoney);
             document.getElementById('transfer-money-close').addEventListener('click', function() {
                 document.getElementById('transfer-money-modal').classList.remove('active');
@@ -6886,7 +7188,6 @@
             });
             document.getElementById('transfer-submit-btn').addEventListener('click', submitTransferMoney);
             
-            // Предложение по игроку
             document.getElementById('make-offer-btn').addEventListener('click', openMakeOffer);
             document.getElementById('make-offer-close').addEventListener('click', function() {
                 document.getElementById('make-offer-modal').classList.remove('active');
@@ -6900,7 +7201,6 @@
             });
             document.getElementById('offer-submit-btn').addEventListener('click', submitOffer);
             
-            // Просмотр предложений
             document.getElementById('view-offers-btn').addEventListener('click', openViewOffers);
             document.getElementById('view-offers-close').addEventListener('click', function() {
                 document.getElementById('view-offers-modal').classList.remove('active');
@@ -6913,15 +7213,17 @@
                 }
             });
             
-            // Делаем функции глобальными для HTML-вызовов
+            // Глобальные функции для HTML-вызовов
             window.setTeamBalance = setTeamBalance;
             window.addTeamBalance = addTeamBalance;
             window.removeFromMarket = removeFromMarket;
             window.buyPlayer = buyPlayer;
             window.respondToOffer = respondToOffer;
             window.openSellDialog = openSellDialog;
+            window.isPlayerOnLoan = isPlayerOnLoan;
+            window.getPlayerLoanInfo = getPlayerLoanInfo;
             
-            console.log('✅ Сайт загружен!');
+            console.log('✅ Сайт загружен! Система аренды активна.');
         });
     </script>
 </body>
