@@ -2,13 +2,11 @@
 
 const playerPhotos = {
     raya: "./Photos%20(2)/raya.jpg",
-    maradona: "./Photos%20(2)/maradona.jpg",
-    batrakov: "./Photos%20(2)/kravchenko.jpg",
+    batrakov: "./Photos%20(2)/IMG_0764.jpeg",
     maxim: "./Photos%20(2)/IMG_0755.jpeg",
     andryushka: "./Photos%20(2)/andryushka.jpg",
     lesha_podavalny: "./Photos%20(2)/IMG_0749.jpeg",
     aleksey_doroshenko: "./Photos%20(2)/IMG_0748.jpeg",
-    elanga: "./Photos%20(2)/IMG_0754.jpeg",
     haaland: "./Photos%20(2)/haaland.jpg",
     matvey: "./Photos%20(2)/IMG_0753.jpeg",
     saveliy_78: "./Photos%20(2)/428c5276bfde4da78046d2cf8b735755.jpg",
@@ -18,7 +16,6 @@ const playerPhotos = {
     demid: "./Photos%20(2)/IMG_0752.jpeg",
     saldaevk: "./Photos%20(2)/saldK.jpg",
     saldaevd: "./Photos%20(2)/saldD.jpg",
-    vladimirova: "./Photos%20(2)/vladA.png",
     tankov: "./Photos%20(2)/DC2EE9E5-C247-4920-8D56-02213ECDEB6D.webp",
     sanya_bobrikov: "./Photos%20(2)/0C4CE6E9-38D5-4C38-9E92-B7E68933B6B2.webp",
     russkov_artem: "./Photos%20(2)/Russkov.jpg",
@@ -30,7 +27,8 @@ const playerPhotos = {
     maxronaldo: "./Photos%20(2)/IMG_0815.jpeg",
     egor: "./Photos%20(2)/egor.jpeg",
     shilov: "./Photos%20(2)/shilov.jpg",
-    khalturin: "./Photos%20(2)/6a2197972af4b_640x640.jpg"
+    khalturin: "./Photos%20(2)/6a2197972af4b_640x640.jpg",
+    safonov: "./Photos%20(2)/IMG_0873.jpeg",
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
