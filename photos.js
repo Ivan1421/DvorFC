@@ -2,7 +2,7 @@
 
 const playerPhotos = {
     raya: "./Photos%20(2)/raya.jpg",
-    batrakov: "./Photos%20(2)/IMG_0764.jpeg",
+    batrakov: "./Photos%20(2)/IMG_0864.jpeg",
     maxim: "./Photos%20(2)/IMG_0755.jpeg",
     andryushka: "./Photos%20(2)/andryushka.jpg",
     lesha_podavalny: "./Photos%20(2)/IMG_0749.jpeg",
