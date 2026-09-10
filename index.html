@@ -293,7 +293,6 @@
             color: #4dabf7;
         }
         
-        /* Красный кружок с количеством предложений */
         .offer-badge {
             position: absolute;
             top: -8px;
@@ -1466,9 +1465,6 @@
             border-color: #000;
         }
 
-        /* ============================================
-           СТИЛИ ДЛЯ МАТЧЕЙ (ИСПРАВЛЕННЫЕ)
-           ============================================ */
         .match-teams {
             display: flex;
             align-items: center;
@@ -1517,7 +1513,6 @@
             color: #f0f0f0;
         }
         
-        /* ===== СЧЕТ - БОЛЬШОЙ И ЖИРНЫЙ ===== */
         .match-score {
             display: flex;
             align-items: center;
@@ -1953,7 +1948,6 @@
             font-weight: bold;
         }
         
-        /* ===== АДАПТИВ ДЛЯ МАТЧЕЙ ===== */
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -1985,7 +1979,6 @@
             .playstyle-detail-icon { width: 160px; height: 160px; font-size: 4rem; border-width: 5px; }
             .playstyle-detail-name { font-size: 1.6rem; }
             
-            /* Адаптив матчей */
             .match-teams { gap: 10px; }
             .team { min-width: 55px; max-width: 85px; }
             .team-logo { width: 55px; height: 55px; padding: 4px; border-width: 2px; }
@@ -2024,7 +2017,6 @@
             .playstyle-icon { width: 56px; height: 56px; font-size: 1.4rem; border-width: 3px; }
             .playstyle-detail-icon { width: 130px; height: 130px; font-size: 3.2rem; border-width: 4px; }
             
-            /* Адаптив матчей для телефонов */
             .match-teams { gap: 6px; }
             .team { min-width: 45px; max-width: 70px; }
             .team-logo { width: 45px; height: 45px; padding: 3px; border-width: 2px; }
@@ -3234,7 +3226,6 @@
             color: #dc3545;
         }
         
-        /* Стили для модальных окон рыночных функций */
         .market-action-modal .modal {
             max-width: 500px;
         }
@@ -3371,7 +3362,6 @@
             background: #c82333;
         }
         
-        /* Стили для админ-панели управления балансом */
         .admin-balance-panel {
             background: #f0f8ff;
             border-radius: 12px;
@@ -3439,6 +3429,69 @@
         }
         .admin-balance-panel .balance-row .balance-btn.danger:hover {
             background: #c82333;
+        }
+
+        .player-card.on-loan {
+            border: 3px solid #ff6b00 !important;
+            box-shadow: 0 0 25px rgba(255, 107, 0, 0.5) !important;
+            animation: loanPulse 2s ease-in-out infinite alternate !important;
+        }
+        .dark-theme .player-card.on-loan {
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.6) !important;
+            border-color: #ff8c00 !important;
+        }
+        @keyframes loanPulse {
+            0% { box-shadow: 0 0 15px rgba(255, 107, 0, 0.3); }
+            100% { box-shadow: 0 0 35px rgba(255, 107, 0, 0.7); }
+        }
+        .player-card.on-loan::after {
+            content: "📋 В АРЕНДЕ";
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 900;
+            font-size: 0.55rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(255, 107, 0, 0.5);
+            z-index: 10;
+            border: 1px solid white;
+            letter-spacing: 0.5px;
+        }
+        .dark-theme .player-card.on-loan::after {
+            border-color: #2d3748;
+        }
+
+        .my-player-card.on-loan {
+            border-color: #ff6b00 !important;
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.3) !important;
+        }
+        .my-player-card.on-loan::after {
+            content: "📋 В АРЕНДЕ";
+            position: absolute;
+            bottom: -6px;
+            right: -6px;
+            background: #ff6b00;
+            color: white;
+            font-weight: 900;
+            font-size: 0.5rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .loan-tag {
+            display: inline-block;
+            background: #ff6b00;
+            color: white;
+            font-weight: 900;
+            font-size: 0.6rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -3735,7 +3788,6 @@
                         </button>
                     </div>
                     
-                    <!-- Админ-панель управления балансом -->
                     <div class="admin-balance-panel" id="admin-balance-panel" style="display: none;">
                         <h4>💰 Управление балансами клубов (Админ)</h4>
                         <div id="balance-teams-container"></div>
@@ -3986,7 +4038,6 @@
         </div>
     </div>
     
-    <!-- Модальное окно для перевода денег -->
     <div class="modal-overlay market-action-modal" id="transfer-money-modal">
         <div class="modal">
             <button class="modal-close-btn" id="transfer-money-close">×</button>
@@ -4008,7 +4059,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для предложения по игроку -->
     <div class="modal-overlay market-action-modal" id="make-offer-modal">
         <div class="modal">
             <button class="modal-close-btn" id="make-offer-close">×</button>
@@ -4045,7 +4095,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для просмотра предложений -->
     <div class="modal-overlay market-action-modal" id="view-offers-modal">
         <div class="modal">
             <button class="modal-close-btn" id="view-offers-close">×</button>
@@ -4091,6 +4140,10 @@
     <script src="photos.js"></script>
 
     <script>
+        // ============================================================
+        // КОНСТАНТЫ И ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+        // ============================================================
+        
         const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'maxim', 'raya', 'tankov'];
         const burmaldaPlayerIds = [];
         
@@ -4136,39 +4189,42 @@
             'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' },
             'far': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади, предотвращая голы с дальней дистанции.' },
             'far_silver': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади, предотвращая голы с дальней дистанции.' }
-
         };
         
         const basePlayers = {
             raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 94, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz','far'], playstyleColors: {vihod: "gold", otraz: "gold",far: "gold"} },
             maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "55 кг", rating: 94, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
-            batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 91, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
+            batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 90, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
             andryushka: { name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
             lesha_podavalny: { name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 90, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
-            aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 96, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
+            aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 97, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
             tankov: { name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 92, number: "(99)", description: "", playstyles: [], playstyleColors: {} },
             matvey: { name: "Слащев Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 88, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
             artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "59 кг", rating: 81, number: "(98)", description: "В его весовой он один", playstyles: [], playstyleColors: {} },
+            saldaevk: { name: "Салдаев Кирилл", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(23)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold"} },
+            saldaevd: { name: "Салдаев Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 93, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold"} },
             vanya: { name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
             russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
             shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
             bombar: { name: "Бомбарь", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
             mes: { name: "Мес", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях меса", playstyles: ["borec_silver","otraz"], playstyleColors: {borec_silver: "silver", otraz: "gold"} },
+            Maxim30: { name: "Максим Захаров", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "53 кг", rating: 94, number: "(30)", description: "Вратарь Металлург", playstyles: ["otraz","vihod"], playstyleColors: {} },
+            EgorNast: { name: "Егор Настоящий", position: "Полузащитник", age: "11 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "45 кг", rating: 83, number: "(7)", description: "Луксмаксер двора", playstyles: [], playstyleColors: {} }
         };
         
         const yard78Players = [
-            { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 95, number: "(7)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-            { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 96, number: "(11)", description: "Нападающий ФК 78 ", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
-            { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 91, number: "(5)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-            { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 95, number: "(1)", description: "Вратарь ФК 78 ", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold"},far: "gold" },
-            { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 91, number: "(76)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
+            { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 91, number: "(7)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
+            { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 92, number: "(11)", description: "Нападающий ФК 78 ", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
+            { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 89, number: "(5)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
+            { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 94, number: "(1)", description: "Вратарь ФК 78 ", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold"},far: "gold" },
+            { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 88, number: "(76)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
             { id: "ostap", name: "Остап", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "158 см", weight: "55 кг", rating: 1, number: "(67)", description: "Единица в рейтинге, потому что топ-1 в Кемерово", playstyles: [], playstyleColors: {} },
-            { id: "elisey", name: "Пожидаев Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "Второй Ямаль", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
+            { id: "Maxim30", name: "Максим Захаров", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "53 кг", rating: 94, number: "(30)", description: "Вратарь Металлург", playstyles: ["otraz","vihod"], playstyleColors: {} },
+            { id: "elisey", name: "Пожидаев Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 88, number: "(19)", description: "Второй Ямаль", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
             { id: "sanych", name: "Саныч", position: "Тренер", age: "? лет", icon: "⚽", foot: "Правая", height: "? см", weight: "? кг", rating: 85, number: "(0)", description: "Играющий тренер ФК 78", playstyles: [], playstyleColors: {} },
             { id: "demid", name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
             { id: "lesha_podavalny", name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 90, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
-            { id: "safonov", name: "Сафонов Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 92, number: "(20)", description: "Однофамилец вратаря ПСЖ", playstyles: ['tiki_taka'], playstyleColors: {tiki_taka: 'gold'} },
         ];
         
         const yuzhkaPlayers = [
@@ -4177,7 +4233,7 @@
             { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
             { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
             { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
-            { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 90, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
+            { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
             { id: "diana", name: "Диана Епончинцева", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} },
         ];
 
@@ -4191,6 +4247,7 @@
             { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "60 кг", rating: 67, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
             { id: "EgorNast", name: "Зверев Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "50 кг", rating: 67, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
             { id: "maxronaldo", name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 77, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
+            { id: "haaland", name: "Шапов Леонид", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 87, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} },
         ];
         
         const playersData = { ...basePlayers };
@@ -4274,9 +4331,18 @@
             transferList: [],
             pendingTransfers: {},
             transfers: [],
-            offers: [] // { id, fromTeam, toTeam, playerId, type, price, comment, status, time, loanDays, loanPrice }
+            offers: []
         };
         
+        // ============================================================
+        // АРЕНДЫ
+        // ============================================================
+        let activeLoans = {};
+        const LOAN_CHECK_INTERVAL = 60000;
+        
+        // ============================================================
+        // ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+        // ============================================================
         const allPlayerIds = Object.keys(playersData);
         const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds];
         let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
@@ -4289,6 +4355,9 @@
         let currentEditingMatchId = null;
         let matchesData = [];
         
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ SUPABASE
+        // ============================================================
         try {
             const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
             const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
@@ -4305,6 +4374,107 @@
             supabaseClient = null;
         }
         
+        // ============================================================
+        // ФУНКЦИИ РАБОТЫ С АРЕНДАМИ
+        // ============================================================
+        function checkAndReturnLoans() {
+            const now = new Date();
+            let changed = false;
+            
+            Object.keys(activeLoans).forEach(playerId => {
+                const loan = activeLoans[playerId];
+                const endDate = new Date(loan.endDate);
+                
+                if (now >= endDate) {
+                    const fromTeam = CAPTAINS[loan.fromTeam];
+                    const toTeam = CAPTAINS[loan.toTeam];
+                    
+                    if (fromTeam && toTeam) {
+                        const toIndex = toTeam.players.indexOf(playerId);
+                        if (toIndex !== -1) toTeam.players.splice(toIndex, 1);
+                        if (!fromTeam.players.includes(playerId)) {
+                            fromTeam.players.push(playerId);
+                        }
+                        marketData.players[playerId].team = loan.fromTeam;
+                        
+                        const player = playersData[playerId];
+                        const transfer = {
+                            playerId: playerId,
+                            playerName: `${player.name} (возврат из аренды)`,
+                            playerIcon: player.icon || '⚽',
+                            fromTeam: loan.toTeam,
+                            toTeam: loan.fromTeam,
+                            price: 0,
+                            time: new Date().toISOString(),
+                            comment: `Автоматический возврат после аренды`
+                        };
+                        marketState.transfers = marketState.transfers || [];
+                        marketState.transfers.unshift(transfer);
+                        if (marketState.transfers.length > 50) {
+                            marketState.transfers = marketState.transfers.slice(0, 50);
+                        }
+                        
+                        delete activeLoans[playerId];
+                        changed = true;
+                        
+                        showMarketNotification(`⏰ Аренда игрока ${player.name} завершена! Возврат в ${fromTeam.name}`, 'success');
+                    } else {
+                        delete activeLoans[playerId];
+                    }
+                }
+            });
+            
+            if (changed) {
+                saveMarketData();
+                updateMarketUI();
+                renderMyTeam();
+                renderTransfers();
+                updateOfferBadge();
+            }
+        }
+        
+        function isPlayerOnLoan(playerId) {
+            return !!activeLoans[playerId];
+        }
+        
+        function getPlayerLoanInfo(playerId) {
+            return activeLoans[playerId] || null;
+        }
+        
+        function saveLoansData() {
+            try {
+                localStorage.setItem('activeLoans', JSON.stringify(activeLoans));
+            } catch (e) {
+                console.warn('Не удалось сохранить аренды в localStorage:', e);
+            }
+        }
+        
+        function loadLoansData() {
+            try {
+                const saved = localStorage.getItem('activeLoans');
+                if (saved) {
+                    activeLoans = JSON.parse(saved);
+                    const now = new Date();
+                    let changed = false;
+                    Object.keys(activeLoans).forEach(playerId => {
+                        const loan = activeLoans[playerId];
+                        if (new Date(loan.endDate) < now) {
+                            delete activeLoans[playerId];
+                            changed = true;
+                        }
+                    });
+                    if (changed) {
+                        saveLoansData();
+                    }
+                }
+            } catch (e) {
+                console.warn('Не удалось загрузить аренды из localStorage:', e);
+            }
+        }
+        
+        // ============================================================
+        // ФУНКЦИИ АВТОРИЗАЦИИ
+        // ============================================================
         async function loginCaptain(email, password) {
             try {
                 if (!supabaseClient) {
@@ -4442,7 +4612,9 @@
             }
         }
         
-        // Функция обновления красного кружка с количеством предложений
+        // ============================================================
+        // ФУНКЦИИ РЫНКА
+        // ============================================================
         function updateOfferBadge() {
             const badge = document.getElementById('offer-badge');
             if (!badge) return;
@@ -4472,7 +4644,8 @@
                     transferList: marketState.transferList || [],
                     pendingTransfers: marketState.pendingTransfers || {},
                     transfers: marketState.transfers || [],
-                    offers: marketState.offers || []
+                    offers: marketState.offers || [],
+                    activeLoans: activeLoans || {}
                 };
                 
                 Object.keys(CAPTAINS).forEach(id => {
@@ -4493,6 +4666,7 @@
                     localStorage.setItem('marketData', JSON.stringify(data));
                     console.log('✅ Данные сохранены в localStorage');
                 }
+                saveLoansData();
                 return true;
             } catch (error) {
                 console.error('❌ Ошибка сохранения:', error);
@@ -4502,7 +4676,8 @@
                         transferList: marketState.transferList || [],
                         pendingTransfers: marketState.pendingTransfers || {},
                         transfers: marketState.transfers || [],
-                        offers: marketState.offers || []
+                        offers: marketState.offers || [],
+                        activeLoans: activeLoans || {}
                     };
                     Object.keys(CAPTAINS).forEach(id => {
                         data.teams[id] = {
@@ -4511,6 +4686,7 @@
                         };
                     });
                     localStorage.setItem('marketData', JSON.stringify(data));
+                    saveLoansData();
                     console.log('✅ Данные сохранены в localStorage (fallback)');
                     return true;
                 } catch (e) {
@@ -4523,6 +4699,7 @@
         async function loadMarketFromSupabase() {
             try {
                 console.log('🔄 Загрузка данных рынка...');
+                loadLoansData();
                 
                 if (!supabaseClient) {
                     console.warn('⚠️ Supabase не подключен');
@@ -4583,6 +4760,32 @@
             marketState.pendingTransfers = data.pendingTransfers || {};
             marketState.transfers = data.transfers || [];
             marketState.offers = data.offers || [];
+            
+            if (data.activeLoans) {
+                activeLoans = data.activeLoans;
+                const now = new Date();
+                let changed = false;
+                Object.keys(activeLoans).forEach(playerId => {
+                    const loan = activeLoans[playerId];
+                    if (new Date(loan.endDate) < now) {
+                        const fromTeam = CAPTAINS[loan.fromTeam];
+                        const toTeam = CAPTAINS[loan.toTeam];
+                        if (fromTeam && toTeam) {
+                            const toIndex = toTeam.players.indexOf(playerId);
+                            if (toIndex !== -1) toTeam.players.splice(toIndex, 1);
+                            if (!fromTeam.players.includes(playerId)) {
+                                fromTeam.players.push(playerId);
+                            }
+                            marketData.players[playerId].team = loan.fromTeam;
+                        }
+                        delete activeLoans[playerId];
+                        changed = true;
+                    }
+                });
+                if (changed) {
+                    saveLoansData();
+                }
+            }
             
             if (marketState.transferList.length === 0) {
                 renderMarketEmpty('📭 На рынке нет игроков');
@@ -4678,6 +4881,14 @@
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
                 return;
             }
+            
+            if (isPlayerOnLoan(playerId)) {
+                const loanInfo = getPlayerLoanInfo(playerId);
+                const loanTeam = CAPTAINS[loanInfo.toTeam];
+                showMarketNotification(`❌ Игрок находится в аренде у ${loanTeam ? loanTeam.name : 'другой команды'}! Дождитесь окончания аренды.`, 'error');
+                return;
+            }
+            
             const buyerTeam = CAPTAINS[captainTeamId];
             const player = marketData.players[playerId];
             if (!player) { showMarketNotification('❌ Игрок не найден!', 'error'); return; }
@@ -4730,6 +4941,12 @@
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
                 return;
             }
+            
+            if (isPlayerOnLoan(playerId)) {
+                showMarketNotification('❌ Нельзя продать игрока, который находится в аренде!', 'error');
+                return;
+            }
+            
             const team = CAPTAINS[captainTeamId];
             const player = marketData.players[playerId];
             if (!player) { showMarketNotification('❌ Игрок не найден!', 'error'); return; }
@@ -4776,6 +4993,10 @@
         }
         
         function openSellDialog(playerId) {
+            if (isPlayerOnLoan(playerId)) {
+                showMarketNotification('❌ Нельзя продать игрока в аренде!', 'error');
+                return;
+            }
             const price = prompt('Введите цену для продажи (минимум 50 монет):', '500');
             if (price === null) return;
             const priceNum = parseInt(price);
@@ -4801,6 +5022,8 @@
             const filterTeam = document.getElementById('market-filter-team').value;
             const filterPosition = document.getElementById('market-filter-position').value;
             
+            checkAndReturnLoans();
+            
             let filtered = [...marketState.transferList];
             if (filterTeam !== 'all') {
                 filtered = filtered.filter(t => t.seller === filterTeam);
@@ -4811,6 +5034,8 @@
                     return p && p.position === filterPosition;
                 });
             }
+            
+            filtered = filtered.filter(t => !isPlayerOnLoan(t.playerId));
             
             if (filtered.length === 0) {
                 grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#666;">
@@ -4862,15 +5087,28 @@
                 const player = marketData.players[playerId];
                 if (!player) return;
                 const isOnMarket = !!marketState.pendingTransfers[playerId];
-                html += `<div class="my-player-card">
+                const isOnLoan = isPlayerOnLoan(playerId);
+                const loanInfo = isOnLoan ? getPlayerLoanInfo(playerId) : null;
+                const loanClass = isOnLoan ? 'on-loan' : '';
+                
+                let loanLabel = '';
+                if (isOnLoan && loanInfo) {
+                    const toTeam = CAPTAINS[loanInfo.toTeam];
+                    const endDate = new Date(loanInfo.endDate);
+                    const daysLeft = Math.ceil((endDate - new Date()) / (1000*60*60*24));
+                    loanLabel = `<span class="loan-tag">📋 В аренде у ${toTeam ? toTeam.name : 'другой команды'} (${daysLeft} дн.)</span>`;
+                }
+                
+                html += `<div class="my-player-card ${loanClass}">
                     ${getPlayerPhoto(playerId, 'player-photo-my')}
                     <h4>${player.name}</h4>
                     <p style="font-size:0.8rem;color:#666;">${player.position}</p>
                     <p style="font-weight:bold;">⭐ ${player.rating}</p>
-                    ${isOnMarket ? 
+                    ${loanLabel}
+                    ${isOnLoan ? '' : (isOnMarket ? 
                         `<span style="display:inline-block;background:#ffc107;padding:3px 12px;border-radius:20px;font-size:0.7rem;font-weight:bold;margin-top:5px;">📢 В продаже</span>` :
                         `<button class="sell-btn" onclick="openSellDialog('${playerId}')">📤 Выставить на продажу</button>`
-                    }
+                    )}
                 </div>`;
             });
             grid.innerHTML = html;
@@ -4904,6 +5142,10 @@
             el._timeout = setTimeout(() => el.classList.remove('show'), 3000);
         }
         
+        function saveMarketData() {
+            saveMarketToSupabase();
+        }
+        
         function initMarket() {
             loadMarketFromSupabase().then(() => {
                 updateTeamSelects();
@@ -4914,17 +5156,16 @@
                     renderMyTeam();
                     updateBudgetDisplay();
                 }
-                // Если админ залогинен, показываем панель баланса
                 if (adminLoggedIn) {
                     showAdminBalancePanel();
                 }
+                setInterval(checkAndReturnLoans, LOAN_CHECK_INTERVAL);
             });
         }
         
-        function saveMarketData() {
-            saveMarketToSupabase();
-        }
-        
+        // ============================================================
+        // ФУНКЦИИ ИГРОКОВ И ПЛЕЙСТАЙЛОВ
+        // ============================================================
         function hasPlaystyles(playerId) {
             const player = playersData[playerId];
             return player && player.playstyles && player.playstyles.length > 0;
@@ -5033,6 +5274,9 @@
             });
         }
         
+        // ============================================================
+        // ОТРИСОВКА ИГРОКОВ
+        // ============================================================
         function renderMainPlayerCards() {
             const container = document.getElementById('players-grid-container');
             if (!container) return;
@@ -5045,6 +5289,9 @@
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
                 if (isBurmalda) cardClass += ' burmalda-player';
+                const isOnLoan = isPlayerOnLoan(id);
+                if (isOnLoan) cardClass += ' on-loan';
+                
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `
                     <div class="playstyles-section" id="playstyles-${id}">
@@ -5115,6 +5362,10 @@
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
                 if (isBurmalda) cardClass += ' burmalda-player';
+                
+                const isOnLoan = isPlayerOnLoan(id);
+                if (isOnLoan) cardClass += ' on-loan';
+                
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `
                     <div class="playstyles-section" id="playstyles-${id}">
@@ -5315,6 +5566,9 @@
             document.body.style.overflow = 'hidden';
         }
         
+        // ============================================================
+        // ФУНКЦИИ МАТЧЕЙ
+        // ============================================================
         function renderMatchTactics(matchNum) {
             const data = matchTacticsData[matchNum];
             if (!data) return;
@@ -5475,6 +5729,9 @@
             window.scrollTo(0, 0);
         }
         
+        // ============================================================
+        // ФУНКЦИИ ЗАЯВОК
+        // ============================================================
         let teamRequestPlayers = [];
 
         function renderTeamRequestPlayers() {
@@ -5608,6 +5865,9 @@
             }
         }
 
+        // ============================================================
+        // ФУНКЦИИ МАТЧЕЙ (ЗАГРУЗКА/СОХРАНЕНИЕ)
+        // ============================================================
         async function loadMatches() {
             try {
                 if (!supabaseClient) {
@@ -5749,6 +6009,9 @@
             });
         }
 
+        // ============================================================
+        // АДМИНИСТРИРОВАНИЕ
+        // ============================================================
         async function adminLogin(email, password) {
             try {
                 if (!supabaseClient) {
@@ -5826,7 +6089,6 @@
             }
         }
 
-        // Показать админ-панель управления балансом
         function showAdminBalancePanel() {
             const panel = document.getElementById('admin-balance-panel');
             if (!adminLoggedIn) {
@@ -5852,7 +6114,6 @@
             });
         }
 
-        // Установить баланс команды
         async function setTeamBalance(teamId) {
             const input = document.getElementById(`balance-input-${teamId}`);
             if (!input) return;
@@ -5875,7 +6136,6 @@
             showMarketNotification(`✅ Баланс ${team.name} установлен на ${newBalance} монет!`, 'success');
         }
 
-        // Добавить/убавить баланс команды
         async function addTeamBalance(teamId, amount) {
             const input = document.getElementById(`balance-input-${teamId}`);
             const team = CAPTAINS[teamId];
@@ -6041,9 +6301,9 @@
             showMarketNotification('🗑️ Матч удален', 'success');
         }
 
-        // ==================== НОВЫЕ ФУНКЦИИ ДЛЯ РЫНКА ====================
-
-        // Перевод денег
+        // ============================================================
+        // ФУНКЦИИ РЫНКА (ПЕРЕВОДЫ, ПРЕДЛОЖЕНИЯ)
+        // ============================================================
         function openTransferMoney() {
             if (!marketState.currentCaptain) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
@@ -6120,7 +6380,6 @@
                 fromTeam.budget -= amount;
                 toTeam.budget += amount;
                 
-                // Записываем как трансфер (чтобы было в истории)
                 const transfer = {
                     playerId: 'transfer_money',
                     playerName: `💰 Перевод ${amount} монет`,
@@ -6161,7 +6420,6 @@
             }
         }
 
-        // Предложение по игроку (с арендой)
         function openMakeOffer() {
             if (!marketState.currentCaptain) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
@@ -6181,10 +6439,11 @@
             const select = document.getElementById('offer-player-select');
             select.innerHTML = '';
             
-            // Показываем игроков из других команд (не своей)
             const myTeam = CAPTAINS[marketState.currentCaptain];
             Object.keys(playersData).forEach(id => {
                 const player = playersData[id];
+                if (isPlayerOnLoan(id)) return;
+                
                 const teamId = Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(id));
                 if (teamId && teamId !== marketState.currentCaptain) {
                     const opt = document.createElement('option');
@@ -6213,7 +6472,6 @@
                     loanPriceGroup.style.display = 'none';
                 }
             });
-            // Инициализация
             document.getElementById('offer-type').dispatchEvent(new Event('change'));
         }
 
@@ -6235,6 +6493,12 @@
             
             if (!playerId) {
                 statusEl.textContent = '❌ Выберите игрока!';
+                statusEl.className = 'action-status error';
+                return;
+            }
+            
+            if (isPlayerOnLoan(playerId)) {
+                statusEl.textContent = '❌ Игрок уже находится в аренде!';
                 statusEl.className = 'action-status error';
                 return;
             }
@@ -6288,7 +6552,7 @@
                     price: offerType === 'transfer' ? price : loanPrice,
                     loanDays: offerType === 'loan' ? loanDays : null,
                     comment: comment || '',
-                    status: 'pending', // pending, accepted, rejected
+                    status: 'pending',
                     time: new Date().toISOString()
                 };
                 
@@ -6316,7 +6580,6 @@
             }
         }
 
-        // Просмотр предложений
         function openViewOffers() {
             if (!marketState.currentCaptain) {
                 showMarketNotification('❌ Сначала войдите как капитан!', 'error');
@@ -6340,9 +6603,7 @@
                 return;
             }
             
-            // Предложения, которые адресованы этому капитану (входящие)
             const incomingOffers = (marketState.offers || []).filter(o => o.toTeam === captainId && o.status === 'pending');
-            // Предложения, которые этот капитан отправил (исходящие)
             const outgoingOffers = (marketState.offers || []).filter(o => o.fromTeam === captainId);
             
             let html = '';
@@ -6421,6 +6682,9 @@
             container.innerHTML = html;
         }
 
+        // ============================================================
+        // ОБРАБОТКА ПРЕДЛОЖЕНИЙ (С АРЕНДОЙ)
+        // ============================================================
         async function respondToOffer(offerId, response) {
             const offer = (marketState.offers || []).find(o => o.id === offerId);
             if (!offer) {
@@ -6443,12 +6707,10 @@
             
             try {
                 if (response === 'accepted') {
-                    // Принятие предложения
                     const fromTeam = CAPTAINS[offer.fromTeam];
                     const toTeam = CAPTAINS[offer.toTeam];
                     
                     if (offer.type === 'transfer') {
-                        // Покупка
                         const price = offer.price || 0;
                         if (toTeam.budget < price) {
                             showMarketNotification(`❌ У вас недостаточно средств! Нужно ${price} монет.`, 'error');
@@ -6462,41 +6724,55 @@
                         toTeam.budget -= price;
                         fromTeam.budget += price;
                         
-                        // Перемещаем игрока
                         const fromIndex = fromTeam.players.indexOf(offer.playerId);
                         if (fromIndex !== -1) fromTeam.players.splice(fromIndex, 1);
                         toTeam.players.push(offer.playerId);
                         marketData.players[offer.playerId].team = offer.toTeam;
                         
-                        // Добавляем в историю трансферов
                         addTransfer(offer.playerId, offer.fromTeam, offer.toTeam, price);
                         
                         showMarketNotification(`✅ ${offer.playerName} куплен за ${price} монет!`, 'success');
                         updateBudgetDisplay();
                         renderMyTeam();
                         updateMarketUI();
+                        
                     } else if (offer.type === 'loan') {
-                        // Аренда с указанным сроком и ценой
+                        // ============================================
+                        // АРЕНДА: платит арендатор (toTeam), получает владелец (fromTeam)
+                        // ============================================
                         const price = offer.price || 0;
                         const days = offer.loanDays || 7;
+                        
+                        if (isPlayerOnLoan(offer.playerId)) {
+                            showMarketNotification('❌ Игрок уже находится в аренде!', 'error');
+                            return;
+                        }
                         
                         if (toTeam.budget < price) {
                             showMarketNotification(`❌ У вас недостаточно средств для аренды! Нужно ${price} монет.`, 'error');
                             return;
                         }
                         
-                        // Списываем деньги за аренду с арендатора
                         toTeam.budget -= price;
-                        // Зачисляем деньги владельцу игрока
                         fromTeam.budget += price;
                         
-                        // Перемещаем игрока (временная аренда)
+                        const endDate = new Date();
+                        endDate.setDate(endDate.getDate() + days);
+                        
+                        activeLoans[offer.playerId] = {
+                            fromTeam: offer.fromTeam,
+                            toTeam: offer.toTeam,
+                            endDate: endDate.toISOString(),
+                            loanPrice: price,
+                            startDate: new Date().toISOString(),
+                            days: days
+                        };
+                        
                         const fromIndex = fromTeam.players.indexOf(offer.playerId);
                         if (fromIndex !== -1) fromTeam.players.splice(fromIndex, 1);
                         toTeam.players.push(offer.playerId);
                         marketData.players[offer.playerId].team = offer.toTeam;
                         
-                        // Добавляем в историю как аренду
                         const transfer = {
                             playerId: offer.playerId,
                             playerName: `${offer.playerName} (аренда ${days} дней)`,
@@ -6505,7 +6781,7 @@
                             toTeam: offer.toTeam,
                             price: price,
                             time: new Date().toISOString(),
-                            comment: `Аренда на ${days} дней: ${offer.comment || ''}`
+                            comment: `Аренда на ${days} дней. Возврат: ${endDate.toLocaleDateString('ru-RU')}`
                         };
                         marketState.transfers = marketState.transfers || [];
                         marketState.transfers.unshift(transfer);
@@ -6513,9 +6789,12 @@
                             marketState.transfers = marketState.transfers.slice(0, 50);
                         }
                         
+                        saveLoansData();
+                        
                         showMarketNotification(`✅ ${offer.playerName} арендован на ${days} дней за ${price} монет!`, 'success');
                         updateBudgetDisplay();
                         renderMyTeam();
+                        updateMarketUI();
                         renderTransfers();
                     }
                     
@@ -6539,6 +6818,9 @@
             }
         }
 
+        // ============================================================
+        // ЗАГРУЗКА СТРАНИЦЫ
+        // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-theme');
@@ -6865,9 +7147,6 @@
                 openEditMatchModal(matchId);
             };
             
-            // ==================== НОВЫЕ ОБРАБОТЧИКИ ДЛЯ РЫНКА ====================
-            
-            // Перевод денег
             document.getElementById('transfer-money-btn').addEventListener('click', openTransferMoney);
             document.getElementById('transfer-money-close').addEventListener('click', function() {
                 document.getElementById('transfer-money-modal').classList.remove('active');
@@ -6881,7 +7160,6 @@
             });
             document.getElementById('transfer-submit-btn').addEventListener('click', submitTransferMoney);
             
-            // Предложение по игроку
             document.getElementById('make-offer-btn').addEventListener('click', openMakeOffer);
             document.getElementById('make-offer-close').addEventListener('click', function() {
                 document.getElementById('make-offer-modal').classList.remove('active');
@@ -6895,7 +7173,6 @@
             });
             document.getElementById('offer-submit-btn').addEventListener('click', submitOffer);
             
-            // Просмотр предложений
             document.getElementById('view-offers-btn').addEventListener('click', openViewOffers);
             document.getElementById('view-offers-close').addEventListener('click', function() {
                 document.getElementById('view-offers-modal').classList.remove('active');
@@ -6908,15 +7185,16 @@
                 }
             });
             
-            // Делаем функции глобальными для HTML-вызовов
             window.setTeamBalance = setTeamBalance;
             window.addTeamBalance = addTeamBalance;
             window.removeFromMarket = removeFromMarket;
             window.buyPlayer = buyPlayer;
             window.respondToOffer = respondToOffer;
             window.openSellDialog = openSellDialog;
+            window.isPlayerOnLoan = isPlayerOnLoan;
+            window.getPlayerLoanInfo = getPlayerLoanInfo;
             
-            console.log('✅ Сайт загружен!');
+            console.log('✅ Сайт загружен! Система аренды активна.');
         });
     </script>
 </body>
