@@ -3532,6 +3532,11 @@
                         <div class="button-title">Рынок</div>
                         <div class="button-description">Трансферы и покупки</div>
                     </div>
+                        <div class="main-button" id="rules-btn">
+                        <div class="button-icon">📜</div>
+                        <div class="button-title">Регламент</div>
+                        <div class="button-description">Регламент лиги</div>
+                    </div>
                 </div>
                 
                 <div class="action-buttons-row">
@@ -3770,6 +3775,12 @@
                                 <div id="captain-name" style="font-weight: bold;">Не авторизован</div>
                                 <div class="budget-display" id="budget-display">💰 0 монет</div>
                             </div>
+          <div id="rules-page" class="page">
+                <button class="back-button" id="back-from-rules">← Назад к главной</button>
+                <div class="rules-container" id="rules-container">
+                    <h2>Регламент ДФЛ</h2>
+                    <div id="rules-list"></div>
+                </div>
                         </div>
                         <div class="login-section" id="login-section">
                             <input type="text" id="login-input" placeholder="Email..." style="display: none;">
@@ -4225,7 +4236,7 @@
             { id: "sanych", name: "Саныч", position: "Тренер", age: "? лет", icon: "⚽", foot: "Правая", height: "? см", weight: "? кг", rating: 85, number: "(0)", description: "Играющий тренер ФК 78", playstyles: [], playstyleColors: {} },
             { id: "demid", name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
             { id: "lesha_podavalny", name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 90, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
-             { id: "safonov", name: "Сафонов Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 92, number: "(20)", description: "Однофамилец вратаря ПСЖ", playstyles: ['tiki_taka'], playstyleColors: {tiki_taka: 'gold'} },
+            { id: "safonov", name: "Сафонов Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 92, number: "(20)", description: "Однофамилец вратаря ПСЖ", playstyles: ['tiki_taka'], playstyleColors: {tiki_taka: 'gold'} },
         ];
         
         const yuzhkaPlayers = [
@@ -6107,9 +6118,9 @@
                     <label>${team.name}</label>
                     <input type="number" id="balance-input-${team.id}" value="${team.budget}" min="0">
                     <button class="balance-btn" onclick="setTeamBalance('${team.id}')">💾 Установить</button>
-                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 100)">➕ 100</button>
+                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 75)">➕ 75</button>
                     <button class="balance-btn" onclick="addTeamBalance('${team.id}', 500)">➕ 500</button>
-                    <button class="balance-btn danger" onclick="addTeamBalance('${team.id}', -100)">➖ 100</button>
+                    <button class="balance-btn danger" onclick="addTeamBalance('${team.id}', -75)">➖ 75</button>
                 `;
                 container.appendChild(row);
             });
