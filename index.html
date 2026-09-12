@@ -3202,8 +3202,6 @@ footer {
             'otraz_silver': { name: 'Отражение', description: 'Вратарь обладает способностью отбивать мяч далеко, в стороны и в более безопасные зоны.' },
             'bombardir_silver': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
             'bombardir': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
-            'penalty_silver': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
-            'penalty': { name: 'Пенальтист', description: 'Игрок демонстрирует исключительную точность при исполнении пенальти.' },
             'parashut': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
             'parashut_silver': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
             'tiki_taka_silver': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
@@ -3219,7 +3217,6 @@ footer {
             'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
             'pevec': { name: 'Певец', description: '' },
             'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
-            'geniy': { name: 'Гений', description: 'Игрок имеет невероятное количество IQ: <span class="iq-counter" id="iq-counter">0</span>' },
             'far': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади, предотвращая голы с дальней дистанции.' },
             'far_silver': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади, предотвращая голы с дальней дистанции.' }
         };
@@ -3234,8 +3231,6 @@ footer {
             tankov: { name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 92, number: "(99)", description: "", playstyles: [], playstyleColors: {} },
             matvey: { name: "Слащев Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 88, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
             artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "59 кг", rating: 81, number: "(98)", description: "В его весовой он один", playstyles: [], playstyleColors: {} },
-            saldaevk: { name: "Салдаев Кирилл", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 92, number: "(23)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold"} },
-            saldaevd: { name: "Салдаев Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "48 кг", rating: 93, number: "(24)", description: "Братское комбо", playstyles: ['truk_gold','tiki_taka'], playstyleColors: {truk_gold: "gold", tiki_taka: "gold"} },
             vanya: { name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
             russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
@@ -3252,9 +3247,7 @@ footer {
             { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 91, number: "(5)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
             { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 95, number: "(1)", description: "Вратарь ФК 78 ", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold"},far: "gold" },
             { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 91, number: "(76)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-            { id: "ostap", name: "Остап", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "158 см", weight: "55 кг", rating: 1, number: "(67)", description: "Единица в рейтинге, потому что топ-1 в Кемерово", playstyles: [], playstyleColors: {} },
             { id: "elisey", name: "Пожидаев Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "Второй Ямаль", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
-            { id: "sanych", name: "Саныч", position: "Тренер", age: "? лет", icon: "⚽", foot: "Правая", height: "? см", weight: "? кг", rating: 85, number: "(0)", description: "Играющий тренер ФК 78", playstyles: [], playstyleColors: {} },
             { id: "demid", name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
             { id: "lesha_podavalny", name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 90, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
             { id: "safonov", name: "Сафонов Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 93, number: "(20)", description: "Однофамилец вратаря ПСЖ", playstyles: ['tiki_taka'], playstyleColors: {tiki_taka: 'gold'} },
@@ -3266,7 +3259,6 @@ footer {
             { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 94, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
             { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
             { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
-            { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
             { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
             { id: "diana", name: "Диана Епончинцева", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} },
         ];
@@ -3275,6 +3267,7 @@ footer {
             { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
             { id: "gleb", name: "Глеб", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
             { id: "kostya", name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
+            { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
         ];
 
         const psgPlayers = [
