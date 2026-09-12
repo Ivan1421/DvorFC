@@ -1947,7 +1947,87 @@
             color: #a855f7;
             font-weight: bold;
         }
-        
+
+        /* Регламент */
+        .rules-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            border: 3px solid #0066cc;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark-theme .rules-container {
+            background: #2d3748;
+            border-color: #4dabf7;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .rules-container h2 {
+            color: #0066cc;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+        .dark-theme .rules-container h2 {
+            color: #4dabf7;
+        }
+        .rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .rule-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px 20px;
+            border-left: 5px solid #0066cc;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #333;
+        }
+        .dark-theme .rule-item {
+            background: #374151;
+            border-left-color: #4dabf7;
+            color: #f0f0f0;
+        }
+        .rule-item .rule-num {
+            font-weight: 900;
+            color: #0066cc;
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        .dark-theme .rule-item .rule-num {
+            color: #4dabf7;
+        }
+        .rule-item .rule-highlight {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .dark-theme .rule-item .rule-highlight {
+            color: #ff6b6b;
+        }
+        .rules-warning {
+            margin-top: 25px;
+            padding: 18px 20px;
+            background: #fff3cd;
+            border: 2px dashed #ffc107;
+            border-radius: 12px;
+            color: #856404;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+        .dark-theme .rules-warning {
+            background: #664d03;
+            border-color: #ffd43b;
+            color: #ffd8a8;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 15px; }
             h1 { font-size: 2.2rem; }
@@ -2007,6 +2087,9 @@
             .action-btn.tiktok .btn-icon { font-size: 1.4rem; }
             .main-button .new-badge { font-size: 0.6rem; padding: 2px 10px; top: -8px; right: -8px; }
             .offer-badge { min-width: 18px; height: 18px; font-size: 0.6rem; top: -6px; right: -6px; }
+            .rules-container { padding: 20px 15px; }
+            .rules-container h2 { font-size: 1.4rem; }
+            .rule-item { padding: 12px 15px; font-size: 0.95rem; }
         }
         
         @media (max-width: 480px) {
@@ -2039,6 +2122,8 @@
             .action-btn { padding: 10px 18px; font-size: 0.9rem; gap: 8px; }
             .main-button .new-badge { font-size: 0.5rem; padding: 2px 8px; top: -6px; right: -6px; }
             .offer-badge { min-width: 16px; height: 16px; font-size: 0.55rem; top: -5px; right: -5px; }
+            .rules-container h2 { font-size: 1.2rem; }
+            .rule-item { font-size: 0.9rem; padding: 10px 12px; }
         }
         
         @media (max-width: 380px) {
@@ -3764,8 +3849,12 @@
                 <button class="back-button" id="back-from-rules">← Назад к главной</button>
                 <div class="rules-container" id="rules-container">
                     <h2>|          📜 Регламент ДФЛ          |</h2>
-                    <div id="rules-list"></div>
+                    <div class="rules-list" id="rules-list"></div>
+                    <div class="rules-warning">
+                        ⚠️ При критической ситуации (отсутствие игроков) можно нарушить правила 1.1 и 2.
+                    </div>
                 </div>
+            </div>
             
             <div id="market-page" class="page">
                 <button class="back-button" id="back-from-market">← Назад к главной</button>
@@ -6781,12 +6870,13 @@
                         toTeam.players.push(offer.playerId);
                         marketData.players[offer.playerId].team = offer.toTeam;
                         
+                        // ---- ИСПРАВЛЕНИЕ: стрелка от команды-владельца к команде-арендатору ----
                         const transfer = {
                             playerId: offer.playerId,
                             playerName: `${offer.playerName} (аренда ${days} дней)`,
                             playerIcon: offer.playerIcon || '⚽',
-                            fromTeam: offer.fromTeam,
-                            toTeam: offer.toTeam,
+                            fromTeam: offer.fromTeam,      // кто отдаёт
+                            toTeam: offer.toTeam,          // кто берёт
                             price: price,
                             time: new Date().toISOString(),
                             comment: `Аренда на ${days} дней. Возврат: ${endDate.toLocaleDateString('ru-RU')}`
@@ -6830,6 +6920,29 @@
         // ЗАГРУЗКА СТРАНИЦЫ
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
+            // Регламент
+            const rulesData = [
+                { num: '1.1', text: 'Аренда игрока осуществляется минимум на 7 дней, аренда «на один матч» не возможна.' },
+                { num: '1.2', text: 'Во время аренды игрока могут выставить на рынке, по истечении срока аренды игрок переходит в команду, купившую его.' },
+                { num: '2', text: 'На мере (оба поля) формат игры 4х4. На Краснухе, 78, 90, и т.д. формат 5х5.' },
+                { num: '3', text: 'При критической ситуации (отсутствие игроков) можно нарушить правила 1.1 и 2.' },
+                { num: '4', text: 'За выигрыш в осн. время победителям 75 монет, по пенальти победителям 50, проигравшим 25. За техническое поражение у проигравшей команды списываются 75 монет.' },
+                { num: '5', text: 'Командам 1-ого уровня (ПСЖ, Арсенал) запрещено проводить официальные матчи с командами 2-ого уровня (ФК МЕРА, ФК 78, ФК Южный).' },
+                { num: '6', text: 'Все матчи проводятся по времени, которое фиксирует отдельный человек или судья.' },
+                { num: '7', text: 'Мяч в первом тайме сводят хозяева, если матч проходит на нейтральном поле, происходит жеребьевка.' },
+                { num: '8.1', text: 'При покупке игрока на рынке разрешения игрока не требуется, однако покупающей команде стоит учесть, что игрок может «сливать» матчи, если он не хочет быть в команде.' },
+                { num: '8.2', text: 'Уйти из клуба «бесплатно» игроку разрешается, однако после этого «ухода» игрок не сможет играть за другую команду.' }
+            ];
+
+            const rulesList = document.getElementById('rules-list');
+            if (rulesList) {
+                let rulesHtml = '';
+                rulesData.forEach(rule => {
+                    rulesHtml += `<div class="rule-item"><span class="rule-num">${rule.num}.</span> ${rule.text}</div>`;
+                });
+                rulesList.innerHTML = rulesHtml;
+            }
+
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-theme');
                 document.getElementById('theme-toggle').textContent = '☀️';
