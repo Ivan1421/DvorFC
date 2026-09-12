@@ -15,6 +15,99 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
  <style>
+    /* ============================================================
+   ПРЕЛОАДЕР
+   ============================================================ */
+#preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .5s ease, visibility .5s ease;
+}
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.preloader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 24px;
+    text-align: center;
+}
+.preloader-ball {
+    color: var(--accent);
+    animation: preloaderSpin 2s cubic-bezier(.6,.05,.4,.95) infinite;
+    filter: drop-shadow(0 6px 16px rgba(0,102,204,.35));
+}
+.preloader-ball svg {
+    display: block;
+    width: 64px;
+    height: 64px;
+}
+@keyframes preloaderSpin {
+    0% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(180deg) translateY(-8px); }
+    100% { transform: rotate(360deg) translateY(0); }
+}
+.preloader-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -.01em;
+}
+.preloader-bar {
+    width: 180px;
+    height: 4px;
+    background: var(--accent-soft);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+}
+.preloader-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--grad);
+    border-radius: 999px;
+    transition: width .25s ease;
+}
+.preloader-status {
+    font-size: .78rem;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+/* Пока идёт загрузка — прячем анимации карточек, чтобы они не «дёргались» */
+body.preloading .main-button,
+body.preloading .player-card,
+body.preloading .match-card,
+body.preloading .yard-card,
+body.preloading .rule-item,
+body.preloading .news-item,
+body.preloading .transfer-item,
+body.preloading .market-player-card {
+    animation: none !important;
+}
+
+/* На слабых устройствах отключаем backdrop-filter — он самый тяжёлый */
+@media (max-width: 768px) {
+    .modal-overlay,
+    .playstyle-detail-overlay,
+    .secret-overlay {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
 /* ============================================================
    ДИЗАЙН-СИСТЕМА
    ============================================================ */
@@ -2411,6 +2504,22 @@ footer {
 </style>
 </head>
 <body>
+    <div id="preloader">
+    <div class="preloader-inner">
+        <div class="preloader-ball">
+            <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="32" cy="32" r="28"/>
+                <path d="M32 4 L38 18 L54 18 L42 30 L48 46 L32 38 L16 46 L22 30 L10 18 L26 18 Z" fill="currentColor" fill-opacity="0.15"/>
+                <path d="M32 4 L38 18 L54 18 L42 30 L48 46 L32 38 L16 46 L22 30 L10 18 L26 18 Z"/>
+            </svg>
+        </div>
+        <div class="preloader-title">Дворовая Футбольная Лига</div>
+        <div class="preloader-bar">
+            <div class="preloader-bar-fill" id="preloader-fill"></div>
+        </div>
+        <div class="preloader-status" id="preloader-status">Загрузка...</div>
+    </div>
+</div>
     <button class="theme-toggle" id="theme-toggle">🌙</button>
     <div class="container">
         <header>
@@ -6156,7 +6265,94 @@ footer {
             window.openSellDialog = openSellDialog;
             window.isPlayerOnLoan = isPlayerOnLoan;
             window.getPlayerLoanInfo = getPlayerLoanInfo;
-            
+            // ============================================================
+// ПРЕЛОАДЕР: предзагружаем картинки, шрифты, ждём «успокоения»
+// ============================================================
+(async function runPreloader() {
+    const preloader = document.getElementById('preloader');
+    const fill = document.getElementById('preloader-fill');
+    const status = document.getElementById('preloader-status');
+
+    if (!preloader) return;
+
+    document.body.classList.add('preloading');
+
+    // Собираем все URL картинок, которые есть на сайте
+    const imageUrls = new Set();
+
+    // 1) Фото игроков
+    if (typeof playerPhotos !== 'undefined' && playerPhotos) {
+        Object.values(playerPhotos).forEach(u => u && imageUrls.add(u));
+    }
+
+    // 2) Фото плейстайлов
+    if (typeof playstylePhotos !== 'undefined' && playstylePhotos) {
+        Object.values(playstylePhotos).forEach(u => u && imageUrls.add(u));
+    }
+
+    // 3) Логотипы команд + og-image (из <meta>)
+    document.querySelectorAll('img').forEach(img => {
+        if (img.src) imageUrls.add(img.src);
+    });
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage && ogImage.content) {
+        imageUrls.add(new URL(ogImage.content, location.href).href);
+    }
+
+    const urls = Array.from(imageUrls).filter(Boolean);
+    const total = urls.length || 1;
+    let loaded = 0;
+
+    const updateProgress = (text) => {
+        const pct = Math.min(100, Math.round((loaded / total) * 100));
+        if (fill) fill.style.width = pct + '%';
+        if (status && text) status.textContent = text;
+    };
+
+    updateProgress('Загрузка ресурсов...');
+
+    // Функция предзагрузки одной картинки (через Image() — не блокирует DOM)
+    const preloadImage = (url) => new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+            loaded++;
+            updateProgress(`Загрузка ресурсов... ${loaded}/${total}`);
+            resolve();
+        };
+        img.src = url;
+    });
+
+    // Грузим все картинки параллельно (батчами, чтобы не задушить мобилку)
+    const BATCH = 6;
+    for (let i = 0; i < urls.length; i += BATCH) {
+        const batch = urls.slice(i, i + BATCH);
+        await Promise.all(batch.map(preloadImage));
+    }
+
+    // Ждём шрифты, если поддерживается
+    updateProgress('Загрузка шрифтов...');
+    try {
+        if (document.fonts && document.fonts.ready) {
+            await document.fonts.ready;
+        }
+    } catch (e) { /* игнорируем */ }
+
+    // Даём браузеру 2 кадра, чтобы он успел «успокоиться» перед анимациями
+    updateProgress('Почти готово...');
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+    // Небольшая пауза для плавности
+    await new Promise(r => setTimeout(r, 250));
+
+    // Скрываем прелоадер
+    preloader.classList.add('hidden');
+    document.body.classList.remove('preloading');
+
+    // Через 600мс полностью убираем из DOM, чтобы не мешал
+    setTimeout(() => {
+        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+    }, 600);
+})();
             console.log('✅ Сайт загружен! Система аренды активна.');
         });
     </script>
