@@ -3203,7 +3203,6 @@ footer {
             'bombardir_silver': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
             'bombardir': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
             'parashut': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
-            'parashut_silver': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
             'tiki_taka_silver': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
             'tiki_taka': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
             'prostrel_silver': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
@@ -3233,14 +3232,8 @@ footer {
             artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "59 кг", rating: 81, number: "(98)", description: "В его весовой он один", playstyles: [], playstyleColors: {} },
             vanya: { name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
-            russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
-            shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
-            bombar: { name: "Бомбарь", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
-            mes: { name: "Мес", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях меса", playstyles: ["borec_silver","otraz"], playstyleColors: {borec_silver: "silver", otraz: "gold"} },
-            Maxim30: { name: "Максим Захаров", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "170 см", weight: "53 кг", rating: 94, number: "(30)", description: "Вратарь Металлург", playstyles: ["otraz","vihod"], playstyleColors: {} },
-            EgorNast: { name: "Егор Настоящий", position: "Полузащитник", age: "11 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "45 кг", rating: 83, number: "(7)", description: "Луксмаксер двора", playstyles: [], playstyleColors: {} }
-        };
-        
+            }
+            
         const yard78Players = [
             { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 95, number: "(7)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
             { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 96, number: "(11)", description: "Нападающий ФК 78 ", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
@@ -5881,7 +5874,7 @@ footer {
                 { num: '4.1', text: 'При несогласии с решением судьи и подобных случаях команда имеет право подать апелляцию.' },
                 { num: '5.1', text: 'Если игрок не проявляет никакой активности в ДФЛ в течение 2 месяцев, его карта будет заморожена и не будет видна во вкладке команд.' },
                 { num: '5.2', text: 'Требования к игроку для регистрации: возраст 9-16 лет, не имеет значительных проблем со здоровьем (инвалидность, психические расстройства и т.д.), не был до этого в ДФЛ.' },
-                { num: '5.3', text: 'Регистрация игрока обходится команде бесплатно, в случае, если игрок до этого не играл в ДФЛ и не был дисквалифицирован.' },
+                { num: '5.3', text: 'Регистрация игрока обходится команде в 75 монет, в случае, если игрок до этого не играл в ДФЛ и не был дисквалифицирован.' },
                 { num: '5.4', text: 'Требования к судье: не играет ни за одну играющую в матче команду, знает правила и не болеет за какую либо команду, играющую в матче, с его назначением согласны обе команды.' },
                 { num: '5.5', text: 'Каждый человек, проходящий требования к игроку/судье, имеет право быть игроком/судьей в матче.' },
                 { num: '6.1', text: 'За распространение заведомо ложной информации о месте, времени, формате, условиях матча, которое привело к изменениям, отмене мтача, предполагается ответственность.' },
