@@ -40,13 +40,8 @@
 .preloader-ball {
     color: var(--accent);
     animation: preloaderSpin 2s cubic-bezier(.6,.05,.4,.95) infinite;
-    filter: drop-shadow(0 6px 16px rgba(0,102,204,.35));
 }
-.preloader-ball svg {
-    display: block;
-    width: 64px;
-    height: 64px;
-}
+.preloader-ball svg { display: block; width: 64px; height: 64px; }
 @keyframes preloaderSpin {
     0% { transform: rotate(0deg) translateY(0); }
     50% { transform: rotate(180deg) translateY(-8px); }
@@ -59,7 +54,6 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -.01em;
 }
 .preloader-bar {
     width: 180px;
@@ -67,7 +61,6 @@
     background: var(--accent-soft);
     border-radius: 999px;
     overflow: hidden;
-    position: relative;
 }
 .preloader-bar-fill {
     width: 0%;
@@ -76,12 +69,7 @@
     border-radius: 999px;
     transition: width .25s ease;
 }
-.preloader-status {
-    font-size: .78rem;
-    color: var(--muted);
-    font-weight: 700;
-    letter-spacing: .3px;
-}
+.preloader-status { font-size: .78rem; color: var(--muted); font-weight: 700; }
 
 body.preloading .main-button,
 body.preloading .player-card,
@@ -90,9 +78,7 @@ body.preloading .yard-card,
 body.preloading .rule-item,
 body.preloading .news-item,
 body.preloading .transfer-item,
-body.preloading .market-player-card {
-    animation: none !important;
-}
+body.preloading .market-player-card { animation: none !important; }
 
 @media (max-width: 768px) {
     .modal-overlay,
@@ -185,13 +171,8 @@ h1 {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: all .3s ease;
 }
-.subtitle {
-    font-size: 1rem;
-    color: var(--muted);
-    margin-top: 4px;
-}
+.subtitle { font-size: 1rem; color: var(--muted); margin-top: 4px; }
 
 .top-bar-btn {
     position: fixed;
@@ -381,10 +362,7 @@ h1 {
     user-select: none;
     position: relative;
 }
-.action-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-}
+.action-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 .action-btn:active { transform: scale(.96); }
 
 .action-btn.tiktok {
@@ -396,7 +374,6 @@ h1 {
     text-shadow: 0 0 12px rgba(255,255,255,.4);
 }
 .action-btn.tiktok span { color: #fff !important; }
-.action-btn.tiktok:hover { transform: translateY(-3px) scale(1.03); }
 @keyframes tiktokGradient {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
@@ -422,7 +399,6 @@ h1 {
     user-select: none;
 }
 .back-button:hover { transform: translateX(-4px); box-shadow: var(--shadow-md); }
-.back-button:active { transform: translateX(-1px) scale(.97); }
 
 .players-controls,
 .matches-container,
@@ -460,7 +436,6 @@ h1 {
     background: var(--card);
     color: var(--text);
     font-family: inherit;
-    transition: box-shadow .2s;
 }
 #player-search:focus { box-shadow: 0 0 0 4px rgba(0,102,204,.15); }
 #player-search::placeholder { color: var(--muted); }
@@ -489,7 +464,6 @@ h1 {
 }
 .sort-btn.active { background: var(--accent); color: #fff; }
 .sort-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-.sort-btn:active { transform: scale(.96); }
 .players-count {
     text-align: right;
     font-size: .82rem;
@@ -521,18 +495,7 @@ h1 {
     animation: cardIn .45s cubic-bezier(.2,.8,.2,1) backwards;
     overflow: hidden;
 }
-.player-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%);
-    transform: translateX(-100%);
-    transition: transform .6s;
-    pointer-events: none;
-}
-.player-card:hover::before { transform: translateX(100%); }
 .player-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-.player-card:active { transform: translateY(-1px) scale(.98); }
 .player-photo {
     width: 76px;
     height: 76px;
@@ -545,10 +508,8 @@ h1 {
     overflow: hidden;
     font-size: 2rem;
     background: var(--bg-2);
-    transition: transform .3s, border-color .3s;
     flex-shrink: 0;
 }
-.player-card:hover .player-photo { transform: scale(1.06) rotate(-3deg); }
 .player-photo img {
     width: 100%;
     height: 100%;
@@ -556,12 +517,7 @@ h1 {
     display: block;
 }
 .player-info { width: 100%; }
-.player-info h3 {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--accent);
-    margin-bottom: 2px;
-}
+.player-info h3 { font-size: 1.05rem; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
 .player-info p { color: var(--muted); font-size: .82rem; }
 .player-number {
     display: inline-block;
@@ -612,7 +568,6 @@ h1 {
     padding: 3px 32px;
     transform: rotate(-45deg);
     letter-spacing: .4px;
-    box-shadow: 0 3px 10px rgba(142,68,173,.4);
     z-index: 5;
 }
 .player-card.mera-player .player-info h3 { color: #8e44ad; }
@@ -637,30 +592,20 @@ h1 {
     font-size: .58rem;
     padding: 3px 30px;
     transform: rotate(45deg);
-    letter-spacing: .4px;
     z-index: 5;
 }
 
 .yard-mera-theme .player-card { border-color: #8e44ad; }
 .yard-mera-theme .player-card .player-info h3 { color: #8e44ad; }
 .yard-mera-theme .player-card .stat-value { color: #8e44ad; }
-.yard-mera-theme .player-card .player-number { background: #f5eaff; color: #8e44ad; }
 .yard-78-theme .player-card { border-color: #8e44ad; }
 .yard-78-theme .player-card .player-info h3 { color: #8e44ad; }
-.yard-78-theme .player-card .stat-value { color: #8e44ad; }
-.yard-78-theme .player-card .player-number { background: #f5eaff; color: #8e44ad; }
 .yard-yuzhka-theme .player-card { border-color: #32cd32; }
 .yard-yuzhka-theme .player-card .player-info h3 { color: #32cd32; }
-.yard-yuzhka-theme .player-card .stat-value { color: #32cd32; }
-.yard-yuzhka-theme .player-card .player-number { background: #eaffea; color: #32cd32; }
 .yard-arsenal-theme .player-card { border-color: #dc3545; }
 .yard-arsenal-theme .player-card .player-info h3 { color: #dc3545; }
-.yard-arsenal-theme .player-card .stat-value { color: #dc3545; }
-.yard-arsenal-theme .player-card .player-number { background: #ffecec; color: #dc3545; }
 .yard-psg-theme .player-card { border-color: #0d6efd; }
 .yard-psg-theme .player-card .player-info h3 { color: #0d6efd; }
-.yard-psg-theme .player-card .stat-value { color: #0d6efd; }
-.yard-psg-theme .player-card .player-number { background: #eaf3ff; color: #0d6efd; }
 
 .playstyles-section {
     margin-top: 12px;
@@ -697,33 +642,13 @@ h1 {
     cursor: pointer;
     transition: transform .25s, box-shadow .25s;
     overflow: hidden;
-    position: relative;
 }
-.playstyle-icon.silver {
-    border-color: #c0c0c0;
-    box-shadow: 0 0 12px rgba(192,192,192,.4);
-}
-.playstyle-icon:hover {
-    transform: scale(1.15) rotate(4deg);
-    box-shadow: 0 0 22px rgba(255,215,0,.8);
-}
-.playstyle-icon.silver:hover { box-shadow: 0 0 22px rgba(192,192,192,.8); }
-.playstyle-icon:active { transform: scale(.95); }
-.playstyle-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 6px;
-}
+.playstyle-icon.silver { border-color: #c0c0c0; box-shadow: 0 0 12px rgba(192,192,192,.4); }
+.playstyle-icon:hover { transform: scale(1.15) rotate(4deg); box-shadow: 0 0 22px rgba(255,215,0,.8); }
+.playstyle-icon img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
 .playstyles-section-hidden { display: none !important; }
 
-.matches-container h2 {
-    color: var(--accent);
-    text-align: center;
-    margin-bottom: 18px;
-    font-size: 1.5rem;
-    font-weight: 800;
-}
+.matches-container h2 { color: var(--accent); text-align: center; margin-bottom: 18px; font-size: 1.5rem; font-weight: 800; }
 .match-card {
     position: relative;
     background: var(--card);
@@ -734,11 +659,8 @@ h1 {
     cursor: pointer;
     margin-bottom: 14px;
     transition: transform .25s, box-shadow .25s;
-    animation: cardIn .45s cubic-bezier(.2,.8,.2,1) backwards;
 }
-.match-card:last-child { margin-bottom: 0; }
 .match-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.match-card:active { transform: scale(.99); }
 .match-header {
     display: flex;
     justify-content: center;
@@ -748,11 +670,8 @@ h1 {
     padding-bottom: 12px;
     margin-bottom: 14px;
     border-bottom: 2px dashed var(--border);
-    font-weight: 700;
 }
-.match-date,
-.match-time,
-.match-location-tag {
+.match-date, .match-time, .match-location-tag {
     background: var(--accent-soft);
     color: var(--accent);
     font-weight: 700;
@@ -762,23 +681,13 @@ h1 {
 }
 .match-location-tag.home { background: #dcfce7; color: #166534; }
 .match-location-tag.away { background: #fef3c7; color: #92400e; }
-.dark-theme .match-location-tag.home { background: #0a2a1a; color: #4ade80; }
-.dark-theme .match-location-tag.away { background: #3a2a05; color: #fbbf24; }
 .match-teams {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    flex-wrap: nowrap;
 }
-.team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    min-width: 65px;
-    max-width: 100px;
-}
+.team { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 65px; max-width: 100px; }
 .team-logo {
     width: 56px;
     height: 56px;
@@ -787,18 +696,8 @@ h1 {
     background: var(--bg-2);
     padding: 5px;
     border: 2px solid var(--border-strong);
-    transition: transform .3s;
 }
-.match-card:hover .team-logo { transform: scale(1.08); }
-.team-name {
-    font-size: .78rem;
-    font-weight: 700;
-    color: var(--text);
-    text-align: center;
-    line-height: 1.2;
-    max-width: 95px;
-    word-wrap: break-word;
-}
+.team-name { font-size: .78rem; font-weight: 700; color: var(--text); text-align: center; line-height: 1.2; max-width: 95px; word-wrap: break-word; }
 .match-score {
     display: flex;
     align-items: center;
@@ -812,9 +711,7 @@ h1 {
     border: 2px solid var(--border-strong);
     min-width: 90px;
     justify-content: center;
-    transition: transform .3s;
 }
-.match-card:hover .match-score { transform: scale(1.05); }
 .match-score .score { min-width: 24px; text-align: center; }
 .match-score .score-divider { color: var(--muted); font-weight: 400; }
 .match-result {
@@ -831,48 +728,11 @@ h1 {
 .dark-theme .match-result.win { background: #0a2a1a; color: #4ade80; }
 .dark-theme .match-result.loss { background: #3a0a0a; color: #f87171; }
 .dark-theme .match-result.away { background: #3a2a05; color: #fbbf24; }
-.match-penalty {
-    text-align: center;
-    margin-top: 6px;
-    font-size: .88rem;
-    font-weight: 700;
-    color: var(--muted);
-}
+.match-penalty { text-align: center; margin-top: 6px; font-size: .88rem; font-weight: 700; color: var(--muted); }
 
-.formation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 16px 0;
-    width: 100%;
-    overflow: hidden;
-}
-.formation-line {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    min-height: 62px;
-    margin: 5px 0;
-    width: 100%;
-}
-.player-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 75px;
-    max-width: 95px;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: transform .25s;
-    -webkit-user-select: none;
-    user-select: none;
-    position: relative;
-}
-.player-item:hover { transform: translateY(-4px); }
-.player-item:active { transform: translateY(-1px) scale(.96); }
+.formation { display: flex; flex-direction: column; align-items: center; margin: 16px 0; width: 100%; overflow: hidden; }
+.formation-line { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; min-height: 62px; margin: 5px 0; width: 100%; }
+.player-item { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 75px; max-width: 95px; cursor: pointer; flex-shrink: 0; }
 .player-photo-small {
     width: 56px;
     height: 56px;
@@ -886,178 +746,35 @@ h1 {
     overflow: hidden;
     font-size: 1.5rem;
     background: var(--bg-2);
-    transition: transform .3s;
 }
-.player-item:hover .player-photo-small { transform: scale(1.08); }
-.player-photo-small img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.player-name {
-    font-size: .75rem;
-    font-weight: 700;
-    color: var(--text);
-    text-align: center;
-    line-height: 1.2;
-}
-.player-number {
-    font-size: .72rem;
-    font-weight: 800;
-    color: var(--accent);
-    margin-top: 1px;
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
-    display: inline-block;
-}
-.tactics-info {
-    background: var(--accent-soft);
-    border-radius: 12px;
-    padding: 16px;
-    margin-top: 16px;
-    border: 1px solid var(--border);
-}
-.tactics-info h3 {
-    color: var(--accent);
-    margin-bottom: 10px;
-    font-size: 1rem;
-    font-weight: 800;
-}
+.player-photo-small img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.player-name { font-size: .75rem; font-weight: 700; color: var(--text); text-align: center; line-height: 1.2; }
+.player-number { font-size: .72rem; font-weight: 800; color: var(--accent); margin-top: 1px; }
+.tactics-info { background: var(--accent-soft); border-radius: 12px; padding: 16px; margin-top: 16px; border: 1px solid var(--border); }
+.tactics-info h3 { color: var(--accent); margin-bottom: 10px; font-size: 1rem; font-weight: 800; }
 .tactics-info p { margin: 5px 0; font-size: .95rem; }
 
-.match-tactics-container h2 {
-    color: var(--accent);
-    text-align: center;
-    margin-bottom: 12px;
-    font-size: 1.4rem;
-    font-weight: 800;
-}
-.tactics-team-title {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--accent);
-    margin-bottom: 5px;
-    margin-top: 8px;
-}
-.tactics-opponent {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 2px dashed var(--border);
-}
-.tactics-formation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 3px 0;
-}
-.tactics-formation .formation-line { margin: 4px 0; gap: 14px; min-height: 88px; }
-.tactics-formation .player-item { min-width: 88px; max-width: 105px; }
-.tactics-formation .player-photo-small { width: 72px; height: 72px; }
-.tactics-formation .player-name { font-size: .85rem; }
-.tactics-formation .player-number { font-size: .8rem; }
+.match-tactics-container h2 { color: var(--accent); text-align: center; margin-bottom: 12px; font-size: 1.4rem; font-weight: 800; }
+.tactics-team-title { text-align: center; font-size: 1rem; font-weight: 800; color: var(--accent); margin-bottom: 5px; margin-top: 8px; }
+.tactics-opponent { margin-top: 16px; padding-top: 16px; border-top: 2px dashed var(--border); }
+.tactics-formation { display: flex; flex-direction: column; align-items: center; margin: 3px 0; }
+.bench-section { margin-top: 10px; padding: 10px 12px; background: var(--accent-soft); border-radius: 12px; border: 1px solid var(--border); }
+.bench-section h4 { color: var(--accent); margin-bottom: 6px; font-size: .85rem; font-weight: 800; }
+.bench-players { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.bench-player-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.bench-player-photo { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--border-strong); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; background: var(--card); }
+.bench-player-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bench-player-name { font-size: .62rem; font-weight: 700; text-align: center; margin-top: 2px; color: var(--text); max-width: 65px; }
 
-.bench-section {
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: var(--accent-soft);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-}
-.bench-section h4 {
-    color: var(--accent);
-    margin-bottom: 6px;
-    font-size: .85rem;
-    font-weight: 800;
-}
-.bench-players {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-.bench-player-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    transition: transform .2s;
-}
-.bench-player-item:active { transform: scale(.94); }
-.bench-player-photo {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid var(--border-strong);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    background: var(--card);
-}
-.bench-player-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.bench-player-name {
-    font-size: .62rem;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 2px;
-    color: var(--text);
-    max-width: 65px;
-    line-height: 1.2;
-}
-
-.squad-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 12px 0 18px;
-}
-.squad-tab {
-    background: var(--card);
-    border: 2px solid var(--border-strong);
-    padding: 8px 22px;
-    border-radius: 999px;
-    font-size: .9rem;
-    font-weight: 800;
-    color: var(--accent);
-    cursor: pointer;
-    transition: all .2s;
-    font-family: inherit;
-    -webkit-user-select: none;
-    user-select: none;
-}
+.squad-tabs { display: flex; justify-content: center; gap: 10px; margin: 12px 0 18px; }
+.squad-tab { background: var(--card); border: 2px solid var(--border-strong); padding: 8px 22px; border-radius: 999px; font-size: .9rem; font-weight: 800; color: var(--accent); cursor: pointer; font-family: inherit; }
 .squad-tab.active { background: var(--accent); color: #fff; }
-.squad-tab:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-.squad-tab:active { transform: scale(.96); }
 .squad-content { display: none; }
-.squad-content.active { display: block; animation: pageIn .3s ease; }
+.squad-content.active { display: block; }
 
-.other-yards-container .big-icon {
-    font-size: 3.5rem;
-    margin-bottom: 12px;
-    text-align: center;
-}
-.other-yards-container h2 {
-    color: var(--accent);
-    font-size: 1.6rem;
-    margin-bottom: 14px;
-    text-align: center;
-    font-weight: 800;
-}
-.yards-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 14px;
-}
+.other-yards-container .big-icon { font-size: 3.5rem; margin-bottom: 12px; text-align: center; }
+.other-yards-container h2 { color: var(--accent); font-size: 1.6rem; margin-bottom: 14px; text-align: center; font-weight: 800; }
+.yards-list { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
 .yard-card {
     background: var(--card);
     border: 2px solid var(--border-strong);
@@ -1069,43 +786,15 @@ h1 {
     gap: 14px;
     flex-wrap: wrap;
     cursor: pointer;
-    transition: transform .25s, box-shadow .25s;
     text-align: center;
-    animation: cardIn .45s cubic-bezier(.2,.8,.2,1) backwards;
+    transition: transform .25s, box-shadow .25s;
 }
 .yard-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.yard-card:active { transform: scale(.98); }
-.yard-card h3 {
-    color: var(--text);
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin: 0;
-}
-.yard-card .yard-subtitle {
-    color: var(--muted);
-    font-size: .82rem;
-    width: 100%;
-}
-.yard-card .yard-logo {
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    border-radius: 12px;
-    background: var(--card);
-    padding: 4px;
-    border: 2px solid var(--border-strong);
-    flex-shrink: 0;
-    transition: transform .3s;
-}
-.yard-card:hover .yard-logo { transform: scale(1.1) rotate(-4deg); }
+.yard-card h3 { color: var(--text); font-size: 1.15rem; font-weight: 800; margin: 0; }
+.yard-card .yard-subtitle { color: var(--muted); font-size: .82rem; width: 100%; }
+.yard-card .yard-logo { width: 52px; height: 52px; object-fit: contain; border-radius: 12px; background: var(--card); padding: 4px; border: 2px solid var(--border-strong); flex-shrink: 0; }
 
-.news-container h2 {
-    color: var(--accent);
-    text-align: center;
-    margin-bottom: 18px;
-    font-size: 1.5rem;
-    font-weight: 800;
-}
+.news-container h2 { color: var(--accent); text-align: center; margin-bottom: 18px; font-size: 1.5rem; font-weight: 800; }
 .news-item {
     background: var(--card);
     border: 2px solid var(--border-strong);
@@ -1113,65 +802,17 @@ h1 {
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 12px;
-    transition: transform .2s;
 }
-.news-item:hover { transform: translateX(4px); }
-.news-item:last-child { margin-bottom: 0; }
-.news-item .news-date {
-    font-size: .76rem;
-    color: var(--muted);
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-.news-item .news-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 5px;
-}
+.news-item .news-date { font-size: .76rem; color: var(--muted); font-weight: 700; margin-bottom: 5px; }
+.news-item .news-title { font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 5px; }
 .news-item .news-text { font-size: .92rem; line-height: 1.5; color: var(--muted); }
-.news-item .news-tag {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    font-size: .68rem;
-    font-weight: 800;
-    padding: 3px 11px;
-    border-radius: 999px;
-    margin-top: 8px;
-}
-.news-media { margin-top: 10px; border-radius: 10px; overflow: hidden; max-width: 100%; }
-.news-media img,
-.news-media video { width: 100%; height: auto; display: block; border-radius: 10px; }
+.news-item .news-tag { display: inline-block; background: var(--accent); color: #fff; font-size: .68rem; font-weight: 800; padding: 3px 11px; border-radius: 999px; margin-top: 8px; }
+.news-media { margin-top: 10px; border-radius: 10px; overflow: hidden; }
+.news-media img, .news-media video { width: 100%; height: auto; display: block; border-radius: 10px; }
 .news-media video { max-height: 400px; object-fit: cover; background: #000; }
 
-.rules-container h2 {
-    color: var(--accent);
-    text-align: center;
-    margin-bottom: 18px;
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-}
+.rules-container h2 { color: var(--accent); text-align: center; margin-bottom: 18px; font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
 .rules-list { display: flex; flex-direction: column; gap: 10px; }
-.rule-item {
-    background: var(--card);
-    border: 2px solid var(--border-strong);
-    border-left: 5px solid var(--accent);
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: .95rem;
-    line-height: 1.5;
-    color: var(--text);
-    transition: transform .2s;
-}
-.rule-item:hover { transform: translateX(4px); }
-.rule-item .rule-num {
-    font-weight: 900;
-    color: var(--accent);
-    margin-right: 5px;
-    font-size: 1rem;
-}
 .rules-warning {
     margin-top: 18px;
     padding: 14px 16px;
@@ -1182,17 +823,8 @@ h1 {
     font-weight: 700;
     text-align: center;
     font-size: .92rem;
-    animation: warningPulse 2s ease-in-out infinite;
 }
-@keyframes warningPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(217,119,6,.3); }
-    50% { box-shadow: 0 0 0 8px rgba(217,119,6,0); }
-}
-.dark-theme .rules-warning {
-    background: #3a2a05;
-    color: #fbbf24;
-    border-color: #f59e0b;
-}
+.dark-theme .rules-warning { background: #3a2a05; color: #fbbf24; border-color: #f59e0b; }
 
 .modal-overlay {
     position: fixed;
@@ -1239,99 +871,26 @@ h1 {
     cursor: pointer;
     display: grid;
     place-items: center;
-    transition: transform .25s;
     z-index: 10;
 }
-.modal-close-btn:hover { transform: rotate(90deg) scale(1.1); }
-.modal-close-btn:active { transform: rotate(90deg) scale(.9); }
-.modal-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding-bottom: 16px;
-    margin-bottom: 16px;
-    border-bottom: 2px dashed var(--border);
-}
-.modal-photo {
-    width: 88px;
-    height: 88px;
-    border-radius: 50%;
-    border: 3px solid var(--border-strong);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-size: 2.4rem;
-    background: var(--bg-2);
-}
-.modal-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.modal-info h3 {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--accent);
-    margin-bottom: 3px;
-}
+.modal-header { display: flex; align-items: center; gap: 16px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 2px dashed var(--border); }
+.modal-photo { width: 88px; height: 88px; border-radius: 50%; border: 3px solid var(--border-strong); flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 2.4rem; background: var(--bg-2); }
+.modal-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.modal-info h3 { font-size: 1.4rem; font-weight: 800; color: var(--accent); margin-bottom: 3px; }
 .modal-info p { color: var(--muted); font-size: .95rem; }
-.modal-rating-header {
-    position: absolute;
-    right: 54px;
-    top: 26px;
-    text-align: center;
-    z-index: 1;
-}
+.modal-rating-header { position: absolute; right: 54px; top: 26px; text-align: center; }
 .rating-value { font-size: 2.1rem; font-weight: 900; margin-bottom: 3px; }
 .rating-high { color: #16a34a; }
 .rating-medium { color: #d97706; }
 .rating-low { color: #dc2626; }
 .rating-label { font-size: .75rem; color: var(--muted); font-weight: 700; }
-.modal-description {
-    background: var(--accent-soft);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-top: 12px;
-    font-size: .9rem;
-    line-height: 1.5;
-    color: var(--text);
-    border-left: 4px solid var(--accent);
-}
-.modal-description-label {
-    display: block;
-    font-weight: 800;
-    color: var(--accent);
-    font-size: .75rem;
-    margin-bottom: 3px;
-}
-.modal-stats-combined {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-}
-.modal-stat-item {
-    background: var(--accent-soft);
-    border-radius: 10px;
-    padding: 10px;
-    border: 1px solid var(--border);
-}
+.modal-description { background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; margin-top: 12px; font-size: .9rem; line-height: 1.5; color: var(--text); border-left: 4px solid var(--accent); }
+.modal-description-label { display: block; font-weight: 800; color: var(--accent); font-size: .75rem; margin-bottom: 3px; }
+.modal-stats-combined { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 12px; }
+.modal-stat-item { background: var(--accent-soft); border-radius: 10px; padding: 10px; border: 1px solid var(--border); }
 .modal-stat-label { font-size: .7rem; color: var(--muted); margin-bottom: 3px; font-weight: 700; }
 .modal-stat-value { font-size: .98rem; font-weight: 800; color: var(--accent); }
-.mera-tag {
-    display: inline-block;
-    background: linear-gradient(135deg,#8e44ad,#7c3aed);
-    color: #fff;
-    font-weight: 800;
-    font-size: .68rem;
-    padding: 3px 11px;
-    border-radius: 999px;
-    margin-top: 6px;
-    letter-spacing: .4px;
-}
+.mera-tag { display: inline-block; background: linear-gradient(135deg,#8e44ad,#7c3aed); color: #fff; font-weight: 800; font-size: .68rem; padding: 3px 11px; border-radius: 999px; margin-top: 6px; }
 
 .playstyle-detail-overlay {
     position: fixed;
@@ -1345,201 +904,35 @@ h1 {
     z-index: 2000;
     padding: 18px;
 }
-.playstyle-detail-overlay.active { display: flex; animation: fadeIn .25s ease; }
-.playstyle-detail-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 28px 22px 22px;
-    max-width: 420px;
-    width: 100%;
-    border: 4px solid #ffd700;
-    box-shadow: 0 20px 60px rgba(0,0,0,.4);
-    position: relative;
-    text-align: center;
-    animation: modalIn .35s cubic-bezier(.2,.8,.2,1);
-}
-.playstyle-detail-card .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: none;
-    border: none;
-    font-size: 1.7rem;
-    color: var(--muted);
-    cursor: pointer;
-    line-height: 1;
-    transition: transform .25s;
-    padding: 4px 10px;
-}
-.playstyle-detail-card .close-btn:hover { color: var(--text); transform: rotate(90deg); }
-.playstyle-detail-icon {
-    width: 160px;
-    height: 160px;
-    border-radius: 20px;
-    border: 5px solid #ffd700;
-    margin: 0 auto 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(255,215,0,.4);
-    animation: iconFloat 3s ease-in-out infinite;
-}
-@keyframes iconFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-}
-.playstyle-detail-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 16px;
-}
-.playstyle-detail-name {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--text);
-    margin-bottom: 8px;
-}
-.playstyle-detail-desc {
-    font-size: .95rem;
-    line-height: 1.55;
-    color: var(--muted);
-}
-.video-container {
-    width: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 4px solid #ffd700;
-    background: #000;
-}
-.video-container video {
-    width: 100%;
-    display: block;
-    aspect-ratio: 9 / 16;
-    object-fit: cover;
-    border-radius: 8px;
-    background: #000;
-}
+.playstyle-detail-overlay.active { display: flex; }
+.playstyle-detail-card { background: var(--card); border-radius: var(--radius); padding: 28px 22px 22px; max-width: 420px; width: 100%; border: 4px solid #ffd700; position: relative; text-align: center; }
+.playstyle-detail-card .close-btn { position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 1.7rem; color: var(--muted); cursor: pointer; padding: 4px 10px; }
+.playstyle-detail-icon { width: 160px; height: 160px; border-radius: 20px; border: 5px solid #ffd700; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 4rem; overflow: hidden; }
+.playstyle-detail-icon img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
+.playstyle-detail-name { font-size: 1.5rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.playstyle-detail-desc { font-size: .95rem; line-height: 1.55; color: var(--muted); }
+.video-container { width: 100%; border-radius: 12px; overflow: hidden; border: 4px solid #ffd700; background: #000; }
+.video-container video { width: 100%; display: block; aspect-ratio: 9 / 16; object-fit: cover; background: #000; }
 
-.secret-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10,5,25,.88);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    padding: 18px;
-}
-.secret-overlay.active { display: flex; animation: fadeIn .3s ease; }
-.secret-modal {
-    background: #14102a;
-    border: 2px solid #8e44ad;
-    border-radius: var(--radius);
-    padding: 30px 24px;
-    max-width: 480px;
-    width: 100%;
-    box-shadow: 0 0 50px rgba(142,68,173,.5);
-    position: relative;
-    color: #e8e0f5;
-    animation: modalIn .35s cubic-bezier(.2,.8,.2,1);
-}
-.secret-modal .secret-close {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background: none;
-    border: none;
-    color: #a78bfa;
-    font-size: 1.7rem;
-    cursor: pointer;
-    transition: transform .25s;
-    line-height: 1;
-}
-.secret-modal .secret-close:hover { color: #fff; transform: rotate(90deg); }
-.secret-modal h2 {
-    color: #a78bfa;
-    font-size: 1.35rem;
-    text-align: center;
-    margin-bottom: 16px;
-    letter-spacing: 2px;
-}
+.secret-overlay { position: fixed; inset: 0; background: rgba(10,5,25,.88); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 18px; }
+.secret-overlay.active { display: flex; }
+.secret-modal { background: #14102a; border: 2px solid #8e44ad; border-radius: var(--radius); padding: 30px 24px; max-width: 480px; width: 100%; position: relative; color: #e8e0f5; }
+.secret-modal .secret-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: #a78bfa; font-size: 1.7rem; cursor: pointer; }
+.secret-modal h2 { color: #a78bfa; font-size: 1.35rem; text-align: center; margin-bottom: 16px; letter-spacing: 2px; }
 .secret-modal .secret-icon { text-align: center; font-size: 3rem; margin-bottom: 12px; }
-.secret-modal .secret-label {
-    color: #a78bfa;
-    font-size: .82rem;
-    text-align: center;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-}
-.secret-modal input {
-    width: 100%;
-    padding: 13px 16px;
-    border-radius: 12px;
-    border: 2px solid #4a3a6a;
-    background: #0f0a20;
-    color: #fff;
-    font-size: 1rem;
-    outline: none;
-    text-align: center;
-    letter-spacing: 2px;
-    margin-bottom: 14px;
-    font-family: inherit;
-}
-.secret-modal .secret-submit {
-    width: 100%;
-    padding: 13px;
-    border-radius: 12px;
-    border: none;
-    background: linear-gradient(135deg,#8e44ad,#6c3483);
-    color: #fff;
-    font-size: 1.05rem;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-}
-.secret-modal .secret-error {
-    color: #f87171;
-    text-align: center;
-    font-size: .82rem;
-    margin-top: 10px;
-    min-height: 22px;
-}
-.secret-modal .secret-content {
-    display: none;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #4a3a6a;
-    line-height: 1.55;
-    font-size: .92rem;
-}
+.secret-modal .secret-label { color: #a78bfa; font-size: .82rem; text-align: center; margin-bottom: 8px; letter-spacing: 1px; }
+.secret-modal input { width: 100%; padding: 13px 16px; border-radius: 12px; border: 2px solid #4a3a6a; background: #0f0a20; color: #fff; font-size: 1rem; outline: none; text-align: center; letter-spacing: 2px; margin-bottom: 14px; font-family: inherit; }
+.secret-modal .secret-submit { width: 100%; padding: 13px; border-radius: 12px; border: none; background: linear-gradient(135deg,#8e44ad,#6c3483); color: #fff; font-size: 1.05rem; font-weight: 800; cursor: pointer; font-family: inherit; }
+.secret-modal .secret-error { color: #f87171; text-align: center; font-size: .82rem; margin-top: 10px; min-height: 22px; }
+.secret-modal .secret-content { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #4a3a6a; line-height: 1.55; font-size: .92rem; }
 .secret-modal .secret-content.active { display: block; }
 .secret-modal .secret-content h3 { color: #a78bfa; margin-bottom: 10px; font-size: 1rem; }
-.secret-modal .secret-content p { margin: 5px 0; }
-.secret-modal .secret-content .info-block {
-    background: rgba(168,85,247,.1);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin: 10px 0;
-    border-left: 3px solid #8e44ad;
-}
+.secret-modal .secret-content .info-block { background: rgba(168,85,247,.1); border-radius: 10px; padding: 14px 16px; margin: 10px 0; border-left: 3px solid #8e44ad; }
 .secret-modal .secret-content .highlight { color: #a78bfa; font-weight: 800; }
 
 .form-group { margin-bottom: 14px; }
-.form-group label {
-    display: block;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--text);
-    font-size: .85rem;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
+.form-group label { display: block; font-weight: 700; margin-bottom: 5px; color: var(--text); font-size: .85rem; }
+.form-group input, .form-group select, .form-group textarea {
     width: 100%;
     padding: 11px 14px;
     background: var(--card);
@@ -1550,19 +943,11 @@ h1 {
     font-family: inherit;
     outline: none;
 }
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    box-shadow: 0 0 0 4px rgba(0,102,204,.15);
-}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { box-shadow: 0 0 0 4px rgba(0,102,204,.15); }
 .form-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .form-row .form-group { flex: 1; min-width: 130px; }
 
-.submit-request-btn,
-.submit-edit-btn,
-.submit-add-btn,
-.submit-action-btn,
-.auth-submit-btn {
+.submit-request-btn, .submit-edit-btn, .submit-add-btn, .submit-action-btn, .auth-submit-btn {
     width: 100%;
     padding: 13px;
     border: 2px solid transparent;
@@ -1573,492 +958,89 @@ h1 {
     font-weight: 800;
     cursor: pointer;
     font-family: inherit;
-    transition: transform .2s, box-shadow .2s;
+    transition: transform .2s;
     box-shadow: 0 6px 18px rgba(0,102,204,.3);
 }
-.submit-request-btn:hover,
-.submit-edit-btn:hover,
-.submit-add-btn:hover,
-.submit-action-btn:hover,
-.auth-submit-btn:hover {
-    transform: translateY(-2px);
-}
-.submit-request-btn:disabled,
-.submit-action-btn:disabled,
-.submit-add-btn:disabled,
-.submit-edit-btn:disabled {
-    background: #94a3b8;
-    cursor: not-allowed;
-    transform: none;
-}
-.delete-match-btn {
-    width: 100%;
-    padding: 11px;
-    margin-top: 8px;
-    background: #fee2e2;
-    color: #991b1b;
-    border: 2px solid #dc2626;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-}
+.submit-request-btn:hover, .submit-edit-btn:hover, .submit-add-btn:hover, .submit-action-btn:hover, .auth-submit-btn:hover { transform: translateY(-2px); }
+.submit-request-btn:disabled, .submit-action-btn:disabled, .submit-add-btn:disabled, .submit-edit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+.delete-match-btn { width: 100%; padding: 11px; margin-top: 8px; background: #fee2e2; color: #991b1b; border: 2px solid #dc2626; border-radius: 12px; font-weight: 800; cursor: pointer; font-family: inherit; }
 .dark-theme .delete-match-btn { background: #3a0a0a; color: #f87171; }
 
-.request-status,
-.match-edit-status,
-.match-add-status,
-.action-status,
-.auth-status {
+.request-status, .match-edit-status, .match-add-status, .action-status, .auth-status {
     text-align: center;
     margin-top: 10px;
     font-weight: 700;
     min-height: 20px;
     font-size: .9rem;
 }
-.request-status.success,
-.match-edit-status.success,
-.match-add-status.success,
-.action-status.success,
-.auth-status.success { color: #16a34a; }
-.request-status.error,
-.match-edit-status.error,
-.match-add-status.error,
-.action-status.error,
-.auth-status.error { color: #dc2626; }
+.request-status.success, .match-edit-status.success, .match-add-status.success, .action-status.success, .auth-status.success { color: #16a34a; }
+.request-status.error, .match-edit-status.error, .match-add-status.error, .action-status.error, .auth-status.error { color: #dc2626; }
 
-.team-request-modal .modal { max-width: 560px; }
-.team-request-modal .players-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 8px 0;
-    max-height: 220px;
-    overflow-y: auto;
-    padding-right: 4px;
-}
-.team-request-modal .players-list .player-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-.team-request-modal .players-list .player-row input {
-    flex: 1;
-    padding: 8px 12px;
-    border: 2px solid var(--border-strong);
-    border-radius: 10px;
-    font-size: .9rem;
-    background: var(--card);
-    color: var(--text);
-    font-family: inherit;
-}
-.team-request-modal .add-player-btn {
-    background: #16a34a;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: inherit;
-    font-size: .88rem;
-}
-.team-request-modal .remove-player-btn {
-    background: #dc2626;
-    color: white;
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.admin-panel {
-    display: none;
-    margin-bottom: 16px;
-    padding: 14px 16px;
-    background: var(--accent-soft);
-    border: 2px dashed var(--border-strong);
-    border-radius: 12px;
-}
+.admin-panel { display: none; margin-bottom: 16px; padding: 14px 16px; background: var(--accent-soft); border: 2px dashed var(--border-strong); border-radius: 12px; }
 .admin-panel.visible { display: block; }
-.admin-panel .admin-welcome {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-}
+.admin-panel .admin-welcome { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
 .admin-panel .admin-welcome span { font-weight: 800; color: var(--accent); }
 .admin-panel .admin-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.admin-panel .admin-actions button {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 7px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-weight: 700;
-    font-family: inherit;
-    font-size: .85rem;
-}
+.admin-panel .admin-actions button { background: var(--accent); color: #fff; border: none; padding: 7px 16px; border-radius: 999px; cursor: pointer; font-weight: 700; font-family: inherit; font-size: .85rem; }
 .admin-panel .admin-actions button.danger { background: #dc2626; }
 .admin-panel .admin-actions button.success { background: #16a34a; }
 
-.admin-login-btn {
-    background: var(--grad);
-    color: #fff;
-    border: none;
-    padding: 11px 24px;
-    border-radius: 999px;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-    box-shadow: 0 6px 18px rgba(0,102,204,.3);
-    font-size: .92rem;
-}
-.admin-login-btn:hover { transform: translateY(-2px); }
+.admin-login-btn { background: var(--grad); color: #fff; border: none; padding: 11px 24px; border-radius: 999px; font-weight: 800; cursor: pointer; font-family: inherit; box-shadow: 0 6px 18px rgba(0,102,204,.3); font-size: .92rem; }
 .admin-login-btn.logged { background: linear-gradient(135deg,#16a34a,#15803d); }
+.admin-btn { background: var(--accent); color: white; border: none; padding: 6px 14px; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: .78rem; font-family: inherit; }
 
-.admin-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: .78rem;
-    font-family: inherit;
-}
-
-.admin-balance-panel {
-    background: var(--accent-soft);
-    border: 2px solid var(--border-strong);
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-top: 14px;
-}
-.admin-balance-panel h4 {
-    color: var(--accent);
-    margin-bottom: 10px;
-    font-size: 1rem;
-    font-weight: 800;
-}
-.admin-balance-panel .balance-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-}
-.admin-balance-panel .balance-row label {
-    font-weight: 700;
-    min-width: 120px;
-    font-size: .85rem;
-    color: var(--text);
-}
-.admin-balance-panel .balance-row input {
-    flex: 1;
-    min-width: 90px;
-    padding: 7px 11px;
-    border: 2px solid var(--border-strong);
-    border-radius: 10px;
-    font-size: .88rem;
-    background: var(--card);
-    color: var(--text);
-    font-family: inherit;
-    outline: none;
-}
-.admin-balance-panel .balance-row .balance-btn {
-    padding: 6px 13px;
-    border-radius: 999px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: .78rem;
-    font-family: inherit;
-    background: #16a34a;
-    color: white;
-}
+.admin-balance-panel { background: var(--accent-soft); border: 2px solid var(--border-strong); border-radius: 12px; padding: 14px 16px; margin-top: 14px; }
+.admin-balance-panel h4 { color: var(--accent); margin-bottom: 10px; font-size: 1rem; font-weight: 800; }
+.admin-balance-panel .balance-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.admin-balance-panel .balance-row label { font-weight: 700; min-width: 120px; font-size: .85rem; color: var(--text); }
+.admin-balance-panel .balance-row input { flex: 1; min-width: 90px; padding: 7px 11px; border: 2px solid var(--border-strong); border-radius: 10px; font-size: .88rem; background: var(--card); color: var(--text); font-family: inherit; outline: none; }
+.admin-balance-panel .balance-row .balance-btn { padding: 6px 13px; border-radius: 999px; border: none; font-weight: 700; cursor: pointer; font-size: .78rem; font-family: inherit; background: #16a34a; color: white; }
 .admin-balance-panel .balance-row .balance-btn.danger { background: #dc2626; }
 
 .market-container { padding: 22px 18px; }
-.market-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding-bottom: 14px;
-    margin-bottom: 16px;
-    border-bottom: 2px dashed var(--border);
-}
-.captain-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--accent-soft);
-    padding: 9px 16px;
-    border-radius: 999px;
-}
-.captain-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: var(--grad);
-    color: white;
-    display: grid;
-    place-items: center;
-    font-weight: 800;
-    font-size: 1rem;
-}
+.market-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 2px dashed var(--border); }
+.captain-info { display: flex; align-items: center; gap: 12px; background: var(--accent-soft); padding: 9px 16px; border-radius: 999px; }
+.captain-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--grad); color: white; display: grid; place-items: center; font-weight: 800; font-size: 1rem; }
 .captain-info #captain-name { font-weight: 800; color: var(--text); font-size: .88rem; }
 .budget-display { font-weight: 800; color: #16a34a; font-size: .88rem; }
 .dark-theme .budget-display { color: #4ade80; }
 .login-section { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.login-section input {
-    padding: 9px 14px;
-    border: 2px solid var(--border-strong);
-    border-radius: 999px;
-    font-size: .9rem;
-    outline: none;
-    background: var(--card);
-    color: var(--text);
-    font-family: inherit;
-}
-.login-btn {
-    background: var(--grad);
-    color: white;
-    padding: 9px 20px;
-    border-radius: 999px;
-    border: none;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .88rem;
-}
-.logout-btn {
-    background: #fee2e2;
-    color: #991b1b;
-    padding: 9px 20px;
-    border-radius: 999px;
-    border: 2px solid #dc2626;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .88rem;
-}
+.login-section input { padding: 9px 14px; border: 2px solid var(--border-strong); border-radius: 999px; font-size: .9rem; outline: none; background: var(--card); color: var(--text); font-family: inherit; }
+.login-btn { background: var(--grad); color: white; padding: 9px 20px; border-radius: 999px; border: none; font-weight: 800; cursor: pointer; font-family: inherit; font-size: .88rem; }
+.logout-btn { background: #fee2e2; color: #991b1b; padding: 9px 20px; border-radius: 999px; border: 2px solid #dc2626; font-weight: 800; cursor: pointer; font-family: inherit; font-size: .88rem; }
 .dark-theme .logout-btn { background: #3a0a0a; color: #f87171; }
 
 .market-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
-.market-filters select {
-    padding: 9px 14px;
-    border: 2px solid var(--border-strong);
-    border-radius: 999px;
-    font-size: .85rem;
-    background: var(--card);
-    color: var(--text);
-    outline: none;
-    font-family: inherit;
-    cursor: pointer;
-}
-.market-container h3 {
-    color: var(--accent);
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin-bottom: 12px;
-}
-.market-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 14px;
-    margin-top: 14px;
-}
-.market-player-card {
-    background: var(--card);
-    border: 2px solid var(--border-strong);
-    border-radius: var(--radius);
-    padding: 16px 14px;
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    animation: cardIn .4s cubic-bezier(.2,.8,.2,1) backwards;
-}
-.market-player-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.player-photo-market {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 3px solid var(--border-strong);
-    margin: 0 auto 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-size: 1.8rem;
-    background: var(--bg-2);
-}
-.player-photo-market img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.player-photo-market .no-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    font-size: 1.8rem;
-}
+.market-filters select { padding: 9px 14px; border: 2px solid var(--border-strong); border-radius: 999px; font-size: .85rem; background: var(--card); color: var(--text); outline: none; font-family: inherit; cursor: pointer; }
+.market-container h3 { color: var(--accent); font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
+.market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+.market-player-card { background: var(--card); border: 2px solid var(--border-strong); border-radius: var(--radius); padding: 16px 14px; text-align: center; box-shadow: var(--shadow-sm); }
+.player-photo-market { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--border-strong); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 1.8rem; background: var(--bg-2); }
+.player-photo-market img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.player-photo-market .no-photo { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 1.8rem; }
 .market-player-card h4 { font-size: .95rem; font-weight: 800; color: var(--text); margin-bottom: 3px; }
 .player-price { font-size: 1.2rem; font-weight: 900; color: #d97706; margin: 8px 0; }
+.buy-btn { background: #16a34a; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 8px; font-family: inherit; font-size: .88rem; }
+.sell-btn { background: #fbbf24; color: #78350f; border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 8px; font-family: inherit; font-size: .88rem; }
 
-.buy-btn {
-    background: #16a34a;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 8px;
-    font-family: inherit;
-    font-size: .88rem;
-}
-.buy-btn:disabled { background: #94a3b8; cursor: not-allowed; }
-
-.sell-btn {
-    background: #fbbf24;
-    color: #78350f;
-    border: none;
-    padding: 10px;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 8px;
-    font-family: inherit;
-    font-size: .88rem;
-}
-
-.my-team-section {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 2px dashed var(--border);
-}
+.my-team-section { margin-top: 24px; padding-top: 20px; border-top: 2px dashed var(--border); }
 .my-team-section h3 { color: var(--accent); font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
-.my-team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-    margin-top: 12px;
-}
-.my-player-card {
-    position: relative;
-    background: var(--accent-soft);
-    border: 2px solid var(--border-strong);
-    border-radius: 12px;
-    padding: 14px 10px;
-    text-align: center;
-}
+.my-team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 12px; }
+.my-player-card { position: relative; background: var(--accent-soft); border: 2px solid var(--border-strong); border-radius: 12px; padding: 14px 10px; text-align: center; }
 .my-player-card h4 { font-size: .88rem; font-weight: 800; margin-top: 5px; color: var(--text); }
 .my-player-card p { font-size: .78rem; color: var(--muted); margin: 3px 0; }
-.player-photo-my {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: 3px solid var(--border-strong);
-    margin: 0 auto 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-size: 1.6rem;
-    background: var(--card);
-}
-.player-photo-my img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.player-photo-my .no-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    font-size: 1.6rem;
-}
-.my-player-card.on-loan { border-color: #ff6b00; }
-.loan-tag {
-    display: inline-block;
-    background: #ff6b00;
-    color: #fff;
-    font-weight: 800;
-    font-size: .58rem;
-    padding: 2px 9px;
-    border-radius: 999px;
-    margin-top: 5px;
-}
+.player-photo-my { width: 56px; height: 56px; border-radius: 50%; border: 3px solid var(--border-strong); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 1.6rem; background: var(--card); }
+.player-photo-my img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.player-photo-my .no-photo { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 1.6rem; }
+.loan-tag { display: inline-block; background: #ff6b00; color: #fff; font-weight: 800; font-size: .58rem; padding: 2px 9px; border-radius: 999px; margin-top: 5px; }
 
-.transfers-history {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 2px dashed var(--border);
-}
+.transfers-history { margin-top: 24px; padding-top: 20px; border-top: 2px dashed var(--border); }
 .transfers-history h3 { color: var(--accent); font-size: 1.15rem; font-weight: 800; margin-bottom: 12px; }
-.transfer-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
-    background: var(--card);
-    border: 2px solid var(--border-strong);
-    border-left: 5px solid #16a34a;
-    border-radius: 12px;
-    padding: 11px 14px;
-    margin-bottom: 8px;
-}
-.transfer-item .transfer-player {
-    font-weight: 800;
-    font-size: .92rem;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.transfer-item .transfer-player .player-icon { font-size: 1.2rem; }
+.transfer-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; background: var(--card); border: 2px solid var(--border-strong); border-left: 5px solid #16a34a; border-radius: 12px; padding: 11px 14px; margin-bottom: 8px; }
+.transfer-item .transfer-player { font-weight: 800; font-size: .92rem; color: var(--text); display: flex; align-items: center; gap: 6px; }
 .transfer-item .transfer-arrow { color: var(--muted); font-size: .95rem; margin: 0 5px; }
-.transfer-item .transfer-price {
-    background: #fbbf24;
-    padding: 3px 11px;
-    border-radius: 999px;
-    font-weight: 800;
-    color: #78350f;
-    font-size: .78rem;
-}
-.transfer-item .transfer-time { color: var(--muted); font-size: .72rem; margin-left: 6px; }
-.transfer-item .transfer-team-badge {
-    display: inline-block;
-    padding: 3px 11px;
-    border-radius: 999px;
-    font-size: .72rem;
-    font-weight: 800;
-    color: #fff;
-}
+.transfer-item .transfer-price { background: #fbbf24; padding: 3px 11px; border-radius: 999px; font-weight: 800; color: #78350f; font-size: .78rem; }
+.transfer-item .transfer-team-badge { display: inline-block; padding: 3px 11px; border-radius: 999px; font-size: .72rem; font-weight: 800; color: #fff; }
 .transfer-team-badge.mera { background: linear-gradient(135deg,#8e44ad,#7c3aed); }
 .transfer-team-badge.school78 { background: #64748b; }
 .transfer-team-badge.yuzhka { background: #16a34a; }
@@ -2081,7 +1063,7 @@ h1 {
     box-shadow: var(--shadow-lg);
     z-index: 1000;
     transform: translateY(-150%);
-    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    transition: transform .35s;
     max-width: 480px;
     margin: 0 auto;
     font-weight: 600;
@@ -2091,44 +1073,16 @@ h1 {
 .notification-market.show { transform: translateY(0); display: block; }
 .notification-market.error { border-left-color: #dc2626; }
 
-.offer-item {
-    background: var(--card);
-    border: 2px solid #fbbf24;
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 10px;
-}
-.offer-item .offer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 6px;
-}
+.offer-item { background: var(--card); border: 2px solid #fbbf24; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+.offer-item .offer-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
 .offer-item .offer-header .offer-from { font-weight: 800; color: var(--accent); font-size: .9rem; }
 .offer-item .offer-details { color: var(--text); font-size: .88rem; line-height: 1.45; }
 .offer-item .offer-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-.offer-item .offer-actions button {
-    padding: 6px 18px;
-    border-radius: 999px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .85rem;
-}
+.offer-item .offer-actions button { padding: 6px 18px; border-radius: 999px; border: none; font-weight: 700; cursor: pointer; font-family: inherit; font-size: .85rem; }
 .offer-item .offer-actions .accept-btn { background: #16a34a; color: white; }
 .offer-item .offer-actions .reject-btn { background: #dc2626; color: white; }
 
-footer {
-    text-align: center;
-    margin-top: 32px;
-    padding: 20px;
-    color: var(--muted);
-    font-size: .82rem;
-    border-top: 1px solid var(--border);
-}
+footer { text-align: center; margin-top: 32px; padding: 20px; color: var(--muted); font-size: .82rem; border-top: 1px solid var(--border); }
 
 @media (max-width: 768px) {
     .container { padding: 14px; }
@@ -2138,32 +1092,24 @@ footer {
     .account-toggle { right: 12px; }
     .main-buttons { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .main-button { min-height: 130px; padding: 16px 10px; }
-    .button-icon { width: 48px; height: 48px; font-size: 1.4rem; margin-bottom: 8px; }
+    .button-icon { width: 48px; height: 48px; font-size: 1.4rem; }
     .button-title { font-size: .98rem; }
-    .button-description { font-size: .7rem; }
     .players-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .player-photo { width: 64px; height: 64px; font-size: 1.7rem; }
-    .player-info h3 { font-size: .92rem; }
-    .player-card { padding: 14px 10px; }
     .modal { padding: 20px 16px; }
-    .modal-header { flex-direction: column; text-align: center; padding-bottom: 12px; }
+    .modal-header { flex-direction: column; text-align: center; }
     .modal-rating-header { position: static; margin-top: 8px; }
-    .modal-photo { width: 72px; height: 72px; font-size: 2rem; }
     .match-teams { gap: 8px; }
     .team { min-width: 50px; max-width: 78px; }
-    .team-logo { width: 48px; height: 48px; padding: 4px; }
-    .team-name { font-size: .68rem; max-width: 68px; }
-    .match-score { font-size: 1.6rem; padding: 5px 14px; min-width: 70px; gap: 6px; }
-    .rule-item { padding: 11px 14px; font-size: .88rem; }
+    .team-logo { width: 48px; height: 48px; }
+    .match-score { font-size: 1.6rem; padding: 5px 14px; min-width: 70px; }
 }
 
 @media (max-width: 480px) {
     .players-grid { grid-template-columns: 1fr; }
-    .match-teams { gap: 5px; }
     .team { min-width: 44px; max-width: 66px; }
-    .team-logo { width: 42px; height: 42px; padding: 3px; }
-    .team-name { font-size: .58rem; max-width: 56px; }
-    .match-score { font-size: 1.3rem; padding: 4px 11px; min-width: 56px; gap: 4px; }
+    .team-logo { width: 42px; height: 42px; }
+    .match-score { font-size: 1.3rem; padding: 4px 11px; min-width: 56px; }
 }
 
 .rule-group {
@@ -2187,286 +1133,121 @@ footer {
     user-select: none;
 }
 .rule-group-header:hover { background: var(--border); }
-.rule-group-header .rule-group-arrow {
-    transition: transform .3s ease;
-    font-size: .8rem;
-    margin-left: auto;
-}
+.rule-group-header .rule-group-arrow { transition: transform .3s ease; font-size: .8rem; margin-left: auto; }
 .rule-group-header.open .rule-group-arrow { transform: rotate(90deg); }
-.rule-group-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .4s ease;
-}
+.rule-group-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
 .rule-group-body.open { max-height: 5000px; }
 .rule-group-body .rule-item {
-    margin: 8px 12px;
-    border-left-width: 3px;
-}
-
-.poll-section {
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 2px dashed var(--border);
-}
-.poll-section h3 {
-    color: var(--accent);
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin-bottom: 14px;
-}
-.poll-card {
     background: var(--card);
-    border: 2px solid var(--border-strong);
-    border-radius: var(--radius);
-    padding: 18px;
-    margin-bottom: 14px;
-}
-.poll-card .poll-question {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 12px;
-}
-.poll-option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
     padding: 10px 14px;
-    background: var(--accent-soft);
-    border-radius: 10px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    border: 2px solid transparent;
+    margin: 8px 12px;
+    font-size: .92rem;
+    line-height: 1.5;
+    color: var(--text);
 }
+.rule-item .rule-num { font-weight: 900; color: var(--accent); margin-right: 5px; }
+
+.poll-section { margin-top: 24px; padding-top: 20px; border-top: 2px dashed var(--border); }
+.poll-section h3 { color: var(--accent); font-size: 1.15rem; font-weight: 800; margin-bottom: 14px; }
+.poll-card { background: var(--card); border: 2px solid var(--border-strong); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
+.poll-card .poll-question { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+.poll-option { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--accent-soft); border-radius: 10px; margin-bottom: 8px; cursor: pointer; border: 2px solid transparent; }
 .poll-option:hover { border-color: var(--border-strong); }
 .poll-option.voted { border-color: #16a34a; background: #dcfce7; }
 .dark-theme .poll-option.voted { background: #0a2a1a; }
 .poll-option .poll-option-text { font-weight: 700; font-size: .92rem; }
 .poll-option .poll-option-count { font-weight: 800; color: var(--accent); font-size: .88rem; }
-.poll-option .poll-option-bar {
-    height: 6px;
-    background: var(--accent);
-    border-radius: 999px;
-    margin-top: 4px;
-    transition: width .4s ease;
-}
-.poll-card .poll-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-    font-size: .8rem;
-    color: var(--muted);
-}
-.poll-card .poll-delete {
-    background: #dc2626;
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: .78rem;
-    font-family: inherit;
-}
-.admin-poll-create {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-}
-.admin-poll-create input {
-    flex: 1;
-    min-width: 140px;
-    padding: 10px 14px;
-    border: 2px solid var(--border-strong);
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: .9rem;
-    background: var(--card);
-    color: var(--text);
-}
-.admin-poll-create button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    background: var(--grad);
-    color: #fff;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .9rem;
-}
+.poll-option .poll-option-bar { height: 6px; background: var(--accent); border-radius: 999px; margin-top: 4px; transition: width .4s; }
+.poll-card .poll-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: .8rem; color: var(--muted); }
+.poll-card .poll-delete { background: #dc2626; color: #fff; border: none; padding: 6px 14px; border-radius: 999px; font-weight: 700; cursor: pointer; font-size: .78rem; font-family: inherit; }
+.admin-poll-create { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.admin-poll-create input { flex: 1; min-width: 140px; padding: 10px 14px; border: 2px solid var(--border-strong); border-radius: 10px; font-family: inherit; font-size: .9rem; background: var(--card); color: var(--text); }
+.admin-poll-create button { padding: 10px 20px; border-radius: 10px; border: none; background: var(--grad); color: #fff; font-weight: 800; cursor: pointer; font-family: inherit; font-size: .9rem; }
+
 .auth-modal .modal { max-width: 420px; }
-.auth-modal .auth-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-}
-.auth-modal .auth-tab {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid var(--border-strong);
-    background: var(--card);
-    color: var(--accent);
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .92rem;
-    text-align: center;
-}
+.auth-modal .auth-tabs { display: flex; gap: 10px; margin-bottom: 18px; }
+.auth-modal .auth-tab { flex: 1; padding: 10px; border-radius: 10px; border: 2px solid var(--border-strong); background: var(--card); color: var(--accent); font-weight: 800; cursor: pointer; font-family: inherit; font-size: .92rem; text-align: center; }
 .auth-modal .auth-tab.active { background: var(--accent); color: #fff; }
 
-.guest-badge,
-.unverified-badge,
-.verified-badge {
-    display: inline-block;
-    font-size: .68rem;
-    font-weight: 800;
-    padding: 3px 10px;
-    border-radius: 999px;
-    margin-left: 6px;
-}
+.guest-badge, .unverified-badge, .verified-badge { display: inline-block; font-size: .68rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; margin-left: 6px; }
 .guest-badge { background: #6c757d; color: #fff; }
 .unverified-badge { background: #fbbf24; color: #78350f; }
 .verified-badge { background: #16a34a; color: #fff; }
 
-.complaint-card {
-    background: var(--card);
-    border: 2px solid var(--border-strong);
-    border-left: 5px solid #dc2626;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-}
-.complaint-card .complaint-from {
-    font-weight: 800;
-    color: var(--accent);
-    font-size: .9rem;
-    margin-bottom: 4px;
-}
-.complaint-card .complaint-reason {
-    font-size: .92rem;
-    color: var(--text);
-    line-height: 1.5;
-    margin-bottom: 6px;
-}
-.complaint-card .complaint-verdict {
-    background: var(--accent-soft);
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: .88rem;
-    font-weight: 700;
-    color: var(--accent);
-}
+.complaint-card { background: var(--card); border: 2px solid var(--border-strong); border-left: 5px solid #dc2626; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+.complaint-card .complaint-from { font-weight: 800; color: var(--accent); font-size: .9rem; margin-bottom: 4px; }
+.complaint-card .complaint-reason { font-size: .92rem; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+.complaint-card .complaint-verdict { background: var(--accent-soft); border-radius: 8px; padding: 8px 12px; font-size: .88rem; font-weight: 700; color: var(--accent); }
 .complaint-card .complaint-verdict.pending { color: #d97706; }
 .complaint-card .complaint-verdict.resolved { color: #16a34a; }
-.complaint-admin-actions {
+.verdict-input { width: 100%; padding: 10px 14px; border: 2px solid var(--border-strong); border-radius: 10px; font-family: inherit; font-size: .9rem; margin-top: 8px; background: var(--card); color: var(--text); }
+.complaint-admin-actions { display: flex; gap: 8px; margin-top: 10px; }
+.complaint-admin-actions button { padding: 7px 16px; border-radius: 999px; border: none; font-weight: 700; cursor: pointer; font-family: inherit; font-size: .82rem; background: #16a34a; color: #fff; }
+
+.admin-tab-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.admin-tab-buttons button { flex: 1; min-width: 120px; padding: 10px 16px; border-radius: 10px; border: 2px solid var(--border-strong); background: var(--card); color: var(--accent); font-weight: 800; cursor: pointer; font-family: inherit; font-size: .88rem; }
+.admin-tab-buttons button.active { background: var(--accent); color: #fff; }
+.admin-section { display: none; }
+.admin-section.active { display: block; }
+.user-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; background: var(--card); border: 2px solid var(--border-strong); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; }
+.user-row .user-info { flex: 1; min-width: 150px; }
+.user-row .user-info strong { display: block; color: var(--text); font-size: .95rem; }
+.user-row .user-info small { color: var(--muted); font-size: .78rem; }
+.user-row button { padding: 6px 14px; border-radius: 999px; border: none; font-weight: 700; cursor: pointer; font-family: inherit; font-size: .78rem; }
+.user-row .verify-btn { background: #16a34a; color: #fff; }
+.user-row .unverify-btn { background: #dc2626; color: #fff; }
+
+.account-info-card {
+    background: var(--accent-soft);
+    border: 2px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+.account-info-card .account-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--grad);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 auto 12px;
+}
+.account-info-card .account-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+.account-info-card .account-status {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+.account-info-card .account-actions {
     display: flex;
     gap: 8px;
-    margin-top: 10px;
+    justify-content: center;
     flex-wrap: wrap;
 }
-.complaint-admin-actions button {
-    padding: 7px 16px;
+.account-info-card .account-actions button {
+    padding: 9px 20px;
     border-radius: 999px;
     border: none;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .82rem;
-}
-.complaint-admin-actions .approve-btn { background: #16a34a; color: #fff; }
-.verdict-input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 2px solid var(--border-strong);
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: .9rem;
-    margin-top: 8px;
-    background: var(--card);
-    color: var(--text);
-}
-
-.admin-panel-page {
-    display: none;
-}
-.admin-panel-page.active {
-    display: block;
-}
-.admin-tab-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-}
-.admin-tab-buttons button {
-    flex: 1;
-    min-width: 120px;
-    padding: 10px 16px;
-    border-radius: 10px;
-    border: 2px solid var(--border-strong);
-    background: var(--card);
-    color: var(--accent);
     font-weight: 800;
     cursor: pointer;
     font-family: inherit;
     font-size: .88rem;
 }
-.admin-tab-buttons button.active {
-    background: var(--accent);
-    color: #fff;
-}
-.admin-section {
-    display: none;
-}
-.admin-section.active {
-    display: block;
-}
-.user-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    flex-wrap: wrap;
-    background: var(--card);
-    border: 2px solid var(--border-strong);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-bottom: 8px;
-}
-.user-row .user-info {
-    flex: 1;
-    min-width: 150px;
-}
-.user-row .user-info strong {
-    display: block;
-    color: var(--text);
-    font-size: .95rem;
-}
-.user-row .user-info small {
-    color: var(--muted);
-    font-size: .78rem;
-}
-.user-row .user-actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-.user-row button {
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: .78rem;
-}
-.user-row .verify-btn { background: #16a34a; color: #fff; }
-.user-row .unverify-btn { background: #dc2626; color: #fff; }
+.account-info-card .account-actions .logout-action { background: #dc2626; color: #fff; }
+.account-info-card .account-actions .switch-action { background: var(--grad); color: #fff; }
 </style>
 </head>
 <body>
@@ -2625,37 +1406,27 @@ footer {
                     <div class="yards-list">
                         <div class="yard-card" id="yard-mera">
                             <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="yard-logo">
-                            <div>
-                                <h3>⚫ ФК "МЕРА"</h3>
-                            </div>
+                            <div><h3>⚫ ФК "МЕРА"</h3></div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                         <div class="yard-card" id="yard-78-school">
                             <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="yard-logo">
-                            <div>
-                                <h3>⚪ ФК 78 школа</h3>
-                            </div>
+                            <div><h3>⚪ ФК 78 школа</h3></div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                         <div class="yard-card" id="yard-yuzhka">
                             <img src="./Photos%20(2)/IMG_0800.jpeg" alt="ФК Южка" class="yard-logo">
-                            <div>
-                                <h3>🟢 ФК Южный</h3>
-                            </div>
+                            <div><h3>🟢 ФК Южный</h3></div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                         <div class="yard-card" id="yard-arsenal">
                             <img src="./Photos%20(2)/IMG_0853.jpeg" alt="ФК Арсенал" class="yard-logo" style="background: white; padding: 4px;">
-                            <div>
-                                <h3>🔴 ФК Арсенал</h3>
-                            </div>
+                            <div><h3>🔴 ФК Арсенал</h3></div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                         <div class="yard-card" id="yard-psg">
                             <img src="./Photos%20(2)/IMG_0833.jpeg" alt="ФК ПСЖ" class="yard-logo" style="background: white; padding: 4px;">
-                            <div>
-                                <h3>🔵 ФК ПСЖ</h3>
-                            </div>
+                            <div><h3>🔵 ФК ПСЖ</h3></div>
                             <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
                         </div>
                     </div>
@@ -2774,7 +1545,7 @@ footer {
                             </div>
                         </div>
                         <div class="login-section" id="login-section">
-                            <input type="text" id="login-input" placeholder="Логин..." style="display: none;">
+                            <input type="text" id="login-input" placeholder="Логин (mera, school78...)" style="display: none;">
                             <input type="password" id="password-input" placeholder="Пароль..." style="display: none;">
                             <button class="login-btn" id="login-btn">🔑 Войти</button>
                             <button class="logout-btn" id="logout-btn" style="display: none;">🚪 Выйти</button>
@@ -2840,6 +1611,7 @@ footer {
                         <button class="admin-tab active" data-tab="polls">📊 Опросы</button>
                         <button class="admin-tab" data-tab="accounts">👥 Аккаунты</button>
                         <button class="admin-tab" data-tab="balances">💰 Балансы</button>
+                        <button class="admin-tab" data-tab="complaints">📝 Жалобы</button>
                     </div>
                     <div class="admin-section active" id="admin-section-polls">
                         <div class="admin-poll-create">
@@ -2856,6 +1628,9 @@ footer {
                     </div>
                     <div class="admin-section" id="admin-section-balances">
                         <div id="admin-balance-teams-container"></div>
+                    </div>
+                    <div class="admin-section" id="admin-section-complaints">
+                        <div id="admin-complaints-list"></div>
                     </div>
                 </div>
             </div>
@@ -2883,11 +1658,11 @@ footer {
                     <div class="rating-label">Рейтинг</div>
                 </div>
             </div>
-            <div class="modal-description" id="modal-description">
+            <div class="modal-description">
                 <span class="modal-description-label">📝 Краткое описание</span>
                 <span id="modal-description-text">здесь описание</span>
             </div>
-            <div class="modal-stats-combined" id="modal-stats-container">
+            <div class="modal-stats-combined">
                 <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot">Правая</div></div>
                 <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height">0 см</div></div>
                 <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight">0 кг</div></div>
@@ -2900,7 +1675,7 @@ footer {
     </div>
     
     <div class="modal-overlay team-request-modal" id="complaint-modal">
-        <div class="modal" id="complaint-modal-window">
+        <div class="modal">
             <button class="modal-close-btn" id="complaint-close">×</button>
             <h2 style="color:#dc2626; text-align:center; margin-bottom:20px;">📝 Подать жалобу</h2>
             <div class="form-group">
@@ -2926,11 +1701,11 @@ footer {
             <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">🔐 Вход для администратора</h2>
             <div class="form-group">
                 <label>Логин</label>
-                <input type="text" id="admin-login" placeholder="admin">
+                <input type="text" id="admin-login-field" placeholder="admin">
             </div>
             <div class="form-group">
                 <label>Пароль</label>
-                <input type="password" id="admin-password" placeholder="Пароль">
+                <input type="password" id="admin-password-field" placeholder="Пароль">
             </div>
             <button class="auth-submit-btn" id="admin-auth-submit">✅ Войти</button>
             <div class="auth-status" id="admin-auth-status"></div>
@@ -2960,7 +1735,7 @@ footer {
             <div id="auth-register-form" style="display:none;">
                 <div class="form-group">
                     <label>Логин</label>
-                    <input type="text" id="auth-reg-username" placeholder="Придумайте логин">
+                    <input type="text" id="auth-reg-username" placeholder="Придумайте логин (латиница)">
                 </div>
                 <div class="form-group">
                     <label>Пароль</label>
@@ -2980,65 +1755,58 @@ footer {
         </div>
     </div>
 
+    <div class="modal-overlay" id="account-info-modal">
+        <div class="modal" style="max-width:400px;">
+            <button class="modal-close-btn" id="account-info-close">×</button>
+            <h2 style="color:#16a34a; text-align:center; margin-bottom:18px;">👤 Мой аккаунт</h2>
+            <div class="account-info-card" id="account-info-content">
+            </div>
+            <div class="account-info-card" style="background:transparent;border:none;padding:0;">
+                <div class="account-actions" id="account-info-actions">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal-overlay match-edit-modal" id="match-edit-modal">
         <div class="modal">
             <button class="modal-close-btn" id="match-edit-close">×</button>
             <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">✏️ Редактировать матч</h2>
-            <div id="match-edit-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Дата</label>
-                        <input type="date" id="edit-match-date">
-                    </div>
-                    <div class="form-group">
-                        <label>Время</label>
-                        <input type="time" id="edit-match-time">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Команда 1</label>
-                        <select id="edit-match-team1"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Команда 2</label>
-                        <select id="edit-match-team2"></select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Счет команды 1</label>
-                        <input type="number" id="edit-score1" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Счет команды 2</label>
-                        <input type="number" id="edit-score2" min="0">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Тип матча</label>
-                    <select id="edit-match-type">
-                        <option value="home">🏠 Домашний</option>
-                        <option value="away">✈️ Выездной</option>
-                        <option value="neutral">🏰 Нейтральное поле</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Результат</label>
-                    <select id="edit-match-result">
-                        <option value="win">🏆 Победа</option>
-                        <option value="loss">❌ Поражение</option>
-                        <option value="away">🏆 Победа соперника</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Пенальти (если есть)</label>
-                    <input type="text" id="edit-match-penalty" placeholder="Напр. 4:2">
-                </div>
-                <button class="submit-edit-btn" id="submit-edit-btn">💾 Сохранить изменения</button>
-                <button class="delete-match-btn" id="delete-match-btn">🗑️ Удалить матч</button>
-                <div class="match-edit-status" id="match-edit-status"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Дата</label><input type="date" id="edit-match-date"></div>
+                <div class="form-group"><label>Время</label><input type="time" id="edit-match-time"></div>
             </div>
+            <div class="form-row">
+                <div class="form-group"><label>Команда 1</label><select id="edit-match-team1"></select></div>
+                <div class="form-group"><label>Команда 2</label><select id="edit-match-team2"></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Счет 1</label><input type="number" id="edit-score1" min="0"></div>
+                <div class="form-group"><label>Счет 2</label><input type="number" id="edit-score2" min="0"></div>
+            </div>
+            <div class="form-group">
+                <label>Тип матча</label>
+                <select id="edit-match-type">
+                    <option value="home">🏠 Домашний</option>
+                    <option value="away">✈️ Выездной</option>
+                    <option value="neutral">🏰 Нейтральное поле</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Результат</label>
+                <select id="edit-match-result">
+                    <option value="win">🏆 Победа</option>
+                    <option value="loss">❌ Поражение</option>
+                    <option value="away">🏆 Победа соперника</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Пенальти</label>
+                <input type="text" id="edit-match-penalty" placeholder="Напр. 4:2">
+            </div>
+            <button class="submit-edit-btn" id="submit-edit-btn">💾 Сохранить</button>
+            <button class="delete-match-btn" id="delete-match-btn">🗑️ Удалить матч</button>
+            <div class="match-edit-status" id="match-edit-status"></div>
         </div>
     </div>
 
@@ -3046,60 +1814,40 @@ footer {
         <div class="modal">
             <button class="modal-close-btn" id="match-add-close">×</button>
             <h2 style="color:#28a745; text-align:center; margin-bottom:20px;">➕ Добавить матч</h2>
-            <div id="match-add-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Дата</label>
-                        <input type="date" id="add-match-date">
-                    </div>
-                    <div class="form-group">
-                        <label>Время</label>
-                        <input type="time" id="add-match-time">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Команда 1</label>
-                        <select id="add-match-team1"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Команда 2</label>
-                        <select id="add-match-team2"></select>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Счет команды 1</label>
-                        <input type="number" id="add-score1" min="0" value="0">
-                    </div>
-                    <div class="form-group">
-                        <label>Счет команды 2</label>
-                        <input type="number" id="add-score2" min="0" value="0">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Тип матча</label>
-                    <select id="add-match-type">
-                        <option value="home">🏠 Домашний</option>
-                        <option value="away">✈️ Выездной</option>
-                        <option value="neutral">🏰 Нейтральное поле</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Результат</label>
-                    <select id="add-match-result">
-                        <option value="win">🏆 Победа</option>
-                        <option value="loss">❌ Поражение</option>
-                        <option value="away">🏆 Победа соперника</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Пенальти (если есть)</label>
-                    <input type="text" id="add-match-penalty" placeholder="Напр. 4:2">
-                </div>
-                <button class="submit-add-btn" id="submit-add-btn">➕ Добавить матч</button>
-                <div class="match-add-status" id="match-add-status"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Дата</label><input type="date" id="add-match-date"></div>
+                <div class="form-group"><label>Время</label><input type="time" id="add-match-time"></div>
             </div>
+            <div class="form-row">
+                <div class="form-group"><label>Команда 1</label><select id="add-match-team1"></select></div>
+                <div class="form-group"><label>Команда 2</label><select id="add-match-team2"></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Счет 1</label><input type="number" id="add-score1" min="0" value="0"></div>
+                <div class="form-group"><label>Счет 2</label><input type="number" id="add-score2" min="0" value="0"></div>
+            </div>
+            <div class="form-group">
+                <label>Тип матча</label>
+                <select id="add-match-type">
+                    <option value="home">🏠 Домашний</option>
+                    <option value="away">✈️ Выездной</option>
+                    <option value="neutral">🏰 Нейтральное поле</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Результат</label>
+                <select id="add-match-result">
+                    <option value="win">🏆 Победа</option>
+                    <option value="loss">❌ Поражение</option>
+                    <option value="away">🏆 Победа соперника</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Пенальти</label>
+                <input type="text" id="add-match-penalty" placeholder="Напр. 4:2">
+            </div>
+            <button class="submit-add-btn" id="submit-add-btn">➕ Добавить</button>
+            <div class="match-add-status" id="match-add-status"></div>
         </div>
     </div>
     
@@ -3107,18 +1855,9 @@ footer {
         <div class="modal">
             <button class="modal-close-btn" id="transfer-money-close">×</button>
             <h2 style="color:#28a745; text-align:center; margin-bottom:20px;">💰 Перевод денег</h2>
-            <div class="form-group">
-                <label>Кому перевести</label>
-                <select id="transfer-to-team"></select>
-            </div>
-            <div class="form-group">
-                <label>Сумма</label>
-                <input type="number" id="transfer-amount" min="1" placeholder="Введите сумму">
-            </div>
-            <div class="form-group">
-                <label>Комментарий (необязательно)</label>
-                <input type="text" id="transfer-comment" placeholder="Например: За победу в матче">
-            </div>
+            <div class="form-group"><label>Кому</label><select id="transfer-to-team"></select></div>
+            <div class="form-group"><label>Сумма</label><input type="number" id="transfer-amount" min="1" placeholder="Сумма"></div>
+            <div class="form-group"><label>Комментарий</label><input type="text" id="transfer-comment" placeholder="Необязательно"></div>
             <button class="submit-action-btn" id="transfer-submit-btn">💰 Перевести</button>
             <div class="action-status" id="transfer-status"></div>
         </div>
@@ -3128,34 +1867,19 @@ footer {
         <div class="modal">
             <button class="modal-close-btn" id="make-offer-close">×</button>
             <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">📤 Предложение по игроку</h2>
-            <div class="form-group">
-                <label>Игрок</label>
-                <select id="offer-player-select"></select>
-            </div>
+            <div class="form-group"><label>Игрок</label><select id="offer-player-select"></select></div>
             <div class="form-group">
                 <label>Тип предложения</label>
                 <select id="offer-type">
-                    <option value="transfer">🛒 Покупка (своя цена)</option>
+                    <option value="transfer">🛒 Покупка</option>
                     <option value="loan">🔄 Аренда</option>
                 </select>
             </div>
-            <div class="form-group" id="offer-price-group">
-                <label>Цена (монет)</label>
-                <input type="number" id="offer-price" min="1" placeholder="Введите цену">
-            </div>
-            <div class="form-group" id="offer-loan-days-group" style="display: none;">
-                <label>Срок аренды (дней)</label>
-                <input type="number" id="offer-loan-days" min="1" placeholder="Напр. 7" value="7">
-            </div>
-            <div class="form-group" id="offer-loan-price-group" style="display: none;">
-                <label>Цена аренды (монет)</label>
-                <input type="number" id="offer-loan-price" min="1" placeholder="Введите цену аренды">
-            </div>
-            <div class="form-group">
-                <label>Комментарий (необязательно)</label>
-                <input type="text" id="offer-comment" placeholder="Например: Отличный игрок!">
-            </div>
-            <button class="submit-action-btn" id="offer-submit-btn">📤 Отправить предложение</button>
+            <div class="form-group" id="offer-price-group"><label>Цена</label><input type="number" id="offer-price" min="1"></div>
+            <div class="form-group" id="offer-loan-days-group" style="display:none;"><label>Срок аренды (дней)</label><input type="number" id="offer-loan-days" min="1" value="7"></div>
+            <div class="form-group" id="offer-loan-price-group" style="display:none;"><label>Цена аренды</label><input type="number" id="offer-loan-price" min="1"></div>
+            <div class="form-group"><label>Комментарий</label><input type="text" id="offer-comment" placeholder="Необязательно"></div>
+            <button class="submit-action-btn" id="offer-submit-btn">📤 Отправить</button>
             <div class="action-status" id="offer-status"></div>
         </div>
     </div>
@@ -3164,9 +1888,7 @@ footer {
         <div class="modal">
             <button class="modal-close-btn" id="view-offers-close">×</button>
             <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">📋 Мои предложения</h2>
-            <div id="offers-list-container">
-                <p style="text-align:center;color:#666;padding:20px;">Загрузка...</p>
-            </div>
+            <div id="offers-list-container"><p style="text-align:center;color:#666;padding:20px;">Загрузка...</p></div>
         </div>
     </div>
     
@@ -3175,25 +1897,25 @@ footer {
             <button class="close-btn" id="playstyle-detail-close">✕</button>
             <div class="playstyle-detail-icon" id="playstyle-detail-icon"></div>
             <div class="playstyle-detail-name" id="playstyle-detail-name">Название</div>
-            <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
+            <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание</div>
         </div>
     </div>
     
     <div class="secret-overlay" id="secret-overlay">
-        <div class="secret-modal" id="secret-modal">
+        <div class="secret-modal">
             <button class="secret-close" id="secret-close">✕</button>
             <div class="secret-icon">🔐</div>
             <h2>⚡ ТОЛЬКО ДЛЯ ФК МЕРА</h2>
-            <div class="secret-label">Введите пароль для доступа</div>
-            <input type="password" id="secret-password" placeholder="Введите пароль...">
+            <div class="secret-label">Введите пароль</div>
+            <input type="password" id="secret-password" placeholder="Пароль...">
             <button class="secret-submit" id="secret-submit">✅ Войти</button>
             <div class="secret-error" id="secret-error"></div>
             <div class="secret-content" id="secret-content">
                 <h3>📋 Информация для членов ФК "МЕРА"</h3>
                 <div class="info-block">
                     <p><span class="highlight">📅 Следующий матч: </span>Запланирован на ???</p>
-                    <p><span class="highlight"></span>78-я школа - трупы</p>
-                    <p><span class="highlight"></span>ФК МЕРА ТОП</p> 
+                    <p>78-я школа - трупы</p>
+                    <p>ФК МЕРА ТОП</p> 
                 </div>
             </div>
         </div>
@@ -3211,41 +1933,41 @@ footer {
         const playstyleDescriptions = {
             'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
             'golova_silver': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
-            'Bezjalostniy': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
-            'vinos_silver': { name: 'Выносливый', description: 'Игрок обладает отличной выносливостью и способен совершать множество забегов, не уставая быстро.' },
-            'obmanshik_silver': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
-            'truk_gold': { name: 'Трюкачество', description: 'Игрок сможет более эффективно выполнять финты и обыгрывать защитников в ситуациях 1 на 1.' },
-            'borec': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах.' },
-            'borec_silver': { name: 'Борец', description: 'Игрок обладает большей силой в физических единоборствах.' },
-            'strag': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
-            'strag_silver': { name: 'Страж', description: 'Игрок обладает более высоким уровнем мастерства и успешности в выполнении отбора мяча.' },
-            'bistro_silver': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
-            'bistro_gold': { name: 'Быстрый', description: 'Игрок обладает более взрывным ускорением для дриблинга и передач мяча в штрафную.' },
-            'pushka': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и плотные удары.' },
-            'pushka_silver': { name: 'Пушечный удар', description: 'Игрок может наносить мощные и плотные удары.' },
-            'tochno': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой.' },
-            'tochno_silver': { name: 'Мастер точного удара', description: 'Игрок может с большой точностью наносить удары с подкруткой.' },
-            'vihod': { name: 'Выход вратаря', description: 'Вратарь обладает способностью быстро выбегать из ворот.' },
-            'otraz': { name: 'Отражение', description: 'Вратарь обладает способностью отбивать мяч далеко, в стороны и в более безопасные зоны.' },
-            'otraz_silver': { name: 'Отражение', description: 'Вратарь обладает способностью отбивать мяч далеко, в стороны и в более безопасные зоны.' },
-            'bombardir_silver': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
-            'bombardir': { name: 'Супер бомбардир', description: 'Игрок может точно отправить мяч в сетку с близкого и среднего расстояния.' },
-            'parashut': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
-            'parashut_silver': { name: 'Парашют', description: 'Игрок обладает исключительным мастерством перебрасывания мяча через вратаря.' },
-            'tiki_taka_silver': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
-            'tiki_taka': { name: 'Тики-така', description: 'Игрок способен выполнять более точные и быстрые пасы по земле.' },
-            'prostrel_silver': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
-            'prostrel': { name: 'Прострел', description: 'Игрок способен выполнять более точные и быстрые удары по земле.' },
-            'naves_silver': { name: 'Навес низом на ход', description: 'Игрок может выполнять высокоскоростные навесы в штрафную.' },
-            'naves': { name: 'Навес низом на ход', description: 'Игрок может выполнять высокоскоростные навесы в штрафную.' },
-            'intuation_silver': { name: 'Интуиция', description: 'Игрок обладает способностью читать действия соперника в ситуациях 1 на 1.' },
-            'intuation': { name: 'Интуиция', description: 'Игрок обладает способностью читать действия соперника в ситуациях 1 на 1.' },
-            'simulant': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
-            'simulant_silver': { name: 'Симулянт', description: 'Игрок обладает выдающимся актерским мастерством в симуляции физического контакта' },
+            'Bezjalostniy': { name: 'Выносливый', description: 'Отличная выносливость.' },
+            'vinos_silver': { name: 'Выносливый', description: 'Отличная выносливость.' },
+            'obmanshik_silver': { name: 'Трюкачество', description: 'Эффективные финты.' },
+            'truk_gold': { name: 'Трюкачество', description: 'Эффективные финты.' },
+            'borec': { name: 'Борец', description: 'Сила в единоборствах.' },
+            'borec_silver': { name: 'Борец', description: 'Сила в единоборствах.' },
+            'strag': { name: 'Страж', description: 'Мастерство в отборе мяча.' },
+            'strag_silver': { name: 'Страж', description: 'Мастерство в отборе мяча.' },
+            'bistro_silver': { name: 'Быстрый', description: 'Взрывное ускорение.' },
+            'bistro_gold': { name: 'Быстрый', description: 'Взрывное ускорение.' },
+            'pushka': { name: 'Пушечный удар', description: 'Мощные удары.' },
+            'pushka_silver': { name: 'Пушечный удар', description: 'Мощные удары.' },
+            'tochno': { name: 'Мастер точного удара', description: 'Точные удары с подкруткой.' },
+            'tochno_silver': { name: 'Мастер точного удара', description: 'Точные удары с подкруткой.' },
+            'vihod': { name: 'Выход вратаря', description: 'Быстрый выход из ворот.' },
+            'otraz': { name: 'Отражение', description: 'Отбивает мяч в безопасные зоны.' },
+            'otraz_silver': { name: 'Отражение', description: 'Отбивает мяч в безопасные зоны.' },
+            'bombardir_silver': { name: 'Супер бомбардир', description: 'Точные удары с близкого расстояния.' },
+            'bombardir': { name: 'Супер бомбардир', description: 'Точные удары с близкого расстояния.' },
+            'parashut': { name: 'Парашют', description: 'Перебрасывание через вратаря.' },
+            'parashut_silver': { name: 'Парашют', description: 'Перебрасывание через вратаря.' },
+            'tiki_taka_silver': { name: 'Тики-така', description: 'Точные пасы по земле.' },
+            'tiki_taka': { name: 'Тики-така', description: 'Точные пасы по земле.' },
+            'prostrel_silver': { name: 'Прострел', description: 'Точные удары по земле.' },
+            'prostrel': { name: 'Прострел', description: 'Точные удары по земле.' },
+            'naves_silver': { name: 'Навес низом на ход', description: 'Навесы в штрафную.' },
+            'naves': { name: 'Навес низом на ход', description: 'Навесы в штрафную.' },
+            'intuation_silver': { name: 'Интуиция', description: 'Читает действия соперника.' },
+            'intuation': { name: 'Интуиция', description: 'Читает действия соперника.' },
+            'simulant': { name: 'Симулянт', description: 'Актёрское мастерство.' },
+            'simulant_silver': { name: 'Симулянт', description: 'Актёрское мастерство.' },
             'pevec': { name: 'Певец', description: '' },
-            'pan': { name: 'Мастер Паны', description: 'Игрок обладает превосходным процентом успешного прокидывания мяча между ног.' },
-            'far': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади.' },
-            'far_silver': { name: 'Широкий Охват', description: 'Игрок способен дотянуться до мяча в решающий момент и отразить удар из-за пределов штрафной площади.' }
+            'pan': { name: 'Мастер Паны', description: 'Прокидывание между ног.' },
+            'far': { name: 'Широкий Охват', description: 'Дотягивается до мяча.' },
+            'far_silver': { name: 'Широкий Охват', description: 'Дотягивается до мяча.' }
         };
         
         const basePlayers = {
@@ -3258,7 +1980,7 @@ footer {
             tankov: { name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 92, number: "(99)", description: "", playstyles: [], playstyleColors: {} },
             matvey: { name: "Слащев Матвей", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "142 см", weight: "31 кг", rating: 88, number: "(3)", description: "Падает стабильно каждый матч", playstyles: ['simulant', 'parashut'], playstyleColors: {simulant:'gold', parashut: "gold"} },
             artem: { name: "Соколов Артем", position: "Нападающий", age: "11 лет", icon: "🧰", foot: "Правая", height: "155 см", weight: "59 кг", rating: 81, number: "(98)", description: "В его весовой он один", playstyles: [], playstyleColors: {} },
-            vanya: { name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант Арсенала", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
+            vanya: { name: "Ваня Мелкий", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "120 см", weight: "25 кг", rating: 70, number: "(10)", description: "Молодой талант", playstyles: ["bistro_silver"], playstyleColors: {bistro_silver: "silver"} },
             gleb: { name: "Глеб", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
             russkov_artem: { name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "172 см", weight: "60 кг", rating: 98, number: "(10)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
             shuklin: { name: "Кирилл Шуклин", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(18)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
@@ -3269,11 +1991,11 @@ footer {
         };
         
         const yard78Players = [
-            { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 95, number: "(7)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-            { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 96, number: "(11)", description: "Нападающий ФК 78 ", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
-            { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 91, number: "(5)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-            { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 95, number: "(1)", description: "Вратарь ФК 78 ", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold"},far: "gold" },
-            { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 91, number: "(76)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
+            { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 95, number: "(7)", description: "Игрок ФК 78", playstyles: [], playstyleColors: {} },
+            { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 96, number: "(11)", description: "Нападающий ФК 78", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
+            { id: "kirill_beschastny", name: "Бесчастнов Кирилл", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "162 см", weight: "52 кг", rating: 91, number: "(5)", description: "Игрок ФК 78", playstyles: [], playstyleColors: {} },
+            { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 95, number: "(1)", description: "Вратарь ФК 78", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold", far: "gold"} },
+            { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 91, number: "(76)", description: "Игрок ФК 78", playstyles: [], playstyleColors: {} },
             { id: "elisey", name: "Пожидаев Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 89, number: "(19)", description: "Второй Ямаль", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
             { id: "demid", name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
             { id: "lesha_podavalny", name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 90, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
@@ -3285,13 +2007,13 @@ footer {
             { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 98, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
             { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 94, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
             { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
-            { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
+            { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
             { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
-            { id: "diana", name: "Диана Епончинцева", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} },
+            { id: "diana", name: "Диана Епончинцева", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка", playstyles: [], playstyleColors: {} },
         ];
 
         const arsenalPlayers = [
-            { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
+            { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
             { id: "gleb", name: "Глеб", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
             { id: "kostya", name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
             { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} },
@@ -3360,7 +2082,7 @@ footer {
         let currentUserProfile = null;
         let isGuest = false;
         let pollsData = [];
-        let complaintsData = [];
+        let complaints = [];
         let allProfiles = [];
         
         try {
@@ -3405,9 +2127,9 @@ footer {
                         const player = playersData[playerId];
                         marketState.transfers = marketState.transfers || [];
                         marketState.transfers.unshift({
-                            playerId: playerId, playerName: `${player.name} (возврат из аренды)`,
+                            playerId: playerId, playerName: `${player.name} (возврат)`,
                             playerIcon: player.icon || '⚽', fromTeam: loan.toTeam, toTeam: loan.fromTeam,
-                            price: 0, time: new Date().toISOString(), comment: 'Возврат после аренды'
+                            price: 0, time: new Date().toISOString()
                         });
                         if (marketState.transfers.length > 50) marketState.transfers = marketState.transfers.slice(0, 50);
                         delete activeLoans[playerId];
@@ -3437,11 +2159,9 @@ footer {
                 if (saved) {
                     activeLoans = JSON.parse(saved);
                     const now = new Date();
-                    let changed = false;
                     Object.keys(activeLoans).forEach(playerId => {
-                        if (new Date(activeLoans[playerId].endDate) < now) { delete activeLoans[playerId]; changed = true; }
+                        if (new Date(activeLoans[playerId].endDate) < now) delete activeLoans[playerId];
                     });
-                    if (changed) saveLoansData();
                 }
             } catch (e) {}
         }
@@ -3449,8 +2169,8 @@ footer {
         async function loginCaptain(username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return false; }
-                const email = username + '@fc.com';
-                const { data, error } = await supabaseClient.auth.signInWithPassword({ email: email, password: password.trim() });
+                const email = username.trim().toLowerCase() + '@fc.com';
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
                 if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return false; }
                 let teamId = null;
                 const userEmail = data.user.email;
@@ -3532,8 +2252,8 @@ footer {
             if (!badge) return;
             const captainId = marketState.currentCaptain;
             if (!captainId) { badge.classList.add('hidden'); badge.textContent = '0'; return; }
-            const incomingPending = (marketState.offers || []).filter(o => o.toTeam === captainId && o.status === 'pending');
-            if (incomingPending.length > 0) { badge.textContent = incomingPending.length; badge.classList.remove('hidden'); }
+            const incoming = (marketState.offers || []).filter(o => o.toTeam === captainId && o.status === 'pending');
+            if (incoming.length > 0) { badge.textContent = incoming.length; badge.classList.remove('hidden'); }
             else badge.classList.add('hidden');
         }
         
@@ -3635,9 +2355,9 @@ footer {
                 const toClass = transfer.toTeam || 'unknown';
                 const timeStr = new Date(transfer.time).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                 html += `<div class="transfer-item">
-                    <div class="transfer-player"><span class="player-icon">${transfer.playerIcon}</span>${transfer.playerName}</div>
+                    <div class="transfer-player"><span>${transfer.playerIcon}</span>${transfer.playerName}</div>
                     <div><span class="transfer-team-badge ${fromClass}">${fromName}</span><span class="transfer-arrow">➜</span><span class="transfer-team-badge ${toClass}">${toName}</span></div>
-                    <div><span class="transfer-price">💰 ${transfer.price} монет</span><span class="transfer-time">🕐 ${timeStr}</span></div>
+                    <div><span class="transfer-price">💰 ${transfer.price}</span></div>
                 </div>`;
             });
             container.innerHTML = html;
@@ -3817,12 +2537,10 @@ footer {
             const iconEl = document.getElementById('playstyle-detail-icon');
             const nameEl = document.getElementById('playstyle-detail-name');
             const descEl = document.getElementById('playstyle-detail-desc');
-            const cardEl = document.getElementById('playstyle-detail-card');
             const styleInfo = playstyleDescriptions[styleKey];
             if (!styleInfo) return;
             const color = getPlaystyleColor(playerId, styleKey);
             const colorClass = color === 'silver' ? 'silver' : '';
-            cardEl.className = 'playstyle-detail-card' + (colorClass ? ' silver-border' : '');
             iconEl.className = 'playstyle-detail-icon' + (colorClass ? ' ' + colorClass : '');
             iconEl.innerHTML = '';
             if (typeof playstylePhotos !== 'undefined' && playstylePhotos[styleKey]) {
@@ -3832,7 +2550,7 @@ footer {
             } else iconEl.textContent = '🎮';
             nameEl.textContent = styleInfo.name;
             if (styleKey === 'pevec') descEl.innerHTML = `<div class="video-container"><video controls src="./Photos%20(2)/pevec.mp4"></video></div>`;
-            else descEl.textContent = styleInfo.description || 'Описание отсутствует';
+            else descEl.textContent = styleInfo.description || '';
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -4000,7 +2718,6 @@ footer {
         function openPlayerModal(playerId) {
             const player = playersData[playerId];
             if (!player) return;
-            const modal = document.getElementById('modal-window');
             document.getElementById('modal-name').textContent = player.name;
             document.getElementById('modal-position').textContent = `${player.position} • ${player.age}`;
             const meraTag = document.getElementById('modal-mera-tag');
@@ -4011,7 +2728,7 @@ footer {
             if (player.rating >= 85) ratingElement.className = 'rating-value rating-high';
             else if (player.rating >= 75) ratingElement.className = 'rating-value rating-medium';
             else ratingElement.className = 'rating-value rating-low';
-            document.getElementById('modal-description-text').textContent = player.description || 'здесь описание';
+            document.getElementById('modal-description-text').textContent = player.description || '';
             const modalPhoto = document.getElementById('modal-photo');
             modalPhoto.innerHTML = '';
             if (typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
@@ -4024,25 +2741,6 @@ footer {
                 modalPhoto.style.display = 'flex';
                 modalPhoto.style.alignItems = 'center';
                 modalPhoto.style.justifyContent = 'center';
-            }
-            let teamTheme = '';
-            if (meraTeamIds.includes(playerId)) teamTheme = 'yard-mera-theme';
-            else if (yard78PlayerIds.includes(playerId)) teamTheme = 'yard-78-theme';
-            else if (yuzhkaPlayerIds.includes(playerId)) teamTheme = 'yard-yuzhka-theme';
-            else if (arsenalPlayerIds.includes(playerId)) teamTheme = 'yard-arsenal-theme';
-            else if (psgPlayerIds.includes(playerId)) teamTheme = 'yard-psg-theme';
-            const modalWindow = document.getElementById('modal-window');
-            modalWindow.classList.remove('yard-mera-theme', 'yard-78-theme', 'yard-yuzhka-theme', 'yard-arsenal-theme', 'yard-psg-theme');
-            if (teamTheme) {
-                modalWindow.classList.add(teamTheme);
-                const borderColor = teamTheme === 'yard-mera-theme' ? '#8e44ad' :
-                                   teamTheme === 'yard-78-theme' ? '#8e44ad' :
-                                   teamTheme === 'yard-yuzhka-theme' ? '#32cd32' :
-                                   teamTheme === 'yard-arsenal-theme' ? '#dc3545' : '#0d6efd';
-                modalWindow.style.borderColor = borderColor;
-                document.getElementById('modal-name').style.color = borderColor;
-                document.getElementById('modal-photo').style.borderColor = borderColor;
-                document.querySelectorAll('.modal-stat-value').forEach(el => { el.style.color = borderColor; });
             }
             document.getElementById('modal-foot').textContent = player.foot || 'Правая';
             document.getElementById('modal-height').textContent = player.height || '0 см';
@@ -4076,30 +2774,46 @@ footer {
             document.body.style.overflow = 'hidden';
         }
         
-        function renderMatchTactics(matchNum) {
-            const data = matchTacticsData[matchNum];
-            if (!data) return;
-            document.getElementById('match-tactics-title').textContent = `⚽ Тактика матча: ${data.title}`;
-        }
-        
         function renderComplaints() {
             const container = document.getElementById('complaints-list-container');
-            if (!container) return;
-            if (complaints.length === 0) container.innerHTML = '<p style="text-align:center; color:var(--muted); padding:20px;">Нет жалоб</p>';
-            else {
-                let html = '';
-                complaints.forEach(c => {
-                    const statusClass = c.status === 'resolved' ? 'resolved' : 'pending';
-                    const statusText = c.status === 'resolved' ? '✅ Рассмотрено' : '⏳ Ожидает';
-                    html += `<div class="complaint-card">
-                        <div class="complaint-from">📤 ${c.from_name || 'Аноним'}</div>
-                        <div class="complaint-reason"><strong>Причина:</strong> ${c.reason}</div>
-                        ${c.about ? `<div style="font-size:.88rem;color:var(--muted);"><strong>На кого:</strong> ${c.about}</div>` : ''}
-                        ${c.details ? `<div style="font-size:.88rem;color:var(--muted);">${c.details}</div>` : ''}
-                        <div class="complaint-verdict ${statusClass}">${statusText}${c.verdict ? ': ' + c.verdict : ''}</div>
-                    </div>`;
-                });
-                container.innerHTML = html;
+            if (container) {
+                if (complaints.length === 0) container.innerHTML = '<p style="text-align:center; color:var(--muted); padding:20px;">Нет жалоб</p>';
+                else {
+                    let html = '';
+                    complaints.forEach(c => {
+                        const statusClass = c.status === 'resolved' ? 'resolved' : 'pending';
+                        const statusText = c.status === 'resolved' ? '✅ Рассмотрено' : '⏳ Ожидает';
+                        html += `<div class="complaint-card">
+                            <div class="complaint-from">📤 ${c.from_name || 'Аноним'}</div>
+                            <div class="complaint-reason"><strong>Причина:</strong> ${c.reason}</div>
+                            ${c.about ? `<div style="font-size:.88rem;color:var(--muted);"><strong>На кого:</strong> ${c.about}</div>` : ''}
+                            ${c.details ? `<div style="font-size:.88rem;color:var(--muted);">${c.details}</div>` : ''}
+                            <div class="complaint-verdict ${statusClass}">${statusText}${c.verdict ? ': ' + c.verdict : ''}</div>
+                        </div>`;
+                    });
+                    container.innerHTML = html;
+                }
+            }
+            const adminContainer = document.getElementById('admin-complaints-list');
+            if (adminContainer && adminLoggedIn) {
+                const pending = complaints.filter(c => c.status !== 'resolved');
+                if (pending.length === 0) adminContainer.innerHTML = '<p style="text-align:center; color:var(--muted);">Нет новых жалоб</p>';
+                else {
+                    let html = '';
+                    pending.forEach(c => {
+                        html += `<div class="complaint-card">
+                            <div class="complaint-from">📤 ${c.from_name || 'Аноним'} (${c.from_email || ''})</div>
+                            <div class="complaint-reason"><strong>Причина:</strong> ${c.reason}</div>
+                            ${c.about ? `<div style="font-size:.88rem;color:var(--muted);"><strong>На кого:</strong> ${c.about}</div>` : ''}
+                            ${c.details ? `<div style="font-size:.88rem;color:var(--muted);">${c.details}</div>` : ''}
+                            <input type="text" class="verdict-input" id="verdict-${c.id}" placeholder="Вердикт...">
+                            <div class="complaint-admin-actions">
+                                <button onclick="resolveComplaint('${c.id}')">✅ Вынести вердикт</button>
+                            </div>
+                        </div>`;
+                    });
+                    adminContainer.innerHTML = html;
+                }
             }
         }
         
@@ -4271,11 +2985,11 @@ footer {
             if (!badge || !accountBtn) return;
             if (isGuest) {
                 badge.innerHTML = '👤 Гость <span class="guest-badge">ОГРАНИЧЕН</span>';
-                accountBtn.textContent = '🚪';
+                accountBtn.textContent = '👤';
             } else if (currentUser && currentUserProfile) {
                 if (currentUserProfile.verified) badge.innerHTML = `👤 ${currentUserProfile.display_name || ''} <span class="verified-badge">✅</span>`;
                 else badge.innerHTML = `👤 ${currentUserProfile.display_name || ''} <span class="unverified-badge">⏳</span>`;
-                accountBtn.textContent = '🚪';
+                accountBtn.textContent = '👤';
             } else {
                 badge.innerHTML = '';
                 accountBtn.textContent = '👤';
@@ -4287,11 +3001,13 @@ footer {
                 if (!supabaseClient) return;
                 const { data: { session } } = await supabaseClient.auth.getSession();
                 if (session) {
+                    const userEmail = session.user.email || '';
+                    if (userEmail.endsWith('@fc.com') || userEmail.endsWith('@admin.com')) return;
                     currentUser = session.user;
                     const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).single();
                     if (profile) currentUserProfile = profile;
                     else {
-                        currentUserProfile = { id: session.user.id, display_name: session.user.email.split('@')[0], verified: false };
+                        currentUserProfile = { id: session.user.id, display_name: userEmail.split('@')[0], verified: false };
                         await supabaseClient.from('profiles').insert([currentUserProfile]);
                     }
                     isGuest = false;
@@ -4363,6 +3079,7 @@ footer {
             updateAuthBadge();
             renderPolls();
             showMarketNotification('👋 Вы вышли', 'info');
+            document.getElementById('account-info-modal').classList.remove('active');
         }
         
         function switchAuthTab(tab) {
@@ -4379,6 +3096,50 @@ footer {
             document.getElementById('auth-status-message').textContent = '';
             document.getElementById('auth-status-message').className = 'auth-status';
             switchAuthTab('login');
+        }
+        
+        function openAccountInfo() {
+            const content = document.getElementById('account-info-content');
+            const actions = document.getElementById('account-info-actions');
+            if (isGuest) {
+                content.innerHTML = `
+                    <div class="account-avatar">👤</div>
+                    <div class="account-name">Гость</div>
+                    <div class="account-status">Вы вошли как гость. Ограниченный доступ.</div>
+                `;
+                actions.innerHTML = `
+                    <button class="switch-action" onclick="closeAccountInfo(); openAuthModal();">🔑 Войти / Регистрация</button>
+                    <button class="logout-action" onclick="logoutUser()">🚪 Выйти</button>
+                `;
+            } else if (currentUser && currentUserProfile) {
+                const verified = currentUserProfile.verified === true;
+                const statusText = verified ? '✅ Аккаунт подтверждён' : '⏳ Ожидает подтверждения админа';
+                const statusClass = verified ? 'verified-badge' : 'unverified-badge';
+                content.innerHTML = `
+                    <div class="account-avatar">${(currentUserProfile.display_name || 'U')[0].toUpperCase()}</div>
+                    <div class="account-name">${currentUserProfile.display_name || 'Пользователь'}</div>
+                    <div class="account-status"><span class="${statusClass}">${statusText}</span></div>
+                `;
+                actions.innerHTML = `
+                    <button class="logout-action" onclick="logoutUser()">🚪 Выйти</button>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div class="account-avatar">👤</div>
+                    <div class="account-name">Не авторизован</div>
+                    <div class="account-status">Войдите, чтобы получить доступ</div>
+                `;
+                actions.innerHTML = `
+                    <button class="switch-action" onclick="closeAccountInfo(); openAuthModal();">🔑 Войти</button>
+                `;
+            }
+            document.getElementById('account-info-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeAccountInfo() {
+            document.getElementById('account-info-modal').classList.remove('active');
+            document.body.style.overflow = '';
         }
         
         async function adminLogin(username, password) {
@@ -4405,6 +3166,9 @@ footer {
                 renderPolls();
                 showPage('admin-panel-page');
                 loadAllProfiles();
+                renderAdminPolls();
+                renderAdminBalances();
+                renderComplaints();
                 showMarketNotification('✅ Вы вошли как админ!', 'success');
             } catch (err) {
                 document.getElementById('admin-auth-status').textContent = `❌ ${err.message}`;
@@ -4452,7 +3216,7 @@ footer {
                             <strong>${p.display_name || 'Без имени'} ${verified ? '<span class="verified-badge">✅</span>' : '<span class="unverified-badge">⏳</span>'}</strong>
                             <small>ID: ${p.id.substring(0, 8)}...</small>
                         </div>
-                        <div class="user-actions">
+                        <div>
                             ${verified ? `<button class="unverify-btn" onclick="toggleVerify('${p.id}', false)">❌ Снять</button>` : `<button class="verify-btn" onclick="toggleVerify('${p.id}', true)">✅ Подтвердить</button>`}
                         </div>
                     </div>`;
@@ -4483,10 +3247,10 @@ footer {
                 row.innerHTML = `
                     <label>${team.name}</label>
                     <input type="number" id="admin-balance-${team.id}" value="${team.budget}" min="0">
-                    <button class="balance-btn" onclick="setTeamBalance('${team.id}')">💾 Установить</button>
-                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 75)">➕ 75</button>
-                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 500)">➕ 500</button>
-                    <button class="balance-btn danger" onclick="addTeamBalance('${team.id}', -75)">➖ 75</button>
+                    <button class="balance-btn" onclick="setTeamBalance('${team.id}')">💾</button>
+                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 75)">➕75</button>
+                    <button class="balance-btn" onclick="addTeamBalance('${team.id}', 500)">➕500</button>
+                    <button class="balance-btn danger" onclick="addTeamBalance('${team.id}', -75)">➖75</button>
                 `;
                 container.appendChild(row);
             });
@@ -4502,7 +3266,7 @@ footer {
             await saveMarketData();
             renderAdminBalances();
             updateBudgetDisplay();
-            showMarketNotification(`✅ ${team.name}: ${newBalance} монет`, 'success');
+            showMarketNotification(`✅ ${team.name}: ${newBalance}`, 'success');
         }
         
         async function addTeamBalance(teamId, amount) {
@@ -4512,17 +3276,15 @@ footer {
             await saveMarketData();
             renderAdminBalances();
             updateBudgetDisplay();
-            showMarketNotification(`✅ ${team.name}: ${team.budget} монет`, 'success');
+            showMarketNotification(`✅ ${team.name}: ${team.budget}`, 'success');
         }
         
         function openAddMatchModal() {
             document.getElementById('match-add-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
             document.getElementById('match-add-status').textContent = '';
-            document.getElementById('match-add-status').className = 'match-add-status';
             populateTeamSelects('add-match-team1', 'add-match-team2');
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('add-match-date').value = today;
+            document.getElementById('add-match-date').value = new Date().toISOString().split('T')[0];
             document.getElementById('add-match-time').value = '18:00';
         }
         
@@ -4532,7 +3294,6 @@ footer {
             currentEditingMatchId = matchId;
             document.getElementById('match-edit-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
-            document.getElementById('match-edit-status').textContent = '';
             populateTeamSelects('edit-match-team1', 'edit-match-team2');
             document.getElementById('edit-match-date').value = match.date || '';
             document.getElementById('edit-match-time').value = match.time || '';
@@ -4681,7 +3442,6 @@ footer {
             document.getElementById('transfer-money-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
             document.getElementById('transfer-status').textContent = '';
-            document.getElementById('transfer-status').className = 'action-status';
             document.getElementById('transfer-amount').value = '';
             document.getElementById('transfer-comment').value = '';
             const select = document.getElementById('transfer-to-team');
@@ -4712,13 +3472,13 @@ footer {
             marketState.transfers = marketState.transfers || [];
             marketState.transfers.unshift({
                 playerId: 'transfer_money', playerName: `💰 Перевод ${amount} монет`, playerIcon: '💰',
-                fromTeam: fromTeamId, toTeam: toTeamId, price: amount, time: new Date().toISOString(), comment: comment || ''
+                fromTeam: fromTeamId, toTeam: toTeamId, price: amount, time: new Date().toISOString()
             });
             if (marketState.transfers.length > 50) marketState.transfers = marketState.transfers.slice(0, 50);
             await saveMarketData();
             updateBudgetDisplay();
             renderTransfers();
-            statusEl.textContent = `✅ Переведено ${amount} монет!`;
+            statusEl.textContent = `✅ Переведено!`;
             statusEl.className = 'action-status success';
             setTimeout(() => { document.getElementById('transfer-money-modal').classList.remove('active'); document.body.style.overflow = ''; }, 2000);
         }
@@ -4728,7 +3488,6 @@ footer {
             document.getElementById('make-offer-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
             document.getElementById('offer-status').textContent = '';
-            document.getElementById('offer-status').className = 'action-status';
             document.getElementById('offer-price').value = '';
             document.getElementById('offer-comment').value = '';
             document.getElementById('offer-loan-days').value = '7';
@@ -4766,11 +3525,11 @@ footer {
             const loanPrice = parseInt(document.getElementById('offer-loan-price').value);
             const comment = document.getElementById('offer-comment').value.trim();
             const statusEl = document.getElementById('offer-status');
-            if (!playerId) { statusEl.textContent = '❌ Выберите игрока!'; statusEl.className = 'action-status error'; return; }
+            if (!playerId) { statusEl.textContent = '❌ Выберите!'; statusEl.className = 'action-status error'; return; }
             const player = playersData[playerId];
             const toTeamId = Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId));
             if (!toTeamId || toTeamId === fromTeamId) { statusEl.textContent = '❌ Некорректно!'; statusEl.className = 'action-status error'; return; }
-            if (offerType === 'transfer' && (!price || price < 1)) { statusEl.textContent = '❌ Введите цену!'; statusEl.className = 'action-status error'; return; }
+            if (offerType === 'transfer' && (!price || price < 1)) { statusEl.textContent = '❌ Цена!'; statusEl.className = 'action-status error'; return; }
             if (offerType === 'loan' && (!loanDays || !loanPrice)) { statusEl.textContent = '❌ Заполните!'; statusEl.className = 'action-status error'; return; }
             const offer = {
                 id: Date.now() + '_' + Math.random().toString(36).substr(2, 6),
@@ -4790,7 +3549,7 @@ footer {
         }
         
         function openViewOffers() {
-            if (!marketState.currentCaptain) { showMarketNotification('❌ Войдите как капитан!', 'error'); return; }
+            if (!marketState.currentCaptain) { showMarketNotification('❌ Войдите!', 'error'); return; }
             document.getElementById('view-offers-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
             renderOffers();
@@ -5129,8 +3888,8 @@ footer {
             document.getElementById('admin-auth-close').addEventListener('click', () => { document.getElementById('admin-auth-modal').classList.remove('active'); document.body.style.overflow = ''; });
             document.getElementById('admin-auth-modal').addEventListener('click', function(e) { if (e.target === this) { this.classList.remove('active'); document.body.style.overflow = ''; } });
             document.getElementById('admin-auth-submit').addEventListener('click', function() {
-                const username = document.getElementById('admin-login').value.trim();
-                const password = document.getElementById('admin-password').value.trim();
+                const username = document.getElementById('admin-login-field').value.trim();
+                const password = document.getElementById('admin-password-field').value.trim();
                 if (username && password) adminLogin(username, password);
                 else {
                     document.getElementById('admin-auth-status').textContent = '❌ Заполните!';
@@ -5165,9 +3924,10 @@ footer {
             document.getElementById('view-offers-modal').addEventListener('click', function(e) { if (e.target === this) { this.classList.remove('active'); document.body.style.overflow = ''; } });
             
             document.getElementById('account-toggle').addEventListener('click', function() {
-                if (currentUser || isGuest) logoutUser();
-                else openAuthModal();
+                openAccountInfo();
             });
+            document.getElementById('account-info-close').addEventListener('click', closeAccountInfo);
+            document.getElementById('account-info-modal').addEventListener('click', function(e) { if (e.target === this) closeAccountInfo(); });
             
             document.getElementById('auth-modal-close').addEventListener('click', () => { document.getElementById('auth-modal').classList.remove('active'); document.body.style.overflow = ''; });
             document.getElementById('auth-modal').addEventListener('click', function(e) { if (e.target === this) { this.classList.remove('active'); document.body.style.overflow = ''; } });
@@ -5216,6 +3976,7 @@ footer {
                     if (tabName === 'accounts') loadAllProfiles();
                     if (tabName === 'polls') renderAdminPolls();
                     if (tabName === 'balances') renderAdminBalances();
+                    if (tabName === 'complaints') renderComplaints();
                 });
             });
             
@@ -5277,6 +4038,9 @@ footer {
             window.openSellDialog = openSellDialog;
             window.editMatch = editMatch;
             window.toggleVerify = toggleVerify;
+            window.logoutUser = logoutUser;
+            window.openAuthModal = openAuthModal;
+            window.closeAccountInfo = closeAccountInfo;
             
             console.log('✅ Сайт загружен!');
         });
