@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -311,8 +312,6 @@ h1 {
 .dark-theme .account-status-pill.confirmed { background: #0a2a1a; color: #4ade80; }
 .account-status-pill.unconfirmed { background: #fef3c7; color: #92400e; }
 .dark-theme .account-status-pill.unconfirmed { background: #3a2a05; color: #fbbf24; }
-.account-status-pill.guest { background: #e2e8f0; color: #475569; }
-.dark-theme .account-status-pill.guest { background: #2a3a5c; color: #cbd5e1; }
 .account-stat-row {
     display: flex;
     justify-content: space-between;
@@ -1295,7 +1294,6 @@ h1 {
     border-radius: 12px;
     overflow: hidden;
     transition: transform .2s;
-    animation: cardIn .4s cubic-bezier(.2,.8,.2,1) backwards;
 }
 .rules-section:hover { transform: translateX(4px); }
 .rules-section-header {
@@ -2532,30 +2530,6 @@ footer {
     font-size: .8rem;
 }
 .unconfirmed-user-item .confirm-btn:hover { background: #15803d; transform: translateY(-2px); }
-.avatar-picker {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 8px;
-}
-.avatar-choice {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid var(--border);
-    background: var(--bg-2);
-    cursor: pointer;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    font-size: 1.8rem;
-    transition: all .2s;
-    padding: 0;
-}
-.avatar-choice:hover { border-color: var(--accent); transform: scale(1.08); }
-.avatar-choice.selected { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.3); }
-.avatar-choice img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 768px) {
     .container { padding: 14px; }
     h1 { font-size: 1.8rem; }
@@ -3128,8 +3102,8 @@ footer {
                 </div>
                 <div class="auth-form active" id="login-form">
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="auth-login-email" placeholder="your@email.com">
+                        <label>Логин</label>
+                        <input type="text" id="auth-login-username" placeholder="Ваш логин">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
@@ -3140,16 +3114,16 @@ footer {
                 </div>
                 <div class="auth-form" id="register-form">
                     <div class="form-group">
-                        <label>Имя</label>
-                        <input type="text" id="auth-register-name" placeholder="Ваше имя">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="auth-register-email" placeholder="your@email.com">
+                        <label>Логин</label>
+                        <input type="text" id="auth-register-username" placeholder="Придумайте логин">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
                         <input type="password" id="auth-register-password" placeholder="Минимум 6 символов">
+                    </div>
+                    <div class="form-group">
+                        <label>Повторите пароль</label>
+                        <input type="password" id="auth-register-password2" placeholder="Повторите пароль">
                     </div>
                     <button class="auth-submit-btn" id="auth-register-submit">📝 Зарегистрироваться</button>
                     <div class="auth-status" id="auth-register-status"></div>
@@ -3161,7 +3135,7 @@ footer {
                     <div class="account-avatar-big" id="account-avatar-big"></div>
                     <div class="account-info-block">
                         <h3 id="account-user-name">Имя</h3>
-                        <p id="account-user-email">email</p>
+                        <p id="account-user-email">Логин</p>
                         <span class="account-status-pill" id="account-user-status">Гость</span>
                     </div>
                 </div>
@@ -3182,12 +3156,7 @@ footer {
                     <span class="value" id="account-user-date">—</span>
                 </div>
                 <div class="account-actions">
-                    <button class="secondary-action" id="account-change-avatar-btn">🖼️ Сменить аватар</button>
                     <button class="danger-action" id="account-logout-btn">🚪 Выйти</button>
-                </div>
-                <div id="avatar-picker-container" style="display:none;margin-top:14px;">
-                    <div style="font-weight:800;color:var(--accent);margin-bottom:8px;text-align:center;">Выберите аватар</div>
-                    <div class="avatar-picker" id="avatar-picker"></div>
                 </div>
             </div>
         </div>
@@ -3599,30 +3568,19 @@ footer {
         };
         
         const matchTacticsData = {};
-        
         const marketData = { teams: CAPTAINS, players: {} };
         
         Object.keys(playersData).forEach(id => {
             const p = playersData[id];
             marketData.players[id] = {
-                id: id,
-                name: p.name,
-                position: p.position,
-                rating: p.rating,
+                id: id, name: p.name, position: p.position, rating: p.rating,
                 price: Math.round(p.rating * 10),
                 team: Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(id)) || 'unknown',
                 icon: p.icon || '⚽'
             };
         });
         
-        let marketState = {
-            currentCaptain: null,
-            transferList: [],
-            pendingTransfers: {},
-            transfers: [],
-            offers: []
-        };
-        
+        let marketState = { currentCaptain: null, transferList: [], pendingTransfers: {}, transfers: [], offers: [] };
         let activeLoans = {};
         const LOAN_CHECK_INTERVAL = 60000;
         
@@ -3643,31 +3601,17 @@ footer {
         let pollsData = [];
         let complaintsData = [];
         let userVotes = {};
-        let userAvatars = {};
-        
-        const AVATAR_PRESETS = [
-            { id: 'mera', src: './Photos%20(2)/IMG_0807.jpeg' },
-            { id: 'school78', src: './Photos%20(2)/IMG_0797.jpeg' },
-            { id: 'yuzhka', src: './Photos%20(2)/IMG_0800.jpeg' },
-            { id: 'arsenal', src: './Photos%20(2)/IMG_0853.jpeg' },
-            { id: 'psg', src: './Photos%20(2)/IMG_0833.jpeg' },
-        ];
         
         try {
             const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
             const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
-            
             if (typeof window.supabase !== 'undefined' && window.supabase.createClient) {
                 supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
                 console.log('✅ Supabase клиент создан');
             } else {
-                console.warn('⚠️ Supabase SDK не загружен');
                 supabaseClient = null;
             }
-        } catch (e) {
-            console.warn('⚠️ Ошибка создания Supabase клиента:', e);
-            supabaseClient = null;
-        }
+        } catch (e) { supabaseClient = null; }
         
         function checkAndReturnLoans() {
             const now = new Date();
@@ -3685,13 +3629,10 @@ footer {
                         marketData.players[playerId].team = loan.fromTeam;
                         const player = playersData[playerId];
                         const transfer = {
-                            playerId: playerId,
-                            playerName: `${player.name} (возврат из аренды)`,
+                            playerId, playerName: `${player.name} (возврат из аренды)`,
                             playerIcon: player.icon || '⚽',
-                            fromTeam: loan.toTeam,
-                            toTeam: loan.fromTeam,
-                            price: 0,
-                            time: new Date().toISOString(),
+                            fromTeam: loan.toTeam, toTeam: loan.fromTeam,
+                            price: 0, time: new Date().toISOString(),
                             comment: `Автоматический возврат после аренды`
                         };
                         marketState.transfers = marketState.transfers || [];
@@ -3700,27 +3641,15 @@ footer {
                         delete activeLoans[playerId];
                         changed = true;
                         showMarketNotification(`⏰ Аренда игрока ${player.name} завершена! Возврат в ${fromTeam.name}`, 'success');
-                    } else {
-                        delete activeLoans[playerId];
-                    }
+                    } else delete activeLoans[playerId];
                 }
             });
-            if (changed) {
-                saveMarketData();
-                updateMarketUI();
-                renderMyTeam();
-                renderTransfers();
-                updateOfferBadge();
-            }
+            if (changed) { saveMarketData(); updateMarketUI(); renderMyTeam(); renderTransfers(); updateOfferBadge(); }
         }
         
         function isPlayerOnLoan(playerId) { return !!activeLoans[playerId]; }
         function getPlayerLoanInfo(playerId) { return activeLoans[playerId] || null; }
-        
-        function saveLoansData() {
-            try { localStorage.setItem('activeLoans', JSON.stringify(activeLoans)); } catch (e) {}
-        }
-        
+        function saveLoansData() { try { localStorage.setItem('activeLoans', JSON.stringify(activeLoans)); } catch (e) {} }
         function loadLoansData() {
             try {
                 const saved = localStorage.getItem('activeLoans');
@@ -3729,18 +3658,18 @@ footer {
                     const now = new Date();
                     let changed = false;
                     Object.keys(activeLoans).forEach(playerId => {
-                        const loan = activeLoans[playerId];
-                        if (new Date(loan.endDate) < now) { delete activeLoans[playerId]; changed = true; }
+                        if (new Date(activeLoans[playerId].endDate) < now) { delete activeLoans[playerId]; changed = true; }
                     });
                     if (changed) saveLoansData();
                 }
             } catch (e) {}
         }
         
-        async function loginCaptain(email, password) {
+        async function loginCaptain(username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return false; }
-                const { data, error } = await supabaseClient.auth.signInWithPassword({ email: email.trim(), password: password.trim() });
+                const email = username.trim() + '@fc.com';
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
                 if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return false; }
                 let teamId = null;
                 const userEmail = data.user.email;
@@ -3764,10 +3693,7 @@ footer {
                 document.getElementById('logout-btn').style.display = 'inline-block';
                 document.getElementById('my-team-section').style.display = 'block';
                 showMarketNotification(`✅ Добро пожаловать, капитан ${captain.captain}!`, 'success');
-                updateMarketUI();
-                renderMyTeam();
-                renderTransfers();
-                updateOfferBadge();
+                updateMarketUI(); renderMyTeam(); renderTransfers(); updateOfferBadge();
                 return true;
             } catch (error) {
                 showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
@@ -3788,8 +3714,7 @@ footer {
             document.getElementById('login-btn').style.background = '';
             document.getElementById('logout-btn').style.display = 'none';
             document.getElementById('my-team-section').style.display = 'none';
-            updateMarketUI();
-            updateOfferBadge();
+            updateMarketUI(); updateOfferBadge();
             showMarketNotification('👋 Вы вышли из системы', 'success');
         }
 
@@ -3818,10 +3743,7 @@ footer {
                     document.getElementById('login-btn').style.background = '#28a745';
                     document.getElementById('logout-btn').style.display = 'inline-block';
                     document.getElementById('my-team-section').style.display = 'block';
-                    updateMarketUI();
-                    renderMyTeam();
-                    renderTransfers();
-                    updateOfferBadge();
+                    updateMarketUI(); renderMyTeam(); renderTransfers(); updateOfferBadge();
                     return true;
                 }
                 return false;
@@ -3842,12 +3764,10 @@ footer {
         async function saveMarketToSupabase() {
             try {
                 const data = {
-                    teams: {},
-                    transferList: marketState.transferList || [],
+                    teams: {}, transferList: marketState.transferList || [],
                     pendingTransfers: marketState.pendingTransfers || {},
                     transfers: marketState.transfers || [],
-                    offers: marketState.offers || [],
-                    activeLoans: activeLoans || {}
+                    offers: marketState.offers || [], activeLoans: activeLoans || {}
                 };
                 Object.keys(CAPTAINS).forEach(id => {
                     data.teams[id] = { budget: CAPTAINS[id].budget, players: CAPTAINS[id].players };
@@ -3855,20 +3775,16 @@ footer {
                 if (supabaseClient) {
                     const { error } = await supabaseClient.from('market').upsert({ id: 'market_data', data: data });
                     if (error) throw error;
-                } else {
-                    localStorage.setItem('marketData', JSON.stringify(data));
-                }
+                } else localStorage.setItem('marketData', JSON.stringify(data));
                 saveLoansData();
                 return true;
             } catch (error) {
                 try {
                     const data = {
-                        teams: {},
-                        transferList: marketState.transferList || [],
+                        teams: {}, transferList: marketState.transferList || [],
                         pendingTransfers: marketState.pendingTransfers || {},
                         transfers: marketState.transfers || [],
-                        offers: marketState.offers || [],
-                        activeLoans: activeLoans || {}
+                        offers: marketState.offers || [], activeLoans: activeLoans || {}
                     };
                     Object.keys(CAPTAINS).forEach(id => {
                         data.teams[id] = { budget: CAPTAINS[id].budget, players: CAPTAINS[id].players };
@@ -3891,19 +3807,14 @@ footer {
                 }
                 if (data && data.data) { applyLoadedData(data.data); return true; }
                 else { renderMarketEmpty('📭 На рынке нет игроков'); return false; }
-            } catch (error) {
-                renderMarketEmpty('❌ Ошибка загрузки данных рынка');
-                return false;
-            }
+            } catch (error) { renderMarketEmpty('❌ Ошибка загрузки данных рынка'); return false; }
         }
         
         function renderMarketEmpty(message) {
             const grid = document.getElementById('market-grid');
             if (!grid) return;
             grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:#666;">
-                <div style="font-size:3rem;margin-bottom:10px;">📭</div>
-                <p>${message}</p>
-            </div>`;
+                <div style="font-size:3rem;margin-bottom:10px;">📭</div><p>${message}</p></div>`;
         }
         
         function applyLoadedData(data) {
@@ -3924,15 +3835,14 @@ footer {
                 const now = new Date();
                 let changed = false;
                 Object.keys(activeLoans).forEach(playerId => {
-                    const loan = activeLoans[playerId];
-                    if (new Date(loan.endDate) < now) {
-                        const fromTeam = CAPTAINS[loan.fromTeam];
-                        const toTeam = CAPTAINS[loan.toTeam];
+                    if (new Date(activeLoans[playerId].endDate) < now) {
+                        const fromTeam = CAPTAINS[activeLoans[playerId].fromTeam];
+                        const toTeam = CAPTAINS[activeLoans[playerId].toTeam];
                         if (fromTeam && toTeam) {
                             const toIndex = toTeam.players.indexOf(playerId);
                             if (toIndex !== -1) toTeam.players.splice(toIndex, 1);
                             if (!fromTeam.players.includes(playerId)) fromTeam.players.push(playerId);
-                            marketData.players[playerId].team = loan.fromTeam;
+                            marketData.players[playerId].team = activeLoans[playerId].fromTeam;
                         }
                         delete activeLoans[playerId];
                         changed = true;
@@ -3948,19 +3858,14 @@ footer {
             const player = playersData[playerId];
             if (!player) return;
             const transfer = {
-                playerId: playerId,
-                playerName: player.name,
-                playerIcon: player.icon || '⚽',
-                fromTeam: fromTeamId,
-                toTeam: toTeamId,
-                price: price,
+                playerId, playerName: player.name, playerIcon: player.icon || '⚽',
+                fromTeam: fromTeamId, toTeam: toTeamId, price,
                 time: new Date().toISOString()
             };
             marketState.transfers = marketState.transfers || [];
             marketState.transfers.unshift(transfer);
             if (marketState.transfers.length > 50) marketState.transfers = marketState.transfers.slice(0, 50);
-            saveMarketData();
-            renderTransfers();
+            saveMarketData(); renderTransfers();
         }
 
         function renderTransfers() {
@@ -3971,17 +3876,15 @@ footer {
                 container.innerHTML = `<div class="transfers-empty"><div class="empty-icon">📭</div><p>История трансферов пуста</p></div>`;
                 return;
             }
-            const recentTransfers = transfers.slice(0, 10);
             let html = '';
-            recentTransfers.forEach(transfer => {
+            transfers.slice(0, 10).forEach(transfer => {
                 const fromTeam = CAPTAINS[transfer.fromTeam];
                 const toTeam = CAPTAINS[transfer.toTeam];
                 const fromName = fromTeam ? fromTeam.name : 'Неизвестно';
                 const toName = toTeam ? toTeam.name : 'Неизвестно';
                 const fromClass = transfer.fromTeam || 'unknown';
                 const toClass = transfer.toTeam || 'unknown';
-                const time = new Date(transfer.time);
-                const timeStr = time.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                const timeStr = new Date(transfer.time).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                 html += `<div class="transfer-item">
                     <div class="transfer-player"><span class="player-icon">${transfer.playerIcon}</span>${transfer.playerName}</div>
                     <div>
@@ -4004,7 +3907,7 @@ footer {
             if (isPlayerOnLoan(playerId)) {
                 const loanInfo = getPlayerLoanInfo(playerId);
                 const loanTeam = CAPTAINS[loanInfo.toTeam];
-                showMarketNotification(`❌ Игрок находится в аренде у ${loanTeam ? loanTeam.name : 'другой команды'}! Дождитесь окончания аренды.`, 'error');
+                showMarketNotification(`❌ Игрок находится в аренде у ${loanTeam ? loanTeam.name : 'другой команды'}!`, 'error');
                 return;
             }
             const buyerTeam = CAPTAINS[captainTeamId];
@@ -4026,11 +3929,7 @@ footer {
             marketData.players[playerId].team = captainTeamId;
             addTransfer(playerId, sellerId, captainTeamId, price);
             showMarketNotification(`✅ ${player.name} куплен за ${price} монет!`, 'success');
-            saveMarketData();
-            updateMarketUI();
-            renderMyTeam();
-            updateBudgetDisplay();
-            updateOfferBadge();
+            saveMarketData(); updateMarketUI(); renderMyTeam(); updateBudgetDisplay(); updateOfferBadge();
         }
         
         function sellPlayer(playerId, price) {
@@ -4046,9 +3945,7 @@ footer {
             marketState.transferList.push({ playerId, seller: captainTeamId, price });
             marketState.pendingTransfers[playerId] = { seller: captainTeamId, price };
             showMarketNotification(`📢 ${player.name} выставлен на продажу за ${price} монет!`, 'success');
-            saveMarketData();
-            updateMarketUI();
-            renderMyTeam();
+            saveMarketData(); updateMarketUI(); renderMyTeam();
         }
         
         function removeFromMarket(playerId) {
@@ -4060,9 +3957,7 @@ footer {
             const index = marketState.transferList.findIndex(t => t.playerId === playerId);
             if (index !== -1) marketState.transferList.splice(index, 1);
             showMarketNotification('✅ Игрок снят с продажи', 'success');
-            saveMarketData();
-            updateMarketUI();
-            renderMyTeam();
+            saveMarketData(); updateMarketUI(); renderMyTeam();
         }
         
         function openSellDialog(playerId) {
@@ -4137,8 +4032,7 @@ footer {
                 let loanLabel = '';
                 if (isOnLoan && loanInfo) {
                     const toTeam = CAPTAINS[loanInfo.toTeam];
-                    const endDate = new Date(loanInfo.endDate);
-                    const daysLeft = Math.ceil((endDate - new Date()) / (1000*60*60*24));
+                    const daysLeft = Math.ceil((new Date(loanInfo.endDate) - new Date()) / (1000*60*60*24));
                     loanLabel = `<span class="loan-tag">📋 В аренде у ${toTeam ? toTeam.name : 'другой команды'} (${daysLeft} дн.)</span>`;
                 }
                 html += `<div class="my-player-card ${loanClass}">
@@ -4185,10 +4079,7 @@ footer {
         
         function initMarket() {
             loadMarketFromSupabase().then(() => {
-                updateTeamSelects();
-                updateMarketUI();
-                renderTransfers();
-                updateOfferBadge();
+                updateTeamSelects(); updateMarketUI(); renderTransfers(); updateOfferBadge();
                 if (marketState.currentCaptain) { renderMyTeam(); updateBudgetDisplay(); }
                 if (adminLoggedIn) showAdminBalancePanel();
                 setInterval(checkAndReturnLoans, LOAN_CHECK_INTERVAL);
@@ -4234,8 +4125,7 @@ footer {
         }
         
         function closePlaystyleDetail() {
-            const overlay = document.getElementById('playstyle-detail-overlay');
-            overlay.classList.remove('active');
+            document.getElementById('playstyle-detail-overlay').classList.remove('active');
             document.body.style.overflow = '';
             if (iqInterval) { clearInterval(iqInterval); iqInterval = null; }
         }
@@ -4293,8 +4183,7 @@ footer {
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
                 if (isBurmalda) cardClass += ' burmalda-player';
-                const isOnLoan = isPlayerOnLoan(id);
-                if (isOnLoan) cardClass += ' on-loan';
+                if (isPlayerOnLoan(id)) cardClass += ' on-loan';
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `<div class="playstyles-section" id="playstyles-${id}"><div class="playstyles-title">🎮 Плейстайлы</div><div class="playstyles-grid" id="playstyles-grid-${id}"></div></div>` : '';
                 html += `<div class="${cardClass}" data-player="${id}">
@@ -4353,8 +4242,7 @@ footer {
                 let cardClass = 'player-card';
                 if (isMera) cardClass += ' mera-player';
                 if (isBurmalda) cardClass += ' burmalda-player';
-                const isOnLoan = isPlayerOnLoan(id);
-                if (isOnLoan) cardClass += ' on-loan';
+                if (isPlayerOnLoan(id)) cardClass += ' on-loan';
                 const hasStyles = hasPlaystyles(id);
                 const playstylesBlock = hasStyles ? `<div class="playstyles-section" id="playstyles-${id}"><div class="playstyles-title">🎮 Плейстайлы</div><div class="playstyles-grid" id="playstyles-grid-${id}"></div></div>` : '';
                 html += `<div class="${cardClass}" data-player="${id}">
@@ -4462,10 +4350,8 @@ footer {
                                    teamTheme === 'yard-arsenal-theme' ? '#dc3545' :
                                    teamTheme === 'yard-psg-theme' ? '#0d6efd' : '#0066cc';
                 modalWindow.style.borderColor = borderColor;
-                const nameEl = document.getElementById('modal-name');
-                if (nameEl) nameEl.style.color = borderColor;
-                const photoEl = document.getElementById('modal-photo');
-                if (photoEl) photoEl.style.borderColor = borderColor;
+                document.getElementById('modal-name').style.color = borderColor;
+                document.getElementById('modal-photo').style.borderColor = borderColor;
                 document.querySelectorAll('.modal-stat-value').forEach(el => { el.style.color = borderColor; });
                 document.querySelector('.playstyles-title')?.style.setProperty('color', borderColor);
             } else {
@@ -4526,11 +4412,7 @@ footer {
                         const item = document.createElement('div');
                         item.className = 'player-item';
                         item.setAttribute('data-player', playerId);
-                        item.innerHTML = `
-                            <div class="player-photo-small" id="match-${playerId}-photo"></div>
-                            <div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
-                            <span class="player-number">${player.number}</span>
-                        `;
+                        item.innerHTML = `<div class="player-photo-small" id="match-${playerId}-photo"></div><div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div><span class="player-number">${player.number}</span>`;
                         lineDiv.appendChild(item);
                     });
                     schoolContainer.appendChild(lineDiv);
@@ -4548,11 +4430,7 @@ footer {
                         const item = document.createElement('div');
                         item.className = 'player-item';
                         item.setAttribute('data-player', playerId);
-                        item.innerHTML = `
-                            <div class="player-photo-small" id="match-${playerId}-photo"></div>
-                            <div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
-                            <span class="player-number">${player.number}</span>
-                        `;
+                        item.innerHTML = `<div class="player-photo-small" id="match-${playerId}-photo"></div><div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div><span class="player-number">${player.number}</span>`;
                         lineDiv.appendChild(item);
                     });
                     meraContainer.appendChild(lineDiv);
@@ -4568,10 +4446,7 @@ footer {
                         const item = document.createElement('div');
                         item.className = 'bench-player-item';
                         item.setAttribute('data-player', playerId);
-                        item.innerHTML = `
-                            <div class="bench-player-photo" id="bench-${playerId}-photo"></div>
-                            <div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
-                        `;
+                        item.innerHTML = `<div class="bench-player-photo" id="bench-${playerId}-photo"></div><div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>`;
                         schoolBench.appendChild(item);
                     });
                 }
@@ -4586,10 +4461,7 @@ footer {
                         const item = document.createElement('div');
                         item.className = 'bench-player-item';
                         item.setAttribute('data-player', playerId);
-                        item.innerHTML = `
-                            <div class="bench-player-photo" id="bench-${playerId}-photo"></div>
-                            <div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>
-                        `;
+                        item.innerHTML = `<div class="bench-player-photo" id="bench-${playerId}-photo"></div><div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>`;
                         meraBench.appendChild(item);
                     });
                 }
@@ -4602,20 +4474,15 @@ footer {
                         photoEl.innerHTML = '';
                         const img = document.createElement('img');
                         img.src = playerPhotos[id];
-                        img.style.width = '100%';
-                        img.style.height = '100%';
-                        img.style.objectFit = 'cover';
+                        img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
                         photoEl.appendChild(img);
                     } else {
                         photoEl.innerHTML = '';
                         const icon = document.createElement('div');
                         icon.style.fontSize = '1.8rem';
                         icon.textContent = playersData[id]?.icon || '⚽';
-                        icon.style.display = 'flex';
-                        icon.style.alignItems = 'center';
-                        icon.style.justifyContent = 'center';
-                        icon.style.width = '100%';
-                        icon.style.height = '100%';
+                        icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
+                        icon.style.width = '100%'; icon.style.height = '100%';
                         photoEl.appendChild(icon);
                     }
                 }
@@ -4628,20 +4495,15 @@ footer {
                         photoEl.innerHTML = '';
                         const img = document.createElement('img');
                         img.src = playerPhotos[id];
-                        img.style.width = '100%';
-                        img.style.height = '100%';
-                        img.style.objectFit = 'cover';
+                        img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
                         photoEl.appendChild(img);
                     } else {
                         photoEl.innerHTML = '';
                         const icon = document.createElement('div');
                         icon.style.fontSize = '1.2rem';
                         icon.textContent = playersData[id]?.icon || '⚽';
-                        icon.style.display = 'flex';
-                        icon.style.alignItems = 'center';
-                        icon.style.justifyContent = 'center';
-                        icon.style.width = '100%';
-                        icon.style.height = '100%';
+                        icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
+                        icon.style.width = '100%'; icon.style.height = '100%';
                         photoEl.appendChild(icon);
                     }
                 }
@@ -4667,10 +4529,7 @@ footer {
                 if (error) throw error;
                 if (data && data.length > 0) { matchesData = data; renderMatches(); }
                 else { matchesData = []; renderMatchesEmpty('📭 Нет сохраненных матчей'); }
-            } catch (error) {
-                matchesData = [];
-                renderMatchesEmpty('❌ Ошибка загрузки матчей');
-            }
+            } catch (error) { matchesData = []; renderMatchesEmpty('❌ Ошибка загрузки матчей'); }
         }
         
         function renderMatchesEmpty(message) {
@@ -4702,9 +4561,8 @@ footer {
                 const team2Logo = team2 ? team2.logo : '';
                 const typeLabels = { home: '🏠 Домашний матч', away: '✈️ Выездной матч', neutral: '🏰 Нейтральное поле' };
                 const typeClass = match.type || 'neutral';
-                const resultLabels = { win: '🏆 Победа', loss: '❌ Поражение', away: '🏆 Победа соперника' };
                 const resultClass = match.result || 'win';
-                let resultText = resultLabels[resultClass] || '';
+                let resultText = '';
                 if (match.result === 'win') resultText = `🏆 Победа ${team1Name}`;
                 else if (match.result === 'loss') resultText = `❌ Поражение ${team1Name}`;
                 else if (match.result === 'away') resultText = `🏆 Победа ${team2Name}`;
@@ -4774,11 +4632,7 @@ footer {
                 document.getElementById('admin-auth-status').className = 'auth-status';
                 document.getElementById('polls-admin-panel').style.display = 'block';
                 document.getElementById('complaints-admin-panel').style.display = 'block';
-                renderMatches();
-                showAdminBalancePanel();
-                renderPolls();
-                renderComplaints();
-                loadUnconfirmedUsers();
+                renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadUnconfirmedUsers();
                 showMarketNotification('✅ Вы вошли как администратор!', 'success');
             } catch (err) {
                 document.getElementById('admin-auth-status').textContent = `❌ ${err.message || 'Ошибка'}`;
@@ -4797,9 +4651,7 @@ footer {
             document.getElementById('admin-balance-panel').style.display = 'none';
             document.getElementById('polls-admin-panel').style.display = 'none';
             document.getElementById('complaints-admin-panel').style.display = 'none';
-            renderMatches();
-            renderPolls();
-            renderComplaints();
+            renderMatches(); renderPolls(); renderComplaints();
             showMarketNotification('👋 Вы вышли из админ-панели', 'success');
         }
 
@@ -4812,11 +4664,7 @@ footer {
                 document.getElementById('admin-login-btn').classList.add('logged');
                 document.getElementById('polls-admin-panel').style.display = 'block';
                 document.getElementById('complaints-admin-panel').style.display = 'block';
-                renderMatches();
-                showAdminBalancePanel();
-                renderPolls();
-                renderComplaints();
-                loadUnconfirmedUsers();
+                renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadUnconfirmedUsers();
             }
         }
 
@@ -4849,9 +4697,7 @@ footer {
             const team = CAPTAINS[teamId];
             if (!team) { showMarketNotification('❌ Команда не найдена!', 'error'); return; }
             team.budget = newBalance;
-            await saveMarketData();
-            updateBudgetDisplay();
-            showAdminBalancePanel();
+            await saveMarketData(); updateBudgetDisplay(); showAdminBalancePanel();
             showMarketNotification(`✅ Баланс ${team.name} установлен на ${newBalance} монет!`, 'success');
         }
 
@@ -4859,13 +4705,10 @@ footer {
             const input = document.getElementById(`balance-input-${teamId}`);
             const team = CAPTAINS[teamId];
             if (!team) { showMarketNotification('❌ Команда не найдена!', 'error'); return; }
-            const current = team.budget;
-            const newBalance = Math.max(0, current + amount);
+            const newBalance = Math.max(0, team.budget + amount);
             team.budget = newBalance;
             if (input) input.value = newBalance;
-            await saveMarketData();
-            updateBudgetDisplay();
-            showAdminBalancePanel();
+            await saveMarketData(); updateBudgetDisplay(); showAdminBalancePanel();
             showMarketNotification(`✅ Баланс ${team.name} изменён на ${newBalance} монет!`, 'success');
         }
 
@@ -4909,12 +4752,10 @@ footer {
             select2.innerHTML = '';
             teams.forEach(team => {
                 const opt1 = document.createElement('option');
-                opt1.value = team.id;
-                opt1.textContent = team.name;
+                opt1.value = team.id; opt1.textContent = team.name;
                 select1.appendChild(opt1);
                 const opt2 = document.createElement('option');
-                opt2.value = team.id;
-                opt2.textContent = team.name;
+                opt2.value = team.id; opt2.textContent = team.name;
                 select2.appendChild(opt2);
             });
         }
@@ -5026,21 +4867,14 @@ footer {
                 fromTeam.budget -= amount;
                 toTeam.budget += amount;
                 const transfer = {
-                    playerId: 'transfer_money',
-                    playerName: `💰 Перевод ${amount} монет`,
-                    playerIcon: '💰',
-                    fromTeam: fromTeamId,
-                    toTeam: toTeamId,
-                    price: amount,
-                    time: new Date().toISOString(),
-                    comment: comment || 'Без комментария'
+                    playerId: 'transfer_money', playerName: `💰 Перевод ${amount} монет`, playerIcon: '💰',
+                    fromTeam: fromTeamId, toTeam: toTeamId, price: amount,
+                    time: new Date().toISOString(), comment: comment || 'Без комментария'
                 };
                 marketState.transfers = marketState.transfers || [];
                 marketState.transfers.unshift(transfer);
                 if (marketState.transfers.length > 50) marketState.transfers = marketState.transfers.slice(0, 50);
-                await saveMarketData();
-                updateBudgetDisplay();
-                renderTransfers();
+                await saveMarketData(); updateBudgetDisplay(); renderTransfers();
                 statusEl.textContent = `✅ ${amount} монет переведено команде ${toTeam.name}! ${comment ? '📝 ' + comment : ''}`;
                 statusEl.className = 'action-status success';
                 setTimeout(() => {
@@ -5126,17 +4960,11 @@ footer {
             try {
                 const offer = {
                     id: Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                    fromTeam: fromTeamId,
-                    toTeam: toTeamId,
-                    playerId: playerId,
-                    playerName: player.name,
-                    playerIcon: player.icon || '⚽',
-                    type: offerType,
-                    price: offerType === 'transfer' ? price : loanPrice,
+                    fromTeam: fromTeamId, toTeam: toTeamId, playerId,
+                    playerName: player.name, playerIcon: player.icon || '⚽',
+                    type: offerType, price: offerType === 'transfer' ? price : loanPrice,
                     loanDays: offerType === 'loan' ? loanDays : null,
-                    comment: comment || '',
-                    status: 'pending',
-                    time: new Date().toISOString()
+                    comment: comment || '', status: 'pending', time: new Date().toISOString()
                 };
                 marketState.offers = marketState.offers || [];
                 marketState.offers.push(offer);
@@ -5159,8 +4987,7 @@ footer {
 
         function openViewOffers() {
             if (!marketState.currentCaptain) { showMarketNotification('❌ Сначала войдите как капитан!', 'error'); return; }
-            const modal = document.getElementById('view-offers-modal');
-            modal.classList.add('active');
+            document.getElementById('view-offers-modal').classList.add('active');
             document.body.style.overflow = 'hidden';
             renderOffers();
         }
@@ -5244,9 +5071,7 @@ footer {
                         marketData.players[offer.playerId].team = offer.toTeam;
                         addTransfer(offer.playerId, offer.fromTeam, offer.toTeam, price);
                         showMarketNotification(`✅ ${offer.playerName} куплен за ${price} монет!`, 'success');
-                        updateBudgetDisplay();
-                        renderMyTeam();
-                        updateMarketUI();
+                        updateBudgetDisplay(); renderMyTeam(); updateMarketUI();
                     } else if (offer.type === 'loan') {
                         const price = offer.price || 0;
                         const days = offer.loanDays || 7;
@@ -5260,12 +5085,9 @@ footer {
                         const endDate = new Date();
                         endDate.setDate(endDate.getDate() + days);
                         activeLoans[offer.playerId] = {
-                            fromTeam: offer.toTeam,
-                            toTeam: offer.fromTeam,
-                            endDate: endDate.toISOString(),
-                            loanPrice: price,
-                            startDate: new Date().toISOString(),
-                            days: days
+                            fromTeam: offer.toTeam, toTeam: offer.fromTeam,
+                            endDate: endDate.toISOString(), loanPrice: price,
+                            startDate: new Date().toISOString(), days: days
                         };
                         const ownerIndex = ownerTeam.players.indexOf(offer.playerId);
                         if (ownerIndex !== -1) ownerTeam.players.splice(ownerIndex, 1);
@@ -5275,10 +5097,8 @@ footer {
                             playerId: offer.playerId,
                             playerName: `${offer.playerName} (аренда ${days} дней)`,
                             playerIcon: offer.playerIcon || '⚽',
-                            fromTeam: offer.toTeam,
-                            toTeam: offer.fromTeam,
-                            price: price,
-                            time: new Date().toISOString(),
+                            fromTeam: offer.toTeam, toTeam: offer.fromTeam,
+                            price: price, time: new Date().toISOString(),
                             comment: `Аренда на ${days} дней. Возврат: ${endDate.toLocaleDateString('ru-RU')}`
                         };
                         marketState.transfers = marketState.transfers || [];
@@ -5286,25 +5106,17 @@ footer {
                         if (marketState.transfers.length > 50) marketState.transfers = marketState.transfers.slice(0, 50);
                         saveLoansData();
                         showMarketNotification(`✅ ${offer.playerName} арендован на ${days} дней за ${price} монет!`, 'success');
-                        updateBudgetDisplay();
-                        renderMyTeam();
-                        updateMarketUI();
-                        renderTransfers();
+                        updateBudgetDisplay(); renderMyTeam(); updateMarketUI(); renderTransfers();
                     }
                     offer.status = 'accepted';
-                    await saveMarketData();
-                    renderTransfers();
-                    updateOfferBadge();
+                    await saveMarketData(); renderTransfers(); updateOfferBadge();
                 } else if (response === 'rejected') {
                     offer.status = 'rejected';
-                    await saveMarketData();
-                    updateOfferBadge();
+                    await saveMarketData(); updateOfferBadge();
                     showMarketNotification(`❌ Предложение отклонено`, 'info');
                 }
                 renderOffers();
-            } catch (error) {
-                showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
-            }
+            } catch (error) { showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error'); }
         }
 
         function initRulesAccordion() {
@@ -5314,10 +5126,8 @@ footer {
                     { num: '1.2.1', text: 'За пресечение Настоящего Регламента ДФЛ к команде нарушителя или самому нарушителю будут наложены определенные санкции. (штраф, дисквалификация)' },
                     { num: '1.2.2', text: 'Игрок не является виновным в нарушении Регламента, пока не будет доказано обратное.' },
                     { num: '1.3', text: 'Те вопросы, которые не затрагивает Регламент, будут решаться организаторами лиги.' },
-                    { num: '1.4.1', text: 'Критической ситуацией считается тяжелое положение команды в предматчевое время.'},
-                    { num: '1.4.2', text: 'Кризис команды - состояние, при которм состав команды малочислен (<5 игроков, можно нарушить 5.3)'},
                 ]},
-                { section: '2', title: 'Порядок проведения матчей', rules: [
+                { section: '2', title: 'Проведение матчей', rules: [
                     { num: '2.1', text: 'Перед проведением любого официального матча ДФЛ хозяева поля обязаны привести поле в годность (см. 2.4), а также обеспечить судейство (перед назначением судьи требуется разрешение обоих капитанов)' },
                     { num: '2.2', text: 'Мяч в первом тайме сводит команда хозяев, если матч проходит на нейтральном поле, происходит жеребьевка.' },
                     { num: '2.3', text: 'Формат игры определяется перед матчем капитанами команд.' },
@@ -5331,21 +5141,18 @@ footer {
                     { num: '3.2', text: 'Уйти из клуба в другой бесплатно игроку запрещено, уход из клуба бесплатно = завершение карьеры в ДФЛ.' },
                     { num: '3.3', text: 'При покупке игрока его разрешение не требуется, однако во избежание договорных матчей капитанам следует проводить переговоры с игроком перед трансфером.' },
                 ]},
-                { section: '4', title: 'Апелляции и жалобы', rules: [
-                    { num: '4.1', text: 'При несогласии с решением судьи и подобных случаях команда имеет право подать апелляцию.'},
-                    { num: '4.2.1', text: 'Апелляции и жалобы рассматриваются только в том случае, если правильно указана информация жалобы.'},
-                    { num: '4.2.2', text: 'В любой жалобе или апелляции должны быть указаны: пункт регламента (если он нарушен), подробная информация о случившейся ситуации и свои данные (имя и фамилия)' },
+                { section: '4', title: 'Апелляции', rules: [
+                    { num: '4.1', text: 'При несогласии с решением судьи и подобных случаях команда имеет право подать апелляцию.' },
                 ]},
                 { section: '5', title: 'Игроки и судьи', rules: [
                     { num: '5.1', text: 'Если игрок не проявляет никакой активности в ДФЛ в течение 2 месяцев, его карта будет заморожена и не будет видна во вкладке команд.' },
                     { num: '5.2', text: 'Требования к игроку для регистрации: возраст 9-16 лет, не имеет значительных проблем со здоровьем (инвалидность, психические расстройства и т.д.), не был до этого в ДФЛ.' },
                     { num: '5.3', text: 'Регистрация игрока обходится команде в 75 монет, в случае, если игрок до этого не играл в ДФЛ и не был дисквалифицирован.' },
                     { num: '5.4', text: 'Требования к судье: не играет ни за одну играющую в матче команду, знает правила и не болеет за какую либо команду, играющую в матче, с его назначением согласны обе команды.' },
+                    { num: '5.5', text: 'Каждый человек, проходящий требования к игроку/судье, имеет право быть игроком/судьей в матче.' },
                 ]},
                 { section: '6', title: 'Ответственность', rules: [
-                    { num: '6.1.1', text: 'Виды наказания игрока за пресечение Регламента ДФЛ: Дисквалификация (временная/пожизненная), запрет на участие в матчах (временный), запрет на переход в другую команду.' },
-                    { num: '6.1.2', text: 'Виды наказания команды за пресечение Регламента ДФЛ: Запрет проведения матчей (временный), запрет трансферной политики (временный).' },
-                    { num: '6.2', text: 'За распространение заведомо ложной информации о месте, времени, формате, условиях матча, которое привело к изменениям, отмене матча, предполагается ответственность.'},
+                    { num: '6.1', text: 'За распространение заведомо ложной информации о месте, времени, формате, условиях матча, которое привело к изменениям, отмене матча, предполагается ответственность.' },
                 ]},
             ];
             const rulesList = document.getElementById('rules-list');
@@ -5451,16 +5258,14 @@ footer {
             const poll = pollsData.find(p => p.id == pollId);
             if (!poll) return;
             poll.closed = !poll.closed;
-            savePollsToSupabase();
-            renderPolls();
+            savePollsToSupabase(); renderPolls();
             showMarketNotification(poll.closed ? '🔒 Опрос закрыт' : '🔓 Опрос открыт', 'success');
         };
 
         window.deletePoll = function(pollId) {
             if (!confirm('Удалить этот опрос?')) return;
             pollsData = pollsData.filter(p => p.id != pollId);
-            savePollsToSupabase();
-            renderPolls();
+            savePollsToSupabase(); renderPolls();
             showMarketNotification('🗑️ Опрос удалён', 'success');
         };
 
@@ -5481,18 +5286,14 @@ footer {
             const question = document.getElementById('poll-question').value.trim();
             const optionInputs = document.querySelectorAll('.poll-option-input');
             const options = [];
-            optionInputs.forEach(inp => {
-                const val = inp.value.trim();
-                if (val) options.push({ text: val, votes: 0 });
-            });
+            optionInputs.forEach(inp => { const val = inp.value.trim(); if (val) options.push({ text: val, votes: 0 }); });
             const statusEl = document.getElementById('create-poll-status');
             if (!question) { statusEl.textContent = '❌ Введите вопрос!'; statusEl.className = 'request-status error'; return; }
             if (options.length < 2) { statusEl.textContent = '❌ Минимум 2 варианта ответа!'; statusEl.className = 'request-status error'; return; }
             if (options.length > 6) { statusEl.textContent = '❌ Максимум 6 вариантов!'; statusEl.className = 'request-status error'; return; }
             const newPoll = { id: Date.now(), question, options, closed: false, created_at: new Date().toISOString() };
             pollsData.unshift(newPoll);
-            await savePollsToSupabase();
-            renderPolls();
+            await savePollsToSupabase(); renderPolls();
             document.getElementById('create-poll-modal').classList.remove('active');
             document.body.style.overflow = '';
             showMarketNotification('✅ Опрос создан!', 'success');
@@ -5571,11 +5372,8 @@ footer {
             if (!text) { statusEl.textContent = '❌ Опишите ситуацию!'; statusEl.className = 'request-status error'; return; }
             const complaint = {
                 id: Date.now(),
-                from_user: currentUserData.email || currentUser.email,
-                reason: reason,
-                text: text,
-                status: 'pending',
-                verdict: '',
+                from_user: currentUserData.username || 'Пользователь',
+                reason: reason, text: text, status: 'pending', verdict: '',
                 created_at: new Date().toISOString()
             };
             try {
@@ -5612,7 +5410,7 @@ footer {
                 let html = '<h4 style="color:#8e44ad;margin-bottom:10px;">⏳ Неподтверждённые пользователи</h4>';
                 data.forEach(user => {
                     html += `<div class="unconfirmed-user-item">
-                        <span class="user-email">${user.email}</span>
+                        <span class="user-email">${user.username || user.email || 'Пользователь'}</span>
                         <div class="user-actions">
                             <select id="player-select-${user.id}">
                                 <option value="">Выберите игрока...</option>
@@ -5640,19 +5438,23 @@ footer {
             } catch (error) { showMarketNotification('❌ Ошибка подтверждения!', 'error'); }
         };
 
-        async function registerUser(email, password, name) {
+        function generateEmail(username) {
+            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
+        }
+
+        async function registerUser(username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
-                const { data, error } = await supabaseClient.auth.signUp({ email: email.trim(), password: password.trim() });
+                const email = generateEmail(username);
+                const { data, error } = await supabaseClient.auth.signUp({ email, password: password.trim() });
                 if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return; }
                 if (data.user) {
                     await supabaseClient.from('user_profiles').insert([{
                         id: data.user.id,
-                        email: email.trim(),
-                        name: name.trim(),
+                        email: email,
+                        username: username.trim(),
                         confirmed: false,
                         player_id: null,
-                        avatar: null,
                         created_at: new Date().toISOString()
                     }]);
                     showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
@@ -5664,22 +5466,23 @@ footer {
             }
         }
 
-        async function loginUser(email, password) {
+        async function loginUser(username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
-                const { data, error } = await supabaseClient.auth.signInWithPassword({ email: email.trim(), password: password.trim() });
+                const email = generateEmail(username);
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
                 if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return; }
                 currentUser = data.user;
                 const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', data.user.id).single();
                 if (!profileError && profile) currentUserData = profile;
-                else currentUserData = { email: data.user.email, confirmed: false, player_id: null, name: '', avatar: null };
+                else currentUserData = { email: data.user.email, confirmed: false, player_id: null, username: username };
                 updateUserUI();
                 await loadUserVotes();
                 renderPolls();
                 renderComplaints();
                 document.getElementById('account-modal').classList.remove('active');
                 document.body.style.overflow = '';
-                showMarketNotification(`✅ Добро пожаловать, ${currentUserData.name || currentUserData.email}!`, 'success');
+                showMarketNotification(`✅ Добро пожаловать, ${currentUserData.username || username}!`, 'success');
             } catch (error) {
                 showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
             }
@@ -5698,7 +5501,8 @@ footer {
         function updateUserUI() {
             const avatarBtn = document.getElementById('avatar-btn');
             if (currentUser && currentUserData) {
-                const avatarSrc = currentUserData.avatar || (currentUserData.player_id && typeof playerPhotos !== 'undefined' && playerPhotos[currentUserData.player_id]) || null;
+                const playerId = currentUserData.player_id;
+                const avatarSrc = playerId && typeof playerPhotos !== 'undefined' && playerPhotos[playerId] ? playerPhotos[playerId] : null;
                 if (avatarSrc) {
                     avatarBtn.innerHTML = `<img src="${avatarSrc}" alt="Аватар"><span class="${currentUserData.confirmed ? 'online-dot' : 'unconfirmed-dot'}"></span>`;
                 } else {
@@ -5720,6 +5524,7 @@ footer {
             document.getElementById('account-modal').classList.remove('active');
             document.body.style.overflow = '';
             showMarketNotification('👋 Вы вышли из аккаунта', 'success');
+            setTimeout(() => { openAccountModal(); }, 300);
         }
 
         async function checkUserSession() {
@@ -5730,7 +5535,7 @@ footer {
                 currentUser = session.user;
                 const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', session.user.id).single();
                 if (!profileError && profile) currentUserData = profile;
-                else currentUserData = { email: session.user.email, confirmed: false, player_id: null, name: '', avatar: null };
+                else currentUserData = { email: session.user.email, confirmed: false, player_id: null, username: session.user.email.split('@')[0] };
                 updateUserUI();
                 await loadUserVotes();
                 return true;
@@ -5746,12 +5551,16 @@ footer {
                 document.getElementById('account-content-user').style.display = 'block';
                 const playerId = currentUserData.player_id;
                 const player = playerId ? playersData[playerId] : null;
-                const avatarSrc = currentUserData.avatar || (playerId && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) || null;
                 const avatarEl = document.getElementById('account-avatar-big');
-                if (avatarSrc) avatarEl.innerHTML = `<img src="${avatarSrc}" alt="Аватар">`;
-                else avatarEl.textContent = player ? (player.icon || '⚽') : '👤';
-                document.getElementById('account-user-name').textContent = currentUserData.name || 'Без имени';
-                document.getElementById('account-user-email').textContent = currentUserData.email || '';
+                if (playerId && typeof playerPhotos !== 'undefined' && playerPhotos[playerId]) {
+                    avatarEl.innerHTML = `<img src="${playerPhotos[playerId]}" alt="Аватар">`;
+                } else if (player) {
+                    avatarEl.textContent = player.icon || '⚽';
+                } else {
+                    avatarEl.textContent = '👤';
+                }
+                document.getElementById('account-user-name').textContent = currentUserData.username || 'Без имени';
+                document.getElementById('account-user-email').textContent = 'Логин: ' + (currentUserData.username || '—');
                 const statusEl = document.getElementById('account-user-status');
                 if (currentUserData.confirmed) { statusEl.textContent = '✅ Подтверждён'; statusEl.className = 'account-status-pill confirmed'; }
                 else { statusEl.textContent = '⏳ Неподтверждён'; statusEl.className = 'account-status-pill unconfirmed'; }
@@ -5760,34 +5569,10 @@ footer {
                 const teamId = playerId ? Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId)) : null;
                 document.getElementById('account-player-team').textContent = teamId ? CAPTAINS[teamId].name : '—';
                 document.getElementById('account-user-date').textContent = currentUserData.created_at ? new Date(currentUserData.created_at).toLocaleDateString('ru-RU') : '—';
-                document.getElementById('avatar-picker-container').style.display = 'none';
             } else {
                 document.getElementById('account-content-guest').style.display = 'block';
                 document.getElementById('account-content-user').style.display = 'none';
             }
-        }
-
-        function renderAvatarPicker() {
-            const picker = document.getElementById('avatar-picker');
-            picker.innerHTML = '';
-            AVATAR_PRESETS.forEach(preset => {
-                const btn = document.createElement('button');
-                btn.className = 'avatar-choice';
-                if (currentUserData && currentUserData.avatar === preset.src) btn.classList.add('selected');
-                btn.innerHTML = `<img src="${preset.src}" alt="Аватар">`;
-                btn.addEventListener('click', async () => {
-                    if (!currentUser || !currentUserData) return;
-                    currentUserData.avatar = preset.src;
-                    if (supabaseClient) {
-                        await supabaseClient.from('user_profiles').update({ avatar: preset.src }).eq('id', currentUser.id);
-                    }
-                    updateUserUI();
-                    renderAvatarPicker();
-                    showMarketNotification('✅ Аватар обновлён!', 'success');
-                    openAccountModal();
-                });
-                picker.appendChild(btn);
-            });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -5837,11 +5622,14 @@ footer {
             }
             
             checkAdminSession();
-            checkUserSession().then(() => {
+            checkUserSession().then((loggedIn) => {
                 loadPolls();
                 loadComplaints();
                 renderPolls();
                 renderComplaints();
+                if (!loggedIn) {
+                    setTimeout(() => { openAccountModal(); }, 500);
+                }
             });
             
             document.getElementById('avatar-btn').addEventListener('click', openAccountModal);
@@ -5865,31 +5653,29 @@ footer {
                 document.getElementById('login-form').classList.remove('active');
             });
             document.getElementById('auth-login-submit').addEventListener('click', function() {
-                const email = document.getElementById('auth-login-email').value.trim();
+                const username = document.getElementById('auth-login-username').value.trim();
                 const password = document.getElementById('auth-login-password').value.trim();
-                if (email && password) {
-                    loginUser(email, password);
-                    document.getElementById('auth-login-email').value = '';
+                if (username && password) {
+                    loginUser(username, password);
+                    document.getElementById('auth-login-username').value = '';
                     document.getElementById('auth-login-password').value = '';
                 } else {
-                    document.getElementById('auth-login-status').textContent = '❌ Введите email и пароль!';
+                    document.getElementById('auth-login-status').textContent = '❌ Введите логин и пароль!';
                     document.getElementById('auth-login-status').className = 'auth-status error';
                 }
             });
             document.getElementById('auth-register-submit').addEventListener('click', function() {
-                const name = document.getElementById('auth-register-name').value.trim();
-                const email = document.getElementById('auth-register-email').value.trim();
+                const username = document.getElementById('auth-register-username').value.trim();
                 const password = document.getElementById('auth-register-password').value.trim();
-                if (!name) { document.getElementById('auth-register-status').textContent = '❌ Введите имя!'; document.getElementById('auth-register-status').className = 'auth-status error'; return; }
-                if (email && password && password.length >= 6) {
-                    registerUser(email, password, name);
-                    document.getElementById('auth-register-name').value = '';
-                    document.getElementById('auth-register-email').value = '';
-                    document.getElementById('auth-register-password').value = '';
-                } else {
-                    document.getElementById('auth-register-status').textContent = '❌ Введите email и пароль (мин. 6 символов)!';
-                    document.getElementById('auth-register-status').className = 'auth-status error';
-                }
+                const password2 = document.getElementById('auth-register-password2').value.trim();
+                const statusEl = document.getElementById('auth-register-status');
+                if (!username) { statusEl.textContent = '❌ Введите логин!'; statusEl.className = 'auth-status error'; return; }
+                if (!password || password.length < 6) { statusEl.textContent = '❌ Пароль минимум 6 символов!'; statusEl.className = 'auth-status error'; return; }
+                if (password !== password2) { statusEl.textContent = '❌ Пароли не совпадают!'; statusEl.className = 'auth-status error'; return; }
+                registerUser(username, password);
+                document.getElementById('auth-register-username').value = '';
+                document.getElementById('auth-register-password').value = '';
+                document.getElementById('auth-register-password2').value = '';
             });
             document.getElementById('guest-btn').addEventListener('click', function() {
                 document.getElementById('account-modal').classList.remove('active');
@@ -5897,37 +5683,15 @@ footer {
                 showMarketNotification('👤 Вы вошли как гость. Некоторые функции недоступны.', 'info');
             });
             document.getElementById('account-logout-btn').addEventListener('click', logoutUser);
-            document.getElementById('account-change-avatar-btn').addEventListener('click', function() {
-                const container = document.getElementById('avatar-picker-container');
-                if (container.style.display === 'none') {
-                    container.style.display = 'block';
-                    renderAvatarPicker();
-                } else {
-                    container.style.display = 'none';
-                }
-            });
             
-            document.getElementById('matches-btn').addEventListener('click', () => {
-                showPage('matches-page');
-                loadMatches();
-            });
+            document.getElementById('matches-btn').addEventListener('click', () => { showPage('matches-page'); loadMatches(); });
             document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
             document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
-            document.getElementById('polls-btn').addEventListener('click', () => {
-                showPage('polls-page');
-                loadPolls();
-            });
+            document.getElementById('polls-btn').addEventListener('click', () => { showPage('polls-page'); loadPolls(); });
             document.getElementById('complaint-btn-main').addEventListener('click', function() {
-                if (!currentUser) {
-                    openAccountModal();
-                    showMarketNotification('❌ Войдите в аккаунт, чтобы подать жалобу!', 'error');
-                    return;
-                }
-                if (!currentUserData || !currentUserData.confirmed) {
-                    showMarketNotification('❌ Ваш аккаунт не подтверждён! Подача жалоб недоступна.', 'error');
-                    return;
-                }
+                if (!currentUser) { openAccountModal(); showMarketNotification('❌ Войдите в аккаунт, чтобы подать жалобу!', 'error'); return; }
+                if (!currentUserData || !currentUserData.confirmed) { showMarketNotification('❌ Ваш аккаунт не подтверждён! Подача жалоб недоступна.', 'error'); return; }
                 document.getElementById('complaint-modal').classList.add('active');
                 document.body.style.overflow = 'hidden';
                 document.getElementById('complaint-status').textContent = '';
@@ -5935,8 +5699,7 @@ footer {
             });
             document.getElementById('market-btn').addEventListener('click', () => {
                 showPage('market-page');
-                updateMarketUI();
-                renderTransfers();
+                updateMarketUI(); renderTransfers();
                 if (marketState.currentCaptain) renderMyTeam();
                 updateOfferBadge();
                 if (adminLoggedIn) showAdminBalancePanel();
@@ -6013,17 +5776,17 @@ footer {
                 if (inputLogin.style.display === 'none') {
                     inputLogin.style.display = 'inline-block';
                     inputPassword.style.display = 'inline-block';
-                    inputLogin.placeholder = 'Email (mera@fc.com, school78@fc.com, yuzhka@fc.com, arsenal@fc.com, psg@fc.com)';
+                    inputLogin.placeholder = 'Логин (mera, school78, yuzhka, arsenal, psg)';
                     inputPassword.placeholder = 'Пароль...';
                     inputLogin.focus();
                 } else {
-                    const email = inputLogin.value.trim();
+                    const username = inputLogin.value.trim();
                     const password = inputPassword.value.trim();
-                    if (email && password) {
-                        loginCaptain(email, password);
+                    if (username && password) {
+                        loginCaptain(username, password);
                         inputLogin.value = '';
                         inputPassword.value = '';
-                    } else showMarketNotification('❌ Введите email и пароль!', 'error');
+                    } else showMarketNotification('❌ Введите логин и пароль!', 'error');
                 }
             });
             document.getElementById('password-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
