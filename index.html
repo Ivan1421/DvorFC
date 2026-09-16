@@ -3773,89 +3773,142 @@ footer {
             return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
         }
         
-        async function loginCaptain(username, password) {
-            try {
-                if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return false; }
-                const email = generateEmail(username);
-                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
-                if (error) { showMarketNotification(`❌ Неверный логин или пароль!`, 'error'); return false; }
-                let teamId = null;
-                const userEmail = data.user.email;
-                if (userEmail === 'mera@player.dfl') teamId = 'mera';
-                else if (userEmail === 'school78@player.dfl') teamId = 'school78';
-                else if (userEmail === 'yuzhka@player.dfl') teamId = 'yuzhka';
-                else if (userEmail === 'arsenal@player.dfl') teamId = 'arsenal';
-                else if (userEmail === 'psg@player.dfl') teamId = 'psg';
-                else { showMarketNotification('❌ Неизвестная команда!', 'error'); await supabaseClient.auth.signOut(); return false; }
-                const captain = CAPTAINS[teamId];
-                if (!captain) { showMarketNotification('❌ Команда не найдена!', 'error'); return false; }
-                marketState.currentCaptain = teamId;
-                marketState.userEmail = userEmail;
-                document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
-                document.getElementById('budget-display').textContent = `💰 ${captain.budget} монет`;
-                document.getElementById('captain-avatar').textContent = captain.captain.charAt(0);
-                document.getElementById('login-input').style.display = 'none';
-                document.getElementById('password-input').style.display = 'none';
-                document.getElementById('login-btn').textContent = `👤 ${captain.captain}`;
-                document.getElementById('login-btn').style.background = '#28a745';
-                document.getElementById('logout-btn').style.display = 'inline-block';
-                document.getElementById('my-team-section').style.display = 'block';
-                showMarketNotification(`✅ Добро пожаловать, капитан ${captain.captain}!`, 'success');
-                updateMarketUI(); renderMyTeam(); renderTransfers(); updateOfferBadge();
-                return true;
-            } catch (error) {
-                showMarketNotification(`❌ Ошибка: ${error.message}`, 'error');
-                return false;
-            }
+async function loginCaptain(email, password) {
+    try {
+        if (!supabaseClient) {
+            showMarketNotification('❌ Supabase не подключен!', 'error');
+            return false;
         }
 
-        async function logoutCaptain() {
-            try { if (supabaseClient) await supabaseClient.auth.signOut(); } catch (e) {}
-            marketState.currentCaptain = null;
-            marketState.userEmail = null;
-            document.getElementById('captain-name').textContent = 'Не авторизован';
-            document.getElementById('budget-display').textContent = '💰 0 монет';
-            document.getElementById('captain-avatar').textContent = '👤';
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email.trim(),
+            password: password.trim()
+        });
+
+        if (error) {
+            showMarketNotification(`❌ ${error.message}`, 'error');
+            return false;
+        }
+
+        let teamId = null;
+        const userEmail = data.user.email;
+        
+        if (userEmail === 'mera@fc.com') teamId = 'mera';
+        else if (userEmail === 'school78@fc.com') teamId = 'school78';
+        else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
+        else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
+        else if (userEmail === 'psg@fc.com') teamId = 'psg';
+        else {
+            showMarketNotification('❌ Неизвестная команда!', 'error');
+            await supabaseClient.auth.signOut();
+            return false;
+        }
+
+        const captain = CAPTAINS[teamId];
+        if (!captain) {
+            showMarketNotification('❌ Команда не найдена!', 'error');
+            await supabaseClient.auth.signOut();
+            return false;
+        }
+
+        marketState.currentCaptain = teamId;
+        marketState.userEmail = userEmail;
+
+        document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
+        document.getElementById('budget-display').textContent = `💰 ${captain.budget} монет`;
+        document.getElementById('captain-avatar').textContent = captain.captain.charAt(0);
+        document.getElementById('login-input').style.display = 'none';
+        document.getElementById('password-input').style.display = 'none';
+        document.getElementById('login-btn').textContent = `👤 ${captain.captain}`;
+        document.getElementById('login-btn').style.background = '#28a745';
+        document.getElementById('logout-btn').style.display = 'inline-block';
+        document.getElementById('my-team-section').style.display = 'block';
+
+        showMarketNotification(`✅ Добро пожаловать, капитан ${captain.captain}!`, 'success');
+        updateMarketUI();
+        renderMyTeam();
+        renderTransfers();
+        updateOfferBadge();
+        return true;
+
+    } catch (error) {
+        console.error('Ошибка входа:', error);
+        showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
+        return false;
+    }
+}
+
+async function logoutCaptain() {
+    try {
+        if (supabaseClient) {
+            await supabaseClient.auth.signOut();
+        }
+    } catch (e) {
+        console.error('Ошибка выхода:', e);
+    }
+
+    marketState.currentCaptain = null;
+    marketState.userEmail = null;
+    
+    document.getElementById('captain-name').textContent = 'Не авторизован';
+    document.getElementById('budget-display').textContent = '💰 0 монет';
+    document.getElementById('captain-avatar').textContent = '👤';
+    document.getElementById('login-input').style.display = 'none';
+    document.getElementById('password-input').style.display = 'none';
+    document.getElementById('login-btn').textContent = '🔑 Войти';
+    document.getElementById('login-btn').style.background = '';
+    document.getElementById('logout-btn').style.display = 'none';
+    document.getElementById('my-team-section').style.display = 'none';
+    
+    updateMarketUI();
+    updateOfferBadge();
+    showMarketNotification('👋 Вы вышли из системы', 'success');
+}
+
+async function checkAuthStatus() {
+    try {
+        if (!supabaseClient) return false;
+
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
+        
+        if (error || !session) return false;
+
+        const userEmail = session.user.email;
+        let teamId = null;
+        
+        if (userEmail === 'mera@fc.com') teamId = 'mera';
+        else if (userEmail === 'school78@fc.com') teamId = 'school78';
+        else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
+        else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
+        else if (userEmail === 'psg@fc.com') teamId = 'psg';
+        
+        if (teamId && CAPTAINS[teamId]) {
+            marketState.currentCaptain = teamId;
+            marketState.userEmail = userEmail;
+            
+            const captain = CAPTAINS[teamId];
+            document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
+            document.getElementById('budget-display').textContent = `💰 ${captain.budget} монет`;
+            document.getElementById('captain-avatar').textContent = captain.captain.charAt(0);
             document.getElementById('login-input').style.display = 'none';
             document.getElementById('password-input').style.display = 'none';
-            document.getElementById('login-btn').textContent = '🔑 Войти';
-            document.getElementById('login-btn').style.background = '';
-            document.getElementById('logout-btn').style.display = 'none';
-            document.getElementById('my-team-section').style.display = 'none';
-            updateMarketUI(); updateOfferBadge();
-            showMarketNotification('👋 Вы вышли', 'success');
+            document.getElementById('login-btn').textContent = `👤 ${captain.captain}`;
+            document.getElementById('login-btn').style.background = '#28a745';
+            document.getElementById('logout-btn').style.display = 'inline-block';
+            document.getElementById('my-team-section').style.display = 'block';
+            
+            updateMarketUI();
+            renderMyTeam();
+            renderTransfers();
+            updateOfferBadge();
+            return true;
         }
-
-        async function checkAuthStatus() {
-            try {
-                if (!supabaseClient) return false;
-                const { data: { session }, error } = await supabaseClient.auth.getSession();
-                if (error || !session) return false;
-                const userEmail = session.user.email;
-                let teamId = null;
-                if (userEmail === 'mera@player.dfl') teamId = 'mera';
-                else if (userEmail === 'school78@player.dfl') teamId = 'school78';
-                else if (userEmail === 'yuzhka@player.dfl') teamId = 'yuzhka';
-                else if (userEmail === 'arsenal@player.dfl') teamId = 'arsenal';
-                else if (userEmail === 'psg@player.dfl') teamId = 'psg';
-                if (teamId && CAPTAINS[teamId]) {
-                    marketState.currentCaptain = teamId;
-                    const captain = CAPTAINS[teamId];
-                    document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
-                    document.getElementById('budget-display').textContent = `💰 ${captain.budget} монет`;
-                    document.getElementById('captain-avatar').textContent = captain.captain.charAt(0);
-                    document.getElementById('login-input').style.display = 'none';
-                    document.getElementById('password-input').style.display = 'none';
-                    document.getElementById('login-btn').textContent = `👤 ${captain.captain}`;
-                    document.getElementById('login-btn').style.background = '#28a745';
-                    document.getElementById('logout-btn').style.display = 'inline-block';
-                    document.getElementById('my-team-section').style.display = 'block';
-                    updateMarketUI(); renderMyTeam(); renderTransfers(); updateOfferBadge();
-                    return true;
-                }
-                return false;
-            } catch (error) { return false; }
-        }
+        return false;
+    } catch (error) {
+        console.error('Ошибка проверки авторизации:', error);
+        return false;
+    }
+}
         
         function updateOfferBadge() {
             const badge = document.getElementById('offer-badge');
@@ -5668,25 +5721,37 @@ document.getElementById('admin-panel-btn').addEventListener('click', () => {
             });
             
             // Market auth
-            document.getElementById('login-btn').addEventListener('click', function() {
-                const inputLogin = document.getElementById('login-input');
-                const inputPassword = document.getElementById('password-input');
-                if (inputLogin.style.display === 'none') {
-                    inputLogin.style.display = 'inline-block';
-                    inputPassword.style.display = 'inline-block';
-                    inputLogin.placeholder = 'Логин (mera, school78, yuzhka, arsenal, psg)';
-                    inputPassword.placeholder = 'Пароль...';
-                    inputLogin.focus();
-                } else {
-                    const username = inputLogin.value.trim();
-                    const password = inputPassword.value.trim();
-                    if (username && password) {
-                        loginCaptain(username, password);
-                        inputLogin.value = '';
-                        inputPassword.value = '';
-                    } else showMarketNotification('❌ Введите логин и пароль!', 'error');
-                }
-            });
+document.getElementById('login-btn').addEventListener('click', function() {
+    const inputLogin = document.getElementById('login-input');
+    const inputPassword = document.getElementById('password-input');
+    
+    if (inputLogin.style.display === 'none') {
+        inputLogin.style.display = 'inline-block';
+        inputPassword.style.display = 'inline-block';
+        inputLogin.placeholder = 'Email (mera@fc.com, school78@fc.com, yuzhka@fc.com, arsenal@fc.com, psg@fc.com)';
+        inputPassword.placeholder = 'Пароль...';
+        inputLogin.focus();
+    } else {
+        const email = inputLogin.value.trim();
+        const password = inputPassword.value.trim();
+        if (email && password) {
+            loginCaptain(email, password);
+            inputLogin.value = '';
+            inputPassword.value = '';
+        } else {
+            showMarketNotification('❌ Введите email и пароль!', 'error');
+        }
+    }
+});
+
+document.getElementById('password-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
+document.getElementById('login-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('login-btn').click();
+});
+
+document.getElementById('logout-btn').addEventListener('click', logoutCaptain);
             document.getElementById('password-input').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
             document.getElementById('login-input').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
             document.getElementById('logout-btn').addEventListener('click', logoutCaptain);
