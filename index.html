@@ -2827,6 +2827,11 @@ footer {
                         <div class="button-title">Опросы</div>
                         <div class="button-description">Голосования</div>
                     </div>
+                    <div class="main-button" id="complaints-nav-btn">
+    <div class="button-icon">📋</div>
+    <div class="button-title">Жалобы</div>
+    <div class="button-description">Мои и все жалобы</div>
+</div>
                     <div class="main-button" id="rules-btn">
                         <div class="button-icon">📜</div>
                         <div class="button-title">Регламент</div>
@@ -4851,8 +4856,11 @@ async function savePollsToSupabase() {
                     });
                     html += `</div>`;
                 } else if (!adminLoggedIn && userVoted) {
-                    html += `<div style="margin-top:8px;font-size:.78rem;color:#16a34a;">✅ Ваш голос учтён (анонимно)</div>`;
-                }
+    const votedOption = poll.options[userVotes[poll.id]];
+    html += `<div style="margin-top:8px;font-size:.78rem;color:#16a34a;">
+        ✅ <b>Ваш голос:</b> ${votedOption?.text || 'учтён'}
+    </div>`;
+}
                 if (adminLoggedIn) {
                     html += `<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
                         <button class="admin-btn" onclick="togglePollClosed('${poll.id}')">${poll.closed ? '🔓 Открыть' : '🔒 Закрыть'}</button>
@@ -4961,6 +4969,36 @@ window.deletePoll = async function(pollId) {
     if (adminLoggedIn) renderAdminPollsList();
     showMarketNotification('🗑️ Удалён', 'success');
 };
+function checkComplaintUpdates() {
+    const myName = currentUserData?.name || currentUserData?.username 
+                || marketState.userEmail || null;
+    if (!myName) return;
+    
+    const savedSeen = JSON.parse(localStorage.getItem('dfl_seen_verdicts') || '{}');
+    const myResolved = complaintsData.filter(c => 
+        c.from_user === myName && c.status !== 'pending'
+    );
+    
+    let newVerdicts = [];
+    myResolved.forEach(c => {
+        if (!savedSeen[c.id]) {
+            newVerdicts.push(c);
+            savedSeen[c.id] = true;
+        }
+    });
+    
+    if (newVerdicts.length > 0) {
+        localStorage.setItem('dfl_seen_verdicts', JSON.stringify(savedSeen));
+        newVerdicts.forEach(c => {
+            const icon = c.status === 'resolved' ? '✅' : '❌';
+            const text = c.verdict || (c.status === 'resolved' ? 'Подтверждено' : 'Отклонено');
+            showMarketNotification(
+                `${icon} Вердикт по вашей жалобе "${c.reason}": ${text}`, 
+                c.status === 'resolved' ? 'success' : 'error'
+            );
+        });
+    }
+}
 
 function openCreatePollModal() {
     document.getElementById('create-poll-modal').classList.add('active');
@@ -5059,41 +5097,102 @@ async function loadComplaints() {
     } catch (error) { complaintsData = []; renderComplaints(); }
 }
 
-        function renderComplaints() {
-            const container = document.getElementById('complaints-list');
-            if (!container) return;
-            if (complaintsData.length === 0) {
-                container.innerHTML = '<p style="text-align:center;color:#666;padding:30px;">📭 Нет жалоб</p>';
-                return;
-            }
-            let html = '';
-            complaintsData.forEach(complaint => {
-                const date = new Date(complaint.created_at).toLocaleString('ru-RU');
-                let verdictHtml = '';
-                if (complaint.status === 'pending') verdictHtml = `<div class="complaint-verdict pending">⏳ Ожидает</div>`;
-                else if (complaint.status === 'resolved') verdictHtml = `<div class="complaint-verdict resolved">✅ ${complaint.verdict || 'Подтверждено'}</div>`;
-                else if (complaint.status === 'rejected') verdictHtml = `<div class="complaint-verdict rejected">❌ ${complaint.verdict || 'Отклонено'}</div>`;
-                let adminControls = '';
-                if (adminLoggedIn && complaint.status === 'pending') {
-                    adminControls = `<div class="complaint-verdict-input">
-                        <input type="text" id="verdict-input-${complaint.id}" placeholder="Вердикт...">
-                        <button class="resolve-btn" onclick="resolveComplaint('${complaint.id}', 'resolved')">✅</button>
-                        <button class="reject-btn" onclick="resolveComplaint('${complaint.id}', 'rejected')">❌</button>
-                    </div>`;
-                }
-                html += `<div class="complaint-item">
-                    <div class="complaint-header">
-                        <span class="complaint-from">👤 ${complaint.from_user || 'Аноним'}</span>
-                        <span class="complaint-date">🕐 ${date}</span>
-                    </div>
-                    <div class="complaint-reason">📌 ${complaint.reason}</div>
-                    <div class="complaint-text">${complaint.text}</div>
-                    ${verdictHtml}
-                    ${adminControls}
-                </div>`;
-            });
-            container.innerHTML = html;
+let showOnlyMyComplaints = true; // по умолчанию показываем только свои
+
+function renderComplaints() {
+    const container = document.getElementById('complaints-list');
+    if (!container) return;
+    
+    // Определяем идентификатор текущего пользователя
+    const myName = currentUserData?.name || currentUserData?.username 
+                || marketState.userEmail || null;
+    const isAdmin = adminLoggedIn;
+    
+    // Фильтруем жалобы
+    let visibleComplaints = complaintsData;
+    if (!isAdmin && showOnlyMyComplaints && myName) {
+        visibleComplaints = complaintsData.filter(c => c.from_user === myName);
+    }
+    
+    // Кнопки-переключатели (только для не-админов)
+    let headerHtml = '';
+    if (!isAdmin && myName) {
+        headerHtml = `
+            <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+                <button class="sort-btn ${showOnlyMyComplaints ? 'active' : ''}" 
+                    onclick="toggleComplaintsFilter(true)">👤 Мои жалобы</button>
+                <button class="sort-btn ${!showOnlyMyComplaints ? 'active' : ''}" 
+                    onclick="toggleComplaintsFilter(false)">🌐 Все жалобы</button>
+            </div>
+        `;
+    }
+    
+    if (visibleComplaints.length === 0) {
+        container.innerHTML = headerHtml + 
+            `<p style="text-align:center;color:#666;padding:30px;">
+                📭 ${showOnlyMyComplaints && !isAdmin ? 'У вас пока нет жалоб' : 'Нет жалоб'}
+            </p>`;
+        return;
+    }
+    
+    let html = headerHtml;
+    visibleComplaints.forEach(complaint => {
+        const date = new Date(complaint.created_at).toLocaleString('ru-RU');
+        const isMine = myName && complaint.from_user === myName;
+        
+        // Вердикт
+        let verdictHtml = '';
+        if (complaint.status === 'pending') {
+            verdictHtml = `<div class="complaint-verdict pending">⏳ Ожидает рассмотрения администратором</div>`;
+        } else if (complaint.status === 'resolved') {
+            verdictHtml = `<div class="complaint-verdict resolved">
+                ✅ <b>Вердикт:</b> ${complaint.verdict || 'Нарушение подтверждено'}
+            </div>`;
+        } else if (complaint.status === 'rejected') {
+            verdictHtml = `<div class="complaint-verdict rejected">
+                ❌ <b>Вердикт:</b> ${complaint.verdict || 'Нарушение не подтверждено'}
+            </div>`;
         }
+        
+        // Кнопки админа — только если статус pending
+        let adminControls = '';
+        if (isAdmin && complaint.status === 'pending') {
+            adminControls = `<div class="complaint-verdict-input">
+                <input type="text" id="verdict-input-${complaint.id}" 
+                    placeholder="Напишите вердикт (необязательно)...">
+                <button class="resolve-btn" 
+                    onclick="resolveComplaint('${complaint.id}', 'resolved')">✅ Подтвердить</button>
+                <button class="reject-btn" 
+                    onclick="resolveComplaint('${complaint.id}', 'rejected')">❌ Отклонить</button>
+            </div>`;
+        }
+        
+        // Метка "Ваша жалоба"
+        const mineLabel = isMine && !isAdmin 
+            ? `<span style="display:inline-block;background:#0066cc;color:#fff;
+                font-size:.65rem;font-weight:800;padding:2px 10px;border-radius:999px;
+                margin-left:8px;">⭐ ВАША</span>` 
+            : '';
+        
+        html += `<div class="complaint-item" style="${isMine && !isAdmin ? 'border-left-color:#0066cc;' : ''}">
+            <div class="complaint-header">
+                <span class="complaint-from">👤 ${complaint.from_user || 'Аноним'}${mineLabel}</span>
+                <span class="complaint-date">🕐 ${date}</span>
+            </div>
+            <div class="complaint-reason">📌 ${complaint.reason}</div>
+            <div class="complaint-text">${complaint.text}</div>
+            ${verdictHtml}
+            ${adminControls}
+        </div>`;
+    });
+    container.innerHTML = html;
+}
+
+// Переключатель фильтра
+window.toggleComplaintsFilter = function(onlyMine) {
+    showOnlyMyComplaints = onlyMine;
+    renderComplaints();
+};
 
         window.resolveComplaint = async function(complaintId, status) {
             const complaint = complaintsData.find(c => c.id == complaintId);
@@ -5726,6 +5825,15 @@ document.getElementById('complaint-btn-main').addEventListener('click', function
                 updateMarketUI(); renderTransfers();
                 if (marketState.currentCaptain) renderMyTeam();
             });
+            document.querySelectorAll('.main-button').forEach(btn => {
+    if (btn.id === 'complaints-nav-btn') {
+        btn.addEventListener('click', () => {
+            showPage('complaints-page');
+            renderComplaints();
+            checkComplaintUpdates();
+        });
+    }
+});
             
             document.getElementById('back-from-players').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-squad').addEventListener('click', () => showPage('home-page'));
