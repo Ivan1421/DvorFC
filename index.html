@@ -2996,30 +2996,35 @@ footer {
                 </div>
             </div>
             
-            <div id="admin-panel-page" class="page">
-                <button class="back-button" id="back-from-admin-panel">← Назад к главной</button>
-                <div class="admin-panel-container">
-                    <h2>👑 Админ-панель</h2>
-                    <div class="admin-section-tabs">
-                        <button class="admin-section-tab active" data-tab="users">👥 Пользователи</button>
-                        <button class="admin-section-tab" data-tab="balances">💰 Балансы</button>
-                        <button class="admin-section-tab" data-tab="polls">📊 Создать опрос</button>
-                    </div>
-                    <div class="admin-tab-content active" id="admin-tab-users">
-                        <div id="users-list"></div>
-                    </div>
-                    <div class="admin-tab-content" id="admin-tab-balances">
-                        <div class="admin-balance-panel">
-                            <h4>💰 Управление балансами команд</h4>
-                            <div id="balance-teams-container"></div>
-                        </div>
-                    </div>
-                    <div class="admin-tab-content" id="admin-tab-polls">
-                        <button class="admin-poll-create-btn" id="create-poll-btn">➕ Создать опрос</button>
-                        <div id="admin-polls-list"></div>
-                    </div>
-                </div>
+<div id="admin-panel-page" class="page">
+    <button class="back-button" id="back-from-admin-panel">← Назад к главной</button>
+    <div class="admin-panel-container">
+        <h2>👑 Админ-панель</h2>
+        <div class="admin-section-tabs">
+            <button class="admin-section-tab active" data-tab="users">👥 Пользователи</button>
+            <button class="admin-section-tab" data-tab="balances">💰 Балансы</button>
+            <button class="admin-section-tab" data-tab="polls">📊 Опросы</button>
+            <button class="admin-section-tab" data-tab="complaints">📢 Жалобы</button>
+        </div>
+        <div class="admin-tab-content active" id="admin-tab-users">
+            <div id="users-list"></div>
+        </div>
+        <div class="admin-tab-content" id="admin-tab-balances">
+            <div class="admin-balance-panel">
+                <h4>💰 Управление балансами команд</h4>
+                <div id="balance-teams-container"></div>
             </div>
+        </div>
+        <div class="admin-tab-content" id="admin-tab-polls">
+            <button class="admin-poll-create-btn" id="create-poll-btn">➕ Создать опрос</button>
+            <div id="admin-polls-list"></div>
+        </div>
+        <div class="admin-tab-content" id="admin-tab-complaints">
+            <h4 style="color:var(--accent);margin-bottom:12px;">📢 Все жалобы</h4>
+            <div id="admin-complaints-list"></div>
+        </div>
+    </div>
+</div>
             
             <div id="rules-page" class="page">
                 <button class="back-button" id="back-from-rules">← Назад к главной</button>
@@ -4486,7 +4491,8 @@ footer {
                 document.getElementById('admin-login-btn').textContent = '👑 Админ';
                 document.getElementById('admin-login-btn').classList.add('logged');
                 document.getElementById('admin-panel-btn').style.display = 'flex';
-                renderMatches(); renderPolls(); renderComplaints(); loadAllUsers();
+renderMatches(); renderPolls(); renderComplaints(); loadAllUsers();
+renderAdminPollsList(); renderAdminComplaintsList();
             }
         }
 
@@ -4813,15 +4819,16 @@ footer {
         }
 
         // ============== ЖАЛОБЫ ==============
-        async function loadComplaints() {
-            try {
-                if (!supabaseClient) { complaintsData = []; renderComplaints(); return; }
-                const { data, error } = await supabaseClient.from('complaints').select('*').order('id', { ascending: false });
-                if (error) throw error;
-                complaintsData = data || [];
-                renderComplaints();
-            } catch (error) { complaintsData = []; renderComplaints(); }
-        }
+async function loadComplaints() {
+    try {
+        if (!supabaseClient) { complaintsData = []; renderComplaints(); if (adminLoggedIn) renderAdminComplaintsList(); return; }
+        const { data, error } = await supabaseClient.from('complaints').select('*').order('id', { ascending: false });
+        if (error) throw error;
+        complaintsData = data || [];
+        renderComplaints();
+        if (adminLoggedIn) renderAdminComplaintsList();
+    } catch (error) { complaintsData = []; renderComplaints(); }
+}
 
         function renderComplaints() {
             const container = document.getElementById('complaints-list');
@@ -5402,12 +5409,14 @@ footer {
                 adminLogout();
                 document.getElementById('account-modal').classList.remove('active');
             });
-            document.getElementById('account-admin-panel-btn').addEventListener('click', function() {
-                document.getElementById('account-modal').classList.remove('active');
-                showPage('admin-panel-page');
-                loadAllUsers();
-                renderBalancePanel('balance-teams-container');
-            });
+document.getElementById('account-admin-panel-btn').addEventListener('click', function() {
+    document.getElementById('account-modal').classList.remove('active');
+    showPage('admin-panel-page');
+    loadAllUsers();
+    renderBalancePanel('balance-teams-container');
+    renderAdminPollsList();
+    renderAdminComplaintsList();
+});
             
             // Навигация
             document.getElementById('matches-btn').addEventListener('click', () => { showPage('matches-page'); loadMatches(); });
@@ -5415,12 +5424,13 @@ footer {
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
             document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
             document.getElementById('polls-btn').addEventListener('click', () => { showPage('polls-page'); loadPolls(); });
-            document.getElementById('admin-panel-btn').addEventListener('click', () => { 
-                showPage('admin-panel-page'); 
-                loadAllUsers();
-                renderBalancePanel('balance-teams-container');
-                renderAdminPollsList();
-            });
+document.getElementById('admin-panel-btn').addEventListener('click', () => { 
+    showPage('admin-panel-page'); 
+    loadAllUsers();
+    renderBalancePanel('balance-teams-container');
+    renderAdminPollsList();
+    renderAdminComplaintsList();
+});
             document.getElementById('complaint-btn-main').addEventListener('click', function() {
                 if (!currentUser) { openAccountModal(); showMarketNotification('❌ Войдите!', 'error'); return; }
                 if (!currentUserData || !currentUserData.confirmed) { showMarketNotification('❌ Аккаунт не подтверждён!', 'error'); return; }
@@ -5575,18 +5585,18 @@ footer {
             });
             document.getElementById('create-poll-submit-btn').addEventListener('click', submitCreatePoll);
             
-            // Admin tabs
-            document.querySelectorAll('.admin-section-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.admin-section-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    document.getElementById(`admin-tab-${this.dataset.tab}`).classList.add('active');
-                    if (this.dataset.tab === 'users') loadAllUsers();
-                    if (this.dataset.tab === 'balances') renderBalancePanel('balance-teams-container');
-                    if (this.dataset.tab === 'polls') renderAdminPollsList();
-                });
-            });
+document.querySelectorAll('.admin-section-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        document.querySelectorAll('.admin-section-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById(`admin-tab-${this.dataset.tab}`).classList.add('active');
+        if (this.dataset.tab === 'users') loadAllUsers();
+        if (this.dataset.tab === 'balances') renderBalancePanel('balance-teams-container');
+        if (this.dataset.tab === 'polls') renderAdminPollsList();
+        if (this.dataset.tab === 'complaints') renderAdminComplaintsList();
+    });
+});
             
             // Admin auth
             document.getElementById('admin-login-btn').addEventListener('click', function() {
@@ -5879,6 +5889,63 @@ footer {
             });
             container.innerHTML = html;
         }
+        function renderAdminComplaintsList() {
+    const container = document.getElementById('admin-complaints-list');
+    if (!container) return;
+    if (complaintsData.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#666;padding:20px;">📭 Нет жалоб</p>';
+        return;
+    }
+    let html = '';
+    complaintsData.forEach(complaint => {
+        const date = new Date(complaint.created_at).toLocaleString('ru-RU');
+        let verdictHtml = '';
+        if (complaint.status === 'pending') verdictHtml = `<div class="complaint-verdict pending">⏳ Ожидает рассмотрения</div>`;
+        else if (complaint.status === 'resolved') verdictHtml = `<div class="complaint-verdict resolved">✅ Вердикт: ${complaint.verdict || 'Нарушение подтверждено'}</div>`;
+        else if (complaint.status === 'rejected') verdictHtml = `<div class="complaint-verdict rejected">❌ Вердикт: ${complaint.verdict || 'Нарушение не подтверждено'}</div>`;
+        
+        let adminControls = '';
+        if (complaint.status === 'pending') {
+            adminControls = `<div class="complaint-verdict-input">
+                <input type="text" id="admin-verdict-input-${complaint.id}" placeholder="Напишите вердикт (необязательно)...">
+                <button class="resolve-btn" onclick="adminResolveComplaint('${complaint.id}', 'resolved')">✅ Принять</button>
+                <button class="reject-btn" onclick="adminResolveComplaint('${complaint.id}', 'rejected')">❌ Отклонить</button>
+            </div>`;
+        }
+        
+        html += `<div class="complaint-item">
+            <div class="complaint-header">
+                <span class="complaint-from">👤 ${complaint.from_user || 'Аноним'}</span>
+                <span class="complaint-date">🕐 ${date}</span>
+            </div>
+            <div class="complaint-reason">📌 ${complaint.reason}</div>
+            <div class="complaint-text">${complaint.text}</div>
+            ${verdictHtml}
+            ${adminControls}
+        </div>`;
+    });
+    container.innerHTML = html;
+}
+
+window.adminResolveComplaint = async function(complaintId, status) {
+    const complaint = complaintsData.find(c => c.id == complaintId);
+    if (!complaint) return;
+    const input = document.getElementById(`admin-verdict-input-${complaintId}`);
+    const verdict = input ? input.value.trim() : '';
+    complaint.status = status;
+    complaint.verdict = verdict || (status === 'resolved' ? 'Нарушение подтверждено' : 'Нарушение не подтверждено');
+    if (supabaseClient) {
+        try {
+            await supabaseClient.from('complaints').update({
+                status: complaint.status,
+                verdict: complaint.verdict
+            }).eq('id', complaintId);
+        } catch (e) {}
+    }
+    renderAdminComplaintsList();
+    renderComplaints();
+    showMarketNotification(status === 'resolved' ? '✅ Жалоба принята' : '❌ Жалоба отклонена', 'success');
+};
     </script>
 </body>
 </html>
