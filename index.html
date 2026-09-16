@@ -433,6 +433,10 @@ h1 {
 .main-button.request-btn .button-icon { background: #f5eaff; color: #8e44ad; }
 .main-button.request-btn .button-title { color: #8e44ad; }
 .dark-theme .main-button.request-btn .button-icon { background: #2a1a3e; }
+.main-button.admin-btn-main { border-color: #16a34a; }
+.main-button.admin-btn-main .button-icon { background: #dcfce7; color: #16a34a; }
+.main-button.admin-btn-main .button-title { color: #16a34a; }
+.dark-theme .main-button.admin-btn-main .button-icon { background: #0a2a1a; }
 .main-button .new-badge {
     position: absolute;
     top: -2px;
@@ -548,7 +552,8 @@ h1 {
 .match-tactics-container,
 .other-yards-container,
 .polls-container,
-.complaints-container {
+.complaints-container,
+.users-container {
     background: var(--card);
     border: 2px solid var(--border-strong);
     border-radius: var(--radius);
@@ -2128,18 +2133,6 @@ h1 {
     font-size: 1.6rem;
 }
 .my-player-card.on-loan { border-color: #ff6b00; animation: loanGlow 2s ease-in-out infinite alternate; }
-.my-player-card.on-loan::after {
-    content: "📋 В АРЕНДЕ";
-    position: absolute;
-    bottom: 6px;
-    right: -22px;
-    background: #ff6b00;
-    color: #fff;
-    font-weight: 800;
-    font-size: .52rem;
-    padding: 2px 24px;
-    transform: rotate(45deg);
-}
 .loan-tag {
     display: inline-block;
     background: #ff6b00;
@@ -2406,43 +2399,65 @@ footer {
     font-size: .9rem;
 }
 .guest-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-.unconfirmed-user-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 12px 16px;
+.users-container h2 { color: var(--accent); text-align: center; margin-bottom: 18px; font-size: 1.5rem; font-weight: 800; }
+.user-item {
     background: var(--card);
     border: 2px solid var(--border-strong);
     border-radius: 12px;
-    margin-bottom: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
     flex-wrap: wrap;
 }
-.unconfirmed-user-item .user-email { font-weight: 700; color: var(--text); font-size: .88rem; }
-.unconfirmed-user-item .user-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.unconfirmed-user-item select {
-    padding: 7px 12px;
+.user-item .user-info-block { flex: 1; min-width: 180px; }
+.user-item .user-username { font-weight: 800; color: var(--accent); font-size: 1rem; margin-bottom: 3px; }
+.user-item .user-realname { font-size: .85rem; color: var(--text); margin-bottom: 3px; }
+.user-item .user-status-small { font-size: .75rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; display: inline-block; }
+.user-item .user-status-small.confirmed { background: #dcfce7; color: #166534; }
+.dark-theme .user-item .user-status-small.confirmed { background: #0a2a1a; color: #4ade80; }
+.user-item .user-status-small.unconfirmed { background: #fef3c7; color: #92400e; }
+.dark-theme .user-item .user-status-small.unconfirmed { background: #3a2a05; color: #fbbf24; }
+.user-item .user-actions-block { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.user-item .user-actions-block select {
+    padding: 8px 12px;
     border: 2px solid var(--border-strong);
     border-radius: 10px;
-    font-size: .82rem;
+    font-size: .85rem;
     background: var(--card);
     color: var(--text);
     font-family: inherit;
     outline: none;
+    max-width: 200px;
 }
-.unconfirmed-user-item .confirm-btn {
+.user-item .user-actions-block .confirm-btn {
     background: #16a34a;
     color: white;
     border: none;
-    padding: 7px 16px;
+    padding: 8px 18px;
     border-radius: 999px;
     font-weight: 700;
     cursor: pointer;
     font-family: inherit;
     transition: .2s;
-    font-size: .8rem;
+    font-size: .82rem;
 }
-.unconfirmed-user-item .confirm-btn:hover { background: #15803d; transform: translateY(-2px); }
+.user-item .user-actions-block .confirm-btn:hover { background: #15803d; transform: translateY(-2px); }
+.user-item .user-actions-block .delete-user-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: .2s;
+    font-size: .82rem;
+}
+.user-item .user-actions-block .delete-user-btn:hover { background: #b91c1c; transform: translateY(-2px); }
 @media (max-width: 768px) {
     .container { padding: 14px; }
     h1 { font-size: 1.8rem; }
@@ -2465,9 +2480,6 @@ footer {
     .player-name { font-size: .68rem; }
     .player-number { font-size: .66rem; }
     .formation-line { min-height: 50px; margin: 4px 0; gap: 6px; }
-    .best-squad-container .formation-line { gap: 12px; margin: 6px 0; }
-    .best-squad-container .player-item { min-width: 68px; max-width: 82px; }
-    .best-squad-container .player-photo-small { width: 54px; height: 54px; }
     .modal { padding: 20px 16px; }
     .modal-header { flex-direction: column; text-align: center; padding-bottom: 12px; }
     .modal-rating-header { position: static; margin-top: 8px; }
@@ -2508,6 +2520,9 @@ footer {
     .rules-warning { font-size: .85rem; padding: 12px 14px; }
     .transfer-item { flex-direction: column; align-items: flex-start; }
     .admin-balance-panel .balance-row label { min-width: 100%; }
+    .user-item { flex-direction: column; align-items: flex-start; }
+    .user-item .user-actions-block { width: 100%; }
+    .user-item .user-actions-block select { max-width: 100%; flex: 1; }
 }
 @media (max-width: 480px) {
     .players-grid { grid-template-columns: 1fr; }
@@ -2530,9 +2545,6 @@ footer {
     .tactics-formation .formation-line { gap: 7px; min-height: 60px; }
     .match-tactics-container { padding: 12px 8px; }
     .match-tactics-container h2 { font-size: 1.05rem; margin-bottom: 8px; }
-    .best-squad-container .formation-line { gap: 8px; }
-    .best-squad-container .player-item { min-width: 60px; max-width: 74px; }
-    .best-squad-container .player-photo-small { width: 46px; height: 46px; }
     .action-btn { padding: 9px 16px; font-size: .82rem; gap: 6px; }
     .main-button .new-badge { font-size: .52rem; padding: 2px 7px; }
     .offer-badge { min-width: 16px; height: 16px; font-size: .54rem; }
@@ -2646,6 +2658,11 @@ footer {
                         <div class="button-icon">📜</div>
                         <div class="button-title">Регламент</div>
                         <div class="button-description">Регламент лиги</div>
+                    </div>
+                    <div class="main-button admin-btn-main" id="users-btn" style="display:none;">
+                        <div class="button-icon">👥</div>
+                        <div class="button-title">Пользователи</div>
+                        <div class="button-description">Управление аккаунтами</div>
                     </div>
                 </div>
                 
@@ -2882,9 +2899,15 @@ footer {
                 <button class="back-button" id="back-from-complaints">← Назад к главной</button>
                 <div class="complaints-container" id="complaints-container">
                     <h2>📢 Жалобы</h2>
-                    <div id="complaints-admin-panel" style="display: none; margin-bottom: 16px;">
-                    </div>
                     <div id="complaints-list"></div>
+                </div>
+            </div>
+            
+            <div id="users-page" class="page">
+                <button class="back-button" id="back-from-users">← Назад к главной</button>
+                <div class="users-container" id="users-container">
+                    <h2>👥 Управление пользователями</h2>
+                    <div id="users-list"></div>
                 </div>
             </div>
             
@@ -3027,6 +3050,10 @@ footer {
                 </div>
                 <div class="auth-form" id="register-form">
                     <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" id="auth-register-name" placeholder="Ваше настоящее имя">
+                    </div>
+                    <div class="form-group">
                         <label>Логин</label>
                         <input type="text" id="auth-register-username" placeholder="Придумайте логин">
                     </div>
@@ -3059,6 +3086,10 @@ footer {
                 <div class="account-stat-row">
                     <span class="label">⭐ Рейтинг</span>
                     <span class="value" id="account-player-rating">—</span>
+                </div>
+                <div class="account-stat-row">
+                    <span class="label">⚽ Позиция</span>
+                    <span class="value" id="account-player-position">—</span>
                 </div>
                 <div class="account-stat-row">
                     <span class="label">👥 Команда</span>
@@ -3514,21 +3545,18 @@ footer {
         let pollsData = [];
         let complaintsData = [];
         let userVotes = {};
+        let allUsersData = [];
         
-        // Локальные аккаунты (логин/пароль без email)
-        let localAccounts = [];
         try {
             const saved = localStorage.getItem('dfl_accounts');
-            if (saved) localAccounts = JSON.parse(saved);
-        } catch (e) { localAccounts = []; }
-        
-        function saveLocalAccounts() {
-            try { localStorage.setItem('dfl_accounts', JSON.stringify(localAccounts)); } catch (e) {}
-        }
-        
-        function generateEmail(username) {
-            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
-        }
+            if (saved) {
+                // Миграция со старых аккаунтов
+                const old = JSON.parse(saved);
+                if (Array.isArray(old)) {
+                    // старый формат - массив
+                }
+            }
+        } catch (e) {}
         
         try {
             const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
@@ -3540,6 +3568,10 @@ footer {
                 supabaseClient = null;
             }
         } catch (e) { supabaseClient = null; }
+        
+        function generateEmail(username) {
+            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
+        }
         
         function checkAndReturnLoans() {
             const now = new Date();
@@ -4324,126 +4356,6 @@ footer {
             document.body.style.overflow = 'hidden';
         }
         
-        function renderMatchTactics(matchNum) {
-            const data = matchTacticsData[matchNum];
-            if (!data) return;
-            document.getElementById('match-tactics-title').textContent = `⚽ Тактика матча: ${data.title}`;
-            const schoolContainer = document.getElementById('school78-formation');
-            if (schoolContainer) {
-                schoolContainer.innerHTML = '';
-                data.school78.formation.forEach(line => {
-                    const lineDiv = document.createElement('div');
-                    lineDiv.className = 'formation-line';
-                    line.forEach(playerId => {
-                        const player = playersData[playerId];
-                        if (!player) return;
-                        const item = document.createElement('div');
-                        item.className = 'player-item';
-                        item.setAttribute('data-player', playerId);
-                        item.innerHTML = `<div class="player-photo-small" id="match-${playerId}-photo"></div><div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div><span class="player-number">${player.number}</span>`;
-                        lineDiv.appendChild(item);
-                    });
-                    schoolContainer.appendChild(lineDiv);
-                });
-            }
-            const meraContainer = document.getElementById('mera-formation');
-            if (meraContainer) {
-                meraContainer.innerHTML = '';
-                data.mera.formation.forEach(line => {
-                    const lineDiv = document.createElement('div');
-                    lineDiv.className = 'formation-line';
-                    line.forEach(playerId => {
-                        const player = playersData[playerId];
-                        if (!player) return;
-                        const item = document.createElement('div');
-                        item.className = 'player-item';
-                        item.setAttribute('data-player', playerId);
-                        item.innerHTML = `<div class="player-photo-small" id="match-${playerId}-photo"></div><div class="player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div><span class="player-number">${player.number}</span>`;
-                        lineDiv.appendChild(item);
-                    });
-                    meraContainer.appendChild(lineDiv);
-                });
-            }
-            const schoolBench = document.getElementById('school78-bench-players');
-            if (schoolBench) {
-                schoolBench.innerHTML = '';
-                if (data.school78.bench && data.school78.bench.length > 0) {
-                    data.school78.bench.forEach(playerId => {
-                        const player = playersData[playerId];
-                        if (!player) return;
-                        const item = document.createElement('div');
-                        item.className = 'bench-player-item';
-                        item.setAttribute('data-player', playerId);
-                        item.innerHTML = `<div class="bench-player-photo" id="bench-${playerId}-photo"></div><div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>`;
-                        schoolBench.appendChild(item);
-                    });
-                }
-            }
-            const meraBench = document.getElementById('mera-bench-players');
-            if (meraBench) {
-                meraBench.innerHTML = '';
-                if (data.mera.bench && data.mera.bench.length > 0) {
-                    data.mera.bench.forEach(playerId => {
-                        const player = playersData[playerId];
-                        if (!player) return;
-                        const item = document.createElement('div');
-                        item.className = 'bench-player-item';
-                        item.setAttribute('data-player', playerId);
-                        item.innerHTML = `<div class="bench-player-photo" id="bench-${playerId}-photo"></div><div class="bench-player-name">${player.name.split(' ').slice(0, 2).join(' ')}</div>`;
-                        meraBench.appendChild(item);
-                    });
-                }
-            }
-            const allPlayers = [...data.mera.players, ...data.school78.players];
-            allPlayers.forEach(id => {
-                const photoEl = document.getElementById(`match-${id}-photo`);
-                if (photoEl) {
-                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                        photoEl.innerHTML = '';
-                        const img = document.createElement('img');
-                        img.src = playerPhotos[id];
-                        img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
-                        photoEl.appendChild(img);
-                    } else {
-                        photoEl.innerHTML = '';
-                        const icon = document.createElement('div');
-                        icon.style.fontSize = '1.8rem';
-                        icon.textContent = playersData[id]?.icon || '⚽';
-                        icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
-                        icon.style.width = '100%'; icon.style.height = '100%';
-                        photoEl.appendChild(icon);
-                    }
-                }
-            });
-            const benchPlayers = [...(data.school78.bench || []), ...(data.mera.bench || [])];
-            benchPlayers.forEach(id => {
-                const photoEl = document.getElementById(`bench-${id}-photo`);
-                if (photoEl) {
-                    if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) {
-                        photoEl.innerHTML = '';
-                        const img = document.createElement('img');
-                        img.src = playerPhotos[id];
-                        img.style.width = '100%'; img.style.height = '100%'; img.style.objectFit = 'cover';
-                        photoEl.appendChild(img);
-                    } else {
-                        photoEl.innerHTML = '';
-                        const icon = document.createElement('div');
-                        icon.style.fontSize = '1.2rem';
-                        icon.textContent = playersData[id]?.icon || '⚽';
-                        icon.style.display = 'flex'; icon.style.alignItems = 'center'; icon.style.justifyContent = 'center';
-                        icon.style.width = '100%'; icon.style.height = '100%';
-                        photoEl.appendChild(icon);
-                    }
-                }
-            });
-            document.querySelectorAll('#match-tactics-page .player-item, #match-tactics-page .bench-player-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const playerId = this.getAttribute('data-player');
-                    if (playerId && playersData[playerId]) openPlayerModal(playerId);
-                });
-            });
-        }
-        
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -4559,8 +4471,14 @@ footer {
                 document.getElementById('admin-auth-status').textContent = '';
                 document.getElementById('admin-auth-status').className = 'auth-status';
                 document.getElementById('polls-admin-panel').style.display = 'block';
+                document.getElementById('users-btn').style.display = 'flex';
                 document.getElementById('complaints-admin-panel').style.display = 'block';
-                renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadUnconfirmedUsers();
+                // Скрываем пользовательский аккаунт при входе админа
+                currentUser = null;
+                currentUserData = null;
+                updateUserUI();
+                document.getElementById('account-modal').classList.remove('active');
+                renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadAllUsers();
                 showMarketNotification('✅ Вы вошли как администратор!', 'success');
             } catch (err) {
                 document.getElementById('admin-auth-status').textContent = `❌ ${err.message || 'Ошибка'}`;
@@ -4578,9 +4496,12 @@ footer {
             document.getElementById('admin-login-btn').classList.remove('logged');
             document.getElementById('admin-balance-panel').style.display = 'none';
             document.getElementById('polls-admin-panel').style.display = 'none';
+            document.getElementById('users-btn').style.display = 'none';
             document.getElementById('complaints-admin-panel').style.display = 'none';
             renderMatches(); renderPolls(); renderComplaints();
             showMarketNotification('👋 Вы вышли из админ-панели', 'success');
+            // Возвращаем окно входа
+            setTimeout(() => { openAccountModal(); }, 300);
         }
 
         function checkAdminSession() {
@@ -4591,8 +4512,9 @@ footer {
                 document.getElementById('admin-login-btn').textContent = '👑 Админ';
                 document.getElementById('admin-login-btn').classList.add('logged');
                 document.getElementById('polls-admin-panel').style.display = 'block';
+                document.getElementById('users-btn').style.display = 'flex';
                 document.getElementById('complaints-admin-panel').style.display = 'block';
-                renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadUnconfirmedUsers();
+                renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadAllUsers();
             }
         }
 
@@ -5300,7 +5222,7 @@ footer {
             if (!text) { statusEl.textContent = '❌ Опишите ситуацию!'; statusEl.className = 'request-status error'; return; }
             const complaint = {
                 id: Date.now(),
-                from_user: currentUserData.username || 'Пользователь',
+                from_user: currentUserData.name || currentUserData.username || 'Пользователь',
                 reason: reason, text: text, status: 'pending', verdict: '',
                 created_at: new Date().toISOString()
             };
@@ -5324,32 +5246,88 @@ footer {
             }
         }
 
-        async function loadUnconfirmedUsers() {
-            if (!supabaseClient || !adminLoggedIn) return;
+        // ============ ЗАГРУЗКА ВСЕХ ПОЛЬЗОВАТЕЛЕЙ ДЛЯ АДМИНА ============
+        async function loadAllUsers() {
+            if (!adminLoggedIn) return;
             try {
-                const { data, error } = await supabaseClient.from('user_profiles').select('*').eq('confirmed', false);
+                if (!supabaseClient) return;
+                const { data, error } = await supabaseClient.from('user_profiles').select('*').order('created_at', { ascending: false });
                 if (error) throw error;
-                const container = document.getElementById('complaints-admin-panel');
-                if (!container) return;
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<p style="text-align:center;color:#666;padding:10px;">✅ Нет неподтверждённых пользователей</p>';
-                    return;
-                }
-                let html = '<h4 style="color:#8e44ad;margin-bottom:10px;">⏳ Неподтверждённые пользователи</h4>';
-                data.forEach(user => {
-                    html += `<div class="unconfirmed-user-item">
-                        <span class="user-email">${user.username || user.email || 'Пользователь'}</span>
-                        <div class="user-actions">
-                            <select id="player-select-${user.id}">
-                                <option value="">Выберите игрока...</option>
-                                ${Object.keys(playersData).map(pid => `<option value="${pid}">${playersData[pid].name}</option>`).join('')}
-                            </select>
-                            <button class="confirm-btn" onclick="confirmUser('${user.id}')">✅ Подтвердить</button>
+                allUsersData = data || [];
+                renderUsersList();
+            } catch (error) {
+                console.error('Ошибка загрузки пользователей:', error);
+                allUsersData = [];
+                renderUsersList();
+            }
+        }
+
+        function renderUsersList() {
+            const container = document.getElementById('users-list');
+            if (!container) return;
+            
+            const unconfirmed = allUsersData.filter(u => !u.confirmed);
+            const confirmed = allUsersData.filter(u => u.confirmed);
+            
+            let html = '';
+            
+            html += `<h3 style="color:#f59e0b;margin-bottom:10px;">⏳ Неподтверждённые (${unconfirmed.length})</h3>`;
+            if (unconfirmed.length === 0) {
+                html += '<p style="color:#666;padding:10px;">✅ Нет неподтверждённых пользователей</p>';
+            } else {
+                unconfirmed.forEach(user => {
+                    html += `
+                        <div class="user-item">
+                            <div class="user-info-block">
+                                <div class="user-username">👤 ${user.username || 'Без логина'}</div>
+                                <div class="user-realname">📝 Имя: ${user.name || 'Не указано'}</div>
+                                <span class="user-status-small unconfirmed">⏳ Не подтверждён</span>
+                            </div>
+                            <div class="user-actions-block">
+                                <select id="player-select-${user.id}">
+                                    <option value="">Выберите игрока...</option>
+                                    ${Object.keys(playersData).map(pid => 
+                                        `<option value="${pid}">${playersData[pid].name}</option>`
+                                    ).join('')}
+                                </select>
+                                <button class="confirm-btn" onclick="confirmUser('${user.id}')">✅ Подтвердить</button>
+                                <button class="delete-user-btn" onclick="deleteUser('${user.id}')">🗑️ Удалить</button>
+                            </div>
                         </div>
-                    </div>`;
+                    `;
                 });
-                container.innerHTML = html;
-            } catch (error) {}
+            }
+            
+            html += `<h3 style="color:#16a34a;margin-bottom:10px;margin-top:20px;">✅ Подтверждённые (${confirmed.length})</h3>`;
+            if (confirmed.length === 0) {
+                html += '<p style="color:#666;padding:10px;">Нет подтверждённых пользователей</p>';
+            } else {
+                confirmed.forEach(user => {
+                    const player = user.player_id && playersData[user.player_id];
+                    html += `
+                        <div class="user-item">
+                            <div class="user-info-block">
+                                <div class="user-username">👤 ${user.username || 'Без логина'}</div>
+                                <div class="user-realname">📝 Имя: ${user.name || 'Не указано'}</div>
+                                <div class="user-realname">🎮 Игрок: ${player ? player.name : 'Не привязан'}</div>
+                                <span class="user-status-small confirmed">✅ Подтверждён</span>
+                            </div>
+                            <div class="user-actions-block">
+                                <select id="player-select-${user.id}">
+                                    <option value="">Сменить игрока...</option>
+                                    ${Object.keys(playersData).map(pid => 
+                                        `<option value="${pid}" ${user.player_id === pid ? 'selected' : ''}>${playersData[pid].name}</option>`
+                                    ).join('')}
+                                </select>
+                                <button class="confirm-btn" onclick="confirmUser('${user.id}')">💾 Сохранить</button>
+                                <button class="delete-user-btn" onclick="deleteUser('${user.id}')">🗑️ Удалить</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            container.innerHTML = html;
         }
 
         window.confirmUser = async function(userId) {
@@ -5362,40 +5340,39 @@ footer {
                     if (error) throw error;
                 }
                 showMarketNotification('✅ Пользователь подтверждён!', 'success');
-                loadUnconfirmedUsers();
+                loadAllUsers();
             } catch (error) { showMarketNotification('❌ Ошибка подтверждения!', 'error'); }
         };
 
-        async function registerUser(username, password) {
+        window.deleteUser = async function(userId) {
+            if (!confirm('Удалить этого пользователя?')) return;
+            try {
+                if (supabaseClient) {
+                    const { error } = await supabaseClient.from('user_profiles').delete().eq('id', userId);
+                    if (error) throw error;
+                }
+                showMarketNotification('🗑️ Пользователь удалён', 'success');
+                loadAllUsers();
+            } catch (error) { showMarketNotification('❌ Ошибка удаления!', 'error'); }
+        };
+
+        async function registerUser(name, username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
-                const existing = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase());
-                if (existing) { showMarketNotification('❌ Логин уже занят!', 'error'); return; }
                 const email = generateEmail(username);
                 const { data, error } = await supabaseClient.auth.signUp({ email, password: password.trim() });
-                if (error) {
-                    // Если аккаунт уже существует в Supabase, сохраняем локально
-                    localAccounts.push({ id: 'local_' + Date.now(), username: username.trim(), password: password.trim(), confirmed: false, player_id: null, created_at: new Date().toISOString() });
-                    saveLocalAccounts();
-                    showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
-                    document.getElementById('account-modal').classList.remove('active');
-                    document.body.style.overflow = '';
-                    return;
-                }
+                if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return; }
                 if (data.user) {
                     const { error: profileError } = await supabaseClient.from('user_profiles').insert([{
                         id: data.user.id,
                         email: email,
                         username: username.trim(),
+                        name: name.trim(),
                         confirmed: false,
                         player_id: null,
                         created_at: new Date().toISOString()
                     }]);
-                    if (profileError) {
-                        // fallback локально
-                        localAccounts.push({ id: data.user.id, username: username.trim(), password: password.trim(), confirmed: false, player_id: null, created_at: new Date().toISOString() });
-                        saveLocalAccounts();
-                    }
+                    if (profileError) console.error('Ошибка профиля:', profileError);
                     showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
                     document.getElementById('account-modal').classList.remove('active');
                     document.body.style.overflow = '';
@@ -5410,38 +5387,18 @@ footer {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
                 const email = generateEmail(username);
                 const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
-                if (error) {
-                    // Пробуем локальные аккаунты
-                    const local = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase() && a.password === password);
-                    if (local) {
-                        currentUser = { id: local.id, email: email };
-                        currentUserData = local;
-                        updateUserUI();
-                        renderPolls();
-                        renderComplaints();
-                        document.getElementById('account-modal').classList.remove('active');
-                        document.body.style.overflow = '';
-                        showMarketNotification(`✅ Добро пожаловать, ${local.username}!`, 'success');
-                        return;
-                    }
-                    showMarketNotification('❌ Неверный логин или пароль!', 'error');
-                    return;
-                }
+                if (error) { showMarketNotification('❌ Неверный логин или пароль!', 'error'); return; }
                 currentUser = data.user;
                 const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', data.user.id).single();
                 if (!profileError && profile) currentUserData = profile;
-                else {
-                    const local = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase());
-                    if (local) currentUserData = local;
-                    else currentUserData = { email: data.user.email, confirmed: false, player_id: null, username: username };
-                }
+                else currentUserData = { email: data.user.email, confirmed: false, player_id: null, username: username, name: '' };
                 updateUserUI();
                 await loadUserVotes();
                 renderPolls();
                 renderComplaints();
                 document.getElementById('account-modal').classList.remove('active');
                 document.body.style.overflow = '';
-                showMarketNotification(`✅ Добро пожаловать, ${currentUserData.username || username}!`, 'success');
+                showMarketNotification(`✅ Добро пожаловать, ${currentUserData.name || currentUserData.username || username}!`, 'success');
             } catch (error) {
                 showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
             }
@@ -5489,12 +5446,14 @@ footer {
         async function checkUserSession() {
             try {
                 if (!supabaseClient) return false;
+                if (adminLoggedIn) return false;
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
                 if (error || !session) return false;
+                if (session.user.email === 'admin@fcmera.com') return false;
                 currentUser = session.user;
                 const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', session.user.id).single();
                 if (!profileError && profile) currentUserData = profile;
-                else currentUserData = { email: session.user.email, confirmed: false, player_id: null, username: session.user.email.split('@')[0] };
+                else currentUserData = { email: session.user.email, confirmed: false, player_id: null, username: session.user.email.split('@')[0], name: '' };
                 updateUserUI();
                 await loadUserVotes();
                 return true;
@@ -5502,6 +5461,11 @@ footer {
         }
 
         function openAccountModal() {
+            if (adminLoggedIn) {
+                // Если админ - показываем только сообщение что он админ
+                showMarketNotification('👑 Вы вошли как администратор', 'success');
+                return;
+            }
             const modal = document.getElementById('account-modal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -5518,13 +5482,14 @@ footer {
                 } else {
                     avatarEl.textContent = '👤';
                 }
-                document.getElementById('account-user-name').textContent = currentUserData.username || 'Без имени';
+                document.getElementById('account-user-name').textContent = currentUserData.name || currentUserData.username || 'Без имени';
                 document.getElementById('account-user-email').textContent = 'Логин: ' + (currentUserData.username || '—');
                 const statusEl = document.getElementById('account-user-status');
                 if (currentUserData.confirmed) { statusEl.textContent = '✅ Подтверждён'; statusEl.className = 'account-status-pill confirmed'; }
                 else { statusEl.textContent = '⏳ Неподтверждён'; statusEl.className = 'account-status-pill unconfirmed'; }
                 document.getElementById('account-player-name').textContent = player ? player.name : '—';
                 document.getElementById('account-player-rating').textContent = player ? `⭐ ${player.rating}` : '—';
+                document.getElementById('account-player-position').textContent = player ? player.position : '—';
                 const teamId = playerId ? Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId)) : null;
                 document.getElementById('account-player-team').textContent = teamId ? CAPTAINS[teamId].name : '—';
                 document.getElementById('account-user-date').textContent = currentUserData.created_at ? new Date(currentUserData.created_at).toLocaleDateString('ru-RU') : '—';
@@ -5586,7 +5551,7 @@ footer {
                 loadComplaints();
                 renderPolls();
                 renderComplaints();
-                if (!loggedIn) {
+                if (!loggedIn && !adminLoggedIn) {
                     setTimeout(() => { openAccountModal(); }, 500);
                 }
             });
@@ -5624,14 +5589,17 @@ footer {
                 }
             });
             document.getElementById('auth-register-submit').addEventListener('click', function() {
+                const name = document.getElementById('auth-register-name').value.trim();
                 const username = document.getElementById('auth-register-username').value.trim();
                 const password = document.getElementById('auth-register-password').value.trim();
                 const password2 = document.getElementById('auth-register-password2').value.trim();
                 const statusEl = document.getElementById('auth-register-status');
+                if (!name) { statusEl.textContent = '❌ Введите ваше имя!'; statusEl.className = 'auth-status error'; return; }
                 if (!username) { statusEl.textContent = '❌ Введите логин!'; statusEl.className = 'auth-status error'; return; }
                 if (!password || password.length < 6) { statusEl.textContent = '❌ Пароль минимум 6 символов!'; statusEl.className = 'auth-status error'; return; }
                 if (password !== password2) { statusEl.textContent = '❌ Пароли не совпадают!'; statusEl.className = 'auth-status error'; return; }
-                registerUser(username, password);
+                registerUser(name, username, password);
+                document.getElementById('auth-register-name').value = '';
                 document.getElementById('auth-register-username').value = '';
                 document.getElementById('auth-register-password').value = '';
                 document.getElementById('auth-register-password2').value = '';
@@ -5648,6 +5616,10 @@ footer {
             document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
             document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
             document.getElementById('polls-btn').addEventListener('click', () => { showPage('polls-page'); loadPolls(); });
+            document.getElementById('users-btn').addEventListener('click', () => { 
+                showPage('users-page'); 
+                loadAllUsers(); 
+            });
             document.getElementById('complaint-btn-main').addEventListener('click', function() {
                 if (!currentUser) { openAccountModal(); showMarketNotification('❌ Войдите в аккаунт, чтобы подать жалобу!', 'error'); return; }
                 if (!currentUserData || !currentUserData.confirmed) { showMarketNotification('❌ Ваш аккаунт не подтверждён! Подача жалоб недоступна.', 'error'); return; }
@@ -5673,6 +5645,7 @@ footer {
             document.getElementById('back-from-market').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-polls').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-complaints').addEventListener('click', () => showPage('home-page'));
+            document.getElementById('back-from-users').addEventListener('click', () => showPage('home-page'));
             document.getElementById('back-from-yard-mera').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-78').addEventListener('click', () => showPage('yards-page'));
             document.getElementById('back-from-yard-yuzhka').addEventListener('click', () => showPage('yards-page'));
