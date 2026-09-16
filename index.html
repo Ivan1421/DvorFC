@@ -2701,6 +2701,71 @@ footer {
     object-fit: contain;
     display: block;
 }
+/* Admin section tabs (в админ-панели) */
+.admin-section-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+}
+.admin-section-tab {
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 2px solid var(--border-strong);
+    background: var(--card);
+    color: var(--accent);
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    transition: .2s;
+    font-size: .88rem;
+}
+.admin-section-tab.active { background: var(--accent); color: white; }
+.admin-section-tab:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+/* Poll voters list */
+.poll-voters-list {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--accent-soft);
+    border-radius: 10px;
+    border: 1px dashed var(--border-strong);
+    font-size: .85rem;
+}
+.poll-voters-list .voter-row {
+    padding: 4px 0;
+    color: var(--text);
+    border-bottom: 1px dotted var(--border);
+}
+.poll-voters-list .voter-row:last-child { border-bottom: none; }
+
+/* Checkbox row */
+.form-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0;
+    padding: 10px 14px;
+    background: var(--accent-soft);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+.form-checkbox-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #8e44ad;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.form-checkbox-row label {
+    font-weight: 700;
+    font-size: .88rem;
+    color: var(--text);
+    cursor: pointer;
+    margin: 0;
+}
 </style>
 </head>
 <body>
@@ -4632,17 +4697,26 @@ renderAdminPollsList(); renderAdminComplaintsList();
 
         // ============== ОПРОСЫ ==============
         async function loadPolls() {
-            try {
-                if (!supabaseClient) { pollsData = []; renderPolls(); return; }
-                const { data, error } = await supabaseClient.from('polls').select('*').order('id', { ascending: false });
-                if (error) throw error;
-                pollsData = data || [];
-                // Загружаем голоса
-                await loadPollVoters();
-                renderPolls();
-            } catch (error) { pollsData = []; renderPolls(); }
+    try {
+        if (!supabaseClient) {
+            if (!loadPollsFromLocal()) pollsData = [];
+            await loadPollVoters();
+            renderPolls();
+            return;
         }
-        
+        const { data, error } = await supabaseClient.from('polls').select('*').order('id', { ascending: false });
+        if (error) throw error;
+        pollsData = data || [];
+        if (pollsData.length > 0) savePollsToLocal();
+        await loadPollVoters();
+        renderPolls();
+    } catch (error) { 
+        console.error('Ошибка загрузки опросов:', error);
+        if (!loadPollsFromLocal()) pollsData = [];
+        await loadPollVoters();
+        renderPolls(); 
+    }
+}        
         async function loadPollVoters() {
             pollVotersData = {};
             if (!supabaseClient) return;
@@ -4657,16 +4731,24 @@ renderAdminPollsList(); renderAdminComplaintsList();
             } catch (e) {}
         }
 
-        async function savePollsToSupabase() {
-            try {
-                if (!supabaseClient) return;
-                await supabaseClient.from('polls').delete().neq('id', 0);
-                if (pollsData.length > 0) {
-                    await supabaseClient.from('polls').insert(pollsData);
-                }
-            } catch (error) {}
-        }
+async function savePollsToSupabase() {
 
+    if (!supabaseClient) {
+        savePollsToLocal();
+        return;
+    }
+    try {
+        for (const poll of pollsData) {
+            const { error } = await supabaseClient
+                .from('polls')
+                .upsert(poll, { onConflict: 'id' });
+            if (error) console.error('Ошибка upsert:', error);
+        }
+    } catch (error) {
+        console.error('Ошибка сохранения:', error);
+        savePollsToLocal();
+    }
+}
         function renderPolls() {
             const container = document.getElementById('polls-list');
             if (!container) return;
@@ -4723,100 +4805,176 @@ renderAdminPollsList(); renderAdminComplaintsList();
             container.innerHTML = html;
         }
 
-        window.votePoll = async function(pollId, optionIndex) {
-            if (!currentUser) { showMarketNotification('❌ Войдите в аккаунт!', 'error'); return; }
-            if (!currentUserData || !currentUserData.confirmed) { showMarketNotification('❌ Аккаунт не подтверждён!', 'error'); return; }
-            const poll = pollsData.find(p => p.id == pollId);
-            if (!poll) return;
-            if (poll.closed) { showMarketNotification('❌ Опрос закрыт!', 'error'); return; }
-            
-            const alreadyVoted = userVotes[poll.id] !== undefined;
-            const noChange = poll.no_change === true;
-            
-            // Если нельзя переголосовать и уже голосовал - блокируем
-            if (noChange && alreadyVoted) {
-                showMarketNotification('❌ Переголосовать нельзя!', 'error');
+window.votePoll = async function(pollId, optionIndex) {
+    if (!currentUser) { showMarketNotification('❌ Войдите в аккаунт!', 'error'); return; }
+    if (!currentUserData || !currentUserData.confirmed) { 
+        showMarketNotification('❌ Аккаунт не подтверждён!', 'error'); 
+        return; 
+    }
+    const poll = pollsData.find(p => String(p.id) === String(pollId));
+    if (!poll) return;
+    if (poll.closed) { showMarketNotification('❌ Опрос закрыт!', 'error'); return; }
+    
+    const alreadyVoted = userVotes[poll.id] !== undefined;
+    const noChange = poll.no_change === true;
+    
+    if (noChange && alreadyVoted) {
+        showMarketNotification('❌ Переголосовать нельзя!', 'error');
+        return;
+    }
+    
+    // Убираем старый голос
+    if (alreadyVoted && !noChange) {
+        const oldOption = userVotes[poll.id];
+        if (poll.options[oldOption] && poll.options[oldOption].votes > 0) {
+            poll.options[oldOption].votes -= 1;
+        }
+        if (supabaseClient) {
+            try {
+                await supabaseClient.from('poll_votes').delete()
+                    .eq('poll_id', pollId)
+                    .eq('user_id', currentUser.id);
+            } catch (e) {}
+        }
+    }
+    
+    // Добавляем новый
+    poll.options[optionIndex].votes = (poll.options[optionIndex].votes || 0) + 1;
+    userVotes[poll.id] = optionIndex;
+    
+    if (supabaseClient) {
+        try {
+            await supabaseClient.from('poll_votes').insert([{
+                poll_id: pollId,
+                user_id: currentUser.id,
+                user_name: currentUserData.name || currentUserData.username || 'Пользователь',
+                option_index: optionIndex
+            }]);
+            await supabaseClient.from('polls').update({ options: poll.options }).eq('id', pollId);
+        } catch (e) {}
+    }
+    
+    savePollsToLocal();
+    await loadPollVoters();
+    renderPolls();
+    if (adminLoggedIn) renderAdminPollsList();
+    showMarketNotification(alreadyVoted ? '✅ Голос изменён!' : '✅ Голос учтён!', 'success');
+};
+window.togglePollClosed = async function(pollId) {
+    const poll = pollsData.find(p => String(p.id) === String(pollId));
+    if (!poll) return;
+    poll.closed = !poll.closed;
+    
+    if (supabaseClient) {
+        try {
+            await supabaseClient.from('polls').update({ closed: poll.closed }).eq('id', pollId);
+        } catch (e) {}
+    }
+    savePollsToLocal();
+    renderPolls();
+    if (adminLoggedIn) renderAdminPollsList();
+    showMarketNotification(poll.closed ? '🔒 Закрыт' : '🔓 Открыт', 'success');
+};
+window.deletePoll = async function(pollId) {
+    if (!confirm('Удалить этот опрос?')) return;
+    pollsData = pollsData.filter(p => String(p.id) !== String(pollId));
+    
+    if (supabaseClient) {
+        try {
+            await supabaseClient.from('polls').delete().eq('id', pollId);
+            await supabaseClient.from('poll_votes').delete().eq('poll_id', pollId);
+        } catch (e) {}
+    }
+    savePollsToLocal();
+    renderPolls();
+    if (adminLoggedIn) renderAdminPollsList();
+    showMarketNotification('🗑️ Удалён', 'success');
+};
+
+function openCreatePollModal() {
+    document.getElementById('create-poll-modal').classList.add('active');
+    document.getElementById('poll-question').value = '';
+    document.getElementById('create-poll-status').textContent = '';
+    document.getElementById('create-poll-status').className = 'request-status';
+    document.getElementById('poll-no-change-checkbox').checked = false;
+    const container = document.getElementById('poll-options-container');
+    container.innerHTML = `
+        <input type="text" class="poll-option-input" placeholder="Вариант 1" style="margin-bottom:8px;">
+        <input type="text" class="poll-option-input" placeholder="Вариант 2" style="margin-bottom:8px;">
+    `;
+}
+
+async function submitCreatePoll() {
+    const question = document.getElementById('poll-question').value.trim();
+    const optionInputs = document.querySelectorAll('#poll-options-container .poll-option-input');
+    const options = [];
+    optionInputs.forEach(inp => { 
+        const val = inp.value.trim(); 
+        if (val) options.push({ text: val, votes: 0 }); 
+    });
+    const noChange = document.getElementById('poll-no-change-checkbox').checked;
+    const statusEl = document.getElementById('create-poll-status');
+    
+    if (!question) { 
+        statusEl.textContent = '❌ Введите вопрос!'; 
+        statusEl.className = 'request-status error'; 
+        return; 
+    }
+    if (options.length < 2) { 
+        statusEl.textContent = '❌ Минимум 2 варианта!'; 
+        statusEl.className = 'request-status error'; 
+        return; 
+    }
+    if (options.length > 6) { 
+        statusEl.textContent = '❌ Максимум 6 вариантов!'; 
+        statusEl.className = 'request-status error'; 
+        return; 
+    }
+    
+    const newPoll = { 
+        id: Date.now(), 
+        question, 
+        options, 
+        closed: false, 
+        no_change: noChange, 
+        created_at: new Date().toISOString() 
+    };
+    
+    // Сначала сохраняем в Supabase
+    let savedToSupabase = false;
+    if (supabaseClient) {
+        try {
+            const { data, error } = await supabaseClient.from('polls').insert([newPoll]).select().single();
+            if (error) {
+                console.error('Ошибка Supabase:', error);
+                // Если ошибка — не добавляем локально, показываем пользователю
+                statusEl.textContent = '❌ Ошибка сохранения: ' + error.message;
+                statusEl.className = 'request-status error';
                 return;
             }
-            
-            // Если разрешено переголосовать - сначала убираем старый голос
-            if (alreadyVoted && !noChange) {
-                const oldOption = userVotes[poll.id];
-                if (poll.options[oldOption] && poll.options[oldOption].votes > 0) {
-                    poll.options[oldOption].votes -= 1;
-                }
-                // Удаляем старый голос из Supabase
-                if (supabaseClient) {
-                    try {
-                        await supabaseClient.from('poll_votes').delete().eq('poll_id', pollId).eq('user_id', currentUser.id);
-                    } catch (e) {}
-                }
-            }
-            
-            // Добавляем новый голос
-            poll.options[optionIndex].votes = (poll.options[optionIndex].votes || 0) + 1;
-            userVotes[poll.id] = optionIndex;
-            
-            if (supabaseClient) {
-                try {
-                    await supabaseClient.from('poll_votes').insert([{
-                        poll_id: pollId,
-                        user_id: currentUser.id,
-                        user_name: currentUserData.name || currentUserData.username || 'Пользователь',
-                        option_index: optionIndex
-                    }]);
-                } catch (e) {}
-            }
-            
-            await savePollsToSupabase();
-            await loadPollVoters();
-            renderPolls();
-            showMarketNotification(alreadyVoted ? '✅ Голос изменён!' : '✅ Голос учтён!', 'success');
-        };
-
-        window.togglePollClosed = function(pollId) {
-            const poll = pollsData.find(p => p.id == pollId);
-            if (!poll) return;
-            poll.closed = !poll.closed;
-            savePollsToSupabase(); renderPolls();
-            showMarketNotification(poll.closed ? '🔒 Закрыт' : '🔓 Открыт', 'success');
-        };
-
-        window.deletePoll = function(pollId) {
-            if (!confirm('Удалить этот опрос?')) return;
-            pollsData = pollsData.filter(p => p.id != pollId);
-            savePollsToSupabase(); renderPolls();
-            showMarketNotification('🗑️ Удалён', 'success');
-        };
-
-        function openCreatePollModal() {
-            document.getElementById('create-poll-modal').classList.add('active');
-            document.getElementById('poll-question').value = '';
-            document.getElementById('create-poll-status').textContent = '';
-            document.getElementById('poll-no-change-checkbox').checked = false;
-            const container = document.getElementById('poll-options-container');
-            container.innerHTML = `
-                <input type="text" class="poll-option-input" placeholder="Вариант 1" style="margin-bottom:8px;">
-                <input type="text" class="poll-option-input" placeholder="Вариант 2" style="margin-bottom:8px;">
-            `;
+            savedToSupabase = true;
+        } catch (e) {
+            console.error('Исключение Supabase:', e);
+            statusEl.textContent = '❌ Ошибка подключения';
+            statusEl.className = 'request-status error';
+            return;
         }
-
-        async function submitCreatePoll() {
-            const question = document.getElementById('poll-question').value.trim();
-            const optionInputs = document.querySelectorAll('.poll-option-input');
-            const options = [];
-            optionInputs.forEach(inp => { const val = inp.value.trim(); if (val) options.push({ text: val, votes: 0 }); });
-            const noChange = document.getElementById('poll-no-change-checkbox').checked;
-            const statusEl = document.getElementById('create-poll-status');
-            if (!question) { statusEl.textContent = '❌ Введите вопрос!'; statusEl.className = 'request-status error'; return; }
-            if (options.length < 2) { statusEl.textContent = '❌ Минимум 2 варианта!'; statusEl.className = 'request-status error'; return; }
-            if (options.length > 6) { statusEl.textContent = '❌ Максимум 6!'; statusEl.className = 'request-status error'; return; }
-            const newPoll = { id: Date.now(), question, options, closed: false, no_change: noChange, created_at: new Date().toISOString() };
-            pollsData.unshift(newPoll);
-            await savePollsToSupabase(); renderPolls();
-            document.getElementById('create-poll-modal').classList.remove('active');
-            showMarketNotification('✅ Опрос создан!', 'success');
-        }
+    }
+    
+    // Добавляем в локальный массив
+    pollsData.unshift(newPoll);
+    
+    // Если не удалось сохранить в Supabase, сохраняем локально
+    if (!savedToSupabase) {
+        savePollsToLocal();
+    }
+    
+    renderPolls();
+    if (adminLoggedIn) renderAdminPollsList();
+    
+    document.getElementById('create-poll-modal').classList.remove('active');
+    showMarketNotification('✅ Опрос создан!', 'success');
+}
 
         // ============== ЖАЛОБЫ ==============
 async function loadComplaints() {
@@ -5644,8 +5802,10 @@ document.querySelectorAll('.admin-section-tab').forEach(tab => {
             document.getElementById('view-offers-close').addEventListener('click', () => document.getElementById('view-offers-modal').classList.remove('active'));
             document.getElementById('view-offers-modal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
             
-            document.getElementById('create-poll-btn').addEventListener('click', openCreatePollModal);
-            
+            const createPollBtn = document.getElementById('create-poll-btn');
+if (createPollBtn) {
+    createPollBtn.addEventListener('click', openCreatePollModal);
+}            
             window.setTeamBalance = setTeamBalance;
             window.addTeamBalance = addTeamBalance;
             window.removeFromMarket = removeFromMarket;
