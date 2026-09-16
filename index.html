@@ -3829,6 +3829,9 @@ async function loginCaptain(email, password) {
         renderMyTeam();
         renderTransfers();
         updateOfferBadge();
+        await loadUserVotes();
+renderPolls();
+renderComplaints();
         return true;
 
     } catch (error) {
@@ -3862,6 +3865,9 @@ async function logoutCaptain() {
     
     updateMarketUI();
     updateOfferBadge();
+    userVotes = {};
+renderPolls();
+renderComplaints();
     showMarketNotification('👋 Вы вышли из системы', 'success');
 }
 
@@ -4859,11 +4865,21 @@ async function savePollsToSupabase() {
         }
 
 window.votePoll = async function(pollId, optionIndex) {
-    if (!currentUser) { showMarketNotification('❌ Войдите в аккаунт!', 'error'); return; }
-    if (!currentUserData || !currentUserData.confirmed) { 
-        showMarketNotification('❌ Аккаунт не подтверждён!', 'error'); 
-        return; 
+    // Разрешаем голосовать И пользователям, И капитанам
+    const voterId = currentUser?.id || marketState.userEmail;
+    const voterName = currentUserData?.name || currentUserData?.username || marketState.userEmail || 'Гость';
+    
+    if (!voterId) {
+        showMarketNotification('❌ Войдите в аккаунт или как капитан!', 'error');
+        return;
     }
+    
+    // Для обычных пользователей проверяем подтверждение
+    if (currentUser && (!currentUserData || !currentUserData.confirmed)) {
+        showMarketNotification('❌ Аккаунт не подтверждён!', 'error');
+        return;
+    }
+    
     const poll = pollsData.find(p => String(p.id) === String(pollId));
     if (!poll) return;
     if (poll.closed) { showMarketNotification('❌ Опрос закрыт!', 'error'); return; }
@@ -4886,12 +4902,12 @@ window.votePoll = async function(pollId, optionIndex) {
             try {
                 await supabaseClient.from('poll_votes').delete()
                     .eq('poll_id', pollId)
-                    .eq('user_id', currentUser.id);
+                    .eq('user_id', String(voterId));
             } catch (e) {}
         }
     }
     
-    // Добавляем новый
+    // Добавляем новый голос
     poll.options[optionIndex].votes = (poll.options[optionIndex].votes || 0) + 1;
     userVotes[poll.id] = optionIndex;
     
@@ -4899,12 +4915,14 @@ window.votePoll = async function(pollId, optionIndex) {
         try {
             await supabaseClient.from('poll_votes').insert([{
                 poll_id: pollId,
-                user_id: currentUser.id,
-                user_name: currentUserData.name || currentUserData.username || 'Пользователь',
+                user_id: String(voterId),
+                user_name: voterName,
                 option_index: optionIndex
             }]);
             await supabaseClient.from('polls').update({ options: poll.options }).eq('id', pollId);
-        } catch (e) {}
+        } catch (e) {
+            console.error('Ошибка сохранения голоса:', e);
+        }
     }
     
     savePollsToLocal();
@@ -5091,37 +5109,77 @@ async function loadComplaints() {
             showMarketNotification(status === 'resolved' ? '✅ Подтверждена' : '❌ Отклонена', 'success');
         };
 
-        async function submitComplaint() {
-            if (!currentUser) { showMarketNotification('❌ Войдите!', 'error'); return; }
-            if (!currentUserData || !currentUserData.confirmed) { showMarketNotification('❌ Аккаунт не подтверждён!', 'error'); return; }
-            const reasonSelect = document.getElementById('complaint-reason');
-            const customReasonInput = document.getElementById('complaint-custom-reason');
-            const text = document.getElementById('complaint-text').value.trim();
-            const statusEl = document.getElementById('complaint-status');
-            let reason = reasonSelect.value;
-            if (reason === 'Другое') reason = customReasonInput.value.trim();
-            if (!reason) { statusEl.textContent = '❌ Укажите причину!'; statusEl.className = 'request-status error'; return; }
-            if (!text) { statusEl.textContent = '❌ Опишите!'; statusEl.className = 'request-status error'; return; }
-            const complaint = {
-                id: Date.now(),
-                from_user: currentUserData.name || currentUserData.username || 'Пользователь',
-                reason: reason, text: text, status: 'pending', verdict: '',
-                created_at: new Date().toISOString()
-            };
-            try {
-                if (supabaseClient) { await supabaseClient.from('complaints').insert([complaint]); }
-                complaintsData.unshift(complaint);
-                renderComplaints();
-                document.getElementById('complaint-modal').classList.remove('active');
-                document.getElementById('complaint-reason').value = '';
-                document.getElementById('complaint-custom-reason').value = '';
-                document.getElementById('complaint-custom-reason-group').style.display = 'none';
-                document.getElementById('complaint-text').value = '';
-                showMarketNotification('✅ Жалоба отправлена!', 'success');
-            } catch (error) {
-                statusEl.textContent = `❌ Ошибка`;
+async function submitComplaint() {
+    // Разрешаем подавать жалобу И пользователям, И капитанам
+    const authorName = currentUserData?.name || currentUserData?.username 
+                    || marketState.userEmail || null;
+    
+    if (!authorName) {
+        showMarketNotification('❌ Войдите в аккаунт или как капитан!', 'error');
+        return;
+    }
+    
+    // Для обычных пользователей проверяем подтверждение
+    if (currentUser && (!currentUserData || !currentUserData.confirmed)) {
+        showMarketNotification('❌ Аккаунт не подтверждён!', 'error');
+        return;
+    }
+    
+    const reasonSelect = document.getElementById('complaint-reason');
+    const customReasonInput = document.getElementById('complaint-custom-reason');
+    const text = document.getElementById('complaint-text').value.trim();
+    const statusEl = document.getElementById('complaint-status');
+    
+    let reason = reasonSelect.value;
+    if (reason === 'Другое') reason = customReasonInput.value.trim();
+    
+    if (!reason) { 
+        statusEl.textContent = '❌ Укажите причину!'; 
+        statusEl.className = 'request-status error'; 
+        return; 
+    }
+    if (!text) { 
+        statusEl.textContent = '❌ Опишите ситуацию!'; 
+        statusEl.className = 'request-status error'; 
+        return; 
+    }
+    
+    const complaint = {
+        id: Date.now(),
+        from_user: authorName,
+        reason: reason,
+        text: text,
+        status: 'pending',
+        verdict: '',
+        created_at: new Date().toISOString()
+    };
+    
+    try {
+        if (supabaseClient) { 
+            const { error } = await supabaseClient.from('complaints').insert([complaint]);
+            if (error) {
+                statusEl.textContent = `❌ Ошибка: ${error.message}`;
+                statusEl.className = 'request-status error';
+                return;
             }
         }
+        complaintsData.unshift(complaint);
+        renderComplaints();
+        if (adminLoggedIn) renderAdminComplaintsList();
+        
+        document.getElementById('complaint-modal').classList.remove('active');
+        document.getElementById('complaint-reason').value = '';
+        document.getElementById('complaint-custom-reason').value = '';
+        document.getElementById('complaint-custom-reason-group').style.display = 'none';
+        document.getElementById('complaint-text').value = '';
+        statusEl.textContent = '';
+        
+        showMarketNotification('✅ Жалоба отправлена!', 'success');
+    } catch (error) {
+        statusEl.textContent = `❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`;
+        statusEl.className = 'request-status error';
+    }
+}
 
         // ============== ПОЛЬЗОВАТЕЛИ ==============
         async function loadAllUsers() {
@@ -5325,15 +5383,22 @@ async function loadComplaints() {
             }
         }
         
-        async function loadUserVotes() {
-            if (!supabaseClient || !currentUser) return;
-            try {
-                const { data, error } = await supabaseClient.from('poll_votes').select('*').eq('user_id', currentUser.id);
-                if (error) throw error;
-                userVotes = {};
-                (data || []).forEach(vote => { userVotes[vote.poll_id] = vote.option_index; });
-            } catch (error) {}
-        }
+ async function loadUserVotes() {
+    if (!supabaseClient) return;
+    const voterId = currentUser?.id || marketState.userEmail;
+    if (!voterId) return;
+    try {
+        const { data, error } = await supabaseClient
+            .from('poll_votes')
+            .select('*')
+            .eq('user_id', String(voterId));
+        if (error) throw error;
+        userVotes = {};
+        (data || []).forEach(vote => { userVotes[vote.poll_id] = vote.option_index; });
+    } catch (error) {
+        console.error('Ошибка загрузки голосов:', error);
+    }
+}
 
         function updateUserUI() {
             const avatarBtn = document.getElementById('avatar-btn');
@@ -5642,12 +5707,20 @@ document.getElementById('admin-panel-btn').addEventListener('click', () => {
     renderAdminPollsList();
     renderAdminComplaintsList();
 });
-            document.getElementById('complaint-btn-main').addEventListener('click', function() {
-                if (!currentUser) { openAccountModal(); showMarketNotification('❌ Войдите!', 'error'); return; }
-                if (!currentUserData || !currentUserData.confirmed) { showMarketNotification('❌ Аккаунт не подтверждён!', 'error'); return; }
-                document.getElementById('complaint-modal').classList.add('active');
-                document.getElementById('complaint-status').textContent = '';
-            });
+document.getElementById('complaint-btn-main').addEventListener('click', function() {
+    const isLoggedIn = currentUser || marketState.currentCaptain;
+    if (!isLoggedIn) {
+        openAccountModal();
+        showMarketNotification('❌ Войдите как капитан или пользователь!', 'error');
+        return;
+    }
+    if (currentUser && (!currentUserData || !currentUserData.confirmed)) {
+        showMarketNotification('❌ Аккаунт не подтверждён!', 'error');
+        return;
+    }
+    document.getElementById('complaint-modal').classList.add('active');
+    document.getElementById('complaint-status').textContent = '';
+});
             document.getElementById('market-btn').addEventListener('click', () => {
                 showPage('market-page');
                 updateMarketUI(); renderTransfers();
