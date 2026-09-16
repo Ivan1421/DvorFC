@@ -5101,7 +5101,6 @@ async function loadComplaints() {
     } catch (error) { complaintsData = []; renderComplaints(); }
 }
 
-let showOnlyMyComplaints = true; // по умолчанию показываем только свои
 
 function renderComplaints() {
     const container = document.getElementById('complaints-list');
@@ -5112,21 +5111,42 @@ function renderComplaints() {
                 || marketState.userEmail || null;
     const isAdmin = adminLoggedIn;
     
-    // Фильтруем жалобы
-    let visibleComplaints = complaintsData;
-    if (!isAdmin && showOnlyMyComplaints && myName) {
+    // ============================================
+    // АДМИН видит ВСЕ жалобы
+    // ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ/КАПИТАН видит ТОЛЬКО СВОИ
+    // ============================================
+    
+    if (!isAdmin && !myName) {
+        container.innerHTML = `<p style="text-align:center;color:#666;padding:30px;">
+            🔒 Войдите, чтобы видеть свои жалобы
+        </p>`;
+        return;
+    }
+    
+    let visibleComplaints;
+    if (isAdmin) {
+        visibleComplaints = complaintsData;
+    } else {
         visibleComplaints = complaintsData.filter(c => c.from_user === myName);
     }
     
-    // Кнопки-переключатели (только для не-админов)
+    // Заголовок
     let headerHtml = '';
-    if (!isAdmin && myName) {
+    if (isAdmin) {
         headerHtml = `
-            <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-                <button class="sort-btn ${showOnlyMyComplaints ? 'active' : ''}" 
-                    onclick="toggleComplaintsFilter(true)">👤 Мои жалобы</button>
-                <button class="sort-btn ${!showOnlyMyComplaints ? 'active' : ''}" 
-                    onclick="toggleComplaintsFilter(false)">🌐 Все жалобы</button>
+            <div style="margin-bottom:14px;padding:10px 14px;
+                background:#fef3c7;border-radius:10px;
+                border-left:4px solid #d97706;font-size:.85rem;color:#92400e;">
+                👑 <b>Режим администратора.</b> Показаны все жалобы.
+            </div>
+        `;
+    } else {
+        headerHtml = `
+            <div style="margin-bottom:14px;padding:10px 14px;
+                background:var(--accent-soft);border-radius:10px;
+                border-left:4px solid var(--accent);font-size:.85rem;">
+                🔒 <b>Показаны только ваши жалобы.</b>
+                Чужие жалобы видны только администратору.
             </div>
         `;
     }
@@ -5134,7 +5154,7 @@ function renderComplaints() {
     if (visibleComplaints.length === 0) {
         container.innerHTML = headerHtml + 
             `<p style="text-align:center;color:#666;padding:30px;">
-                📭 ${showOnlyMyComplaints && !isAdmin ? 'У вас пока нет жалоб' : 'Нет жалоб'}
+                📭 ${isAdmin ? 'Нет жалоб' : 'У вас пока нет жалоб'}
             </p>`;
         return;
     }
@@ -5147,7 +5167,7 @@ function renderComplaints() {
         // Вердикт
         let verdictHtml = '';
         if (complaint.status === 'pending') {
-            verdictHtml = `<div class="complaint-verdict pending">⏳ Ожидает рассмотрения администратором</div>`;
+            verdictHtml = `<div class="complaint-verdict pending">⏳ Ожидает рассмотрения</div>`;
         } else if (complaint.status === 'resolved') {
             verdictHtml = `<div class="complaint-verdict resolved">
                 ✅ <b>Вердикт:</b> ${complaint.verdict || 'Нарушение подтверждено'}
@@ -5158,7 +5178,7 @@ function renderComplaints() {
             </div>`;
         }
         
-        // Кнопки админа — только если статус pending
+        // Кнопки админа
         let adminControls = '';
         if (isAdmin && complaint.status === 'pending') {
             adminControls = `<div class="complaint-verdict-input">
@@ -5171,16 +5191,20 @@ function renderComplaints() {
             </div>`;
         }
         
-        // Метка "Ваша жалоба"
-        const mineLabel = isMine && !isAdmin 
+        // Метка "⭐ ВАША" — показываем админу, чтобы он видел какие из его
+        const mineLabel = (isMine && isAdmin) 
             ? `<span style="display:inline-block;background:#0066cc;color:#fff;
                 font-size:.65rem;font-weight:800;padding:2px 10px;border-radius:999px;
                 margin-left:8px;">⭐ ВАША</span>` 
             : '';
         
-        html += `<div class="complaint-item" style="${isMine && !isAdmin ? 'border-left-color:#0066cc;' : ''}">
+        html += `<div class="complaint-item" style="${isMine && isAdmin ? 'border-left-color:#0066cc;' : ''}">
             <div class="complaint-header">
-                <span class="complaint-from">👤 ${complaint.from_user || 'Аноним'}${mineLabel}</span>
+                <span class="complaint-from">
+                    ${isAdmin 
+                        ? `👤 ${complaint.from_user || 'Аноним'}${mineLabel}` 
+                        : '📝 Моя жалоба'}
+                </span>
                 <span class="complaint-date">🕐 ${date}</span>
             </div>
             <div class="complaint-reason">📌 ${complaint.reason}</div>
@@ -5191,12 +5215,6 @@ function renderComplaints() {
     });
     container.innerHTML = html;
 }
-
-// Переключатель фильтра
-window.toggleComplaintsFilter = function(onlyMine) {
-    showOnlyMyComplaints = onlyMine;
-    renderComplaints();
-};
 
         window.resolveComplaint = async function(complaintId, status) {
             const complaint = complaintsData.find(c => c.id == complaintId);
