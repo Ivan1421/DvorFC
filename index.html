@@ -3547,16 +3547,26 @@ footer {
         let userVotes = {};
         let allUsersData = [];
         
+        // Локальные аккаунты (без email)
+        let localAccounts = [];
         try {
-            const saved = localStorage.getItem('dfl_accounts');
-            if (saved) {
-                // Миграция со старых аккаунтов
-                const old = JSON.parse(saved);
-                if (Array.isArray(old)) {
-                    // старый формат - массив
-                }
+            const saved = localStorage.getItem('dfl_local_accounts');
+            if (saved) localAccounts = JSON.parse(saved);
+        } catch (e) { localAccounts = []; }
+        
+        function saveLocalAccounts() {
+            try { localStorage.setItem('dfl_local_accounts', JSON.stringify(localAccounts)); } catch (e) {}
+        }
+        
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
             }
-        } catch (e) {}
+            return 'h' + Math.abs(hash).toString(36) + '_' + str.length;
+        }
         
         try {
             const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
@@ -3568,10 +3578,6 @@ footer {
                 supabaseClient = null;
             }
         } catch (e) { supabaseClient = null; }
-        
-        function generateEmail(username) {
-            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
-        }
         
         function checkAndReturnLoans() {
             const now = new Date();
@@ -3623,6 +3629,11 @@ footer {
                     if (changed) saveLoansData();
                 }
             } catch (e) {}
+        }
+        
+        // ============== КАПИТАНЫ РЫНКА (через Supabase Auth с email) ==============
+        function generateEmail(username) {
+            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
         }
         
         async function loginCaptain(username, password) {
@@ -4472,7 +4483,6 @@ footer {
                 document.getElementById('admin-auth-status').className = 'auth-status';
                 document.getElementById('polls-admin-panel').style.display = 'block';
                 document.getElementById('users-btn').style.display = 'flex';
-                document.getElementById('complaints-admin-panel').style.display = 'block';
                 // Скрываем пользовательский аккаунт при входе админа
                 currentUser = null;
                 currentUserData = null;
@@ -4497,10 +4507,8 @@ footer {
             document.getElementById('admin-balance-panel').style.display = 'none';
             document.getElementById('polls-admin-panel').style.display = 'none';
             document.getElementById('users-btn').style.display = 'none';
-            document.getElementById('complaints-admin-panel').style.display = 'none';
             renderMatches(); renderPolls(); renderComplaints();
             showMarketNotification('👋 Вы вышли из админ-панели', 'success');
-            // Возвращаем окно входа
             setTimeout(() => { openAccountModal(); }, 300);
         }
 
@@ -4513,7 +4521,6 @@ footer {
                 document.getElementById('admin-login-btn').classList.add('logged');
                 document.getElementById('polls-admin-panel').style.display = 'block';
                 document.getElementById('users-btn').style.display = 'flex';
-                document.getElementById('complaints-admin-panel').style.display = 'block';
                 renderMatches(); showAdminBalancePanel(); renderPolls(); renderComplaints(); loadAllUsers();
             }
         }
@@ -5094,11 +5101,10 @@ footer {
             if (poll.closed) { showMarketNotification('❌ Опрос закрыт!', 'error'); return; }
             if (userVotes[poll.id] !== undefined) { showMarketNotification('❌ Вы уже голосовали в этом опросе!', 'error'); return; }
             poll.options[optionIndex].votes = (poll.options[optionIndex].votes || 0) + 1;
-            if (supabaseClient) {
-                const { error } = await supabaseClient.from('poll_votes').insert([{ poll_id: pollId, user_id: currentUser.id, option_index: optionIndex }]);
-                if (error) { showMarketNotification('❌ Ошибка сохранения голоса!', 'error'); return; }
-            }
             userVotes[poll.id] = optionIndex;
+            if (supabaseClient) {
+                await supabaseClient.from('poll_votes').insert([{ poll_id: pollId, user_id: currentUser.id, option_index: optionIndex }]);
+            }
             await savePollsToSupabase();
             renderPolls();
             showMarketNotification('✅ Ваш голос учтён!', 'success');
@@ -5228,8 +5234,7 @@ footer {
             };
             try {
                 if (supabaseClient) {
-                    const { error } = await supabaseClient.from('complaints').insert([complaint]);
-                    if (error) throw error;
+                    await supabaseClient.from('complaints').insert([complaint]);
                 }
                 complaintsData.unshift(complaint);
                 renderComplaints();
@@ -5246,18 +5251,22 @@ footer {
             }
         }
 
-        // ============ ЗАГРУЗКА ВСЕХ ПОЛЬЗОВАТЕЛЕЙ ДЛЯ АДМИНА ============
+        // ============== ЗАГРУЗКА ВСЕХ ПОЛЬЗОВАТЕЛЕЙ ДЛЯ АДМИНА ==============
         async function loadAllUsers() {
             if (!adminLoggedIn) return;
             try {
-                if (!supabaseClient) return;
-                const { data, error } = await supabaseClient.from('user_profiles').select('*').order('created_at', { ascending: false });
-                if (error) throw error;
-                allUsersData = data || [];
+                if (!supabaseClient) { allUsersData = []; renderUsersList(); return; }
+                const { data, error } = await supabaseClient.from('user_accounts').select('*').order('created_at', { ascending: false });
+                if (error) {
+                    console.error('Ошибка загрузки user_accounts:', error);
+                    allUsersData = localAccounts;
+                } else {
+                    allUsersData = data || [];
+                }
                 renderUsersList();
             } catch (error) {
                 console.error('Ошибка загрузки пользователей:', error);
-                allUsersData = [];
+                allUsersData = localAccounts;
                 renderUsersList();
             }
         }
@@ -5335,10 +5344,31 @@ footer {
             const playerId = select ? select.value : '';
             if (!playerId) { showMarketNotification('❌ Выберите игрока!', 'error'); return; }
             try {
+                const user = allUsersData.find(u => u.id == userId);
+                if (user) { user.confirmed = true; user.player_id = playerId; }
+                
+                // Обновляем в Supabase (если есть)
                 if (supabaseClient) {
-                    const { error } = await supabaseClient.from('user_profiles').update({ confirmed: true, player_id: playerId }).eq('id', userId);
-                    if (error) throw error;
+                    try {
+                        await supabaseClient.from('user_accounts').update({ confirmed: true, player_id: playerId }).eq('id', userId);
+                    } catch (e) { console.warn('Ошибка обновления в Supabase:', e); }
                 }
+                
+                // Обновляем в локальных
+                const localIdx = localAccounts.findIndex(u => u.id == userId);
+                if (localIdx !== -1) {
+                    localAccounts[localIdx].confirmed = true;
+                    localAccounts[localIdx].player_id = playerId;
+                    saveLocalAccounts();
+                }
+                
+                // Обновляем текущего пользователя, если это он
+                if (currentUserData && currentUserData.id == userId) {
+                    currentUserData.confirmed = true;
+                    currentUserData.player_id = playerId;
+                    updateUserUI();
+                }
+                
                 showMarketNotification('✅ Пользователь подтверждён!', 'success');
                 loadAllUsers();
             } catch (error) { showMarketNotification('❌ Ошибка подтверждения!', 'error'); }
@@ -5348,35 +5378,71 @@ footer {
             if (!confirm('Удалить этого пользователя?')) return;
             try {
                 if (supabaseClient) {
-                    const { error } = await supabaseClient.from('user_profiles').delete().eq('id', userId);
-                    if (error) throw error;
+                    try {
+                        await supabaseClient.from('user_accounts').delete().eq('id', userId);
+                    } catch (e) { console.warn('Ошибка удаления из Supabase:', e); }
                 }
+                localAccounts = localAccounts.filter(u => u.id != userId);
+                saveLocalAccounts();
                 showMarketNotification('🗑️ Пользователь удалён', 'success');
                 loadAllUsers();
             } catch (error) { showMarketNotification('❌ Ошибка удаления!', 'error'); }
         };
 
+        // ============== РЕГИСТРАЦИЯ БЕЗ EMAIL (через user_accounts или локально) ==============
         async function registerUser(name, username, password) {
             try {
-                if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
-                const email = generateEmail(username);
-                const { data, error } = await supabaseClient.auth.signUp({ email, password: password.trim() });
-                if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return; }
-                if (data.user) {
-                    const { error: profileError } = await supabaseClient.from('user_profiles').insert([{
-                        id: data.user.id,
-                        email: email,
-                        username: username.trim(),
-                        name: name.trim(),
-                        confirmed: false,
-                        player_id: null,
-                        created_at: new Date().toISOString()
-                    }]);
-                    if (profileError) console.error('Ошибка профиля:', profileError);
-                    showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
-                    document.getElementById('account-modal').classList.remove('active');
-                    document.body.style.overflow = '';
+                // Проверка на существующий логин
+                const existingLocal = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase());
+                if (existingLocal) { showMarketNotification('❌ Логин уже занят!', 'error'); return; }
+                
+                if (supabaseClient) {
+                    try {
+                        const { data: existing, error: checkErr } = await supabaseClient
+                            .from('user_accounts')
+                            .select('id')
+                            .eq('username', username.trim())
+                            .maybeSingle();
+                        if (existing) { showMarketNotification('❌ Логин уже занят!', 'error'); return; }
+                    } catch (e) { console.warn('Проверка логина:', e); }
                 }
+                
+                const passwordHash = simpleHash(password);
+                const newUser = {
+                    username: username.trim(),
+                    password_hash: passwordHash,
+                    name: name.trim(),
+                    confirmed: false,
+                    player_id: null,
+                    created_at: new Date().toISOString()
+                };
+                
+                // Пробуем сохранить в Supabase
+                let savedToSupabase = false;
+                if (supabaseClient) {
+                    try {
+                        const { data, error } = await supabaseClient.from('user_accounts').insert([newUser]).select().single();
+                        if (!error && data) {
+                            savedToSupabase = true;
+                            showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
+                        } else {
+                            console.warn('Ошибка insert в user_accounts:', error);
+                        }
+                    } catch (e) { console.warn('Ошибка Supabase insert:', e); }
+                }
+                
+                // Сохраняем локально
+                const localUser = { id: 'local_' + Date.now(), ...newUser };
+                localAccounts.push(localUser);
+                saveLocalAccounts();
+                
+                if (!savedToSupabase) {
+                    showMarketNotification('✅ Регистрация успешна (локально)! Ожидайте подтверждения.', 'success');
+                }
+                
+                document.getElementById('account-modal').classList.remove('active');
+                document.body.style.overflow = '';
+                
             } catch (error) {
                 showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
             }
@@ -5384,34 +5450,54 @@ footer {
 
         async function loginUser(username, password) {
             try {
-                if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
-                const email = generateEmail(username);
-                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
-                if (error) { showMarketNotification('❌ Неверный логин или пароль!', 'error'); return; }
-                currentUser = data.user;
-                const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', data.user.id).single();
-                if (!profileError && profile) currentUserData = profile;
-                else currentUserData = { email: data.user.email, confirmed: false, player_id: null, username: username, name: '' };
-                updateUserUI();
-                await loadUserVotes();
-                renderPolls();
-                renderComplaints();
-                document.getElementById('account-modal').classList.remove('active');
-                document.body.style.overflow = '';
-                showMarketNotification(`✅ Добро пожаловать, ${currentUserData.name || currentUserData.username || username}!`, 'success');
+                const passwordHash = simpleHash(password);
+                
+                // Пробуем Supabase
+                if (supabaseClient) {
+                    try {
+                        const { data, error } = await supabaseClient
+                            .from('user_accounts')
+                            .select('*')
+                            .eq('username', username.trim())
+                            .eq('password_hash', passwordHash)
+                            .maybeSingle();
+                        
+                        if (!error && data) {
+                            currentUser = { id: data.id };
+                            currentUserData = data;
+                            updateUserUI();
+                            renderPolls();
+                            renderComplaints();
+                            document.getElementById('account-modal').classList.remove('active');
+                            document.body.style.overflow = '';
+                            showMarketNotification(`✅ Добро пожаловать, ${data.name || data.username}!`, 'success');
+                            return;
+                        }
+                    } catch (e) { console.warn('Ошибка Supabase login:', e); }
+                }
+                
+                // Пробуем локальные
+                const local = localAccounts.find(a => 
+                    a.username.toLowerCase() === username.toLowerCase() && 
+                    a.password_hash === passwordHash
+                );
+                
+                if (local) {
+                    currentUser = { id: local.id };
+                    currentUserData = local;
+                    updateUserUI();
+                    renderPolls();
+                    renderComplaints();
+                    document.getElementById('account-modal').classList.remove('active');
+                    document.body.style.overflow = '';
+                    showMarketNotification(`✅ Добро пожаловать, ${local.name || local.username}!`, 'success');
+                    return;
+                }
+                
+                showMarketNotification('❌ Неверный логин или пароль!', 'error');
             } catch (error) {
                 showMarketNotification(`❌ Ошибка: ${error.message || 'Неизвестная ошибка'}`, 'error');
             }
-        }
-
-        async function loadUserVotes() {
-            if (!supabaseClient || !currentUser) return;
-            try {
-                const { data, error } = await supabaseClient.from('poll_votes').select('*').eq('user_id', currentUser.id);
-                if (error) throw error;
-                userVotes = {};
-                (data || []).forEach(vote => { userVotes[vote.poll_id] = vote.option_index; });
-            } catch (error) {}
         }
 
         function updateUserUI() {
@@ -5430,10 +5516,10 @@ footer {
         }
 
         async function logoutUser() {
-            try { if (supabaseClient) await supabaseClient.auth.signOut(); } catch (e) {}
             currentUser = null;
             currentUserData = null;
             userVotes = {};
+            localStorage.removeItem('dfl_current_user');
             updateUserUI();
             renderPolls();
             renderComplaints();
@@ -5443,26 +5529,31 @@ footer {
             setTimeout(() => { openAccountModal(); }, 300);
         }
 
-        async function checkUserSession() {
+        function checkUserSession() {
             try {
-                if (!supabaseClient) return false;
-                if (adminLoggedIn) return false;
-                const { data: { session }, error } = await supabaseClient.auth.getSession();
-                if (error || !session) return false;
-                if (session.user.email === 'admin@fcmera.com') return false;
-                currentUser = session.user;
-                const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', session.user.id).single();
-                if (!profileError && profile) currentUserData = profile;
-                else currentUserData = { email: session.user.email, confirmed: false, player_id: null, username: session.user.email.split('@')[0], name: '' };
-                updateUserUI();
-                await loadUserVotes();
-                return true;
-            } catch (error) { return false; }
+                const saved = localStorage.getItem('dfl_current_user');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    const user = allUsersData.find(u => u.id == parsed.id) || localAccounts.find(u => u.id == parsed.id);
+                    if (user) {
+                        currentUser = { id: user.id };
+                        currentUserData = user;
+                        updateUserUI();
+                        return true;
+                    }
+                }
+            } catch (e) {}
+            return false;
+        }
+        
+        function saveUserSession() {
+            if (currentUser) {
+                try { localStorage.setItem('dfl_current_user', JSON.stringify({ id: currentUser.id })); } catch (e) {}
+            }
         }
 
         function openAccountModal() {
             if (adminLoggedIn) {
-                // Если админ - показываем только сообщение что он админ
                 showMarketNotification('👑 Вы вошли как администратор', 'success');
                 return;
             }
@@ -5546,15 +5637,15 @@ footer {
             }
             
             checkAdminSession();
-            checkUserSession().then((loggedIn) => {
-                loadPolls();
-                loadComplaints();
-                renderPolls();
-                renderComplaints();
-                if (!loggedIn && !adminLoggedIn) {
-                    setTimeout(() => { openAccountModal(); }, 500);
-                }
-            });
+            checkUserSession();
+            loadPolls();
+            loadComplaints();
+            renderPolls();
+            renderComplaints();
+            
+            if (!currentUser && !adminLoggedIn) {
+                setTimeout(() => { openAccountModal(); }, 800);
+            }
             
             document.getElementById('avatar-btn').addEventListener('click', openAccountModal);
             document.getElementById('account-close').addEventListener('click', function() {
@@ -5580,7 +5671,7 @@ footer {
                 const username = document.getElementById('auth-login-username').value.trim();
                 const password = document.getElementById('auth-login-password').value.trim();
                 if (username && password) {
-                    loginUser(username, password);
+                    loginUser(username, password).then(() => saveUserSession());
                     document.getElementById('auth-login-username').value = '';
                     document.getElementById('auth-login-password').value = '';
                 } else {
@@ -5889,47 +5980,20 @@ footer {
             window.openSellDialog = openSellDialog;
             window.isPlayerOnLoan = isPlayerOnLoan;
             window.getPlayerLoanInfo = getPlayerLoanInfo;
+            window.confirmUser = confirmUser;
+            window.deleteUser = deleteUser;
 
-            (async function runPreloader() {
+            // ПРОСТОЙ ПРЕЛОАДЕР С ТАЙМАУТОМ (без предзагрузки всех картинок)
+            setTimeout(() => {
                 const preloader = document.getElementById('preloader');
-                const fill = document.getElementById('preloader-fill');
-                const status = document.getElementById('preloader-status');
-                if (!preloader) return;
-                document.body.classList.add('preloading');
-                const imageUrls = new Set();
-                if (typeof playerPhotos !== 'undefined' && playerPhotos) Object.values(playerPhotos).forEach(u => u && imageUrls.add(u));
-                if (typeof playstylePhotos !== 'undefined' && playstylePhotos) Object.values(playstylePhotos).forEach(u => u && imageUrls.add(u));
-                document.querySelectorAll('img').forEach(img => { if (img.src) imageUrls.add(img.src); });
-                const ogImage = document.querySelector('meta[property="og:image"]');
-                if (ogImage && ogImage.content) imageUrls.add(new URL(ogImage.content, location.href).href);
-                const urls = Array.from(imageUrls).filter(Boolean);
-                const total = urls.length || 1;
-                let loaded = 0;
-                const updateProgress = (text) => {
-                    const pct = Math.min(100, Math.round((loaded / total) * 100));
-                    if (fill) fill.style.width = pct + '%';
-                    if (status && text) status.textContent = text;
-                };
-                updateProgress('Загрузка ресурсов...');
-                const preloadImage = (url) => new Promise(resolve => {
-                    const img = new Image();
-                    img.onload = img.onerror = () => { loaded++; updateProgress(`Загрузка ресурсов... ${loaded}/${total}`); resolve(); };
-                    img.src = url;
-                });
-                const BATCH = 6;
-                for (let i = 0; i < urls.length; i += BATCH) {
-                    const batch = urls.slice(i, i + BATCH);
-                    await Promise.all(batch.map(preloadImage));
+                if (preloader) {
+                    preloader.classList.add('hidden');
+                    document.body.classList.remove('preloading');
+                    setTimeout(() => {
+                        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                    }, 600);
                 }
-                updateProgress('Загрузка шрифтов...');
-                try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch (e) {}
-                updateProgress('Почти готово...');
-                await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-                await new Promise(r => setTimeout(r, 250));
-                preloader.classList.add('hidden');
-                document.body.classList.remove('preloading');
-                setTimeout(() => { if (preloader.parentNode) preloader.parentNode.removeChild(preloader); }, 600);
-            })();
+            }, 700);
 
             console.log('✅ Сайт загружен!');
         });
