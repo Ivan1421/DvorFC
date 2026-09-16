@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -341,18 +340,6 @@ h1 {
     cursor: pointer;
     transition: transform .2s, box-shadow .2s;
 }
-.account-actions .primary-action {
-    background: var(--grad);
-    color: #fff;
-    box-shadow: 0 6px 18px rgba(0,102,204,.3);
-}
-.account-actions .primary-action:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,102,204,.4); }
-.account-actions .secondary-action {
-    background: var(--accent-soft);
-    color: var(--accent);
-    border: 2px solid var(--border-strong);
-}
-.account-actions .secondary-action:hover { transform: translateY(-2px); }
 .account-actions .danger-action {
     background: #fee2e2;
     color: #991b1b;
@@ -1133,25 +1120,6 @@ h1 {
     max-width: 65px;
     line-height: 1.2;
 }
-.bench-player-tag.youth .bench-player-name { color: #856404; }
-.dark-theme .bench-player-tag.youth .bench-player-name { color: #ffd8a8; }
-.bench-player-tag.youth .bench-player-photo {
-    border-color: #ffc107;
-    background: #fff3cd;
-}
-.dark-theme .bench-player-tag.youth .bench-player-photo {
-    border-color: #ffc107;
-    background: #664d03;
-}
-.bench-player-item.burmalda-bench .bench-player-photo {
-    border: 3px solid #00e676 !important;
-    animation: burmalda-border-pulse 1.8s ease-in-out infinite alternate !important;
-    box-shadow: 0 0 25px rgba(0, 230, 118, 0.5) !important;
-}
-.dark-theme .bench-player-item.burmalda-bench .bench-player-photo {
-    animation: burmalda-border-pulse-dark 1.8s ease-in-out infinite alternate !important;
-    box-shadow: 0 0 30px rgba(0, 230, 118, 0.6) !important;
-}
 .squad-tabs {
     display: flex;
     justify-content: center;
@@ -1350,8 +1318,6 @@ h1 {
     margin-right: 5px;
     font-size: 1rem;
 }
-.rule-item .rule-highlight { color: #dc2626; font-weight: 800; }
-.dark-theme .rule-item .rule-highlight { color: #f87171; }
 .rules-warning {
     margin-top: 18px;
     padding: 14px 16px;
@@ -1498,21 +1464,8 @@ h1 {
     padding: 10px;
     border: 1px solid var(--border);
 }
-.modal-stat-item-wide {
-    background: var(--accent-soft);
-    border-radius: 10px;
-    padding: 10px;
-    grid-column: span 2;
-    border: 1px solid var(--border);
-}
 .modal-stat-label { font-size: .7rem; color: var(--muted); margin-bottom: 3px; font-weight: 700; }
 .modal-stat-value { font-size: .98rem; font-weight: 800; color: var(--accent); }
-.modal-stat-group {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-top: 6px;
-}
 .mera-tag {
     display: inline-block;
     background: linear-gradient(135deg,#8e44ad,#7c3aed);
@@ -1745,22 +1698,6 @@ h1 {
     border-left: 3px solid #8e44ad;
 }
 .secret-modal .secret-content .highlight { color: #a78bfa; font-weight: 800; }
-.iq-counter {
-    display: inline-block;
-    font-weight: 800;
-    min-width: 55px;
-    text-align: center;
-    background: linear-gradient(90deg,#ff6b6b,#feca57,#48dbfb,#a29bfe,#ff6b6b);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: iq-rainbow 2s linear infinite;
-}
-@keyframes iq-rainbow {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-}
 .form-group { margin-bottom: 14px; }
 .form-group label {
     display: block;
@@ -1821,15 +1758,6 @@ h1 {
 .submit-add-btn:active,
 .submit-action-btn:active,
 .auth-submit-btn:active { transform: scale(.98); }
-.submit-request-btn:disabled,
-.submit-action-btn:disabled,
-.submit-add-btn:disabled,
-.submit-edit-btn:disabled {
-    background: #94a3b8;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
 .delete-match-btn {
     width: 100%;
     padding: 11px;
@@ -2368,26 +2296,11 @@ footer {
 .poll-option:hover { border-color: var(--accent); background: var(--accent-soft); }
 .poll-option.voted { border-color: #16a34a; background: #dcfce7; }
 .dark-theme .poll-option.voted { background: #0a2a1a; }
-.poll-option input[type="radio"] { accent-color: var(--accent); width: 18px; height: 18px; cursor: pointer; }
 .poll-option .option-text { font-weight: 700; color: var(--text); flex: 1; }
 .poll-option .vote-count { font-weight: 800; color: var(--accent); font-size: .85rem; }
 .poll-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 8px; }
 .poll-meta .poll-status { font-size: .8rem; font-weight: 700; color: #16a34a; }
 .poll-meta .poll-status.closed { color: #dc2626; }
-.poll-vote-btn {
-    background: var(--grad);
-    color: white;
-    border: none;
-    padding: 9px 22px;
-    border-radius: 999px;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: inherit;
-    transition: .2s;
-    font-size: .88rem;
-}
-.poll-vote-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.poll-vote-btn:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
 .admin-poll-create-btn {
     background: #8e44ad;
     color: white;
@@ -2998,7 +2911,7 @@ footer {
                             </div>
                         </div>
                         <div class="login-section" id="login-section">
-                            <input type="text" id="login-input" placeholder="Email..." style="display: none;">
+                            <input type="text" id="login-input" placeholder="Логин..." style="display: none;">
                             <input type="password" id="password-input" placeholder="Пароль..." style="display: none;">
                             <button class="login-btn" id="login-btn">🔑 Войти</button>
                             <button class="logout-btn" id="logout-btn" style="display: none;">🚪 Выйти</button>
@@ -3602,6 +3515,21 @@ footer {
         let complaintsData = [];
         let userVotes = {};
         
+        // Локальные аккаунты (логин/пароль без email)
+        let localAccounts = [];
+        try {
+            const saved = localStorage.getItem('dfl_accounts');
+            if (saved) localAccounts = JSON.parse(saved);
+        } catch (e) { localAccounts = []; }
+        
+        function saveLocalAccounts() {
+            try { localStorage.setItem('dfl_accounts', JSON.stringify(localAccounts)); } catch (e) {}
+        }
+        
+        function generateEmail(username) {
+            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
+        }
+        
         try {
             const SUPABASE_URL = 'https://pgcdeufbvdricaccjpls.supabase.co';
             const SUPABASE_KEY = 'sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
@@ -3668,16 +3596,16 @@ footer {
         async function loginCaptain(username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return false; }
-                const email = username.trim() + '@fc.com';
+                const email = generateEmail(username);
                 const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
-                if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return false; }
+                if (error) { showMarketNotification(`❌ Неверный логин или пароль!`, 'error'); return false; }
                 let teamId = null;
                 const userEmail = data.user.email;
-                if (userEmail === 'mera@fc.com') teamId = 'mera';
-                else if (userEmail === 'school78@fc.com') teamId = 'school78';
-                else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
-                else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
-                else if (userEmail === 'psg@fc.com') teamId = 'psg';
+                if (userEmail === 'mera@player.dfl') teamId = 'mera';
+                else if (userEmail === 'school78@player.dfl') teamId = 'school78';
+                else if (userEmail === 'yuzhka@player.dfl') teamId = 'yuzhka';
+                else if (userEmail === 'arsenal@player.dfl') teamId = 'arsenal';
+                else if (userEmail === 'psg@player.dfl') teamId = 'psg';
                 else { showMarketNotification('❌ Неизвестная команда!', 'error'); await supabaseClient.auth.signOut(); return false; }
                 const captain = CAPTAINS[teamId];
                 if (!captain) { showMarketNotification('❌ Команда не найдена!', 'error'); await supabaseClient.auth.signOut(); return false; }
@@ -3725,11 +3653,11 @@ footer {
                 if (error || !session) return false;
                 const userEmail = session.user.email;
                 let teamId = null;
-                if (userEmail === 'mera@fc.com') teamId = 'mera';
-                else if (userEmail === 'school78@fc.com') teamId = 'school78';
-                else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
-                else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
-                else if (userEmail === 'psg@fc.com') teamId = 'psg';
+                if (userEmail === 'mera@player.dfl') teamId = 'mera';
+                else if (userEmail === 'school78@player.dfl') teamId = 'school78';
+                else if (userEmail === 'yuzhka@player.dfl') teamId = 'yuzhka';
+                else if (userEmail === 'arsenal@player.dfl') teamId = 'arsenal';
+                else if (userEmail === 'psg@player.dfl') teamId = 'psg';
                 if (teamId && CAPTAINS[teamId]) {
                     marketState.currentCaptain = teamId;
                     marketState.userEmail = userEmail;
@@ -5121,15 +5049,13 @@ footer {
 
         function initRulesAccordion() {
             const rulesData = [
-                { section: '1', title: 'Общие положения Регламента', rules: [
+                { section: '1', title: 'Общие положения', rules: [
                     { num: '1.1', text: 'Настоящий Регламент регулирует проведение матчей и трансферную политику в Дворовой Футбольной Лиге.' },
                     { num: '1.2.1', text: 'За пресечение Настоящего Регламента ДФЛ к команде нарушителя или самому нарушителю будут наложены определенные санкции. (штраф, дисквалификация)' },
                     { num: '1.2.2', text: 'Игрок не является виновным в нарушении Регламента, пока не будет доказано обратное.' },
                     { num: '1.3', text: 'Те вопросы, которые не затрагивает Регламент, будут решаться организаторами лиги.' },
-                    { num: '1.4.1', text: 'Критической ситуацией считается тяжелое положение команды в предматчевое время.' },
-                    { num: '1.4.2', text: 'Кризис команды - состояние, при котором состав команды малочислен (<5 игроков, можно нарушить 5.3)' },
                 ]},
-                { section: '2', title: 'Порядок проведения матчей', rules: [
+                { section: '2', title: 'Проведение матчей', rules: [
                     { num: '2.1', text: 'Перед проведением любого официального матча ДФЛ хозяева поля обязаны привести поле в годность (см. 2.4), а также обеспечить судейство (перед назначением судьи требуется разрешение обоих капитанов)' },
                     { num: '2.2', text: 'Мяч в первом тайме сводит команда хозяев, если матч проходит на нейтральном поле, происходит жеребьевка.' },
                     { num: '2.3', text: 'Формат игры определяется перед матчем капитанами команд.' },
@@ -5143,21 +5069,18 @@ footer {
                     { num: '3.2', text: 'Уйти из клуба в другой бесплатно игроку запрещено, уход из клуба бесплатно = завершение карьеры в ДФЛ.' },
                     { num: '3.3', text: 'При покупке игрока его разрешение не требуется, однако во избежание договорных матчей капитанам следует проводить переговоры с игроком перед трансфером.' },
                 ]},
-                { section: '4', title: 'Апелляции и жалобы', rules: [
+                { section: '4', title: 'Апелляции', rules: [
                     { num: '4.1', text: 'При несогласии с решением судьи и подобных случаях команда имеет право подать апелляцию.' },
-                    { num: '4.2.1', text: 'Апелляции и жалобы рассматриваются только в том случае, если правильно указана информация жалобы.' },
-                    { num: '4.2.2', text: 'В любой жалобе или апелляции должны быть указаны: пункт регламента (если он нарушен), подробное описание ситуации и свои контакты/данные.' },
                 ]},
                 { section: '5', title: 'Игроки и судьи', rules: [
                     { num: '5.1', text: 'Если игрок не проявляет никакой активности в ДФЛ в течение 2 месяцев, его карта будет заморожена и не будет видна во вкладке команд.' },
                     { num: '5.2', text: 'Требования к игроку для регистрации: возраст 9-16 лет, не имеет значительных проблем со здоровьем (инвалидность, психические расстройства и т.д.), не был до этого в ДФЛ.' },
                     { num: '5.3', text: 'Регистрация игрока обходится команде в 75 монет, в случае, если игрок до этого не играл в ДФЛ и не был дисквалифицирован.' },
                     { num: '5.4', text: 'Требования к судье: не играет ни за одну играющую в матче команду, знает правила и не болеет за какую либо команду, играющую в матче, с его назначением согласны обе команды.' },
+                    { num: '5.5', text: 'Каждый человек, проходящий требования к игроку/судье, имеет право быть игроком/судьей в матче.' },
                 ]},
-                { section: '6', title: 'Виды нарушений и ответственность', rules: [
-                    { num: '6.1.1', text: 'Виды наказания игрока за пресечение Регламента ДФЛ: Дисквалификация (временная/пожизненная), запрет на участие в матчах (временный), запрет на переход в другую команду.' },
-                    { num: '6.1.2', text: 'Виды наказания команды за пресечение Регламента ДФЛ: Запрет проведения матчей (временный), запрет трансферной политики (временный).' },
-                    { num: '6.2', text: 'За распространение заведомо ложной информации о месте, времени, формате, условиях матча, которое привело к изменениям, отмене матча, предполагается ответственность.'},
+                { section: '6', title: 'Ответственность', rules: [
+                    { num: '6.1', text: 'За распространение заведомо ложной информации о месте, времени, формате, условиях матча, которое привело к изменениям, отмене матча, предполагается ответственность.' },
                 ]},
             ];
             const rulesList = document.getElementById('rules-list');
@@ -5443,18 +5366,24 @@ footer {
             } catch (error) { showMarketNotification('❌ Ошибка подтверждения!', 'error'); }
         };
 
-        function generateEmail(username) {
-            return username.trim().toLowerCase().replace(/[^a-z0-9]/g, '') + '@player.dfl';
-        }
-
         async function registerUser(username, password) {
             try {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
+                const existing = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase());
+                if (existing) { showMarketNotification('❌ Логин уже занят!', 'error'); return; }
                 const email = generateEmail(username);
                 const { data, error } = await supabaseClient.auth.signUp({ email, password: password.trim() });
-                if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return; }
+                if (error) {
+                    // Если аккаунт уже существует в Supabase, сохраняем локально
+                    localAccounts.push({ id: 'local_' + Date.now(), username: username.trim(), password: password.trim(), confirmed: false, player_id: null, created_at: new Date().toISOString() });
+                    saveLocalAccounts();
+                    showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
+                    document.getElementById('account-modal').classList.remove('active');
+                    document.body.style.overflow = '';
+                    return;
+                }
                 if (data.user) {
-                    await supabaseClient.from('user_profiles').insert([{
+                    const { error: profileError } = await supabaseClient.from('user_profiles').insert([{
                         id: data.user.id,
                         email: email,
                         username: username.trim(),
@@ -5462,6 +5391,11 @@ footer {
                         player_id: null,
                         created_at: new Date().toISOString()
                     }]);
+                    if (profileError) {
+                        // fallback локально
+                        localAccounts.push({ id: data.user.id, username: username.trim(), password: password.trim(), confirmed: false, player_id: null, created_at: new Date().toISOString() });
+                        saveLocalAccounts();
+                    }
                     showMarketNotification('✅ Регистрация успешна! Ожидайте подтверждения администратора.', 'success');
                     document.getElementById('account-modal').classList.remove('active');
                     document.body.style.overflow = '';
@@ -5476,11 +5410,31 @@ footer {
                 if (!supabaseClient) { showMarketNotification('❌ Supabase не подключен!', 'error'); return; }
                 const email = generateEmail(username);
                 const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: password.trim() });
-                if (error) { showMarketNotification(`❌ ${error.message}`, 'error'); return; }
+                if (error) {
+                    // Пробуем локальные аккаунты
+                    const local = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase() && a.password === password);
+                    if (local) {
+                        currentUser = { id: local.id, email: email };
+                        currentUserData = local;
+                        updateUserUI();
+                        renderPolls();
+                        renderComplaints();
+                        document.getElementById('account-modal').classList.remove('active');
+                        document.body.style.overflow = '';
+                        showMarketNotification(`✅ Добро пожаловать, ${local.username}!`, 'success');
+                        return;
+                    }
+                    showMarketNotification('❌ Неверный логин или пароль!', 'error');
+                    return;
+                }
                 currentUser = data.user;
                 const { data: profile, error: profileError } = await supabaseClient.from('user_profiles').select('*').eq('id', data.user.id).single();
                 if (!profileError && profile) currentUserData = profile;
-                else currentUserData = { email: data.user.email, confirmed: false, player_id: null, username: username };
+                else {
+                    const local = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase());
+                    if (local) currentUserData = local;
+                    else currentUserData = { email: data.user.email, confirmed: false, player_id: null, username: username };
+                }
                 updateUserUI();
                 await loadUserVotes();
                 renderPolls();
