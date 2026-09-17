@@ -11,7 +11,7 @@ const playerPhotos = {
     matvey: "./Photos%20(2)/IMG_0753.jpeg",
     saveliy_78: "./Photos%20(2)/428c5276bfde4da78046d2cf8b735755.jpg",
     artem: "./Photos%20(2)/IMG_0814.jpeg",
-    elisey: "./Photos%20(2)/IMG_0759.jpeg",
+    elisey: "./Photos%20(2)/elisey.jpg",
     bogdan: "./Photos%20(2)/IMG_0816.jpeg",
     demid: "./Photos%20(2)/IMG_0752.jpeg",
     saldaevk: "./Photos%20(2)/saldK.jpg",
