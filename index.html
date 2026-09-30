@@ -3825,13 +3825,13 @@ async function loginCaptain(email, password) {
         else if (userEmail === 'school78@fc.com') teamId = 'school78';
         else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
         else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
-        else if (userEmail === 'psg@fc.com') teamId = 'psg';
-        else {
-            showMarketNotification('❌ Неизвестная команда!', 'error');
-            await supabaseClient.auth.signOut();
-            return false;
-        }
-
+else if (userEmail === 'psg@fc.com') teamId = 'psg';
+else if (userEmail === 'zvezda@fc.com') teamId = 'zvezda';
+else {
+    showMarketNotification('❌ Неизвестная команда!', 'error');
+    await supabaseClient.auth.signOut();
+    return false;
+}
         const captain = CAPTAINS[teamId];
         if (!captain) {
             showMarketNotification('❌ Команда не найдена!', 'error');
@@ -3910,15 +3910,14 @@ async function checkAuthStatus() {
         const userEmail = session.user.email;
         let teamId = null;
         
-        if (userEmail === 'mera@fc.com') teamId = 'mera';
-        else if (userEmail === 'school78@fc.com') teamId = 'school78';
-        else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
-        else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
-        else if (userEmail === 'psg@fc.com') teamId = 'psg';
-        
-        if (teamId && CAPTAINS[teamId]) {
-            marketState.currentCaptain = teamId;
-            marketState.userEmail = userEmail;
+if (userEmail === 'mera@fc.com') teamId = 'mera';
+else if (userEmail === 'school78@fc.com') teamId = 'school78';
+else if (userEmail === 'yuzhka@fc.com') teamId = 'yuzhka';
+else if (userEmail === 'arsenal@fc.com') teamId = 'arsenal';
+else if (userEmail === 'psg@fc.com') teamId = 'psg';
+else if (userEmail === 'zvezda@fc.com') teamId = 'zvezda';
+
+if (teamId && CAPTAINS[teamId]) {            marketState.userEmail = userEmail;
             
             const captain = CAPTAINS[teamId];
             document.getElementById('captain-name').textContent = `👑 ${captain.captain}`;
