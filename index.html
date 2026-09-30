@@ -2770,6 +2770,10 @@ footer {
     cursor: pointer;
     margin: 0;
 }
+.yard-zvezda-theme .player-card { border-color: #fbbf24; }
+.yard-zvezda-theme .player-card .player-info h3 { color: #fbbf24; }
+.yard-zvezda-theme .player-card .stat-value { color: #fbbf24; }
+.yard-zvezda-theme .player-card .player-number { background: #fef3c7; color: #b45309; }
 </style>
 </head>
 <body>
@@ -2958,8 +2962,13 @@ footer {
                         <div class="yard-card" id="yard-psg">
                             <img src="./Photos%20(2)/IMG_0833.jpeg" alt="ФК ПСЖ" class="yard-logo">
                             <div><h3>🔵 ФК ПСЖ</h3></div>
-                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>                                                   
                         </div>
+                        <div class="yard-card" id="yard-zvezda">
+    <img src="./Photos%20(2)/IMG_0801.jpeg" alt="ФК Звёзды" class="yard-logo">
+    <div><h3>⭐ ФК Звёзды</h3></div>
+    <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+</div>
                     </div>
                 </div>
             </div>
@@ -2996,16 +3005,23 @@ footer {
                 </div>
             </div>
 
-            <div id="yard-psg-page" class="page">
-                <button class="back-button" id="back-from-yard-psg">← Назад</button>
-                <div class="best-squad-container yard-psg-theme">
-                    <h2 style="color:#0d6efd; text-align:center; margin-bottom:15px;">🔵 ФК ПСЖ — состав</h2>
-                    <div class="players-grid" id="yard-psg-grid"></div>
-                </div>
-            </div>
-            
-            <div id="matches-page" class="page">
-                <button class="back-button" id="back-from-matches">← Назад к главной</button>
+<div id="yard-psg-page" class="page">
+    <button class="back-button" id="back-from-yard-psg">← Назад</button>
+    <div class="best-squad-container yard-psg-theme">
+        <h2 style="color:#0d6efd; text-align:center; margin-bottom:15px;">🔵 ФК ПСЖ — состав</h2>
+        <div class="players-grid" id="yard-psg-grid"></div>
+    </div>
+</div>
+
+<div id="yard-zvezda-page" class="page">
+    <button class="back-button" id="back-from-yard-zvezda">← Назад</button>
+    <div class="best-squad-container yard-zvezda-theme">
+        <h2 style="color:#fbbf24; text-align:center; margin-bottom:15px;">⭐ ФК Звёзды — состав</h2>
+        <div class="players-grid" id="yard-zvezda-grid"></div>
+    </div>
+</div>
+
+<div id="matches-page" class="page">                <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
                     <h2>📅 Матчи</h2>
                     <div class="admin-panel" id="admin-panel">
@@ -3592,6 +3608,10 @@ footer {
             { id: "kostya", name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
             { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
         ];
+        const zvezdaPlayers = [
+    { id: "david", name: "Давиташвили", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "52 кг", rating: 80, number: "(10)", description: "Лидер атак ФК Звёзды", playstyles: ["bombardir"], playstyleColors: {bombardir: "gold"} },
+
+];
 
         const psgPlayers = [
             { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "60 кг", rating: 67, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
@@ -3605,19 +3625,22 @@ footer {
         yuzhkaPlayers.forEach(p => { playersData[p.id] = p; });
         arsenalPlayers.forEach(p => { playersData[p.id] = p; });
         psgPlayers.forEach(p => { playersData[p.id] = p; });
+        zvezdaPlayers.forEach(p => { playersData[p.id] = p; });
         
         const meraTeamIds = ['raya', 'maxim', 'batrakov', 'aleksey_doroshenko', 'tankov'];
         const yard78PlayerIds = yard78Players.map(p => p.id);
         const yuzhkaPlayerIds = yuzhkaPlayers.map(p => p.id);
         const arsenalPlayerIds = arsenalPlayers.map(p => p.id);
         const psgPlayerIds = psgPlayers.map(p => p.id);
-        
-        const CAPTAINS = {
+const zvezdaPlayerIds = zvezdaPlayers.map(p => p.id);
+
+const CAPTAINS = {
             mera: { id: 'mera', name: 'ФК "МЕРА"', captain: 'Капитан МЕРЫ', budget: 1635, players: meraTeamIds, logo: './Photos%20(2)/IMG_0807.jpeg' },
             school78: { id: 'school78', name: 'ФК 78 школа', captain: 'Капитан 78 школы', budget: 470, players: yard78PlayerIds, logo: './Photos%20(2)/IMG_0797.jpeg' },
             yuzhka: { id: 'yuzhka', name: 'ФК Южный', captain: 'Капитан Южного', budget: 625, players: yuzhkaPlayerIds, logo: './Photos%20(2)/IMG_0800.jpeg' },
             arsenal: { id: 'arsenal', name: 'ФК Арсенал', captain: 'Капитан Арсенала', budget: 175, players: arsenalPlayerIds, logo: './Photos%20(2)/IMG_0853.jpeg' },
-            psg: { id: 'psg', name: 'ФК ПСЖ', captain: 'Капитан ПСЖ', budget: 375, players: psgPlayerIds, logo: './Photos%20(2)/IMG_0833.jpeg' }
+   psg: { id: 'psg', name: 'ФК ПСЖ', captain: 'Капитан ПСЖ', budget: 375, players: psgPlayerIds, logo: './Photos%20(2)/IMG_0833.jpeg' },
+zvezda: { id: 'zvezda', name: 'ФК Звёзды', captain: 'Капитан Звёзд', budget: 500, players: zvezdaPlayerIds, logo: './Photos%20(2)/IMG_0801.jpeg' }            
         };
         
         const matchTacticsData = {};
@@ -3638,8 +3661,7 @@ footer {
         const LOAN_CHECK_INTERVAL = 60000;
         
         const allPlayerIds = Object.keys(playersData);
-        const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds];
-        let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
+const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds, ...zvezdaPlayerIds];        let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
         let filteredPlayerIds = [...currentPlayerIds];
         let activeSort = 'none';
         let themeClickCount = 0;
@@ -5890,10 +5912,13 @@ document.getElementById('complaint-btn-main').addEventListener('click', function
             document.getElementById('yard-yuzhka').addEventListener('click', () => showPage('yard-yuzhka-page'));
             document.getElementById('yard-arsenal').addEventListener('click', () => showPage('yard-arsenal-page'));
             document.getElementById('yard-psg').addEventListener('click', () => showPage('yard-psg-page'));
+            document.getElementById('yard-zvezda').addEventListener('click', () => showPage('yard-zvezda-page'));
+document.getElementById('back-from-yard-zvezda').addEventListener('click', () => showPage('yards-page'));
             
             renderMainPlayerCards();
             renderPlayerCards('yard-mera-grid', meraTeamIds, 'yard-mera-theme');
             renderPlayerCards('yard-78-grid', yard78PlayerIds, 'yard-78-theme');
+            renderPlayerCards('yard-zvezda-grid', zvezdaPlayerIds, 'yard-zvezda-theme');
             renderPlayerCards('yard-yuzhka-grid', yuzhkaPlayerIds, 'yard-yuzhka-theme');
             renderPlayerCards('yard-arsenal-grid', arsenalPlayerIds, 'yard-arsenal-theme');
             renderPlayerCards('yard-psg-grid', psgPlayerIds, 'yard-psg-theme');
