@@ -2774,6 +2774,39 @@ footer {
 .yard-zvezda-theme .player-card .player-info h3 { color: #fbbf24; }
 .yard-zvezda-theme .player-card .stat-value { color: #fbbf24; }
 .yard-zvezda-theme .player-card .player-number { background: #fef3c7; color: #b45309; }
+.iridescent-text {
+  font-size: 25px;
+  font-weight: 900;
+  font-family: 'Arial Black', sans-serif;
+  background: linear-gradient(
+    270deg,
+    #8a2be2,
+    #4a00e0,
+    #00bfff,
+    #ffffff,
+    #00bfff,
+    #4a00e0,
+    #8a2be2
+  );
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 4s ease infinite;
+  filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))
+          drop-shadow(0 0 16px rgba(0, 191, 255, 0.4));
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.iridescent-text {
+  text-align: center;
+  display: block;
+}
 </style>
 </head>
 <body>
@@ -2875,11 +2908,12 @@ footer {
                         </span>
                     </a>
                 </div>
-
+<h1 class="iridescent-text">Подписуайтесь на нас</h1>
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
                     <button class="admin-login-btn" id="admin-login-btn">🔐 Вход для админов</button>
                 </div>
             </div>
+            
             
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
