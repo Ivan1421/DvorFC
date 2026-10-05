@@ -1,4 +1,3 @@
-
 const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'maxim', 'raya', 'tankov'];
 const burmaldaPlayerIds = [];
 
@@ -184,7 +183,6 @@ try {
     }
 } catch (e) { supabaseClient = null; }
 
-// ============== ВОССТАНОВЛЕНИЕ СЕССИИ ==============
 function saveUserSession() {
     if (currentUser && currentUserData) {
         try {
@@ -228,7 +226,6 @@ function restoreAdminSession() {
     return false;
 }
 
-// ============== АРЕНДЫ ==============
 function checkAndReturnLoans() {
     const now = new Date();
     let changed = false;
@@ -269,7 +266,6 @@ function loadLoansData() {
     } catch (e) {}
 }
 
-// ============== АВТОРИЗАЦИЯ КАПИТАНОВ ==============
 async function loginCaptain(email, password) {
     try {
         if (!supabaseClient) {
@@ -326,9 +322,6 @@ async function loginCaptain(email, password) {
         renderMyTeam();
         renderTransfers();
         updateOfferBadge();
-        await loadUserVotes();
-        renderPolls();
-        renderComplaints();
         return true;
 
     } catch (error) {
@@ -362,9 +355,6 @@ async function logoutCaptain() {
 
     updateMarketUI();
     updateOfferBadge();
-    userVotes = {};
-    renderPolls();
-    renderComplaints();
     showMarketNotification('👋 Вы вышли из системы', 'success');
 }
 
@@ -428,11 +418,11 @@ async function saveMarketToSupabase() {
     if (!supabaseClient) return false;
     try {
         const data = {
-            teams: {}, 
+            teams: {},
             transferList: marketState.transferList || [],
             pendingTransfers: marketState.pendingTransfers || {},
             transfers: marketState.transfers || [],
-            offers: marketState.offers || [], 
+            offers: marketState.offers || [],
             activeLoans: activeLoans || {}
         };
         Object.keys(CAPTAINS).forEach(id => {
@@ -718,7 +708,6 @@ function initMarket() {
     });
 }
 
-// ============== ПЛЕЙСТАЙЛЫ ==============
 function hasPlaystyles(playerId) {
     const player = playersData[playerId];
     return player && player.playstyles && player.playstyles.length > 0;
@@ -791,7 +780,6 @@ function renderPlaystyles(playerId, containerId) {
     });
 }
 
-// ============== ИГРОКИ ==============
 function renderMainPlayerCards() {
     const container = document.getElementById('players-grid-container');
     if (!container) return;
@@ -979,8 +967,6 @@ function showPage(pageId) {
     document.getElementById(pageId).classList.add('active');
     window.scrollTo(0, 0);
 }
-
-// ============== МАТЧИ ==============
 async function loadMatches() {
     try {
         if (!supabaseClient) { renderMatchesEmpty('❌ Supabase не подключен'); return; }
@@ -1061,7 +1047,6 @@ function renderMatches() {
     });
 }
 
-// ============== АДМИН ==============
 async function adminLogin(email, password) {
     try {
         if (!supabaseClient) { document.getElementById('admin-auth-status').textContent = '❌ Supabase не подключен!'; return; }
@@ -1112,7 +1097,6 @@ function checkAdminSession() {
     }
 }
 
-// ============== БАЛАНСЫ КОМАНД ==============
 function renderBalancePanel(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -1153,7 +1137,6 @@ async function addTeamBalance(teamId, amount) {
     showMarketNotification(`✅ ${team.name}: ${team.budget} монет`, 'success');
 }
 
-// ============== ДОБАВЛЕНИЕ / РЕДАКТИРОВАНИЕ МАТЧЕЙ ==============
 function openAddMatchModal() {
     document.getElementById('match-add-modal').classList.add('active');
     document.getElementById('match-add-status').textContent = '';
@@ -1249,7 +1232,6 @@ async function deleteMatch() {
     showMarketNotification('🗑️ Удален', 'success');
 }
 
-// ============== ОПРОСЫ ==============
 async function loadPolls() {
     try {
         if (!supabaseClient) {
@@ -1315,11 +1297,32 @@ async function savePollsToSupabase() {
     }
 }
 
+function getUnansweredPollsCount() {
+    if (!currentUser || !currentUserData || !currentUserData.confirmed) return 0;
+    return pollsData.filter(poll => {
+        if (!poll || poll.closed) return false;
+        return userVotes[poll.id] === undefined;
+    }).length;
+}
+
+function updatePollsUnansweredBadge() {
+    const badge = document.getElementById('polls-unanswered-badge');
+    if (!badge) return;
+    const count = getUnansweredPollsCount();
+    if (count > 0) {
+        badge.textContent = count;
+        badge.classList.remove('hidden');
+    } else {
+        badge.classList.add('hidden');
+    }
+}
+
 function renderPolls() {
     const container = document.getElementById('polls-list');
     if (!container) return;
     if (pollsData.length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#666;padding:30px;">📭 Нет опросов</p>';
+        updatePollsUnansweredBadge();
         return;
     }
     let html = '';
@@ -1328,7 +1331,10 @@ function renderPolls() {
         const totalVotes = poll.options.reduce((sum, opt) => sum + (opt.votes || 0), 0);
         const userVoted = userVotes[poll.id] !== undefined;
         const noChange = poll.no_change === true;
-        html += `<div class="poll-item" data-poll-id="${poll.id}">
+        const canVote = currentUser && currentUserData && currentUserData.confirmed;
+        const shouldHighlight = canVote && !poll.closed && !userVoted;
+        html += `<div class="poll-item ${shouldHighlight ? 'poll-unanswered' : ''}" data-poll-id="${poll.id}">
+            ${shouldHighlight ? `<div class="poll-unanswered-label">🔴 ВЫ НЕ ГОЛОСОВАЛИ</div>` : ''}
             <div class="poll-question">${poll.question}</div>
             <div style="font-size:.78rem;color:#666;margin-bottom:8px;">
                 ${noChange ? '🚫 <b>Один голос навсегда</b>' : '✅ Можно переголосовать'}
@@ -1357,7 +1363,7 @@ function renderPolls() {
                 html += `<div class="voter-row">👤 ${userName} → <b>${optionText}</b></div>`;
             });
             html += `</div>`;
-        } else if (!adminLoggedIn && userVoted) {
+        } else if (!adminLoggedIn && userVoted && currentUser && currentUserData && currentUserData.confirmed) {
             const votedOption = poll.options[userVotes[poll.id]];
             html += `<div style="margin-top:8px;font-size:.78rem;color:#16a34a;">
                 ✅ <b>Ваш голос:</b> ${votedOption?.text || 'учтён'}
@@ -1372,21 +1378,22 @@ function renderPolls() {
         html += `</div>`;
     });
     container.innerHTML = html;
+    updatePollsUnansweredBadge();
 }
 
 window.votePoll = async function(pollId, optionIndex) {
-    const voterId = currentUser?.id || marketState.userEmail;
-    const voterName = currentUserData?.name || currentUserData?.username || marketState.userEmail || 'Гость';
-
-    if (!voterId) {
-        showMarketNotification('❌ Войдите в аккаунт или как капитан!', 'error');
+    if (!currentUser || !currentUserData) {
+        showMarketNotification('❌ Голосовать могут только пользователи с аккаунтом!', 'error');
         return;
     }
 
-    if (currentUser && (!currentUserData || !currentUserData.confirmed)) {
-        showMarketNotification('❌ Аккаунт не подтверждён!', 'error');
+    if (!currentUserData.confirmed) {
+        showMarketNotification('❌ Аккаунт не подтверждён администратором!', 'error');
         return;
     }
+
+    const voterId = currentUser.id;
+    const voterName = currentUserData.name || currentUserData.username || 'Пользователь';
 
     const poll = pollsData.find(p => String(p.id) === String(pollId));
     if (!poll) return;
@@ -1582,7 +1589,6 @@ async function submitCreatePoll() {
     showMarketNotification('✅ Опрос создан!', 'success');
 }
 
-// ============== ЖАЛОБЫ ==============
 async function loadComplaints() {
     try {
         if (!supabaseClient) { complaintsData = []; renderComplaints(); if (adminLoggedIn) renderAdminComplaintsList(); return; }
@@ -1782,7 +1788,6 @@ async function submitComplaint() {
     }
 }
 
-// ============== ПОЛЬЗОВАТЕЛИ ==============
 async function loadAllUsers() {
     if (!adminLoggedIn) return;
     try {
@@ -1906,7 +1911,6 @@ window.deleteUser = async function(userId) {
     } catch (error) { showMarketNotification('❌ Ошибка!', 'error'); }
 };
 
-// ============== РЕГИСТРАЦИЯ / ВХОД ==============
 async function registerUser(name, username, password) {
     try {
         const existingLocal = localAccounts.find(a => a.username.toLowerCase() === username.toLowerCase());
@@ -1985,13 +1989,15 @@ async function loginUser(username, password) {
 
 async function loadUserVotes() {
     if (!supabaseClient) return;
-    const voterId = currentUser?.id || marketState.userEmail;
-    if (!voterId) return;
+    if (!currentUser) {
+        userVotes = {};
+        return;
+    }
     try {
         const { data, error } = await supabaseClient
             .from('poll_votes')
             .select('*')
-            .eq('user_id', String(voterId));
+            .eq('user_id', String(currentUser.id));
         if (error) throw error;
         userVotes = {};
         (data || []).forEach(vote => { userVotes[vote.poll_id] = vote.option_index; });
@@ -2081,8 +2087,6 @@ function openAccountModal() {
         document.getElementById('account-content-user').style.display = 'none';
     }
 }
-
-// ============== РЕГЛАМЕНТ ==============
 function initRulesAccordion() {
     const rulesData = [
         { section: '1', title: 'Общие положения Регламента', rules: [
@@ -2162,7 +2166,6 @@ window.toggleRulesSection = function(header) {
     header.closest('.rules-section').classList.toggle('open');
 };
 
-// ============== ИНИЦИАЛИЗАЦИЯ ==============
 document.addEventListener('DOMContentLoaded', function() {
     initRulesAccordion();
 
@@ -2181,7 +2184,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
     });
 
-    // News
     const newsList = document.getElementById('news-list');
     if (newsList) {
         newsList.innerHTML = '';
@@ -2233,7 +2235,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => { openAccountModal(); }, 800);
         }
 
-        loadPolls();
+        loadPolls().then(() => updatePollsUnansweredBadge());
         loadComplaints();
     })();
 
@@ -2418,7 +2420,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Market auth
     const loginBtn = document.getElementById('login-btn');
     const loginInput = document.getElementById('login-input');
     const passwordInput = document.getElementById('password-input');
@@ -2590,7 +2591,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Сайт загружен!');
 });
 
-// Дополнительные функции рынка
 function openTransferMoney() {
     if (!marketState.currentCaptain) { showMarketNotification('❌ Войдите как капитан!', 'error'); return; }
     document.getElementById('transfer-money-modal').classList.add('active');
@@ -2734,8 +2734,8 @@ async function respondToOffer(offerId, response) {
     const offer = (marketState.offers || []).find(o => o.id === offerId);
     if (!offer || offer.status !== 'pending') return;
 
-    const renter = CAPTAINS[offer.fromTeam];   
-    const owner = CAPTAINS[offer.toTeam];     
+    const renter = CAPTAINS[offer.fromTeam];
+    const owner = CAPTAINS[offer.toTeam];
 
     if (!renter || !owner) {
         showMarketNotification('❌ Команда не найдена!', 'error');
