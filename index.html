@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Дворовая Футбольная Лига</title>
+    <meta property="og:title" content="Дворовая Футбольная Лига">
+    <meta property="og:description" content="Проведение матчей и новости">
+    <meta property="og:image" content="./Photos%20(2)/IMG_0801.jpeg">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta name="twitter:card" content="summary">
+
+<link rel="stylesheet" href="style.css">
+...
+<script src="novost.js"></script>
+<script src="photos.js"></script>
+<script src="app.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-ball">
+                <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="32" cy="32" r="28"/>
+                    <path d="M32 4 L38 18 L54 18 L42 30 L48 46 L32 38 L16 46 L22 30 L10 18 L26 18 Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M32 4 L38 18 L54 18 L42 30 L48 46 L32 38 L16 46 L22 30 L10 18 L26 18 Z"/>
+                </svg>
+            </div>
+            <div class="preloader-title">Дворовая Футбольная Лига</div>
+            <div class="preloader-bar">
+                <div class="preloader-bar-fill" id="preloader-fill"></div>
+            </div>
+            <div class="preloader-status" id="preloader-status">Загрузка...</div>
+        </div>
+    </div>
+
+    <button class="avatar-btn" id="avatar-btn">👤</button>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+
+    <div class="container">
+        <header>
+            <div class="logo"><h1>Дворовая Футбольная Лига</h1></div>
+            <p class="subtitle">Проведение матчей и новости</p>
+        </header>
+
+        <main>
+            <!-- ===================== HOME ===================== -->
+            <div id="home-page" class="page active">
+                <div class="main-buttons">
+                    <div class="main-button request-btn" id="complaint-btn-main">
+                        <span class="new-badge">NEW</span>
+                        <div class="button-icon">📢</div>
+                        <div class="button-title">Подать жалобу</div>
+                        <div class="button-description">Сообщить о нарушении</div>
+                    </div>
+                    <div class="main-button" id="matches-btn">
+                        <div class="button-icon">📅</div>
+                        <div class="button-title">Матчи</div>
+                        <div class="button-description">История матчей</div>
+                    </div>
+                    <div class="main-button" id="yards-btn">
+                        <div class="button-icon">👥</div>
+                        <div class="button-title">Команды</div>
+                        <div class="button-description">Все команды</div>
+                    </div>
+                    <div class="main-button" id="news-btn">
+                        <div class="button-icon">📰</div>
+                        <div class="button-title">Новости</div>
+                        <div class="button-description">Последние новости</div>
+                    </div>
+                    <div class="main-button" id="market-btn">
+                        <div class="button-icon">💰</div>
+                        <div class="button-title">Рынок</div>
+                        <div class="button-description">Трансферы и покупки</div>
+                    </div>
+                    <div class="main-button" id="polls-btn">
+                        <div class="button-icon">📊</div>
+                        <div class="button-title">Опросы</div>
+                        <div class="button-description">Голосования</div>
+                    </div>
+                    <div class="main-button" id="complaints-nav-btn">
+                        <div class="button-icon">📋</div>
+                        <div class="button-title">Жалобы</div>
+                        <div class="button-description">Мои жалобы</div>
+                    </div>
+                    <div class="main-button" id="rules-btn">
+                        <div class="button-icon">📜</div>
+                        <div class="button-title">Регламент</div>
+                        <div class="button-description">Регламент лиги</div>
+                    </div>
+                    <div class="main-button admin-panel-main" id="admin-panel-btn" style="display:none;">
+                        <div class="button-icon">👑</div>
+                        <div class="button-title">Админ-панель</div>
+                        <div class="button-description">Управление лигой</div>
+                    </div>
+                </div>
+
+                <div class="action-buttons-row">
+                    <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" target="_blank" rel="noopener" class="action-btn tiktok" style="flex-direction: column; padding: 12px 32px; gap: 2px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="btn-icon"></span>
+                            <span style="font-size: 1.1rem; font-weight: bold;">Шустик в Тик токе 🧤</span>
+                        </div>
+                        <span style="color: #aaaaaa; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px; opacity: 0.9;">
+                            @arseenalforever1
+                        </span>
+                    </a>
+                </div>
+
+                <div class="action-buttons-row">
+                    <a href="https://www.tiktok.com/@bmw_fcsm_08?_r=1&_t=ZT-9AFgMihwfV8" target="_blank" rel="noopener" class="action-btn tiktok" style="flex-direction: column; padding: 12px 32px; gap: 2px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="btn-icon"></span>
+                            <span style="font-size: 1.1rem; font-weight: bold;">Максим в тик токе 🛡</span>
+                        </div>
+                        <span style="color: #aaaaaa; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.5px; opacity: 0.9;">
+                            @bmw_fcsm_08
+                        </span>
+                    </a>
+                </div>
+
+                <h1 class="iridescent-text">Подписывайтесь на нас</h1>
+
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <button class="admin-login-btn" id="admin-login-btn">🔐 Вход для админов</button>
+                </div>
+            </div>
+
+            <!-- ===================== PLAYERS ===================== -->
+            <div id="players-page" class="page">
+                <button class="back-button" id="back-from-players">← Назад к главной</button>
+                <div class="players-controls">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="player-search" placeholder="Поиск игрока по имени...">
+                    </div>
+                    <div class="sort-buttons">
+                        <button class="sort-btn" id="sort-rating">⭐ По рейтингу</button>
+                        <button class="sort-btn" id="sort-name">🔤 По алфавиту</button>
+                        <button class="sort-btn" id="reset-sort">🔄 Сбросить</button>
+                    </div>
+                    <div class="players-count" id="players-count">Всего игроков: 0</div>
+                </div>
+                <div class="players-grid" id="players-grid-container"></div>
+            </div>
+
+            <!-- ===================== SQUAD (МЕРА) ===================== -->
+            <div id="squad-page" class="page">
+                <button class="back-button" id="back-from-squad">← Назад к главной</button>
+                <div class="best-squad-container">
+                    <h2 style="color:#0066cc; text-align:center; margin-bottom:15px;">ФК "МЕРА" — основной состав</h2>
+                    <div class="squad-content active">
+                        <div class="formation">
+                            <div class="formation-line">
+                                <div class="player-item" data-player="demid">
+                                    <div class="player-photo-small" id="demid-photo-small"></div>
+                                    <div class="player-name">Пасько Д.</div>
+                                    <span class="player-number">(45)</span>
+                                </div>
+                                <div class="player-item" data-player="aleksey_doroshenko">
+                                    <div class="player-photo-small" id="aleksey_doroshenko-photo-small"></div>
+                                    <div class="player-name">Дорошенко А.</div>
+                                    <span class="player-number">(22)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="lesha_podavalny">
+                                    <div class="player-photo-small" id="lesha_podavalny-photo-small"></div>
+                                    <div class="player-name">Чурилов А.</div>
+                                    <span class="player-number">(41)</span>
+                                </div>
+                                <div class="player-item" data-player="maxim">
+                                    <div class="player-photo-small" id="maxim-photo-small"></div>
+                                    <div class="player-name">Бузмаков М.</div>
+                                    <span class="player-number">(8)</span>
+                                </div>
+                            </div>
+                            <div class="formation-line">
+                                <div class="player-item" data-player="raya">
+                                    <div class="player-photo-small" id="raya-photo-small"></div>
+                                    <div class="player-name">Шустов И.</div>
+                                    <span class="player-number">(1)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tactics-info" id="tactics-info">
+                        <h3>Тактическая информация</h3>
+                        <p><strong>Схема:</strong> 1-2-2</p>
+                        <p>Основной состав ФК МЕРЫ.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== YARDS (teams list) ===================== -->
+            <div id="yards-page" class="page">
+                <button class="back-button" id="back-from-yards">← Назад к главной</button>
+                <div class="other-yards-container">
+                    <div class="big-icon">🏘️</div>
+                    <h2>Команды</h2>
+                    <div class="yards-list">
+                        <div class="yard-card" id="yard-mera">
+                            <img src="./Photos%20(2)/IMG_0807.jpeg" alt="ФК МЕРА" class="yard-logo">
+                            <div><h3>⚫ ФК "МЕРА"</h3></div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-78-school">
+                            <img src="./Photos%20(2)/IMG_0797.jpeg" alt="ФК 78 школа" class="yard-logo">
+                            <div><h3>⚪ ФК 78 школа</h3></div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-yuzhka">
+                            <img src="./Photos%20(2)/IMG_0800.jpeg" alt="ФК Южка" class="yard-logo">
+                            <div><h3>🟢 ФК Южный</h3></div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-arsenal">
+                            <img src="./Photos%20(2)/IMG_0853.jpeg" alt="ФК Арсенал" class="yard-logo">
+                            <div><h3>🔴 ФК Арсенал</h3></div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-psg">
+                            <img src="./Photos%20(2)/IMG_0833.jpeg" alt="ФК ПСЖ" class="yard-logo">
+                            <div><h3>🔵 ФК ПСЖ</h3></div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                        <div class="yard-card" id="yard-zvezda">
+                            <img src="./Photos%20(2)/IMG_0919.jpeg" alt="ФК Звёзды" class="yard-logo">
+                            <div><h3>⭐ ФК Звёзды</h3></div>
+                            <div class="yard-subtitle">👆 Нажмите для просмотра состава</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== YARD PAGES ===================== -->
+            <div id="yard-mera-page" class="page">
+                <button class="back-button" id="back-from-yard-mera">← Назад</button>
+                <div class="best-squad-container yard-mera-theme">
+                    <h2 style="color:#8e44ad; text-align:center; margin-bottom:15px;">🔵🟣 ФК "МЕРА" — состав</h2>
+                    <div class="players-grid" id="yard-mera-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-78-page" class="page">
+                <button class="back-button" id="back-from-yard-78">← Назад</button>
+                <div class="best-squad-container yard-78-theme">
+                    <h2 style="color:#8e44ad; text-align:center; margin-bottom:15px;">⚪ ФК 78 школа — состав</h2>
+                    <div class="players-grid" id="yard-78-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-yuzhka-page" class="page">
+                <button class="back-button" id="back-from-yard-yuzhka">← Назад</button>
+                <div class="best-squad-container yard-yuzhka-theme">
+                    <h2 style="color:#32cd32; text-align:center; margin-bottom:15px;">🟢 ФК Южный — состав</h2>
+                    <div class="players-grid" id="yard-yuzhka-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-arsenal-page" class="page">
+                <button class="back-button" id="back-from-yard-arsenal">← Назад</button>
+                <div class="best-squad-container yard-arsenal-theme">
+                    <h2 style="color:#dc3545; text-align:center; margin-bottom:15px;">🔴 ФК Арсенал — состав</h2>
+                    <div class="players-grid" id="yard-arsenal-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-psg-page" class="page">
+                <button class="back-button" id="back-from-yard-psg">← Назад</button>
+                <div class="best-squad-container yard-psg-theme">
+                    <h2 style="color:#0d6efd; text-align:center; margin-bottom:15px;">🔵 ФК ПСЖ — состав</h2>
+                    <div class="players-grid" id="yard-psg-grid"></div>
+                </div>
+            </div>
+
+            <div id="yard-zvezda-page" class="page">
+                <button class="back-button" id="back-from-yard-zvezda">← Назад</button>
+                <div class="best-squad-container yard-zvezda-theme">
+                    <h2 style="color:#fbbf24; text-align:center; margin-bottom:15px;">⭐ ФК Звёзды — состав</h2>
+                    <div class="players-grid" id="yard-zvezda-grid"></div>
+                </div>
+            </div>
+
+            <!-- ===================== MATCHES ===================== -->
+            <div id="matches-page" class="page">
+                <button class="back-button" id="back-from-matches">← Назад к главной</button>
+                <div class="matches-container">
+                    <h2>📅 Матчи</h2>
+                    <div class="admin-panel" id="admin-panel">
+                        <div class="admin-welcome">
+                            <span>👑 Админ-панель</span>
+                            <div class="admin-actions">
+                                <button class="success" id="admin-add-match-btn">➕ Добавить матч</button>
+                                <button class="danger" id="admin-logout-btn">🚪 Выйти</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="matches-list"></div>
+                </div>
+            </div>
+
+            <div id="match-tactics-page" class="page">
+                <button class="back-button" id="back-from-match-tactics">← Назад к матчам</button>
+                <div class="match-tactics-container">
+                    <h2 id="match-tactics-title">⚽ Тактика матча</h2>
+                    <div class="bench-section" id="school78-bench">
+                        <h4>🔄 Запасные (78 школа)</h4>
+                        <div class="bench-players" id="school78-bench-players"></div>
+                    </div>
+                    <div class="tactics-team-title">🟡 ФК 78 школа (2-1-1)</div>
+                    <div class="tactics-formation">
+                        <div class="formation" id="school78-formation"></div>
+                    </div>
+                    <div class="tactics-opponent">
+                        <div class="tactics-formation">
+                            <div class="formation" id="mera-formation"></div>
+                        </div>
+                        <div class="tactics-team-title">🟢 ФК "МЕРА" (1-2-1)</div>
+                        <div class="bench-section" id="mera-bench">
+                            <h4>🔄 Запасные (ФК "МЕРА")</h4>
+                            <div class="bench-players" id="mera-bench-players"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== NEWS ===================== -->
+            <div id="news-page" class="page">
+                <button class="back-button" id="back-from-news">← Назад к главной</button>
+                <div class="news-container">
+                    <h2>📰 Последние новости</h2>
+                    <div id="news-list"></div>
+                </div>
+            </div>
+
+            <!-- ===================== POLLS ===================== -->
+            <div id="polls-page" class="page">
+                <button class="back-button" id="back-from-polls">← Назад к главной</button>
+                <div class="polls-container">
+                    <h2>📊 Опросы</h2>
+                    <div id="polls-list"></div>
+                </div>
+            </div>
+
+            <!-- ===================== COMPLAINTS ===================== -->
+            <div id="complaints-page" class="page">
+                <button class="back-button" id="back-from-complaints">← Назад к главной</button>
+                <div class="complaints-container">
+                    <h2>📢 Жалобы</h2>
+                    <div id="complaints-list"></div>
+                </div>
+            </div>
+
+            <!-- ===================== ADMIN PANEL ===================== -->
+            <div id="admin-panel-page" class="page">
+                <button class="back-button" id="back-from-admin-panel">← Назад к главной</button>
+                <div class="admin-panel-container">
+                    <h2>👑 Админ-панель</h2>
+                    <div class="admin-section-tabs">
+                        <button class="admin-section-tab active" data-tab="users">👥 Пользователи</button>
+                        <button class="admin-section-tab" data-tab="balances">💰 Балансы</button>
+                        <button class="admin-section-tab" data-tab="polls">📊 Опросы</button>
+                        <button class="admin-section-tab" data-tab="complaints">📢 Жалобы</button>
+                    </div>
+                    <div class="admin-tab-content active" id="admin-tab-users">
+                        <div id="users-list"></div>
+                    </div>
+                    <div class="admin-tab-content" id="admin-tab-balances">
+                        <div class="admin-balance-panel">
+                            <h4>💰 Управление балансами команд</h4>
+                            <div id="balance-teams-container"></div>
+                        </div>
+                    </div>
+                    <div class="admin-tab-content" id="admin-tab-polls">
+                        <button class="admin-poll-create-btn" id="create-poll-btn">➕ Создать опрос</button>
+                        <div id="admin-polls-list"></div>
+                    </div>
+                    <div class="admin-tab-content" id="admin-tab-complaints">
+                        <h4 style="color:var(--accent);margin-bottom:12px;">📢 Все жалобы</h4>
+                        <div id="admin-complaints-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== RULES ===================== -->
+            <div id="rules-page" class="page">
+                <button class="back-button" id="back-from-rules">← Назад к главной</button>
+                <div class="rules-container">
+                    <h2>|📜 Регламент ДФЛ|</h2>
+                    <div class="rules-list" id="rules-list"></div>
+                    <div class="rules-warning">
+                        ⚠️ Примечание: При критической ситуации допускается нарушение частей 1.2.1, 2.2, 2.4, 2.5, 5.1, 5.3, 5.5, 6.1, 7.1.2 Регламента.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== MARKET ===================== -->
+            <div id="market-page" class="page">
+                <button class="back-button" id="back-from-market">← Назад к главной</button>
+                <div class="market-container">
+                    <div class="market-header">
+                        <div class="captain-info">
+                            <div class="captain-avatar" id="captain-avatar">👤</div>
+                            <div>
+                                <div id="captain-name" style="font-weight: bold;">Не авторизован</div>
+                                <div class="budget-display" id="budget-display">💰 0 монет</div>
+                            </div>
+                        </div>
+                        <div class="login-section">
+                            <input type="text" id="login-input" placeholder="Логин..." style="display: none;">
+                            <input type="password" id="password-input" placeholder="Пароль..." style="display: none;">
+                            <button class="login-btn" id="login-btn">🔑 Войти</button>
+                            <button class="logout-btn" id="logout-btn" style="display: none;">🚪 Выйти</button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                        <button class="action-btn" id="transfer-money-btn" style="padding: 10px 20px; font-size: 0.9rem;">💰 Перевод</button>
+                        <button class="action-btn" id="make-offer-btn" style="padding: 10px 20px; font-size: 0.9rem;">📤 Предложение</button>
+                        <button class="action-btn" id="view-offers-btn" style="padding: 10px 20px; font-size: 0.9rem; position: relative;">
+                            📋 Мои
+                            <span class="offer-badge hidden" id="offer-badge">0</span>
+                        </button>
+                    </div>
+
+                    <div class="market-filters">
+                        <select id="market-filter-team"><option value="all">Все команды</option></select>
+                        <select id="market-filter-position">
+                            <option value="all">Все позиции</option>
+                            <option value="Вратарь">Вратарь</option>
+                            <option value="Защитник">Защитник</option>
+                            <option value="Полузащитник">Полузащитник</option>
+                            <option value="Нападающий">Нападающий</option>
+                        </select>
+                    </div>
+
+                    <h3>📋 Рынок трансферов</h3>
+                    <div class="market-grid" id="market-grid">
+                        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">Загрузка...</div>
+                    </div>
+
+                    <div class="transfers-history">
+                        <h3>📜 Последние трансферы</h3>
+                        <div id="transfers-list"></div>
+                    </div>
+
+                    <div class="my-team-section" id="my-team-section" style="display: none;">
+                        <h3>⭐ Моя команда</h3>
+                        <div class="my-team-grid" id="my-team-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Дворовая Футбольная Лига © 2026</p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: #999;">FC MERA™  FC78™  FC Iuzhniy™</p>
+            <p>𝗧𝗶𝗸 𝗧𝗼𝗸: @fc.mera</p>
+        </footer>
+    </div>
+
+    <!-- ===================== PLAYER MODAL ===================== -->
+    <div class="modal-overlay" id="player-modal">
+        <div class="modal" id="modal-window">
+            <button class="modal-close-btn" id="modal-close">×</button>
+            <div class="modal-header">
+                <div class="modal-photo" id="modal-photo"></div>
+                <div class="modal-info">
+                    <h3 id="modal-name">Имя игрока</h3>
+                    <p id="modal-position">Позиция • Возраст</p>
+                    <div id="modal-mera-tag" class="mera-tag" style="display: none;">⭐ Игрок ФК "МЕРА"</div>
+                    <div id="modal-burmalda-tag" class="burmalda-tag" style="display: none;">🎰БУРМАЛДА🍀</div>
+                </div>
+                <div class="modal-rating-header">
+                    <div class="rating-value" id="modal-rating">0</div>
+                    <div class="rating-label">Рейтинг</div>
+                </div>
+            </div>
+            <div class="modal-description">
+                <span class="modal-description-label">📝 Краткое описание</span>
+                <span id="modal-description-text">здесь описание</span>
+            </div>
+            <div class="modal-stats-combined">
+                <div class="modal-stat-item"><div class="modal-stat-label">Рабочая нога</div><div class="modal-stat-value" id="modal-foot">Правая</div></div>
+                <div class="modal-stat-item"><div class="modal-stat-label">Рост</div><div class="modal-stat-value" id="modal-height">0 см</div></div>
+                <div class="modal-stat-item"><div class="modal-stat-label">Вес</div><div class="modal-stat-value" id="modal-weight">0 кг</div></div>
+            </div>
+            <div class="playstyles-section" id="modal-playstyles-section">
+                <div class="playstyles-title">🎮 Плейстайлы</div>
+                <div class="playstyles-grid" id="modal-playstyles-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== ACCOUNT MODAL ===================== -->
+    <div class="modal-overlay account-modal" id="account-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="account-close">×</button>
+            <div id="account-content-guest">
+                <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">🔐 Аккаунт</h2>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="tab-login">Вход</button>
+                    <button class="auth-tab" id="tab-register">Регистрация</button>
+                </div>
+                <div class="auth-form active" id="login-form">
+                    <div class="form-group">
+                        <label>Логин</label>
+                        <input type="text" id="auth-login-username" placeholder="Ваш логин">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" id="auth-login-password" placeholder="Пароль">
+                    </div>
+                    <button class="auth-submit-btn" id="auth-login-submit">🔑 Войти</button>
+                    <div class="auth-status" id="auth-login-status"></div>
+                </div>
+                <div class="auth-form" id="register-form">
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input type="text" id="auth-register-name" placeholder="Ваше настоящее имя">
+                    </div>
+                    <div class="form-group">
+                        <label>Логин</label>
+                        <input type="text" id="auth-register-username" placeholder="Придумайте логин">
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input type="password" id="auth-register-password" placeholder="Минимум 6 символов">
+                    </div>
+                    <div class="form-group">
+                        <label>Повторите пароль</label>
+                        <input type="password" id="auth-register-password2" placeholder="Повторите пароль">
+                    </div>
+                    <button class="auth-submit-btn" id="auth-register-submit">📝 Зарегистрироваться</button>
+                    <div class="auth-status" id="auth-register-status"></div>
+                </div>
+                <button class="guest-btn" id="guest-btn">👤 Войти как гость</button>
+            </div>
+            <div id="account-content-user" style="display:none;">
+                <div class="account-header">
+                    <div class="account-avatar-big" id="account-avatar-big"></div>
+                    <div class="account-info-block">
+                        <h3 id="account-user-name">Имя</h3>
+                        <p id="account-user-email">Логин</p>
+                        <span class="account-status-pill" id="account-user-status">Гость</span>
+                    </div>
+                </div>
+                <div class="account-stat-row">
+                    <span class="label">🎮 Игрок</span>
+                    <span class="value" id="account-player-name">—</span>
+                </div>
+                <div class="account-stat-row">
+                    <span class="label">⭐ Рейтинг</span>
+                    <span class="value" id="account-player-rating">—</span>
+                </div>
+                <div class="account-stat-row">
+                    <span class="label">⚽ Позиция</span>
+                    <span class="value" id="account-player-position">—</span>
+                </div>
+                <div class="account-stat-row">
+                    <span class="label">👥 Команда</span>
+                    <span class="value" id="account-player-team">—</span>
+                </div>
+                <div class="account-actions">
+                    <button class="admin-panel-action" id="account-admin-panel-btn" style="display:none;">👑 Открыть админ-панель</button>
+                    <button class="admin-login-action" id="account-admin-login-btn">👑 Войти как администратор</button>
+                    <button class="admin-logout-action" id="account-admin-logout-btn" style="display:none;">🚪 Выйти из админа</button>
+                    <button class="danger-action" id="account-logout-btn">🚪 Выйти из аккаунта</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== ADMIN AUTH MODAL ===================== -->
+    <div class="modal-overlay admin-auth-modal" id="admin-auth-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="admin-auth-close">×</button>
+            <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">🔐 Вход для администратора</h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="admin-email" placeholder="admin@fcmera.com">
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="admin-password" placeholder="Пароль">
+            </div>
+            <button class="auth-submit-btn" id="admin-auth-submit">✅ Войти</button>
+            <div class="auth-status" id="admin-auth-status"></div>
+        </div>
+    </div>
+
+    <!-- ===================== MATCH MODALS ===================== -->
+    <div class="modal-overlay" id="match-edit-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="match-edit-close">×</button>
+            <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">✏️ Редактировать матч</h2>
+            <div class="form-row">
+                <div class="form-group"><label>Дата</label><input type="date" id="edit-match-date"></div>
+                <div class="form-group"><label>Время</label><input type="time" id="edit-match-time"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Команда 1</label><select id="edit-match-team1"></select></div>
+                <div class="form-group"><label>Команда 2</label><select id="edit-match-team2"></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Счет 1</label><input type="number" id="edit-score1" min="0"></div>
+                <div class="form-group"><label>Счет 2</label><input type="number" id="edit-score2" min="0"></div>
+            </div>
+            <div class="form-group">
+                <label>Тип матча</label>
+                <select id="edit-match-type">
+                    <option value="home">🏠 Домашний</option>
+                    <option value="away">✈️ Выездной</option>
+                    <option value="neutral">🏰 Нейтральное поле</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Результат</label>
+                <select id="edit-match-result">
+                    <option value="win">🏆 Победа</option>
+                    <option value="loss">❌ Поражение</option>
+                    <option value="away">🏆 Победа соперника</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Пенальти</label><input type="text" id="edit-match-penalty" placeholder="Напр. 4:2"></div>
+            <button class="submit-edit-btn" id="submit-edit-btn">💾 Сохранить</button>
+            <button class="delete-match-btn" id="delete-match-btn">🗑️ Удалить</button>
+            <div class="match-edit-status" id="match-edit-status"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="match-add-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="match-add-close">×</button>
+            <h2 style="color:#28a745; text-align:center; margin-bottom:20px;">➕ Добавить матч</h2>
+            <div class="form-row">
+                <div class="form-group"><label>Дата</label><input type="date" id="add-match-date"></div>
+                <div class="form-group"><label>Время</label><input type="time" id="add-match-time"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Команда 1</label><select id="add-match-team1"></select></div>
+                <div class="form-group"><label>Команда 2</label><select id="add-match-team2"></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Счет 1</label><input type="number" id="add-score1" min="0" value="0"></div>
+                <div class="form-group"><label>Счет 2</label><input type="number" id="add-score2" min="0" value="0"></div>
+            </div>
+            <div class="form-group">
+                <label>Тип матча</label>
+                <select id="add-match-type">
+                    <option value="home">🏠 Домашний</option>
+                    <option value="away">✈️ Выездной</option>
+                    <option value="neutral">🏰 Нейтральное поле</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Результат</label>
+                <select id="add-match-result">
+                    <option value="win">🏆 Победа</option>
+                    <option value="loss">❌ Поражение</option>
+                    <option value="away">🏆 Победа соперника</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Пенальти</label><input type="text" id="add-match-penalty" placeholder="Напр. 4:2"></div>
+            <button class="submit-add-btn" id="submit-add-btn">➕ Добавить</button>
+            <div class="match-add-status" id="match-add-status"></div>
+        </div>
+    </div>
+
+    <!-- ===================== MARKET MODALS ===================== -->
+    <div class="modal-overlay" id="transfer-money-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="transfer-money-close">×</button>
+            <h2 style="color:#28a745; text-align:center; margin-bottom:20px;">💰 Перевод денег</h2>
+            <div class="form-group"><label>Кому перевести</label><select id="transfer-to-team"></select></div>
+            <div class="form-group"><label>Сумма</label><input type="number" id="transfer-amount" min="1" placeholder="Введите сумму"></div>
+            <div class="form-group"><label>Комментарий</label><input type="text" id="transfer-comment" placeholder="Необязательно"></div>
+            <button class="submit-action-btn" id="transfer-submit-btn">💰 Перевести</button>
+            <div class="action-status" id="transfer-status"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="make-offer-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="make-offer-close">×</button>
+            <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">📤 Предложение по игроку</h2>
+            <div class="form-group"><label>Игрок</label><select id="offer-player-select"></select></div>
+            <div class="form-group">
+                <label>Тип предложения</label>
+                <select id="offer-type">
+                    <option value="transfer">🛒 Покупка</option>
+                    <option value="loan">🔄 Аренда</option>
+                </select>
+            </div>
+            <div class="form-group" id="offer-price-group"><label>Цена</label><input type="number" id="offer-price" min="1"></div>
+            <div class="form-group" id="offer-loan-days-group" style="display: none;"><label>Срок аренды (дней)</label><input type="number" id="offer-loan-days" min="1" value="7"></div>
+            <div class="form-group" id="offer-loan-price-group" style="display: none;"><label>Цена аренды</label><input type="number" id="offer-loan-price" min="1"></div>
+            <div class="form-group"><label>Комментарий</label><input type="text" id="offer-comment"></div>
+            <button class="submit-action-btn" id="offer-submit-btn">📤 Отправить</button>
+            <div class="action-status" id="offer-status"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="view-offers-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="view-offers-close">×</button>
+            <h2 style="color:#0066cc; text-align:center; margin-bottom:20px;">📋 Мои предложения</h2>
+            <div id="offers-list-container"><p style="text-align:center;color:#666;padding:20px;">Загрузка...</p></div>
+        </div>
+    </div>
+
+    <!-- ===================== COMPLAINT MODAL ===================== -->
+    <div class="modal-overlay" id="complaint-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="complaint-close">×</button>
+            <h2 style="color:#dc2626; text-align:center; margin-bottom:20px;">📢 Подать жалобу</h2>
+            <div class="form-group">
+                <label>Причина жалобы</label>
+                <select id="complaint-reason">
+                    <option value="">Выберите причину...</option>
+                    <option value="Решение судьи">Решение судьи</option>
+                    <option value="Поведение на поле">Поведение на поле</option>
+                    <option value="Договорной матч">Договорной матч</option>
+                    <option value="Нарушение регламента">Нарушение регламента</option>
+                    <option value="Незаявленные игроки">Незаявленные игроки</option>
+                    <option value="Проведение матча на неподготовленном поле">Проведение матча на неподготовленном поле</option>
+                    <option value="Другое">Другое</option>
+                </select>
+            </div>
+            <div class="form-group" id="complaint-custom-reason-group" style="display: none;">
+                <label>Укажите причину</label>
+                <input type="text" id="complaint-custom-reason">
+            </div>
+            <div class="form-group"><label>Подробное описание</label><textarea id="complaint-text" rows="4"></textarea></div>
+            <button class="submit-request-btn" id="complaint-submit-btn" style="background: linear-gradient(135deg,#dc2626,#b91c1c);">📨 Отправить</button>
+            <div class="request-status" id="complaint-status"></div>
+        </div>
+    </div>
+
+    <!-- ===================== CREATE POLL MODAL ===================== -->
+    <div class="modal-overlay" id="create-poll-modal">
+        <div class="modal">
+            <button class="modal-close-btn" id="create-poll-close">×</button>
+            <h2 style="color:#8e44ad; text-align:center; margin-bottom:20px;">📊 Создать опрос</h2>
+            <div class="form-group"><label>Вопрос</label><input type="text" id="poll-question" placeholder="Введите вопрос..."></div>
+            <div class="form-group">
+                <label>Варианты ответа (от 2 до 6)</label>
+                <div id="poll-options-container">
+                    <input type="text" class="poll-option-input" placeholder="Вариант 1" style="margin-bottom:8px;">
+                    <input type="text" class="poll-option-input" placeholder="Вариант 2" style="margin-bottom:8px;">
+                </div>
+                <button class="admin-btn" id="add-poll-option-btn" style="background:#8e44ad;">➕ Добавить вариант</button>
+            </div>
+            <div class="form-checkbox-row" id="poll-no-change-wrapper">
+                <input type="checkbox" id="poll-no-change-checkbox">
+                <label for="poll-no-change-checkbox">🚫 Нельзя переголосовать (один голос навсегда)</label>
+            </div>
+            <button class="submit-request-btn" id="create-poll-submit-btn" style="background: linear-gradient(135deg,#8e44ad,#6c3483);">📊 Создать опрос</button>
+            <div class="request-status" id="create-poll-status"></div>
+        </div>
+    </div>
+
+    <!-- ===================== PLAYSTYLE DETAIL ===================== -->
+    <div class="playstyle-detail-overlay" id="playstyle-detail-overlay">
+        <div class="playstyle-detail-card" id="playstyle-detail-card">
+            <button class="close-btn" id="playstyle-detail-close">✕</button>
+            <div class="playstyle-detail-icon" id="playstyle-detail-icon"></div>
+            <div class="playstyle-detail-name" id="playstyle-detail-name">Название</div>
+            <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
+        </div>
+    </div>
+
+    <!-- ===================== SECRET MODAL ===================== -->
+    <div class="secret-overlay" id="secret-overlay">
+        <div class="secret-modal">
+            <button class="secret-close" id="secret-close">✕</button>
+            <div class="secret-icon">🔐</div>
+            <h2>⚡ ТОЛЬКО ДЛЯ ФК МЕРА</h2>
+            <div class="secret-label">Введите пароль</div>
+            <input type="password" id="secret-password" placeholder="Введите пароль...">
+            <button class="secret-submit" id="secret-submit">✅ Войти</button>
+            <div class="secret-error" id="secret-error"></div>
+            <div class="secret-content" id="secret-content">
+                <h3>📋 Информация для членов ФК "МЕРА"</h3>
+                <div class="info-block">
+                    <p><span class="highlight">📅 Следующий матч: </span>Запланирован на ???</p>
+                    <p><span class="highlight"></span>78-я школа - трупы</p>
+                    <p><span class="highlight"></span>ФК МЕРА ТОП</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-market" id="notification-market"></div>
+
+    <script src="novost.js"></script>
+    <script src="photos.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
