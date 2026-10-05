@@ -1,6 +1,6 @@
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ИГРОКОВ ====================
 
-const playerPhotos = {
+window.playerPhotos = {
     raya: "./Photos%20(2)/raya.jpg",
     batrakov: "./Photos%20(2)/IMG_0864.jpeg",
     maxim: "./Photos%20(2)/IMG_0755.jpeg",
@@ -33,14 +33,14 @@ const playerPhotos = {
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
 
-const clubPhotos = {
-    club: "./Photos%20(2)/IMG_0807.jpeg",       // логотип ФК "МЕРА"
-    club78: "./Photos%20(2)/IMG_0797.jpeg"   // логотип ФК 78 школа
+window.clubPhotos = {
+    club: "./Photos%20(2)/IMG_0807.jpeg",
+    club78: "./Photos%20(2)/IMG_0797.jpeg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ФОТО ПЛЕЙСТАЙЛОВ ===================
 
-const playstylePhotos = {
+window.playstylePhotos = {
     strag: "./Photos%20(2)/strag_gold.png",
     strag_silver: "./Photos%20(2)/strag_silver.png",
     enot: "./Photos%20(2)/enot.png",
@@ -77,5 +77,4 @@ const playstylePhotos = {
     far: "./Photos%20(2)/far.png",
 };
 
-// make pevec video available without declaring a duplicate const
 window.pevecVideoUrl = window.pevecVideoUrl || "./Photos%20(2)/pevec.mp4";
