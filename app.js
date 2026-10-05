@@ -154,6 +154,10 @@ let userVotes = {};
 let allUsersData = [];
 let pollVotersData = {};
 
+let onlineHeartbeatInterval = null;
+const ONLINE_HEARTBEAT_MS = 30000;
+const ONLINE_THRESHOLD_SEC = 90;
+
 let localAccounts = [];
 try {
     const saved = localStorage.getItem('dfl_local_accounts');
@@ -266,6 +270,133 @@ function loadLoansData() {
     } catch (e) {}
 }
 
+function getCurrentOnlineIdentity() {
+    if (adminLoggedIn && !currentUser) {
+        return { id: 'admin_global', name: 'Администратор', role: 'admin', player_id: null };
+    }
+    if (currentUser && currentUserData) {
+        return {
+            id: String(currentUser.id),
+            name: currentUserData.name || currentUserData.username || 'Пользователь',
+            role: 'user',
+            player_id: currentUserData.player_id || null
+        };
+    }
+    if (marketState.currentCaptain && marketState.userEmail) {
+        const captain = CAPTAINS[marketState.currentCaptain];
+        return {
+            id: 'captain_' + marketState.userEmail,
+            name: captain ? captain.captain : marketState.userEmail,
+            role: 'captain',
+            player_id: null
+        };
+    }
+    return null;
+}
+
+async function sendOnlineHeartbeat() {
+    if (!supabaseClient) return;
+    const identity = getCurrentOnlineIdentity();
+    if (!identity) return;
+    try {
+        await supabaseClient.from('online_users').upsert({
+            user_id: identity.id,
+            user_name: identity.name,
+            user_role: identity.role,
+            player_id: identity.player_id,
+            last_seen: new Date().toISOString()
+        }, { onConflict: 'user_id' });
+    } catch (e) {
+        console.warn('Онлайн-пинг не удался:', e);
+    }
+}
+
+async function removeOnlineSelf() {
+    if (!supabaseClient) return;
+    const identity = getCurrentOnlineIdentity();
+    if (!identity) return;
+    try {
+        await supabaseClient.from('online_users').delete().eq('user_id', identity.id);
+    } catch (e) {}
+}
+
+function startOnlineHeartbeat() {
+    if (onlineHeartbeatInterval) clearInterval(onlineHeartbeatInterval);
+    sendOnlineHeartbeat();
+    onlineHeartbeatInterval = setInterval(sendOnlineHeartbeat, ONLINE_HEARTBEAT_MS);
+    window.addEventListener('beforeunload', () => { removeOnlineSelf(); });
+}
+
+async function fetchOnlineUsers() {
+    if (!supabaseClient) return [];
+    try {
+        const cutoff = new Date(Date.now() - ONLINE_THRESHOLD_SEC * 1000).toISOString();
+        const { data, error } = await supabaseClient
+            .from('online_users')
+            .select('*')
+            .gte('last_seen', cutoff)
+            .order('last_seen', { ascending: false });
+        if (error) throw error;
+        return data || [];
+    } catch (e) {
+        console.warn('Ошибка загрузки онлайна:', e);
+        return [];
+    }
+}
+
+async function renderOnlinePanel() {
+    const listContainer = document.getElementById('online-users-list');
+    const countEl = document.getElementById('online-total-count');
+    if (!listContainer || !countEl) return;
+
+    listContainer.innerHTML = '<p style="text-align:center;color:#666;padding:20px;">Загрузка...</p>';
+
+    const users = await fetchOnlineUsers();
+    countEl.textContent = users.length;
+
+    if (users.length === 0) {
+        listContainer.innerHTML = `
+            <div class="online-empty">
+                <div class="online-empty-icon">😴</div>
+                <p>Пока никого нет на сайте</p>
+            </div>
+        `;
+        return;
+    }
+
+    let html = '';
+    users.forEach(u => {
+        const roleLabel = u.user_role === 'admin' ? '👑 Админ'
+                       : u.user_role === 'captain' ? '⚽ Капитан'
+                       : '👤 Игрок';
+
+        let avatarHtml = '👤';
+        if (u.player_id && typeof playerPhotos !== 'undefined' && playerPhotos[u.player_id]) {
+            avatarHtml = `<img src="${playerPhotos[u.player_id]}" alt="">`;
+        } else if (u.player_id && playersData[u.player_id]) {
+            avatarHtml = playersData[u.player_id].icon || '⚽';
+        }
+
+        const secondsAgo = Math.floor((Date.now() - new Date(u.last_seen).getTime()) / 1000);
+        let timeLabel = 'только что';
+        if (secondsAgo < 10) timeLabel = 'только что';
+        else if (secondsAgo < 60) timeLabel = `${secondsAgo} сек назад`;
+        else timeLabel = `${Math.floor(secondsAgo / 60)} мин назад`;
+
+        html += `<div class="online-user-card role-${u.user_role}">
+            <div class="online-user-avatar">${avatarHtml}</div>
+            <div class="online-user-info">
+                <div class="online-user-name">${u.user_name}</div>
+                <div class="online-user-meta">
+                    <span class="online-role-pill ${u.user_role}">${roleLabel}</span>
+                </div>
+            </div>
+            <div class="online-user-time">🟢 ${timeLabel}</div>
+        </div>`;
+    });
+    listContainer.innerHTML = html;
+}
+
 async function loginCaptain(email, password) {
     try {
         if (!supabaseClient) {
@@ -322,6 +453,7 @@ async function loginCaptain(email, password) {
         renderMyTeam();
         renderTransfers();
         updateOfferBadge();
+        sendOnlineHeartbeat();
         return true;
 
     } catch (error) {
@@ -332,6 +464,7 @@ async function loginCaptain(email, password) {
 }
 
 async function logoutCaptain() {
+    await removeOnlineSelf();
     try {
         if (supabaseClient) {
             await supabaseClient.auth.signOut();
@@ -1068,13 +1201,15 @@ async function adminLogin(email, password) {
 
         updateUserUI();
         renderMatches(); renderPolls(); renderComplaints(); loadAllUsers();
+        sendOnlineHeartbeat();
         showMarketNotification('✅ Вы вошли как администратор!', 'success');
     } catch (err) {
         document.getElementById('admin-auth-status').textContent = `❌ ${err.message || 'Ошибка'}`;
     }
 }
 
-function adminLogout() {
+async function adminLogout() {
+    await removeOnlineSelf();
     adminLoggedIn = false;
     localStorage.removeItem('adminLoggedIn');
     document.getElementById('admin-panel').classList.remove('visible');
@@ -1964,6 +2099,7 @@ async function loginUser(username, password) {
                     await loadUserVotes();
                     renderPolls();
                     document.getElementById('account-modal').classList.remove('active');
+                    sendOnlineHeartbeat();
                     showMarketNotification(`✅ Добро пожаловать, ${data.name || data.username}!`, 'success');
                     return;
                 }
@@ -1978,6 +2114,7 @@ async function loginUser(username, password) {
             await loadUserVotes();
             renderPolls();
             document.getElementById('account-modal').classList.remove('active');
+            sendOnlineHeartbeat();
             showMarketNotification(`✅ Добро пожаловать, ${local.name || local.username}!`, 'success');
             return;
         }
@@ -2025,6 +2162,7 @@ function updateUserUI() {
 }
 
 async function logoutUser() {
+    await removeOnlineSelf();
     currentUser = null;
     currentUserData = null;
     userVotes = {};
@@ -2230,6 +2368,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (userRestored) await loadUserVotes();
 
         updateUserUI();
+        startOnlineHeartbeat();
 
         if (!userRestored && !adminRestored) {
             setTimeout(() => { openAccountModal(); }, 800);
@@ -2308,6 +2447,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderBalancePanel('balance-teams-container');
         renderAdminPollsList();
         renderAdminComplaintsList();
+        renderOnlinePanel();
     });
 
     document.getElementById('matches-btn').addEventListener('click', () => { showPage('matches-page'); loadMatches(); });
@@ -2321,6 +2461,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderBalancePanel('balance-teams-container');
         renderAdminPollsList();
         renderAdminComplaintsList();
+        renderOnlinePanel();
     });
     document.getElementById('complaint-btn-main').addEventListener('click', function() {
         const isLoggedIn = currentUser || marketState.currentCaptain;
@@ -2509,12 +2650,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
             this.classList.add('active');
             document.getElementById(`admin-tab-${this.dataset.tab}`).classList.add('active');
+            if (this.dataset.tab === 'online') renderOnlinePanel();
             if (this.dataset.tab === 'users') loadAllUsers();
             if (this.dataset.tab === 'balances') renderBalancePanel('balance-teams-container');
             if (this.dataset.tab === 'polls') renderAdminPollsList();
             if (this.dataset.tab === 'complaints') renderAdminComplaintsList();
         });
     });
+
+    const onlineRefreshBtn = document.getElementById('online-refresh-btn');
+    if (onlineRefreshBtn) {
+        onlineRefreshBtn.addEventListener('click', renderOnlinePanel);
+    }
 
     document.getElementById('admin-login-btn').addEventListener('click', function() {
         if (adminLoggedIn) adminLogout();
@@ -2578,6 +2725,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.deletePoll = deletePoll;
     window.toggleRulesSection = toggleRulesSection;
     window.resolveComplaint = resolveComplaint;
+
+    setInterval(() => {
+        const onlineTab = document.getElementById('admin-tab-online');
+        if (onlineTab && onlineTab.classList.contains('active') && adminLoggedIn) {
+            renderOnlinePanel();
+        }
+    }, 30000);
 
     setTimeout(() => {
         const preloader = document.getElementById('preloader');
@@ -2804,7 +2958,6 @@ async function respondToOffer(offerId, response) {
     updateOfferBadge();
     renderOffers();
 }
-
 function renderAdminPollsList() {
     const container = document.getElementById('admin-polls-list');
     if (!container) return;
