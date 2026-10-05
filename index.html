@@ -361,13 +361,30 @@
                 <button class="back-button" id="back-from-admin-panel">← Назад к главной</button>
                 <div class="admin-panel-container">
                     <h2>👑 Админ-панель</h2>
-                    <div class="admin-section-tabs">
-                        <button class="admin-section-tab active" data-tab="users">👥 Пользователи</button>
-                        <button class="admin-section-tab" data-tab="balances">💰 Балансы</button>
-                        <button class="admin-section-tab" data-tab="polls">📊 Опросы</button>
-                        <button class="admin-section-tab" data-tab="complaints">📢 Жалобы</button>
+<div class="admin-section-tabs">
+    <button class="admin-section-tab active" data-tab="online">🟢 Онлайн</button>
+    <button class="admin-section-tab" data-tab="users">👥 Пользователи</button>
+    <button class="admin-section-tab" data-tab="balances">💰 Балансы</button>
+    <button class="admin-section-tab" data-tab="polls">📊 Опросы</button>
+    <button class="admin-section-tab" data-tab="complaints">📢 Жалобы</button>
+</div>
                     </div>
-                    <div class="admin-tab-content active" id="admin-tab-users">
+                    <div class="admin-tab-content active" id="admin-tab-online">
+    <div class="online-panel">
+        <div class="online-header">
+            <div class="online-big-count">
+                <span class="online-live-dot"></span>
+                <span id="online-total-count">0</span>
+            </div>
+            <div class="online-label">сейчас на сайте</div>
+            <button class="online-refresh-btn" id="online-refresh-btn">🔄 Обновить</button>
+        </div>
+        <div class="online-users-list" id="online-users-list">
+            <p style="text-align:center;color:#666;padding:20px;">Загрузка...</p>
+        </div>
+    </div>
+</div>
+                    <div class="admin-tab-content" id="admin-tab-users">
                         <div id="users-list"></div>
                     </div>
                     <div class="admin-tab-content" id="admin-tab-balances">
