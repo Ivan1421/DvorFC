@@ -1,6 +1,3 @@
-// ============================================================
-// ДВОРОВАЯ ФУТБОЛЬНАЯ ЛИГА — вся логика в одном файле
-// ============================================================
 
 const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'maxim', 'raya', 'tankov'];
 const burmaldaPlayerIds = [];
@@ -428,37 +425,27 @@ function updateOfferBadge() {
 }
 
 async function saveMarketToSupabase() {
+    if (!supabaseClient) return false;
     try {
         const data = {
-            teams: {}, transferList: marketState.transferList || [],
+            teams: {}, 
+            transferList: marketState.transferList || [],
             pendingTransfers: marketState.pendingTransfers || {},
             transfers: marketState.transfers || [],
-            offers: marketState.offers || [], activeLoans: activeLoans || {}
+            offers: marketState.offers || [], 
+            activeLoans: activeLoans || {}
         };
         Object.keys(CAPTAINS).forEach(id => {
             data.teams[id] = { budget: CAPTAINS[id].budget, players: CAPTAINS[id].players };
         });
-        if (supabaseClient) {
-            const { error } = await supabaseClient.from('market').upsert({ id: 'market_data', data: data });
-            if (error) throw error;
-        } else localStorage.setItem('marketData', JSON.stringify(data));
-        saveLoansData();
+        const { error } = await supabaseClient
+            .from('market')
+            .upsert({ id: 'market_data', data: data });
+        if (error) throw error;
         return true;
     } catch (error) {
-        try {
-            const data = {
-                teams: {}, transferList: marketState.transferList || [],
-                pendingTransfers: marketState.pendingTransfers || {},
-                transfers: marketState.transfers || [],
-                offers: marketState.offers || [], activeLoans: activeLoans || {}
-            };
-            Object.keys(CAPTAINS).forEach(id => {
-                data.teams[id] = { budget: CAPTAINS[id].budget, players: CAPTAINS[id].players };
-            });
-            localStorage.setItem('marketData', JSON.stringify(data));
-            saveLoansData();
-            return true;
-        } catch (e) { return false; }
+        console.warn('⚠️ Ошибка сохранения в Supabase:', error);
+        return false;
     }
 }
 
@@ -513,8 +500,11 @@ function addTransfer(playerId, fromTeamId, toTeamId, price) {
     };
     marketState.transfers = marketState.transfers || [];
     marketState.transfers.unshift(transfer);
-    if (marketState.transfers.length > 50) marketState.transfers = marketState.transfers.slice(0, 50);
-    saveMarketData(); renderTransfers();
+    if (marketState.transfers.length > 100) {
+        marketState.transfers = marketState.transfers.slice(0, 100);
+    }
+    saveMarketData();
+    renderTransfers();
 }
 
 function renderTransfers() {
@@ -2743,44 +2733,76 @@ function renderOffers() {
 async function respondToOffer(offerId, response) {
     const offer = (marketState.offers || []).find(o => o.id === offerId);
     if (!offer || offer.status !== 'pending') return;
-    const toTeam = CAPTAINS[offer.toTeam];
-    const fromTeam = CAPTAINS[offer.fromTeam];
+
+    const renter = CAPTAINS[offer.fromTeam];   
+    const owner = CAPTAINS[offer.toTeam];     
+
+    if (!renter || !owner) {
+        showMarketNotification('❌ Команда не найдена!', 'error');
+        return;
+    }
+
     if (response === 'accepted') {
         if (offer.type === 'transfer') {
             const price = offer.price || 0;
-            if (toTeam.budget < price) { showMarketNotification('❌ Мало средств!', 'error'); return; }
-            toTeam.budget -= price;
-            fromTeam.budget += price;
-            const fromIdx = fromTeam.players.indexOf(offer.playerId);
-            if (fromIdx !== -1) fromTeam.players.splice(fromIdx, 1);
-            toTeam.players.push(offer.playerId);
-            marketData.players[offer.playerId].team = offer.toTeam;
-            addTransfer(offer.playerId, offer.fromTeam, offer.toTeam, price);
-            updateBudgetDisplay(); renderMyTeam(); updateMarketUI();
+            if (renter.budget < price) {
+                showMarketNotification('❌ У покупателя мало средств!', 'error');
+                return;
+            }
+            renter.budget -= price;
+            owner.budget += price;
+
+            const ownerIdx = owner.players.indexOf(offer.playerId);
+            if (ownerIdx !== -1) owner.players.splice(ownerIdx, 1);
+            renter.players.push(offer.playerId);
+            marketData.players[offer.playerId].team = offer.fromTeam;
+
+            addTransfer(offer.playerId, offer.toTeam, offer.fromTeam, price);
+            updateBudgetDisplay();
+            renderMyTeam();
+            updateMarketUI();
+            showMarketNotification(`✅ ${offer.playerName} продан за ${price}💰`, 'success');
+
         } else if (offer.type === 'loan') {
             const days = offer.loanDays || 7;
+            const price = offer.price || 0;
+
+            if (renter.budget < price) {
+                showMarketNotification('❌ У арендатора мало средств!', 'error');
+                return;
+            }
+            renter.budget -= price;
+            owner.budget += price;
+
             const endDate = new Date();
             endDate.setDate(endDate.getDate() + days);
+
             activeLoans[offer.playerId] = {
-                fromTeam: offer.toTeam, toTeam: offer.fromTeam,
-                endDate: endDate.toISOString(), startDate: new Date().toISOString(), days
+                fromTeam: offer.toTeam,
+                toTeam: offer.fromTeam,
+                endDate: endDate.toISOString(),
+                startDate: new Date().toISOString(),
+                days: days,
+                paidPrice: price
             };
-            const ownerIdx = toTeam.players.indexOf(offer.playerId);
-            if (ownerIdx !== -1) toTeam.players.splice(ownerIdx, 1);
-            if (!fromTeam.players.includes(offer.playerId)) fromTeam.players.push(offer.playerId);
+
+            const ownerIdx = owner.players.indexOf(offer.playerId);
+            if (ownerIdx !== -1) owner.players.splice(ownerIdx, 1);
+            if (!renter.players.includes(offer.playerId)) renter.players.push(offer.playerId);
             marketData.players[offer.playerId].team = offer.fromTeam;
-            fromTeam.budget -= offer.price;
-            toTeam.budget += offer.price;
+
             saveLoansData();
+            showMarketNotification(`✅ ${offer.playerName} в аренде на ${days} дн. за ${price}💰`, 'success');
         }
         offer.status = 'accepted';
     } else {
         offer.status = 'rejected';
+        showMarketNotification('❌ Отклонено', 'success');
     }
+
     await saveMarketData();
     updateOfferBadge();
     renderOffers();
-    showMarketNotification(response === 'accepted' ? '✅ Принято' : '❌ Отклонено', 'success');
 }
 
 function renderAdminPollsList() {
