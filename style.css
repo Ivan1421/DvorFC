@@ -2837,3 +2837,96 @@ footer {
     .match-score { font-size: 1.1rem; padding: 3px 9px; min-width: 48px; gap: 3px; }
     .match-score .score { min-width: 14px; }
 }
+
+.poll-unanswered-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: #ff1a3c;
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 0 rgba(255, 26, 60, 0.9),
+                0 4px 14px rgba(255, 26, 60, 0.7);
+    z-index: 20;
+    animation: pollBadgePulse 1.2s ease-in-out infinite;
+    pointer-events: none;
+    border: 2px solid var(--card);
+}
+
+.poll-unanswered-badge.hidden {
+    display: none;
+}
+
+@keyframes pollBadgePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 26, 60, 0.9),
+                    0 4px 14px rgba(255, 26, 60, 0.7);
+    }
+    50% {
+        transform: scale(1.25);
+        box-shadow: 0 0 0 12px rgba(255, 26, 60, 0),
+                    0 6px 20px rgba(255, 26, 60, 0.9);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 26, 60, 0.9),
+                    0 4px 14px rgba(255, 26, 60, 0.7);
+    }
+}
+
+/* Подсветка и пульсация опроса, в котором пользователь не голосовал */
+.poll-item.poll-unanswered {
+    border-color: #ff1a3c !important;
+    box-shadow: 0 0 0 0 rgba(255, 26, 60, 0.7),
+                0 8px 24px rgba(255, 26, 60, 0.35) !important;
+    animation: pollUnansweredPulse 1.6s ease-in-out infinite;
+    position: relative;
+}
+
+@keyframes pollUnansweredPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 26, 60, 0.7),
+                    0 8px 24px rgba(255, 26, 60, 0.35);
+        border-color: #ff1a3c;
+    }
+    50% {
+        box-shadow: 0 0 0 14px rgba(255, 26, 60, 0),
+                    0 10px 30px rgba(255, 26, 60, 0.55);
+        border-color: #ff4d6a;
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 26, 60, 0.7),
+                    0 8px 24px rgba(255, 26, 60, 0.35);
+        border-color: #ff1a3c;
+    }
+}
+
+
+.poll-unanswered-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1a3c, #c1121f);
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    animation: pollLabelBlink 1s ease-in-out infinite;
+    box-shadow: 0 3px 12px rgba(255, 26, 60, 0.5);
+}
+
+@keyframes pollLabelBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.05); }
+}
