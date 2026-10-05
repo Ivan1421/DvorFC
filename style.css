@@ -2930,3 +2930,205 @@ footer {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.55; transform: scale(1.05); }
 }
+.online-panel {
+    padding: 8px 0;
+}
+
+.online-header {
+    text-align: center;
+    padding: 24px 16px;
+    background: linear-gradient(135deg, rgba(22, 163, 74, 0.1), rgba(0, 102, 204, 0.1));
+    border-radius: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    border: 2px solid rgba(22, 163, 74, 0.3);
+}
+
+.online-big-count {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #16a34a;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1;
+}
+
+.online-live-dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #16a34a;
+    animation: liveDotPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6);
+}
+
+@keyframes liveDotPulse {
+    0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6); }
+    50% { box-shadow: 0 0 0 12px rgba(22, 163, 74, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6); }
+}
+
+.online-label {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.online-refresh-btn {
+    margin-top: 14px;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 2px solid #16a34a;
+    background: var(--card);
+    color: #16a34a;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.online-refresh-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.3);
+}
+
+.online-users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.online-user-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    transition: transform .2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.online-user-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #16a34a;
+    animation: onlineBarPulse 2s ease-in-out infinite;
+}
+
+@keyframes onlineBarPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.online-user-card.role-captain::before { background: #0066cc; }
+.online-user-card.role-admin::before { background: #8e44ad; }
+
+.online-user-card:hover {
+    transform: translateX(4px);
+    border-color: #16a34a;
+}
+
+.online-user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid #16a34a;
+    background: var(--bg-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    font-size: 1.5rem;
+}
+
+.online-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.online-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.online-user-name {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.online-user-meta {
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.online-role-pill {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+}
+
+.online-role-pill.user {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.online-role-pill.captain {
+    background: #eaf3ff;
+    color: #0066cc;
+}
+
+.online-role-pill.admin {
+    background: linear-gradient(135deg, #8e44ad, #6c3483);
+    color: #fff;
+}
+
+.dark-theme .online-role-pill.user { background: #0a2a1a; color: #4ade80; }
+.dark-theme .online-role-pill.captain { background: #16233d; color: #4dabf7; }
+
+.online-user-time {
+    font-size: 0.72rem;
+    color: #16a34a;
+    font-weight: 700;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.online-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.online-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
