@@ -66,9 +66,9 @@ const yard78Players = [
 const yuzhkaPlayers = [
     { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 98, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
     { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 94, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
-    { id: "bombar", name: "Бомбарь", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
-    { id: "mes", name: "Мес", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
-    { id: "shilov", name: "Дима Шилов", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
+    { id: "bombar", name: "Батардинов Михаил", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
+    { id: "mes", name: "Кирьянов Артем", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
+    { id: "shilov", name: "Шилов Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
     { id: "diana", name: "Диана Епончинцева", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} }
 ];
 
@@ -80,7 +80,7 @@ const arsenalPlayers = [
 ];
 
 const zvezdaPlayers = [
-    { id: "david", name: "Давиташвили", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "60 кг", rating: 85, number: "(10)", description: "Лидер атак ФК Звёзды", playstyles: [], playstyleColors: {} },
+    { id: "david", name: "Дарсалия Давид", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "60 кг", rating: 85, number: "(10)", description: "Лидер атак ФК Звёзды", playstyles: [], playstyleColors: {} },
     { id: "matveyB", name: "Матвей Бобов", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "80 кг", rating: 83, number: "(14)", description: "Вратарь Фк звёзды", playstyles: [], playstyleColors: {} },
     { id: "nazar", name: "Осинцев Назар", position: "Защитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "100 кг", rating: 56, number: "(67)", description: "Супертяжелый вес", playstyles: [], playstyleColors: {} },
     { id: "kuharskiy", name: "Кухарский Тимофей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "35 кг", rating: 76, number: "(3)", description: "Самый младший из Звезд", playstyles: [], playstyleColors: {} },
@@ -109,12 +109,12 @@ const psgPlayerIds = psgPlayers.map(p => p.id);
 const zvezdaPlayerIds = zvezdaPlayers.map(p => p.id);
 
 const CAPTAINS = {
-    mera: { id: 'mera', name: 'ФК "МЕРА"', captain: 'Капитан МЕРЫ', budget: 1635, players: meraTeamIds, logo: './Photos%20(2)/IMG_0807.jpeg' },
-    school78: { id: 'school78', name: 'ФК 78 школа', captain: 'Капитан 78 школы', budget: 470, players: yard78PlayerIds, logo: './Photos%20(2)/IMG_0797.jpeg' },
+    mera: { id: 'mera', name: 'ФК "МЕРА"', captain: 'Капитан МЕРЫ', budget: 1985, players: meraTeamIds, logo: './Photos%20(2)/IMG_0807.jpeg' },
+    school78: { id: 'school78', name: 'ФК 78 школа', captain: 'Капитан 78 школы', budget: 25, players: yard78PlayerIds, logo: './Photos%20(2)/IMG_0797.jpeg' },
     yuzhka: { id: 'yuzhka', name: 'ФК Южный', captain: 'Капитан Южного', budget: 625, players: yuzhkaPlayerIds, logo: './Photos%20(2)/IMG_0800.jpeg' },
-    arsenal: { id: 'arsenal', name: 'ФК Арсенал', captain: 'Капитан Арсенала', budget: 175, players: arsenalPlayerIds, logo: './Photos%20(2)/IMG_0853.jpeg' },
-    psg: { id: 'psg', name: 'ФК ПСЖ', captain: 'Капитан ПСЖ', budget: 375, players: psgPlayerIds, logo: './Photos%20(2)/IMG_0833.jpeg' },
-    zvezda: { id: 'zvezda', name: 'ФК Звёзды', captain: 'Капитан Звёзд', budget: 500, players: zvezdaPlayerIds, logo: './Photos%20(2)/IMG_0801.jpeg' }
+    arsenal: { id: 'arsenal', name: 'ФК Арсенал', captain: 'Капитан Арсенала', budget: 300, players: arsenalPlayerIds, logo: './Photos%20(2)/IMG_0853.jpeg' },
+    psg: { id: 'psg', name: 'ФК ПСЖ', captain: 'Капитан ПСЖ', budget: 300, players: psgPlayerIds, logo: './Photos%20(2)/IMG_0833.jpeg' },
+    zvezda: { id: 'zvezda', name: 'ФК Звёзды', captain: 'Капитан Звёзд', budget: 0, players: zvezdaPlayerIds, logo: './Photos%20(2)/IMG_0801.jpeg' }
 };
 
 const matchTacticsData = {};
