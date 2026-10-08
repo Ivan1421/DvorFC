@@ -66,10 +66,10 @@ const yard78Players = [
 const yuzhkaPlayers = [
     { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 98, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
     { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 94, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
-    { id: "bombar", name: "Батардинов Михаил", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
+    { id: "bombar", name: "Бадартинов Михаил", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
     { id: "mes", name: "Кирьянов Артем", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
     { id: "shilov", name: "Шилов Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
-    { id: "diana", name: "Диана Епончинцева", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} }
+    { id: "diana", name: "Епончинцева Диана", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} }
 ];
 
 const arsenalPlayers = [
@@ -112,7 +112,7 @@ const CAPTAINS = {
     mera: { id: 'mera', name: 'ФК "МЕРА"', captain: 'Капитан МЕРЫ', budget: 1985, players: meraTeamIds, logo: './Photos%20(2)/IMG_0807.jpeg' },
     school78: { id: 'school78', name: 'ФК 78 школа', captain: 'Капитан 78 школы', budget: 25, players: yard78PlayerIds, logo: './Photos%20(2)/IMG_0797.jpeg' },
     yuzhka: { id: 'yuzhka', name: 'ФК Южный', captain: 'Капитан Южного', budget: 625, players: yuzhkaPlayerIds, logo: './Photos%20(2)/IMG_0800.jpeg' },
-    arsenal: { id: 'arsenal', name: 'ФК Арсенал', captain: 'Капитан Арсенала', budget: 300, players: arsenalPlayerIds, logo: './Photos%20(2)/IMG_0853.jpeg' },
+    arsenal: { id: 'arsenal', name: 'ФК Арсенал', captain: 'Капитан Арсенала', budget: 470, players: arsenalPlayerIds, logo: './Photos%20(2)/IMG_0853.jpeg' },
     psg: { id: 'psg', name: 'ФК ПСЖ', captain: 'Капитан ПСЖ', budget: 300, players: psgPlayerIds, logo: './Photos%20(2)/IMG_0833.jpeg' },
     zvezda: { id: 'zvezda', name: 'ФК Звёзды', captain: 'Капитан Звёзд', budget: 0, players: zvezdaPlayerIds, logo: './Photos%20(2)/IMG_0801.jpeg' }
 };
@@ -2274,6 +2274,7 @@ function initRulesAccordion() {
             { num: '6.4.1', text: 'Если матч рассудили предвзято, его результат будет аннулирован, а судья наказан дисквалификацией.'},
             { num: '6.4.2', text: 'Если при пункте 6.4.1 будет доказана виновность команды, она наказывается штрафом 75-125 монет и дисквалификацией/трансферным баном.'},
             { num: '6.5', text: 'Если команда не проводит матчи без причины более 4 месяцев, она исчезает из сайта, а все данные, матчи с данной командой будут стерты.' },
+            { num: '6.6', text: 'Необоснованное обогащение засчет команды, находящейся в кризисе или критической ситуации, наказывается штрафом в размере обогащения команды.'},
         ]},
         { section: '7', title: 'Полномочия организаторов Лиги', rules: [
             { num: '7.1.1', text: 'Организаторы Лиги имеют наиболее расширенные полномочия, чем обычные игроки/судьи.' },
