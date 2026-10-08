@@ -2455,7 +2455,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
     document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
     document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
-    document.getElementById('polls-btn').addEventListener('click', () => { showPage('polls-page'); loadPolls(); });
     document.getElementById('admin-panel-btn').addEventListener('click', () => {
         showPage('admin-panel-page');
         loadAllUsers();
