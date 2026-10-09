@@ -715,14 +715,25 @@ function removeFromMarket(playerId) {
 }
 
 function openSellDialog(playerId) {
-    if (isPlayerOnLoan(playerId)) { showMarketNotification('❌ В аренде!', 'error'); return; }
+    if (isPlayerOnLoan(playerId)) {
+        showMarketNotification('❌ В аренде!', 'error');
+        return;
+    }
+
+    if (INFINITE_PRICE_PLAYERS.includes(playerId)) {
+        sellPlayer(playerId, INFINITE_PRICE_VALUE);
+        return;
+    }
+
     const price = prompt('Введите цену (мин. 50):', '500');
     if (price === null) return;
     const priceNum = parseInt(price);
-    if (isNaN(priceNum) || priceNum < 50) { showMarketNotification('❌ Минимум 50!', 'error'); return; }
+    if (isNaN(priceNum) || priceNum < 50) {
+        showMarketNotification('❌ Минимум 50!', 'error');
+        return;
+    }
     sellPlayer(playerId, priceNum);
 }
-
 function getPlayerPhoto(playerId, className = '') {
     const photo = typeof playerPhotos !== 'undefined' && playerPhotos[playerId] ? playerPhotos[playerId] : null;
     if (photo) return `<div class="${className}"><img src="${photo}" alt="Фото"></div>`;
