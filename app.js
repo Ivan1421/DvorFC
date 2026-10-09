@@ -1,5 +1,7 @@
 const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'maxim', 'raya', 'tankov'];
 const burmaldaPlayerIds = [];
+const INFINITE_PRICE_PLAYERS = ['raya', 'aleksey_doroshenko', 'maxim'];
+const INFINITE_PRICE_VALUE = 999999999999;
 
 const playstyleDescriptions = {
     'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
@@ -647,6 +649,7 @@ function renderTransfers() {
         const fromClass = transfer.fromTeam || 'unknown';
         const toClass = transfer.toTeam || 'unknown';
         const timeStr = new Date(transfer.time).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+        const priceDisplay = transfer.price >= INFINITE_PRICE_VALUE ? '♾️' : transfer.price;
         html += `<div class="transfer-item">
             <div class="transfer-player"><span>${transfer.playerIcon}</span>${transfer.playerName}</div>
             <div>
@@ -655,7 +658,7 @@ function renderTransfers() {
                 <span class="transfer-team-badge ${toClass}">${toName}</span>
             </div>
             <div>
-                <span class="transfer-price">💰 ${transfer.price}</span>
+                <span class="transfer-price">💰 ${priceDisplay}</span>
                 <span class="transfer-time">🕐 ${timeStr}</span>
             </div>
         </div>`;
@@ -666,6 +669,10 @@ function renderTransfers() {
 function buyPlayer(playerId, price, sellerId) {
     const captainTeamId = marketState.currentCaptain;
     if (!captainTeamId) { showMarketNotification('❌ Войдите как капитан!', 'error'); return; }
+    if (INFINITE_PRICE_PLAYERS.includes(playerId)) {
+        showMarketNotification('❌ Этот игрок не продаётся!', 'error');
+        return;
+    }
     if (isPlayerOnLoan(playerId)) { showMarketNotification('❌ Игрок в аренде!', 'error'); return; }
     const buyerTeam = CAPTAINS[captainTeamId];
     const player = marketData.players[playerId];
@@ -696,7 +703,14 @@ function sellPlayer(playerId, price) {
     const player = marketData.players[playerId];
     if (!player || !team.players.includes(playerId)) { showMarketNotification('❌ Не ваш игрок!', 'error'); return; }
     if (marketState.pendingTransfers[playerId]) { showMarketNotification('❌ Уже на рынке!', 'error'); return; }
-    if (price < 50) { showMarketNotification('❌ Минимум 50 монет!', 'error'); return; }
+
+    if (INFINITE_PRICE_PLAYERS.includes(playerId)) {
+        price = INFINITE_PRICE_VALUE;
+    } else if (price < 50) {
+        showMarketNotification('❌ Минимум 50 монет!', 'error');
+        return;
+    }
+
     marketState.transferList.push({ playerId, seller: captainTeamId, price });
     marketState.pendingTransfers[playerId] = { seller: captainTeamId, price };
     showMarketNotification(`📢 ${player.name} выставлен!`, 'success');
@@ -734,6 +748,7 @@ function openSellDialog(playerId) {
     }
     sellPlayer(playerId, priceNum);
 }
+
 function getPlayerPhoto(playerId, className = '') {
     const photo = typeof playerPhotos !== 'undefined' && playerPhotos[playerId] ? playerPhotos[playerId] : null;
     if (photo) return `<div class="${className}"><img src="${photo}" alt="Фото"></div>`;
@@ -762,22 +777,24 @@ function updateMarketUI() {
         const isMine = marketState.currentCaptain && marketState.pendingTransfers[transfer.playerId]?.seller === marketState.currentCaptain;
         const canBuy = marketState.currentCaptain && transfer.seller !== marketState.currentCaptain && !CAPTAINS[marketState.currentCaptain].players.includes(transfer.playerId);
         const sellerTeam = CAPTAINS[transfer.seller];
+        const priceDisplay = transfer.price >= INFINITE_PRICE_VALUE ? '♾️' : transfer.price;
+        const buyBtnHtml = INFINITE_PRICE_PLAYERS.includes(transfer.playerId)
+            ? `<button style="background:#6c757d;color:white;padding:10px;border-radius:30px;border:none;width:100%;" disabled>🚫 Не продаётся</button>`
+            : (isMine ? `<button class="sell-btn" onclick="removeFromMarket('${transfer.playerId}')">❌ Снять</button>`
+                : canBuy ? `<button class="buy-btn" onclick="buyPlayer('${transfer.playerId}', ${transfer.price}, '${transfer.seller}')">🛒 Купить</button>`
+                : marketState.currentCaptain === transfer.seller ? `<button style="background:#ffc107;color:#333;padding:10px;border-radius:30px;border:none;font-weight:bold;width:100%;" disabled>⏳ Ваш игрок</button>`
+                : `<button style="background:#6c757d;color:white;padding:10px;border-radius:30px;border:none;width:100%;" disabled>🔒 Войдите</button>`);
         html += `<div class="market-player-card">
             ${getPlayerPhoto(transfer.playerId, 'player-photo-market')}
             <h4>${player.name}</h4>
             <p style="color:#666;">${player.position} • Рейтинг: ${player.rating}</p>
             <p style="font-size:0.8rem;color:#888;">Команда: ${sellerTeam ? sellerTeam.name : 'Неизвестно'}</p>
-            <div class="player-price">💰 ${transfer.price} монет</div>
-            ${isMine ? `<button class="sell-btn" onclick="removeFromMarket('${transfer.playerId}')">❌ Снять</button>` :
-                canBuy ? `<button class="buy-btn" onclick="buyPlayer('${transfer.playerId}', ${transfer.price}, '${transfer.seller}')">🛒 Купить</button>` :
-                marketState.currentCaptain === transfer.seller ? `<button style="background:#ffc107;color:#333;padding:10px;border-radius:30px;border:none;font-weight:bold;width:100%;" disabled>⏳ Ваш игрок</button>` :
-                `<button style="background:#6c757d;color:white;padding:10px;border-radius:30px;border:none;width:100%;" disabled>🔒 Войдите</button>`
-            }
+            <div class="player-price">💰 ${priceDisplay} монет</div>
+            ${buyBtnHtml}
         </div>`;
     });
     grid.innerHTML = html;
 }
-
 function renderMyTeam() {
     const grid = document.getElementById('my-team-grid');
     const captainTeamId = marketState.currentCaptain;
@@ -1111,6 +1128,7 @@ function showPage(pageId) {
     document.getElementById(pageId).classList.add('active');
     window.scrollTo(0, 0);
 }
+
 async function loadMatches() {
     try {
         if (!supabaseClient) { renderMatchesEmpty('❌ Supabase не подключен'); return; }
@@ -1284,6 +1302,7 @@ async function addTeamBalance(teamId, amount) {
 }
 
 function openAddMatchModal() {
+    if (!adminLoggedIn) { showMarketNotification('❌ Только админ!', 'error'); return; }
     document.getElementById('match-add-modal').classList.add('active');
     document.getElementById('match-add-status').textContent = '';
     populateTeamSelects('add-match-team1', 'add-match-team2');
@@ -1293,6 +1312,7 @@ function openAddMatchModal() {
 }
 
 function openEditMatchModal(matchId) {
+    if (!adminLoggedIn) { showMarketNotification('❌ Только админ!', 'error'); return; }
     const match = matchesData.find(m => m.id == matchId);
     if (!match) return;
     currentEditingMatchId = matchId;
@@ -1331,6 +1351,7 @@ function populateTeamSelects(select1Id, select2Id) {
 }
 
 async function addMatch() {
+    if (!adminLoggedIn) { showMarketNotification('❌ Только админ!', 'error'); return; }
     const date = document.getElementById('add-match-date').value;
     const time = document.getElementById('add-match-time').value;
     const team1 = document.getElementById('add-match-team1').value;
@@ -1351,6 +1372,7 @@ async function addMatch() {
 }
 
 async function saveEditMatch() {
+    if (!adminLoggedIn) { showMarketNotification('❌ Только админ!', 'error'); return; }
     if (!currentEditingMatchId) return;
     const match = matchesData.find(m => m.id == currentEditingMatchId);
     if (!match) return;
@@ -1370,6 +1392,7 @@ async function saveEditMatch() {
 }
 
 async function deleteMatch() {
+    if (!adminLoggedIn) { showMarketNotification('❌ Только админ!', 'error'); return; }
     if (!currentEditingMatchId || !confirm('Удалить матч?')) return;
     matchesData = matchesData.filter(m => m.id != currentEditingMatchId);
     await saveMatchesToSupabase();
@@ -2218,8 +2241,7 @@ function openAccountModal() {
         document.getElementById('account-player-position').textContent = player ? player.position : '—';
         const teamId = playerId ? Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId)) : null;
         document.getElementById('account-player-team').textContent = teamId ? CAPTAINS[teamId].name : '—';
-const INFINITE_PRICE_PLAYERS = ['raya', 'aleksey_doroshenko', 'maxim'];
-const INFINITE_PRICE_VALUE = 999999999999;
+
         const adminPanelBtn = document.getElementById('account-admin-panel-btn');
         const adminLoginBtn = document.getElementById('account-admin-login-btn');
         const adminLogoutBtn = document.getElementById('account-admin-logout-btn');
@@ -2807,6 +2829,7 @@ function openMakeOffer() {
     select.innerHTML = '';
     Object.keys(playersData).forEach(id => {
         if (isPlayerOnLoan(id)) return;
+        if (INFINITE_PRICE_PLAYERS.includes(id)) return;
         const teamId = Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(id));
         if (teamId && teamId !== marketState.currentCaptain) {
             const player = playersData[id];
@@ -2829,6 +2852,10 @@ async function submitOffer() {
     const fromTeamId = marketState.currentCaptain;
     if (!fromTeamId) return;
     const playerId = document.getElementById('offer-player-select').value;
+    if (INFINITE_PRICE_PLAYERS.includes(playerId)) {
+        showMarketNotification('❌ На этого игрока нельзя сделать предложение!', 'error');
+        return;
+    }
     const offerType = document.getElementById('offer-type').value;
     const price = parseInt(document.getElementById('offer-price').value);
     const loanDays = parseInt(document.getElementById('offer-loan-days').value);
@@ -2900,6 +2927,14 @@ function renderOffers() {
 async function respondToOffer(offerId, response) {
     const offer = (marketState.offers || []).find(o => o.id === offerId);
     if (!offer || offer.status !== 'pending') return;
+
+    if (INFINITE_PRICE_PLAYERS.includes(offer.playerId)) {
+        offer.status = 'rejected';
+        await saveMarketData();
+        renderOffers();
+        showMarketNotification('❌ Этот игрок не продаётся!', 'error');
+        return;
+    }
 
     const renter = CAPTAINS[offer.fromTeam];
     const owner = CAPTAINS[offer.toTeam];
