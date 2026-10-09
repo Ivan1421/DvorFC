@@ -2207,7 +2207,8 @@ function openAccountModal() {
         document.getElementById('account-player-position').textContent = player ? player.position : '—';
         const teamId = playerId ? Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(playerId)) : null;
         document.getElementById('account-player-team').textContent = teamId ? CAPTAINS[teamId].name : '—';
-
+const INFINITE_PRICE_PLAYERS = ['raya', 'aleksey_doroshenko', 'maxim'];
+const INFINITE_PRICE_VALUE = 999999999999;
         const adminPanelBtn = document.getElementById('account-admin-panel-btn');
         const adminLoginBtn = document.getElementById('account-admin-login-btn');
         const adminLogoutBtn = document.getElementById('account-admin-logout-btn');
