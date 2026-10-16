@@ -3128,7 +3128,6 @@ footer {
     margin-bottom: 12px;
     opacity: 0.5;
 }
-/* ================= TIKTOK SHOWCASE (ЧБ) ================= */
 .tiktok-showcase {
     position: relative;
     margin: 28px 0 18px;
@@ -3152,7 +3151,6 @@ footer {
     to   { opacity: 1; transform: none; }
 }
 
-/* Вращающееся ЧБ кольцо по периметру */
 .tiktok-showcase-glow {
     position: absolute;
     inset: -2px;
@@ -3183,7 +3181,6 @@ footer {
     to { --angle: 360deg; }
 }
 
-/* Заголовок */
 .tiktok-showcase-header {
     text-align: center;
     margin-bottom: 22px;
@@ -3243,7 +3240,6 @@ footer {
     text-transform: uppercase;
 }
 
-/* Профили */
 .tiktok-profiles {
     display: flex;
     flex-direction: column;
@@ -3274,7 +3270,6 @@ footer {
 .tiktok-profile:hover { transform: translateY(-4px) scale(1.01); }
 .tiktok-profile:active { transform: translateY(-1px) scale(.99); }
 
-/* ЧБ вращающееся кольцо вокруг карточки */
 .tiktok-profile-ring {
     position: absolute;
     inset: -50%;
@@ -3326,23 +3321,54 @@ footer {
     border-color: #fff;
 }
 
-/* Аватар — чб */
 .tiktok-profile-avatar {
     position: relative;
-    width: 54px;
-    height: 54px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     display: grid;
     place-items: center;
     background: #1a1a1a;
     border: 2px solid #fff;
     flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(255,255,255,.08);
-    transition: transform .3s;
+    box-shadow: 0 4px 16px rgba(255,255,255,.12);
+    transition: transform .3s, box-shadow .3s;
+    overflow: hidden;
+}
+
+.tiktok-profile-avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border-radius: 50%;
+    filter: grayscale(1) contrast(1.05) brightness(1.05);
+    transition: filter .4s, transform .4s;
+    z-index: 2;
+}
+
+.tiktok-profile:hover .tiktok-profile-avatar img {
+    filter: grayscale(0) contrast(1) brightness(1);
+    transform: scale(1.08);
 }
 
 .tiktok-profile:hover .tiktok-profile-avatar {
-    transform: rotate(-8deg) scale(1.06);
+    transform: rotate(-6deg) scale(1.05);
+    box-shadow: 0 6px 22px rgba(255,255,255,.3);
+}
+
+.tiktok-profile-avatar.no-photo::before {
+    content: attr(data-emoji);
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 1.7rem;
+    filter: grayscale(1) brightness(1.6);
+    z-index: 2;
 }
 
 .tiktok-avatar-emoji {
@@ -3352,24 +3378,23 @@ footer {
     filter: grayscale(1) brightness(1.6);
 }
 
-/* ЧБ пульс */
 .tiktok-avatar-pulse {
     position: absolute;
-    inset: 0;
+    inset: -4px;
     border-radius: 50%;
-    background: #fff;
+    border: 2px solid #fff;
     animation: avatarPulse 2.4s ease-out infinite;
     z-index: 1;
-    opacity: .35;
+    opacity: .5;
+    pointer-events: none;
 }
 
 @keyframes avatarPulse {
-    0%   { transform: scale(1);   opacity: .35; }
-    70%  { transform: scale(1.6); opacity: 0; }
-    100% { transform: scale(1.6); opacity: 0; }
+    0%   { transform: scale(.9);  opacity: .5; }
+    70%  { transform: scale(1.35); opacity: 0; }
+    100% { transform: scale(1.35); opacity: 0; }
 }
 
-/* Инфо */
 .tiktok-profile-info {
     min-width: 0;
     display: flex;
@@ -3409,7 +3434,6 @@ footer {
     text-overflow: ellipsis;
 }
 
-/* Стрелка — чб */
 .tiktok-profile-arrow {
     width: 40px;
     height: 40px;
@@ -3436,7 +3460,6 @@ footer {
     box-shadow: 0 6px 18px rgba(255,255,255,.25);
 }
 
-/* Мобильная адаптация */
 @media (max-width: 480px) {
     .tiktok-showcase {
         padding: 22px 14px 18px;
@@ -3453,10 +3476,9 @@ footer {
         border-radius: 14px;
     }
     .tiktok-profile-avatar {
-        width: 46px;
-        height: 46px;
+        width: 48px;
+        height: 48px;
     }
-    .tiktok-avatar-emoji { font-size: 1.35rem; }
     .tiktok-profile-name { font-size: 1rem; }
     .tiktok-profile-role { font-size: .7rem; }
     .tiktok-profile-handle { font-size: .68rem; }
@@ -3467,7 +3489,6 @@ footer {
     .tiktok-profile-arrow svg { width: 16px; height: 16px; }
 }
 
-/* Отключаем тяжёлые анимации для слабых устройств */
 @media (prefers-reduced-motion: reduce) {
     .tiktok-showcase-glow,
     .tiktok-logo-big,
