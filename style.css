@@ -3352,7 +3352,6 @@ footer {
 .tiktok-profile:hover .tiktok-profile-avatar img {
     transform: scale(1.08);
 }
-
 .tiktok-profile:hover .tiktok-profile-avatar {
     transform: rotate(-6deg) scale(1.05);
     box-shadow: 0 6px 22px rgba(255,255,255,.3);
