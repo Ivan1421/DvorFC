@@ -12,9 +12,9 @@
     <meta name="twitter:card" content="summary">
 
 <link rel="stylesheet" href="style.css">
-
+...
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+<!-- ... потом ... -->
 <script src="novost.js"></script>
 <script src="photos.js"></script>
 <script src="app.js"></script>
@@ -102,18 +102,17 @@
             </svg>
         </div>
         <h2 class="tiktok-showcase-title">Подписывайтесь на нас</h2>
-     
+        <p class="tiktok-showcase-subtitle">Наши звёзды в TikTok</p>
     </div>
 
     <div class="tiktok-profiles">
-        <!-- Я -->
         <a href="https://www.tiktok.com/@arseenalforever1?_r=1&_t=ZT-98sRArbsg9t" target="_blank" rel="noopener" class="tiktok-profile">
             <div class="tiktok-profile-ring"></div>
             <div class="tiktok-profile-inner">
-<div class="tiktok-profile-avatar">
-    <img src="./Photos%20(2)/raya.jpg" alt="Шустик">
-    <span class="tiktok-avatar-pulse"></span>
-</div>
+                <div class="tiktok-profile-avatar">
+                    <img src="./Photos%20(2)/raya.jpg" alt="Шустик" onerror="this.style.display='none'; this.parentElement.classList.add('no-photo'); this.parentElement.setAttribute('data-emoji','🧤');">
+                    <span class="tiktok-avatar-pulse"></span>
+                </div>
                 <div class="tiktok-profile-info">
                     <div class="tiktok-profile-name">Шустик</div>
                     <div class="tiktok-profile-role">Вратарь ФК МЕРА</div>
@@ -126,6 +125,28 @@
                 </div>
             </div>
         </a>
+
+        <a href="https://www.tiktok.com/@bmw_fcsm_08?_r=1&_t=ZT-9AFgMihwfV8" target="_blank" rel="noopener" class="tiktok-profile">
+            <div class="tiktok-profile-ring"></div>
+            <div class="tiktok-profile-inner">
+                <div class="tiktok-profile-avatar">
+                    <img src="./Photos%20(2)/IMG_0755.jpeg" alt="Максим" onerror="this.style.display='none'; this.parentElement.classList.add('no-photo'); this.parentElement.setAttribute('data-emoji','🛡');">
+                    <span class="tiktok-avatar-pulse"></span>
+                </div>
+                <div class="tiktok-profile-info">
+                    <div class="tiktok-profile-name">Максим</div>
+                    <div class="tiktok-profile-role">Защитник ФК МЕРА</div>
+                    <div class="tiktok-profile-handle">@bmw_fcsm_08</div>
+                </div>
+                <div class="tiktok-profile-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
         <!-- Максим -->
         <a href="https://www.tiktok.com/@bmw_fcsm_08?_r=1&_t=ZT-9AFgMihwfV8" target="_blank" rel="noopener" class="tiktok-profile">
@@ -757,7 +778,7 @@
         </div>
     </div>
 
-    <!-- ===================== COMPLAINT MODAL ===================== -->
+  
     <div class="modal-overlay" id="complaint-modal">
         <div class="modal">
             <button class="modal-close-btn" id="complaint-close">×</button>
@@ -785,7 +806,7 @@
         </div>
     </div>
 
-    <!-- ===================== CREATE POLL MODAL ===================== -->
+
     <div class="modal-overlay" id="create-poll-modal">
         <div class="modal">
             <button class="modal-close-btn" id="create-poll-close">×</button>
@@ -808,7 +829,7 @@
         </div>
     </div>
 
-    <!-- ===================== PLAYSTYLE DETAIL ===================== -->
+ 
     <div class="playstyle-detail-overlay" id="playstyle-detail-overlay">
         <div class="playstyle-detail-card" id="playstyle-detail-card">
             <button class="close-btn" id="playstyle-detail-close">✕</button>
@@ -818,7 +839,7 @@
         </div>
     </div>
 
-    <!-- ===================== SECRET MODAL ===================== -->
+
     <div class="secret-overlay" id="secret-overlay">
         <div class="secret-modal">
             <button class="secret-close" id="secret-close">✕</button>
