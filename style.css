@@ -3128,3 +3128,352 @@ footer {
     margin-bottom: 12px;
     opacity: 0.5;
 }
+/* ================= TIKTOK SHOWCASE (ЧБ) ================= */
+.tiktok-showcase {
+    position: relative;
+    margin: 28px 0 18px;
+    padding: 28px 22px 24px;
+    border-radius: 24px;
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6);
+    overflow: hidden;
+    isolation: isolate;
+    animation: showcaseIn .7s cubic-bezier(.2,.8,.2,1) backwards;
+}
+
+.dark-theme .tiktok-showcase {
+    background: #000;
+    border-color: #1f1f1f;
+}
+
+@keyframes showcaseIn {
+    from { opacity: 0; transform: translateY(24px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* Вращающееся ЧБ кольцо по периметру */
+.tiktok-showcase-glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 26px;
+    padding: 1.5px;
+    background: conic-gradient(from var(--angle, 0deg),
+        #000 0deg,
+        #fff 90deg,
+        #000 180deg,
+        #fff 270deg,
+        #000 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: rotateGlow 5s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .8;
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes rotateGlow {
+    to { --angle: 360deg; }
+}
+
+/* Заголовок */
+.tiktok-showcase-header {
+    text-align: center;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 2;
+}
+
+.tiktok-logo-big {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 12px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: #000;
+    border: 2px solid #fff;
+    box-shadow: 0 8px 24px rgba(255,255,255,.15);
+    animation: logoFloat 3s ease-in-out infinite;
+}
+
+.tiktok-logo-big svg {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.2));
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50%      { transform: translateY(-6px) rotate(3deg); }
+}
+
+.tiktok-showcase-title {
+    font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -.02em;
+    margin-bottom: 4px;
+    background: linear-gradient(90deg, #666, #fff 50%, #666);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleShimmer 4s ease infinite;
+}
+
+@keyframes titleShimmer {
+    0%, 100% { background-position: 0% center; }
+    50%      { background-position: 100% center; }
+}
+
+.tiktok-showcase-subtitle {
+    font-size: .8rem;
+    color: #888;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* Профили */
+.tiktok-profiles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.tiktok-profile {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    border-radius: 18px;
+    padding: 2px;
+    overflow: hidden;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    animation: profileIn .6s cubic-bezier(.2,.8,.2,1) backwards;
+}
+
+.tiktok-profile:nth-child(1) { animation-delay: .15s; }
+.tiktok-profile:nth-child(2) { animation-delay: .3s; }
+
+@keyframes profileIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: none; }
+}
+
+.tiktok-profile:hover { transform: translateY(-4px) scale(1.01); }
+.tiktok-profile:active { transform: translateY(-1px) scale(.99); }
+
+/* ЧБ вращающееся кольцо вокруг карточки */
+.tiktok-profile-ring {
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(from 0deg,
+        transparent 0deg,
+        #fff 80deg,
+        #888 140deg,
+        transparent 200deg,
+        transparent 360deg);
+    animation: ringSpin 3s linear infinite;
+    opacity: 0;
+    transition: opacity .4s;
+    z-index: 0;
+}
+
+.tiktok-profile:hover .tiktok-profile-ring { opacity: 1; }
+
+@keyframes ringSpin {
+    to { transform: rotate(360deg); }
+}
+
+.tiktok-profile-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: #111;
+    border: 1px solid #262626;
+    z-index: 1;
+    transition: border-color .3s, background .3s;
+    overflow: hidden;
+}
+
+.dark-theme .tiktok-profile-inner {
+    background: #0d0d0d;
+    border-color: #1f1f1f;
+}
+
+.tiktok-profile:hover .tiktok-profile-inner {
+    border-color: #fff;
+    background: #161616;
+}
+
+.dark-theme .tiktok-profile:hover .tiktok-profile-inner {
+    background: #0a0a0a;
+    border-color: #fff;
+}
+
+/* Аватар — чб */
+.tiktok-profile-avatar {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #1a1a1a;
+    border: 2px solid #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(255,255,255,.08);
+    transition: transform .3s;
+}
+
+.tiktok-profile:hover .tiktok-profile-avatar {
+    transform: rotate(-8deg) scale(1.06);
+}
+
+.tiktok-avatar-emoji {
+    font-size: 1.6rem;
+    line-height: 1;
+    z-index: 2;
+    filter: grayscale(1) brightness(1.6);
+}
+
+/* ЧБ пульс */
+.tiktok-avatar-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #fff;
+    animation: avatarPulse 2.4s ease-out infinite;
+    z-index: 1;
+    opacity: .35;
+}
+
+@keyframes avatarPulse {
+    0%   { transform: scale(1);   opacity: .35; }
+    70%  { transform: scale(1.6); opacity: 0; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Инфо */
+.tiktok-profile-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tiktok-profile-name {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tiktok-profile-role {
+    font-size: .78rem;
+    font-weight: 700;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tiktok-profile-handle {
+    font-size: .76rem;
+    font-weight: 700;
+    color: #ccc;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    letter-spacing: .2px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Стрелка — чб */
+.tiktok-profile-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+    transition: all .35s cubic-bezier(.2,.8,.2,1);
+    flex-shrink: 0;
+}
+
+.tiktok-profile-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+.tiktok-profile:hover .tiktok-profile-arrow {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    transform: translateX(4px) rotate(-8deg);
+    box-shadow: 0 6px 18px rgba(255,255,255,.25);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 480px) {
+    .tiktok-showcase {
+        padding: 22px 14px 18px;
+        border-radius: 20px;
+        margin: 20px 0 14px;
+    }
+    .tiktok-logo-big { width: 48px; height: 48px; border-radius: 14px; }
+    .tiktok-logo-big svg { width: 24px; height: 24px; }
+    .tiktok-showcase-header { margin-bottom: 16px; }
+    .tiktok-showcase-subtitle { font-size: .7rem; }
+    .tiktok-profile-inner {
+        padding: 12px;
+        gap: 10px;
+        border-radius: 14px;
+    }
+    .tiktok-profile-avatar {
+        width: 46px;
+        height: 46px;
+    }
+    .tiktok-avatar-emoji { font-size: 1.35rem; }
+    .tiktok-profile-name { font-size: 1rem; }
+    .tiktok-profile-role { font-size: .7rem; }
+    .tiktok-profile-handle { font-size: .68rem; }
+    .tiktok-profile-arrow {
+        width: 34px;
+        height: 34px;
+    }
+    .tiktok-profile-arrow svg { width: 16px; height: 16px; }
+}
+
+/* Отключаем тяжёлые анимации для слабых устройств */
+@media (prefers-reduced-motion: reduce) {
+    .tiktok-showcase-glow,
+    .tiktok-logo-big,
+    .tiktok-showcase-title,
+    .tiktok-profile-ring,
+    .tiktok-avatar-pulse {
+        animation: none !important;
+    }
+}
