@@ -12,9 +12,7 @@
     <meta name="twitter:card" content="summary">
 
 <link rel="stylesheet" href="style.css">
-...
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- ... потом ... -->
 <script src="novost.js"></script>
 <script src="photos.js"></script>
 <script src="app.js"></script>
@@ -102,7 +100,7 @@
             </svg>
         </div>
         <h2 class="tiktok-showcase-title">Подписывайтесь на нас</h2>
-  
+        <p class="tiktok-showcase-subtitle">Наши звёзды в TikTok</p>
     </div>
 
     <div class="tiktok-profiles">
@@ -148,15 +146,11 @@
     </div>
 </div>
 
-
-
-
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
                     <button class="admin-login-btn" id="admin-login-btn">🔐 Вход для админов</button>
                 </div>
             </div>
 
-            <!-- ===================== PLAYERS ===================== -->
             <div id="players-page" class="page">
                 <button class="back-button" id="back-from-players">← Назад к главной</button>
                 <div class="players-controls">
@@ -174,7 +168,6 @@
                 <div class="players-grid" id="players-grid-container"></div>
             </div>
 
-            <!-- ===================== SQUAD (МЕРА) ===================== -->
             <div id="squad-page" class="page">
                 <button class="back-button" id="back-from-squad">← Назад к главной</button>
                 <div class="best-squad-container">
@@ -222,7 +215,6 @@
                 </div>
             </div>
 
-            <!-- ===================== YARDS (teams list) ===================== -->
             <div id="yards-page" class="page">
                 <button class="back-button" id="back-from-yards">← Назад к главной</button>
                 <div class="other-yards-container">
@@ -263,7 +255,6 @@
                 </div>
             </div>
 
-            <!-- ===================== YARD PAGES ===================== -->
             <div id="yard-mera-page" class="page">
                 <button class="back-button" id="back-from-yard-mera">← Назад</button>
                 <div class="best-squad-container yard-mera-theme">
@@ -312,7 +303,6 @@
                 </div>
             </div>
 
-            <!-- ===================== MATCHES ===================== -->
             <div id="matches-page" class="page">
                 <button class="back-button" id="back-from-matches">← Назад к главной</button>
                 <div class="matches-container">
@@ -355,7 +345,6 @@
                 </div>
             </div>
 
-            <!-- ===================== NEWS ===================== -->
             <div id="news-page" class="page">
                 <button class="back-button" id="back-from-news">← Назад к главной</button>
                 <div class="news-container">
@@ -364,7 +353,6 @@
                 </div>
             </div>
 
-            <!-- ===================== POLLS ===================== -->
             <div id="polls-page" class="page">
                 <button class="back-button" id="back-from-polls">← Назад к главной</button>
                 <div class="polls-container">
@@ -373,7 +361,6 @@
                 </div>
             </div>
 
-            <!-- ===================== COMPLAINTS ===================== -->
             <div id="complaints-page" class="page">
                 <button class="back-button" id="back-from-complaints">← Назад к главной</button>
                 <div class="complaints-container">
@@ -382,7 +369,6 @@
                 </div>
             </div>
 
-            <!-- ===================== ADMIN PANEL ===================== -->
             <div id="admin-panel-page" class="page">
                 <button class="back-button" id="back-from-admin-panel">← Назад к главной</button>
                 <div class="admin-panel-container">
@@ -430,7 +416,6 @@
                 </div>
             </div>
 
-            <!-- ===================== RULES ===================== -->
             <div id="rules-page" class="page">
                 <button class="back-button" id="back-from-rules">← Назад к главной</button>
                 <div class="rules-container">
@@ -442,7 +427,6 @@
                 </div>
             </div>
 
-            <!-- ===================== MARKET ===================== -->
             <div id="market-page" class="page">
                 <button class="back-button" id="back-from-market">← Назад к главной</button>
                 <div class="market-container">
@@ -507,7 +491,6 @@
         </footer>
     </div>
 
-    <!-- ===================== PLAYER MODAL ===================== -->
     <div class="modal-overlay" id="player-modal">
         <div class="modal" id="modal-window">
             <button class="modal-close-btn" id="modal-close">×</button>
@@ -540,7 +523,6 @@
         </div>
     </div>
 
-    <!-- ===================== ACCOUNT MODAL ===================== -->
     <div class="modal-overlay account-modal" id="account-modal">
         <div class="modal">
             <button class="modal-close-btn" id="account-close">×</button>
@@ -619,7 +601,6 @@
         </div>
     </div>
 
-    <!-- ===================== ADMIN AUTH MODAL ===================== -->
     <div class="modal-overlay admin-auth-modal" id="admin-auth-modal">
         <div class="modal">
             <button class="modal-close-btn" id="admin-auth-close">×</button>
@@ -637,7 +618,6 @@
         </div>
     </div>
 
-    <!-- ===================== MATCH MODALS ===================== -->
     <div class="modal-overlay" id="match-edit-modal">
         <div class="modal">
             <button class="modal-close-btn" id="match-edit-close">×</button>
@@ -715,7 +695,6 @@
         </div>
     </div>
 
-    <!-- ===================== MARKET MODALS ===================== -->
     <div class="modal-overlay" id="transfer-money-modal">
         <div class="modal">
             <button class="modal-close-btn" id="transfer-money-close">×</button>
@@ -757,7 +736,6 @@
         </div>
     </div>
 
-  
     <div class="modal-overlay" id="complaint-modal">
         <div class="modal">
             <button class="modal-close-btn" id="complaint-close">×</button>
@@ -785,7 +763,6 @@
         </div>
     </div>
 
-
     <div class="modal-overlay" id="create-poll-modal">
         <div class="modal">
             <button class="modal-close-btn" id="create-poll-close">×</button>
@@ -808,7 +785,6 @@
         </div>
     </div>
 
- 
     <div class="playstyle-detail-overlay" id="playstyle-detail-overlay">
         <div class="playstyle-detail-card" id="playstyle-detail-card">
             <button class="close-btn" id="playstyle-detail-close">✕</button>
@@ -817,7 +793,6 @@
             <div class="playstyle-detail-desc" id="playstyle-detail-desc">Описание плейстайла</div>
         </div>
     </div>
-
 
     <div class="secret-overlay" id="secret-overlay">
         <div class="secret-modal">
