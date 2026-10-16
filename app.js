@@ -1226,8 +1226,14 @@ async function adminLogin(email, password) {
         document.getElementById('admin-panel-btn').style.display = 'flex';
         document.getElementById('admin-auth-status').textContent = '';
 
+        await loadComplaints();
+        await loadAllUsers();
         updateUserUI();
-        renderMatches(); renderPolls(); renderComplaints(); loadAllUsers();
+        renderMatches();
+        renderPolls();
+        renderComplaints();
+        renderAdminComplaintsList();
+        renderAdminPollsList();
         sendOnlineHeartbeat();
         showMarketNotification('✅ Вы вошли как администратор!', 'success');
     } catch (err) {
@@ -1254,7 +1260,9 @@ function checkAdminSession() {
         document.getElementById('admin-login-btn').textContent = '👑 Админ';
         document.getElementById('admin-login-btn').classList.add('logged');
         document.getElementById('admin-panel-btn').style.display = 'flex';
-        renderMatches(); renderPolls(); renderComplaints(); loadAllUsers();
+        loadComplaints();
+        loadAllUsers();
+        renderMatches(); renderPolls(); renderComplaints();
         renderAdminPollsList(); renderAdminComplaintsList();
     }
 }
@@ -1872,17 +1880,61 @@ function renderComplaints() {
 }
 
 window.resolveComplaint = async function(complaintId, status) {
-    const complaint = complaintsData.find(c => c.id == complaintId);
-    if (!complaint) return;
+    const complaint = complaintsData.find(c => String(c.id) === String(complaintId));
+    if (!complaint) {
+        showMarketNotification('❌ Жалоба не найдена (перезагрузите страницу)', 'error');
+        return;
+    }
     const input = document.getElementById(`verdict-input-${complaintId}`);
     const verdict = input ? input.value.trim() : '';
     complaint.status = status;
     complaint.verdict = verdict || (status === 'resolved' ? 'Подтверждено' : 'Отклонено');
     if (supabaseClient) {
-        try { await supabaseClient.from('complaints').update({ status: complaint.status, verdict: complaint.verdict }).eq('id', complaintId); } catch (e) {}
+        try {
+            const { error } = await supabaseClient.from('complaints')
+                .update({ status: complaint.status, verdict: complaint.verdict })
+                .eq('id', complaint.id);
+            if (error) {
+                console.error('Ошибка обновления жалобы:', error);
+                showMarketNotification(`❌ Ошибка: ${error.message}`, 'error');
+                return;
+            }
+        } catch (e) {
+            console.error('Исключение при обновлении:', e);
+        }
     }
     renderComplaints();
+    if (adminLoggedIn) renderAdminComplaintsList();
     showMarketNotification(status === 'resolved' ? '✅ Подтверждена' : '❌ Отклонена', 'success');
+};
+
+window.adminResolveComplaint = async function(complaintId, status) {
+    const complaint = complaintsData.find(c => String(c.id) === String(complaintId));
+    if (!complaint) {
+        showMarketNotification('❌ Жалоба не найдена (перезагрузите страницу)', 'error');
+        return;
+    }
+    const input = document.getElementById(`admin-verdict-input-${complaintId}`);
+    const verdict = input ? input.value.trim() : '';
+    complaint.status = status;
+    complaint.verdict = verdict || (status === 'resolved' ? 'Нарушение подтверждено' : 'Нарушение не подтверждено');
+    if (supabaseClient) {
+        try {
+            const { error } = await supabaseClient.from('complaints')
+                .update({ status: complaint.status, verdict: complaint.verdict })
+                .eq('id', complaint.id);
+            if (error) {
+                console.error('Ошибка обновления жалобы:', error);
+                showMarketNotification(`❌ Ошибка: ${error.message}`, 'error');
+                return;
+            }
+        } catch (e) {
+            console.error('Исключение при обновлении:', e);
+        }
+    }
+    renderAdminComplaintsList();
+    renderComplaints();
+    showMarketNotification(status === 'resolved' ? '✅ Жалоба принята' : '❌ Жалоба отклонена', 'success');
 };
 
 async function submitComplaint() {
@@ -2410,8 +2462,13 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => { openAccountModal(); }, 800);
         }
 
-        loadPolls().then(() => updatePollsUnansweredBadge());
-        loadComplaints();
+        await loadPolls();
+        updatePollsUnansweredBadge();
+        await loadComplaints();
+        if (adminRestored) {
+            renderAdminPollsList();
+            renderAdminComplaintsList();
+        }
     })();
 
     document.getElementById('avatar-btn').addEventListener('click', openAccountModal);
@@ -2747,20 +2804,6 @@ document.addEventListener('DOMContentLoaded', function() {
         createPollBtn.addEventListener('click', openCreatePollModal);
     }
 
-    window.setTeamBalance = setTeamBalance;
-    window.addTeamBalance = addTeamBalance;
-    window.removeFromMarket = removeFromMarket;
-    window.buyPlayer = buyPlayer;
-    window.respondToOffer = respondToOffer;
-    window.openSellDialog = openSellDialog;
-    window.confirmUser = confirmUser;
-    window.deleteUser = deleteUser;
-    window.votePoll = votePoll;
-    window.togglePollClosed = togglePollClosed;
-    window.deletePoll = deletePoll;
-    window.toggleRulesSection = toggleRulesSection;
-    window.resolveComplaint = resolveComplaint;
-
     setInterval(() => {
         const onlineTab = document.getElementById('admin-tab-online');
         if (onlineTab && onlineTab.classList.contains('active') && adminLoggedIn) {
@@ -3077,23 +3120,3 @@ function renderAdminComplaintsList() {
     });
     container.innerHTML = html;
 }
-
-window.adminResolveComplaint = async function(complaintId, status) {
-    const complaint = complaintsData.find(c => c.id == complaintId);
-    if (!complaint) return;
-    const input = document.getElementById(`admin-verdict-input-${complaintId}`);
-    const verdict = input ? input.value.trim() : '';
-    complaint.status = status;
-    complaint.verdict = verdict || (status === 'resolved' ? 'Нарушение подтверждено' : 'Нарушение не подтверждено');
-    if (supabaseClient) {
-        try {
-            await supabaseClient.from('complaints').update({
-                status: complaint.status,
-                verdict: complaint.verdict
-            }).eq('id', complaintId);
-        } catch (e) {}
-    }
-    renderAdminComplaintsList();
-    renderComplaints();
-    showMarketNotification(status === 'resolved' ? '✅ Жалоба принята' : '❌ Жалоба отклонена', 'success');
-};
