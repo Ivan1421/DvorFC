@@ -3345,13 +3345,11 @@ footer {
     object-position: center top;
     display: block;
     border-radius: 50%;
-    filter: grayscale(1) contrast(1.05) brightness(1.05);
-    transition: filter .4s, transform .4s;
+    transition: transform .4s;
     z-index: 2;
 }
 
 .tiktok-profile:hover .tiktok-profile-avatar img {
-    filter: grayscale(0) contrast(1) brightness(1);
     transform: scale(1.08);
 }
 
@@ -3367,7 +3365,6 @@ footer {
     display: grid;
     place-items: center;
     font-size: 1.7rem;
-    filter: grayscale(1) brightness(1.6);
     z-index: 2;
 }
 
@@ -3375,7 +3372,6 @@ footer {
     font-size: 1.6rem;
     line-height: 1;
     z-index: 2;
-    filter: grayscale(1) brightness(1.6);
 }
 
 .tiktok-avatar-pulse {
