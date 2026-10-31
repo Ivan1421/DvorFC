@@ -2566,8 +2566,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('complaint-modal').classList.add('active');
         document.getElementById('complaint-status').textContent = '';
     });
-    document.getElementById('market-btn').addEventListener('click', () => {
-        showPage('market-page');
         updateMarketUI(); renderTransfers();
         if (marketState.currentCaptain) renderMyTeam();
     });
@@ -2587,7 +2585,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('back-from-yards').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-news').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-rules').addEventListener('click', () => showPage('home-page'));
-    document.getElementById('back-from-market').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-polls').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-complaints').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-admin-panel').addEventListener('click', () => showPage('home-page'));
@@ -2699,7 +2696,7 @@ document.addEventListener('DOMContentLoaded', function() {
     secretOverlay.addEventListener('click', function(e) { if (e.target === this) secretOverlay.classList.remove('active'); });
     document.getElementById('secret-submit').addEventListener('click', function() {
         const input = document.getElementById('secret-password').value.trim();
-        if (input === 'FCMERA_11...04') {
+        if (input === 'FCMERA_11.04') {
             document.getElementById('secret-error').textContent = '';
             document.getElementById('secret-content').classList.add('active');
             document.getElementById('secret-password').disabled = true;
