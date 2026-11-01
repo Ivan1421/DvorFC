@@ -2544,8 +2544,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
     document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
     document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
-    document.getElementById('market-btn').addEventListener('click', () => showPage('market-page'));
-    document.getElementById('admin-panel-btn').addEventListener('click', () => {
+        document.getElementById('admin-panel-btn').addEventListener('click', () => {
         showPage('admin-panel-page');
         loadAllUsers();
         renderBalancePanel('balance-teams-container');
@@ -2568,11 +2567,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('complaint-status').textContent = '';
     });
         document.getElementById('market-btn').addEventListener('click', () => {
-        showPage('market-page');
-        updateMarketUI(); renderTransfers();
-        if (marketState.currentCaptain) renderMyTeam();
-    });
-
+    showPage('market-page');
+    updateMarketUI(); renderTransfers();
+    if (marketState.currentCaptain) renderMyTeam();
+});
     const complaintsNavBtn = document.getElementById('complaints-nav-btn');
     if (complaintsNavBtn) {
         complaintsNavBtn.addEventListener('click', () => {
