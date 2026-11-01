@@ -532,30 +532,7 @@ function updateOfferBadge() {
     else badge.classList.add('hidden');
 }
 
-async function saveMarketToSupabase() {
-    if (!supabaseClient) return false;
-    try {
-        const data = {
-            teams: {},
-            transferList: marketState.transferList || [],
-            pendingTransfers: marketState.pendingTransfers || {},
-            transfers: marketState.transfers || [],
-            offers: marketState.offers || [],
-            activeLoans: activeLoans || {}
-        };
-        Object.keys(CAPTAINS).forEach(id => {
-            data.teams[id] = { budget: CAPTAINS[id].budget, players: CAPTAINS[id].players };
-        });
-        const { error } = await supabaseClient
-            .from('market')
-            .upsert({ id: 'market_data', data: data });
-        if (error) throw error;
-        return true;
-    } catch (error) {
-        console.warn('⚠️ Ошибка сохранения в Supabase:', error);
-        return false;
-    }
-}
+
 
 async function loadMarketFromSupabase() {
     try {
