@@ -422,61 +422,6 @@
                 </div>
             </div>
 
-            <div id="market-page" class="page">
-                <button class="back-button" id="back-from-market">← Назад к главной</button>
-                <div class="market-container">
-                    <div class="market-header">
-                        <div class="captain-info">
-                            <div class="captain-avatar" id="captain-avatar">👤</div>
-                            <div>
-                                <div id="captain-name" style="font-weight: bold;">Не авторизован</div>
-                                <div class="budget-display" id="budget-display">💰 0 монет</div>
-                            </div>
-                        </div>
-                        <div class="login-section">
-                            <input type="text" id="login-input" placeholder="Логин..." style="display: none;">
-                            <input type="password" id="password-input" placeholder="Пароль..." style="display: none;">
-                            <button class="login-btn" id="login-btn">🔑 Войти</button>
-                            <button class="logout-btn" id="logout-btn" style="display: none;">🚪 Выйти</button>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
-                        <button class="action-btn" id="transfer-money-btn" style="padding: 10px 20px; font-size: 0.9rem;">💰 Перевод</button>
-                        <button class="action-btn" id="make-offer-btn" style="padding: 10px 20px; font-size: 0.9rem;">📤 Предложение</button>
-                        <button class="action-btn" id="view-offers-btn" style="padding: 10px 20px; font-size: 0.9rem; position: relative;">
-                            📋 Мои
-                            <span class="offer-badge hidden" id="offer-badge">0</span>
-                        </button>
-                    </div>
-
-                    <div class="market-filters">
-                        <select id="market-filter-team"><option value="all">Все команды</option></select>
-                        <select id="market-filter-position">
-                            <option value="all">Все позиции</option>
-                            <option value="Вратарь">Вратарь</option>
-                            <option value="Защитник">Защитник</option>
-                            <option value="Полузащитник">Полузащитник</option>
-                            <option value="Нападающий">Нападающий</option>
-                        </select>
-                    </div>
-
-                    <h3>📋 Рынок трансферов</h3>
-                    <div class="market-grid" id="market-grid">
-                        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">Загрузка...</div>
-                    </div>
-
-                    <div class="transfers-history">
-                        <h3>📜 Последние трансферы</h3>
-                        <div id="transfers-list"></div>
-                    </div>
-
-                    <div class="my-team-section" id="my-team-section" style="display: none;">
-                        <h3>⭐ Моя команда</h3>
-                        <div class="my-team-grid" id="my-team-grid"></div>
-                    </div>
-                </div>
-            </div>
         </main>
 
         <footer>
