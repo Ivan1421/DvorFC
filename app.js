@@ -2544,6 +2544,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
     document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
     document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
+    document.getElementById('market-btn').addEventListener('click', () => showPage('market-page');
     document.getElementById('admin-panel-btn').addEventListener('click', () => {
         showPage('admin-panel-page');
         loadAllUsers();
@@ -2584,6 +2585,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('back-from-matches').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-yards').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-news').addEventListener('click', () => showPage('home-page'));
+    document.getElementById('back-from-rules').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-rules').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-polls').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-complaints').addEventListener('click', () => showPage('home-page'));
