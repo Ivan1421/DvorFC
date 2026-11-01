@@ -2567,6 +2567,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('complaint-modal').classList.add('active');
         document.getElementById('complaint-status').textContent = '';
     });
+        document.getElementById('market-btn').addEventListener('click', () => {
+        showPage('market-page');
         updateMarketUI(); renderTransfers();
         if (marketState.currentCaptain) renderMyTeam();
     });
@@ -2586,7 +2588,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('back-from-yards').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-news').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-rules').addEventListener('click', () => showPage('home-page'));
-    document.getElementById('back-from-rules').addEventListener('click', () => showPage('home-page'));
+    document.getElementById('back-from-market').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-polls').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-complaints').addEventListener('click', () => showPage('home-page'));
     document.getElementById('back-from-admin-panel').addEventListener('click', () => showPage('home-page'));
