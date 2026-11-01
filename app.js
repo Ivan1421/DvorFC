@@ -1,76 +1,52 @@
-const zvezdaPlayerIds = zvezdaPlayers.map(p => p.id);
+(function(){
+  const KNOWN_MARKET_IDS = new Set([
+    'captain-name','budget-display','captain-avatar','login-btn','login-input','password-input','logout-btn',
+    'market-filter-team','market-filter-position','market-grid','my-team-grid','my-team-section','offer-badge',
+    'back-from-market','transfer-money-btn','transfer-money-close','transfer-money-modal','transfer-submit-btn',
+    'make-offer-btn','make-offer-close','make-offer-modal','offer-submit-btn','view-offers-btn',
+    'view-offers-close','view-offers-modal','transfers-list','notification-market','market-state','market-data'
+  ]);
 
-const marketState = {
-    currentCaptain: null,
-    userEmail: null,
-    transferList: [],
-    pendingTransfers: {},
-    transfers: [],
-    offers: []
-};
+  const originalGetElementById = document.getElementById.bind(document);
+  const ghostElements = new Map();
 
-const marketData = { players: {} };
-const INFINITE_PRICE_PLAYERS = [];
-const INFINITE_PRICE_VALUE = 999999999;
-const LOAN_CHECK_INTERVAL = 60000;
-
-function ensureDomElement(id, tagName = 'div', attributes = {}) {
-    let el = document.getElementById(id);
-    if (!el) {
-        el = document.createElement(tagName);
-        el.id = id;
-        Object.entries(attributes).forEach(([key, value]) => {
-            if (key === 'textContent') el.textContent = value;
-            else if (key === 'className') el.className = value;
-            else el.setAttribute(key, value);
-        });
-        el.style.display = attributes.styleDisplay || 'none';
-        document.body.appendChild(el);
-    }
+  function createGhostElement(id) {
+    const el = document.createElement('div');
+    el.id = id;
+    el.style.display = 'none';
+    el.hidden = true;
+    el.setAttribute('data-market-safe', 'true');
+    el.textContent = '';
+    el.value = '';
+    el.innerHTML = '';
     return el;
-}
+  }
 
-ensureDomElement('login-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('login-input', 'input', { type: 'text', className: 'hidden-market-ui' });
-ensureDomElement('password-input', 'input', { type: 'password', className: 'hidden-market-ui' });
-ensureDomElement('logout-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('market-filter-team', 'select', { className: 'hidden-market-ui' });
-ensureDomElement('market-filter-position', 'select', { className: 'hidden-market-ui' });
-ensureDomElement('market-grid', 'div', { className: 'hidden-market-ui' });
-ensureDomElement('my-team-grid', 'div', { className: 'hidden-market-ui' });
-ensureDomElement('offer-badge', 'span', { className: 'hidden-market-ui' });
-ensureDomElement('back-from-market', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('transfer-money-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('transfer-money-close', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('transfer-money-modal', 'div', { className: 'hidden-market-ui' });
-ensureDomElement('transfer-submit-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('make-offer-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('make-offer-close', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('make-offer-modal', 'div', { className: 'hidden-market-ui' });
-ensureDomElement('offer-submit-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('view-offers-btn', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('view-offers-close', 'button', { type: 'button', className: 'hidden-market-ui' });
-ensureDomElement('view-offers-modal', 'div', { className: 'hidden-market-ui' });
-ensureDomElement('transfers-list', 'div', { className: 'hidden-market-ui' });
-ensureDomElement('notification-market', 'div', { className: 'notification-market' });
+  document.getElementById = function(id) {
+    const found = originalGetElementById(id);
+    if (found) return found;
 
-function saveMarketData() {}
-function updateMarketUI() {}
-function renderMyTeam() {}
-function renderTransfers() {}
-function updateBudgetDisplay() {}
-function updateOfferBadge() {}
-function renderOffers() {}
-function initMarket() {}
+    if (typeof id !== 'string') return null;
 
-const allPlayerIds = Object.keys(playersData);
-const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds, ...zvezdaPlayerIds];
-let currentPlayerIds = allPlayerIds.filter(id => !allTeamPlayerIds.includes(id));
-let filteredPlayerIds = [...currentPlayerIds];
-let activeSort = 'none';
-let themeClickCount = 0;
-let iqInterval = null;
-let supabaseClient = null;
-let adminLoggedIn = false;
-let currentEditingMatchId = null;
-let matchesData = [];
+    const shouldGhost = (
+      KNOWN_MARKET_IDS.has(id) ||
+      id.includes('market') ||
+      id.includes('offer') ||
+      id.includes('transfer') ||
+      id.includes('captain') ||
+      id.includes('budget') ||
+      id.includes('login') ||
+      id.includes('logout')
+    );
+
+    if (!shouldGhost) return null;
+
+    if (!ghostElements.has(id)) {
+      ghostElements.set(id, createGhostElement(id));
+    }
+
+    return ghostElements.get(id);
+  };
+})();
+
+const playstyleDescriptions = {
