@@ -2528,18 +2528,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('complaint-modal').classList.add('active');
         document.getElementById('complaint-status').textContent = '';
     });
-        document.getElementById('market-btn').addEventListener('click', () => {
-    showPage('market-page');
-    updateMarketUI(); renderTransfers();
-    if (marketState.currentCaptain) renderMyTeam();
-});
+
     const complaintsNavBtn = document.getElementById('complaints-nav-btn');
     if (complaintsNavBtn) {
         complaintsNavBtn.addEventListener('click', () => {
             showPage('complaints-page');
             renderComplaints();
             checkComplaintUpdates();
-        });
+        }); 
     }
 
     document.getElementById('back-from-players').addEventListener('click', () => showPage('home-page'));
