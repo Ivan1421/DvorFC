@@ -44,54 +44,54 @@ const playstyleDescriptions = {
 };
 
 const basePlayers = {
-    raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 94, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz','far'], playstyleColors: {vihod: "gold", otraz: "gold",far: "gold"} },
-    maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "176 см", weight: "58 кг", rating: 94, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
-    batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 91, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
-    aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 95, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
-    tankov: { name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 92, number: "(99)", description: "", playstyles: [], playstyleColors: {} },
+    raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 90, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod','otraz','far'], playstyleColors: {vihod: "gold", otraz: "gold",far: "gold"} },
+    maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "176 см", weight: "58 кг", rating: 90, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag",'intuation',"borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
+    batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 87, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy",'obmanshik_silver','naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
+    aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 90, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold","bombardir","tochno"], playstyleColors: {truk_gold:"gold", bombardir:"gold",tochno:"gold"} },
+    tankov: { name: "Танков Тимофей", position: "Универсальный", age: "13 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "40 кг", rating: 87, number: "(99)", description: "", playstyles: [], playstyleColors: {} },
 };
 
 const yard78Players = [
-    { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 94, number: "(7)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-    { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 95, number: "(11)", description: "Нападающий ФК 78 ", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
-    { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 95, number: "(1)", description: "Вратарь ФК 78 ", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold",far: "gold" } },
-    { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 91, number: "(76)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
-    { id: "elisey", name: "Пожидаев Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 90, number: "(19)", description: "Второй Ямаль", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
-    { id: "demid", name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 91, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
-    { id: "lesha_podavalny", name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 90, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
-    { id: "safonov", name: "Сафонов Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 93, number: "(20)", description: "Однофамилец вратаря ПСЖ", playstyles: ['tiki_taka'], playstyleColors: {tiki_taka: 'gold'} },
+    { id: "timofey_zaytsev", name: "Зайцев Тимофей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Правая", height: "155 см", weight: "50 кг", rating: 91, number: "(7)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
+    { id: "sanya_bobrikov", name: "Бобриков Александр", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстр", height: "175 см", weight: "51 кг", rating: 91, number: "(11)", description: "Нападающий ФК 78 ", playstyles: ["pushka"], playstyleColors: {pushka: "gold"} },
+    { id: "maxim_dcp", name: "Максим ДЦП", position: "Вратарь", age: "13 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "55 кг", rating: 91, number: "(1)", description: "Вратарь ФК 78 ", playstyles: ["otraz", "vihod",'far'], playstyleColors: {otraz: "gold", vihod: "gold",far: "gold" } },
+    { id: "ivan", name: "Новиков Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "55 кг", rating: 86, number: "(76)", description: "Игрок ФК 78 ", playstyles: [], playstyleColors: {} },
+    { id: "elisey", name: "Пожидаев Елисей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "43 кг", rating: 86, number: "(19)", description: "Второй Ямаль", playstyles: ["pevec", "pan"], playstyleColors: {pevec: "gold", pan: "gold"} },
+    { id: "demid", name: "Пасько Демид", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "167 см", weight: "48 кг", rating: 87, number: "(45)", description: "Русский пыр не знает дыр", playstyles: ['pushka'], playstyleColors: { pushka: 'gold' } },
+    { id: "lesha_podavalny", name: "Чурилов Алексей", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 87, number: "(41)", description: "Угловой?...💀💀💀", playstyles: ["naves",'tiki_taka'], playstyleColors: {naves:"gold", tiki_taka: 'gold'} },
+    { id: "safonov", name: "Сафонов Иван", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "47 кг", rating: 88, number: "(20)", description: "Однофамилец вратаря ПСЖ", playstyles: ['tiki_taka'], playstyleColors: {tiki_taka: 'gold'} },
     { id: "ostap", name: "Остап", position: "Запасной", age: "13 лет", icon: "⚽", foot: "Правая", height: "? см", weight: "? кг", rating: 1, number: "(67)", description: "Единица в рейтинге, потому что Топ-1 Кемерово", playstyles: [], playstyleColors: {} }
 ];
 
 const yuzhkaPlayers = [
-    { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 98, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
-    { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 94, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
-    { id: "bombar", name: "Бадартинов Михаил", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 92, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
-    { id: "mes", name: "Кирьянов Артем", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 93, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
-    { id: "shilov", name: "Шилов Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 93, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
-    { id: "diana", name: "Епончинцева Диана", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 94, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} }
+    { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 93, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka","bombardir","bistro_gold"], playstyleColors: {bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold"} },
+    { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver","bombardir_silver","truk_gold"], playstyleColors: {bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold"} },
+    { id: "bombar", name: "Бадартинов Михаил", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 89, number: "(57)", description: "Коч коч братан", playstyles: ["borec","pushka"], playstyleColors: {borec: "gold", pushka: "gold"} },
+    { id: "mes", name: "Кирьянов Артем", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 89, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: {otraz: "gold"} },
+    { id: "shilov", name: "Шилов Дмитрий", position: "Полузащитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 86, number: "(?)", description: "Игрок южки", playstyles: ["truk_gold", "tochno_silver"], playstyleColors: {truk_gold: "gold", tochno_silver: "silver"} },
+    { id: "diana", name: "Епончинцева Диана", position: "Полузащитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "165 см", weight: "50 кг", rating: 87, number: "(9)", description: "Единственная девушка среди игроков", playstyles: [], playstyleColors: {} }
 ];
 
 const arsenalPlayers = [
-    { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 86, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
-    { id: "gleb", name: "Глеб", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 86, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
-    { id: "kostya", name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 91, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
-    { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 88, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
+    { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 80, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver','tochno_silver'], playstyleColors: {bistro_silver: "silver", tochno_silver: "silver"} },
+    { id: "gleb", name: "Глеб", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 80, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: {naves: "gold", vinos_silver: "silver"} },
+    { id: "kostya", name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 84, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: {vihod: "gold", otraz_silver: "silver"} },
+    { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 81, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: {truk_gold: "gold", simulant_silver: "silver"} }
 ];
 
 const zvezdaPlayers = [
-    { id: "david", name: "Дарсалия Давид", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "60 кг", rating: 85, number: "(10)", description: "Лидер атак ФК Звёзды", playstyles: [], playstyleColors: {} },
-    { id: "matveyB", name: "Матвей Бобов", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "80 кг", rating: 83, number: "(14)", description: "Вратарь Фк звёзды", playstyles: [], playstyleColors: {} },
-    { id: "nazar", name: "Осинцев Назар", position: "Защитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "100 кг", rating: 56, number: "(67)", description: "Супертяжелый вес", playstyles: [], playstyleColors: {} },
-    { id: "kuharskiy", name: "Кухарский Тимофей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "35 кг", rating: 76, number: "(3)", description: "Самый младший из Звезд", playstyles: [], playstyleColors: {} },
-    { id: "irakliy", name: "Дарсалия Ираклий", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "60 кг", rating: 77, number: "(6)", description: "Брат капитана", playstyles: [], playstyleColors: {} },
+    { id: "david", name: "Дарсалия Давид", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "60 кг", rating: 78, number: "(10)", description: "Лидер атак ФК Звёзды", playstyles: [], playstyleColors: {} },
+    { id: "matveyB", name: "Матвей Бобов", position: "Вратарь", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "80 кг", rating: 76, number: "(14)", description: "Вратарь Фк звёзды", playstyles: [], playstyleColors: {} },
+    { id: "nazar", name: "Осинцев Назар", position: "Защитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "178 см", weight: "100 кг", rating: 49, number: "(67)", description: "Супертяжелый вес", playstyles: [], playstyleColors: {} },
+    { id: "kuharskiy", name: "Кухарский Тимофей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "145 см", weight: "35 кг", rating: 69, number: "(3)", description: "Самый младший из Звезд", playstyles: [], playstyleColors: {} },
+    { id: "irakliy", name: "Дарсалия Ираклий", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "175 см", weight: "60 кг", rating: 70, number: "(6)", description: "Брат капитана", playstyles: [], playstyleColors: {} },
 ];
 
 const psgPlayers = [
-    { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "60 кг", rating: 67, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
-    { id: "EgorNast", name: "Зверев Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "50 кг", rating: 67, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
-    { id: "maxronaldo", name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 77, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
-    { id: "haaland", name: "Шапов Леонид", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 87, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} }
+    { id: "artem", name: "Соколов Артем", position: "Нападающий", age: "12 лет", icon: "⚽", foot: "Правая", height: "130 см", weight: "60 кг", rating: 72, number: "(9)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
+    { id: "EgorNast", name: "Зверев Егор", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "145 см", weight: "50 кг", rating: 72, number: "(8)", description: "Игрок ПСЖ", playstyles: [], playstyleColors: {} },
+    { id: "maxronaldo", name: "Максим Роналду", position: "Нападающий", age: "11 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 71, number: "(17)", description: "Фанатик Роналду", playstyles: [], playstyleColors: {} },
+    { id: "haaland", name: "Шапов Леонид", position: "Нападающий", age: "10 лет", icon: "⚽", foot: "Левая", height: "141 см", weight: "37 кг", rating: 81, number: "(14)", description: "Болельщик Холланда", playstyles: ["borec_silver", 'tiki_taka_silver'], playstyleColors: {borec_silver: "silver", tiki_taka_silver: "silver"} }
 ];
 
 const playersData = { ...basePlayers };
@@ -2312,8 +2312,7 @@ function openAccountModal() {
 function initRulesAccordion() {
     const rulesData = [
         { section: '1', title: 'Общие положения Регламента', rules: [
-            { num: '1.1.1', text: 'Настоящий Регламент регулирует проведение матчей и трансферную политику в Дворовой Футбольной Лиге.' },
-            { num: '1.1.2', text: 'Регламент распространяется как на обычные, так и на молодежные команды.' },
+            { num: '1.1', text: 'Настоящий Регламент регулирует проведение матчей и трансферную политику в Дворовой Футбольной Лиге.' },
             { num: '1.2.1', text: 'За пресечение Настоящего Регламента ДФЛ к команде нарушителя или самому нарушителю будут наложены определенные санкции. (штраф, дисквалификация)' },
             { num: '1.2.2', text: 'Игрок не является виновным в нарушении Регламента, пока не будет доказано обратное.' },
             { num: '1.3', text: 'Те вопросы, которые не затрагивает Регламент, будут решаться организаторами лиги.' },
@@ -2328,16 +2327,16 @@ function initRulesAccordion() {
             { num: '2.5', text: 'Команда имеет право отказаться от матча без причины не менее чем за час до игры, в противном случае команде будет выставлено техническое поражение.' },
             { num: '2.5.1', text: 'Причины для отказа от матча: погодные условия, состояние поля, поведение игроков. Решение об отказе от матча должно быть обговорено с судьей.' },
         ]},
-        { section: '3', title: 'Финансы и трансферы', rules: [
-            { num: '3.1.1', text: 'За победу в основное время матча команде дается 75 монет (проигрыш - 0), за победу в серии пенальти - 50 монет (проигрыш - 25).' },
-            { num: '3.1.2', text: 'Если команда получает техническое поражение в матче, со счета команды списывается 75 монет, а также вводится 7-дневный бан на матчи.' },
-            { num: '3.1.3', text: 'За особые матчи монеты не начисляются. Особые матчи: Арсенал/ПСЖ/Звезды - МЕРА/ФК78/Южный. Данные матчи разрешены, однако они не несут никакой ценности. ' },
-            { num: '3.2', text: 'Уйти из клуба в другой бесплатно игроку разрешено с одобрения капитана команды.' },
-            { num: '3.3', text: 'При покупке игрока его мнение учитывается, покупающей команде стоит учесть все просьбы игрока и после этого принимать решение о покупке.' },
-            { num: '3.4.1', text: 'Трансферный бан - временный запрет команды на покупку игроков. Решение о его назначении принимается организаторами лиги.' },
-            { num: '3.4.2', text: 'Трансферный бан назначается в случае многочисленности* команды или нарушений, связанных с рынком.' },
+        { section: '3', title: 'Трансферы', rules: [
+            { num: '3.1', text: 'Если команда получает техническое поражение в матче, им вводится 7-дневный бан на матчи.' },
+            { num: '3.1.3', text: 'Особые матчи: Арсенал/ПСЖ/Звезды - МЕРА/ФК78/Южный. Данные матчи разрешены, однако они не несут никакой ценности, и на сайте не отобразятся.' },
+            { num: '3.2', text: 'Уйти из клуба в другой игроку разрешено с одобрения капитана/владельца команды.' },
+            { num: '3.3', text: 'При переходе/аренде игрока его мнение учитывается ОБЯЗАТЕЛЬНО.' },
+            { num: '3.4.1', text: 'Трансферный бан - временный запрет команды на трансферы игроков. Решение о его назначении принимается организаторами лиги.' },
+            { num: '3.4.2', text: 'Трансферный бан назначается в случае многочисленности* команды или иных нарушений' },
             { num: '3.5', text: 'Многочисленность команды - ситуация, при которой в составе команды одновременно находится более 10 игроков.' },
-            { num: '3.6', text: 'Аренда игрока осуществляется сроком не менее 7 дней, аренда на иной срок является недействительной.' },
+            { num: '3.6.1', text: 'Аренда - временный переход игрока в другую команду. Аренда осуществляется с разрешения капитана/владельца арендующей команды.' },
+            { num: '3.6.2', text: 'Аренда игрока осуществляется сроком не менее 7 дней, аренда на иной срок является недействительной.' },
         ]},
         { section: '4', title: 'Апелляции и жалобы', rules: [
             { num: '4.1', text: 'При несогласии с решением судьи и подобных случаях команда имеет право подать апелляцию.' },
@@ -2349,18 +2348,16 @@ function initRulesAccordion() {
             { num: '5.1', text: 'Если игрок не проявляет никакой активности в ДФЛ в течение 2 месяцев, его карта будет заморожена и не будет видна во вкладке команд.' },
             { num: '5.2', text: 'Требования к игроку для регистрации: возраст 9-16 лет, не имеет значительных проблем со здоровьем (инвалидность, психические расстройства и т.д.), не был до этого в ДФЛ.' },
             { num: '5.2.1', text: 'Игрок является частью команды, поэтому за нарушения, связанные с результатами команды и т.д. будет наказываться вся команда.' },
-            { num: '5.3', text: 'Регистрация игрока обходится команде в 75 монет, в случае, если игрок до этого не играл в ДФЛ и не был дисквалифицирован.' },
+            { num: '5.3', text: 'Регистрация игрока - обязательное условие для участия в матчах.' },
             { num: '5.4', text: 'Требования к судье: не играет ни за одну играющую в матче команду, знает правила и не болеет за какую либо команду, играющую в матче, с его назначением согласны обе команды.' },
         ]},
         { section: '6', title: 'Виды нарушений и ответственность', rules: [
-            { num: '6.1.1', text: 'Виды наказания игрока за пресечение Регламента ДФЛ: Дисквалификация (временная/пожизненная), запрет на участие в матчах (временный), запрет на переход в другую команду.' },
-            { num: '6.1.2', text: 'Виды наказания команды за пресечение Регламента ДФЛ: Запрет проведения матчей (временный), запрет трансферной политики (временный).' },
+            { num: '6.1', text: 'Виды наказания игрока за пресечение Регламента ДФЛ: Дисквалификация (временная/пожизненная), запрет на участие в матчах (временный), запрет на переход в другую команду.' },
             { num: '6.2', text: 'Решения о назначении наказания принимаются исключительно после доказательства о нарушении организаторами согласно действующему Регламенту.' },
             { num: '6.3', text: 'За распространение заведомо ложной информации о проведении, месте, времени, формате, условиях матча, которое привело к изменениям/отмене/проведению матча, предполагается ответственность.'},
             { num: '6.4.1', text: 'Если матч рассудили предвзято, его результат будет аннулирован, а судья наказан дисквалификацией.'},
-            { num: '6.4.2', text: 'Если при пункте 6.4.1 будет доказана виновность команды, она наказывается штрафом 75-125 монет и дисквалификацией/трансферным баном.'},
+            { num: '6.4.2', text: 'Если при пункте 6.4.1 будет доказана виновность команды, она наказывается 14-ти-дневным матчевым баном.'},
             { num: '6.5', text: 'Если команда не проводит матчи без причины более 4 месяцев, она исчезает из сайта, а все данные, матчи с данной командой будут стерты.' },
-            { num: '6.6', text: 'Необоснованное обогащение засчет команды, находящейся в кризисе или критической ситуации, наказывается штрафом в размере обогащения команды.'},
         ]},
         { section: '7', title: 'Полномочия организаторов Лиги', rules: [
             { num: '7.1.1', text: 'Организаторы Лиги имеют наиболее расширенные полномочия, чем обычные игроки/судьи.' },
@@ -2547,6 +2544,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('yards-btn').addEventListener('click', () => showPage('yards-page'));
     document.getElementById('news-btn').addEventListener('click', () => showPage('news-page'));
     document.getElementById('rules-btn').addEventListener('click', () => showPage('rules-page'));
+    document.getElementById('market-btn').addEventListener('click', () => showPage('market-page'));
     document.getElementById('admin-panel-btn').addEventListener('click', () => {
         showPage('admin-panel-page');
         loadAllUsers();
@@ -2569,7 +2567,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('complaint-modal').classList.add('active');
         document.getElementById('complaint-status').textContent = '';
     });
-    document.getElementById('market-btn').addEventListener('click', () => {
+        document.getElementById('market-btn').addEventListener('click', () => {
         showPage('market-page');
         updateMarketUI(); renderTransfers();
         if (marketState.currentCaptain) renderMyTeam();
@@ -2702,7 +2700,7 @@ document.addEventListener('DOMContentLoaded', function() {
     secretOverlay.addEventListener('click', function(e) { if (e.target === this) secretOverlay.classList.remove('active'); });
     document.getElementById('secret-submit').addEventListener('click', function() {
         const input = document.getElementById('secret-password').value.trim();
-        if (input === 'FCMERA_11...04') {
+        if (input === 'FCMERA_11.04') {
             document.getElementById('secret-error').textContent = '';
             document.getElementById('secret-content').classList.add('active');
             document.getElementById('secret-password').disabled = true;
