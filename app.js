@@ -1,7 +1,4 @@
-const meraPlayerIds = ['batrakov', 'aleksey_doroshenko', 'maxim', 'raya', 'tankov'];
-const burmaldaPlayerIds = [];
-const INFINITE_PRICE_PLAYERS = ['raya', 'aleksey_doroshenko', 'maxim'];
-const INFINITE_PRICE_VALUE = 999999999999;
+
 
 const playstyleDescriptions = {
     'golova': { name: 'Точный удар головы', description: 'Игрок демонстрирует исключительную игру головой.' },
@@ -117,22 +114,10 @@ const CAPTAINS = {
     zvezda: { id: 'zvezda', name: 'ФК Звёзды', captain: 'Капитан Звёзд', budget: 0, players: zvezdaPlayerIds, logo: './Photos%20(2)/IMG_0801.jpeg' }
 };
 
-const matchTacticsData = {};
-const marketData = { teams: CAPTAINS, players: {} };
 
-Object.keys(playersData).forEach(id => {
-    const p = playersData[id];
-    marketData.players[id] = {
-        id: id, name: p.name, position: p.position, rating: p.rating,
-        price: Math.round(p.rating * 10),
-        team: Object.keys(CAPTAINS).find(tid => CAPTAINS[tid].players.includes(id)) || 'unknown',
-        icon: p.icon || '⚽'
-    };
-});
 
-let marketState = { currentCaptain: null, transferList: [], pendingTransfers: {}, transfers: [], offers: [] };
-let activeLoans = {};
-const LOAN_CHECK_INTERVAL = 60000;
+
+
 
 const allPlayerIds = Object.keys(playersData);
 const allTeamPlayerIds = [...meraTeamIds, ...yard78PlayerIds, ...yuzhkaPlayerIds, ...arsenalPlayerIds, ...psgPlayerIds, ...zvezdaPlayerIds];
