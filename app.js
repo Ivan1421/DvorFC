@@ -1856,7 +1856,7 @@ document.addEventListener('DOMContentLoaded', function () {
     on('reset-sort', 'click', resetSortAndFilter);
 
     // Страница состава
-    ['raya', 'lesha_podavalny', 'maxim', 'batrakov', 'aleksey_doroshenko'].forEach(id => {
+    ['raya', 'lesha_podavalny', 'maxim', 'demid', 'aleksey_doroshenko'].forEach(id => {
         const photoEl = $(`${id}-photo-small`);
         if (photoEl) {
             if (typeof playerPhotos !== 'undefined' && playerPhotos[id]) photoEl.innerHTML = `<img src="${playerPhotos[id]}" alt="">`;
