@@ -1698,7 +1698,7 @@ function runMatch(stage){
   const oppTeam=stage.players.map(pid=>{ const p=PLAYER_MAP[pid]; return p?{...p,rating:Math.max(50,Math.min(99,p.rating+bonus.ratingShift))}:null; }).filter(Boolean);
   const tactics={...CURRENT_TACTICS};
   const oppTactics={style:rnd(['balanced','balanced','attack','defense','possession']),press:rnd(['medium','medium','high','low'])};
-  MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,timer:null,phase:'first',goals:[],
+  MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,usedBench:[],timer:null,phase:'first',goals:[],
     H:mkSide('home',myTeam,tactics,'Ваша команда'),A:mkSide('away',oppTeam,oppTactics,stage.name),
     log:$('match-log'),clockFill:$('clock-fill'),clockLbl:$('half-lbl'),
     scoreEl:$('match-score'),timeEl:$('match-time'),resCont:$('result-container'),htCont:$('halftime-container')};
@@ -1758,7 +1758,9 @@ function endFirstHalf(){
 // ============================================================
 function addHalftimePanel(){
   const hs=MS.htCont;
-  const benchPool=STATE.bench.filter(Boolean).map(pid=>PLAYER_MAP[pid]).filter(Boolean);
+  const benchPool=STATE.bench.filter(Boolean)
+  .filter(pid=>!MS.usedBench.includes(pid))
+  .map(pid=>PLAYER_MAP[pid]).filter(Boolean);
   const remaining=MS.maxSubs-MS.subs;
   const styleLabels={attack:'⚡ Атака',balanced:'⚖️ Баланс',defense:'🛡️ Защита',possession:'🎯 Контроль'};
   const pressLabels={high:'🔥 Высокий',medium:'⚖️ Средний',low:'🧊 Низкий'};
@@ -1812,12 +1814,13 @@ function addHalftimePanel(){
     if(MS.subs>=MS.maxSubs){ toast('Лимит замен','warn'); return; }
     const o=MS.H.team[selOut], i=benchPool[selIn];
     if((o.pos==='GK')!==(i.pos==='GK')){ toast('Вратаря меняют только на вратаря','warn'); return; }
-    MS.H.team[selOut]=i; MS.H.sta[i.id]=100; MS.subs++;
+    MS.H.team[selOut]=i;
+    MS.H.sta[i.id]=100;
+    MS.subs++;
+    MS.usedBench.push(i.id);
     addLog('info',`Замена: ${o.name} → ${i.name}`,'🔄');
-    STATE.starters=MS.H.team.map(p=>p.id);
-    const onField=new Set(MS.H.team.map(p=>p.id));
-    STATE.bench=STATE.bench.filter(pid=>pid&&!onField.has(pid)).slice(0,3);
-    saveState(); renderStaPanel(); addHalftimePanel();
+    renderStaPanel();
+    addHalftimePanel();
   };}
   $('ht-continue').onclick=()=>{ sfxClick(); resumeMatch(); };
 }
