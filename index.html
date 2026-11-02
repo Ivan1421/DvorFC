@@ -12,6 +12,27 @@
     <meta name="twitter:card" content="summary">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+    /* ===== промо DFL Ultimate на главном экране ===== */
+    .ult-promo{position:relative;display:flex;align-items:center;gap:16px;margin:0 0 18px;padding:18px 20px;border-radius:20px;text-decoration:none;color:#fff;overflow:hidden;
+        background:linear-gradient(135deg,#0f172a 0%,#1a1a3e 55%,#2a1a3e 100%);border:1px solid rgba(0,229,255,.5);
+        box-shadow:0 0 0 1px rgba(0,229,255,.25),0 10px 34px rgba(0,229,255,.28);animation:ultPromoGlow 2.8s ease-in-out infinite;transition:transform .25s}
+    .ult-promo:hover{transform:translateY(-3px) scale(1.01)}
+    .ult-promo:active{transform:scale(.98)}
+    .ult-promo::before{content:"";position:absolute;top:-60%;left:-40%;width:50%;height:220%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.22),transparent);transform:rotate(18deg);animation:ultPromoShine 3.4s ease-in-out infinite;pointer-events:none}
+    .ult-promo-icon{font-size:2.6rem;flex-shrink:0;filter:drop-shadow(0 0 14px rgba(255,209,102,.6));animation:ultPromoFloat 2.4s ease-in-out infinite}
+    .ult-promo-text{flex:1;min-width:0;position:relative;z-index:1}
+    .ult-promo-hint{font-size:.7rem;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#00e5ff;margin-bottom:2px}
+    .ult-promo-title{font-size:1.25rem;font-weight:900;line-height:1.15;background:linear-gradient(135deg,#00e5ff,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .ult-promo-desc{font-size:.8rem;color:#b6c2dc;margin-top:3px;font-weight:600}
+    .ult-promo-btn{position:relative;z-index:1;flex-shrink:0;padding:10px 18px;border-radius:999px;font-weight:900;font-size:.85rem;color:#04121c;background:linear-gradient(135deg,#00e5ff,#a855f7);box-shadow:0 6px 20px rgba(0,229,255,.4)}
+    .ult-promo-badge{position:absolute;top:10px;right:12px;z-index:2;font-size:.62rem;font-weight:900;padding:3px 10px;border-radius:999px;background:#ffd166;color:#3a1e00;letter-spacing:.6px;animation:ultBadgePulse 1.6s ease-in-out infinite}
+    @keyframes ultPromoGlow{0%,100%{box-shadow:0 0 0 1px rgba(0,229,255,.25),0 10px 30px rgba(0,229,255,.22)}50%{box-shadow:0 0 0 1px rgba(168,85,247,.5),0 12px 44px rgba(168,85,247,.45)}}
+    @keyframes ultPromoShine{0%{left:-50%}60%,100%{left:130%}}
+    @keyframes ultPromoFloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+    @keyframes ultBadgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    @media(max-width:520px){.ult-promo{flex-wrap:wrap;padding:16px}.ult-promo-btn{width:100%;text-align:center}.ult-promo-badge{top:8px;right:8px}}
+    </style>
 </head>
 <body>
     <div id="preloader">
@@ -43,6 +64,17 @@
         <main>
 
             <div id="home-page" class="page active">
+                <a class="ult-promo" href="dfl-ultimate.html">
+                    <span class="ult-promo-badge">NEW</span>
+                    <span class="ult-promo-icon">🃏</span>
+                    <span class="ult-promo-text">
+                        <div class="ult-promo-hint">Попробуйте ещё и игру</div>
+                        <div class="ult-promo-title">DFL Ultimate</div>
+                        <div class="ult-promo-desc">Собирай карточки игроков ДФЛ, открывай паки и проходи кампанию против команд лиги</div>
+                    </span>
+                    <span class="ult-promo-btn">▶ Играть</span>
+                </a>
+
                 <div class="main-buttons">
                     <div class="main-button request-btn" id="complaint-btn-main">
                         <span class="new-badge">NEW</span>
