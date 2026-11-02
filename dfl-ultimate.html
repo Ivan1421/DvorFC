@@ -1683,7 +1683,6 @@ function neutralEvents(){
     addLog('foul',`Фол: ${p.name} (${S.name})`,'🚫'); spend(S,p,0.8);
     if(R(0.25)) giveYellow(S,p);
   }
-  if(R(0.04)){ const S=R(0.5)?MS.H:MS.A; addLog('info',`Офсайд у ${S.name}`,'🚩'); }
   [MS.H,MS.A].forEach(S=>{
     const sg=S.team.find(p=>styleOf(p,'sing'));
     if(sg&&R(0.03)){
