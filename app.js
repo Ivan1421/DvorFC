@@ -47,7 +47,7 @@ const playstyleDescriptions = {
 };
 
 const basePlayers = {
-    raya: { name: "Шустик", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 90, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod', 'otraz', 'far'], playstyleColors: { vihod: "gold", otraz: "gold", far: "gold" } },
+    raya: { name: "Шустов Иван", position: "Вратарь", age: "15 лет", icon: "🧤", foot: "Правая", height: "160 см", weight: "45 кг", rating: 90, number: "(1)", description: "Стена, которую не пробить", playstyles: ['vihod', 'otraz', 'far'], playstyleColors: { vihod: "gold", otraz: "gold", far: "gold" } },
     maxim: { name: "Бузмаков Максим", position: "Защитник", age: "14 лет", icon: "⚽", foot: "Правая", height: "176 см", weight: "58 кг", rating: 90, number: "(8)", description: "Защитник ФК МЕРА", playstyles: ["strag", 'intuation', "borec"], playstyleColors: { strag: "gold", intuation: "gold", borec: "gold" } },
     batrakov: { name: "Кравченко Глеб", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "143 см", weight: "33 кг", rating: 87, number: "(83)", description: "Мелкая копия Батракова", playstyles: ["Bezjalostniy", 'obmanshik_silver', 'naves'], playstyleColors: { Bezjalostniy: "gold", obmanshik_silver: "silver", naves: 'gold' } },
     aleksey_doroshenko: { name: "Дорошенко Алексей", position: "Нападающий", age: "13 лет", icon: "⚽", foot: "Амбидекстер", height: "145 см", weight: "35 кг", rating: 90, number: "(22)", description: "Лучший дриблер двора", playstyles: ["truk_gold", "bombardir", "tochno"], playstyleColors: { truk_gold: "gold", bombardir: "gold", tochno: "gold" } },
@@ -67,7 +67,7 @@ const yard78Players = [
 ];
 
 const yuzhkaPlayers = [
-    { id: "russkov_artem", name: "Руссё Диктатор", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 93, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka", "bombardir", "bistro_gold"], playstyleColors: { bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold" } },
+    { id: "russkov_artem", name: "Руссков Артём", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Амбидекстр", height: "178 см", weight: "58 кг", rating: 93, number: "(8)", description: "дикий сюю ю ю ю", playstyles: ["tiki_taka", "bombardir", "bistro_gold"], playstyleColors: { bistro_gold: "gold", bombardir: "gold", tiki_taka: "gold" } },
     { id: "shuklin", name: "Шуклин Кирилл", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Левая", height: "160 см", weight: "45 кг", rating: 89, number: "(11)", description: "Гром всегда позднее молнии", playstyles: ["bistro_silver", "bombardir_silver", "truk_gold"], playstyleColors: { bistro_silver: "silver", bombardir_silver: "silver", truk_gold: "gold" } },
     { id: "bombar", name: "Бадартинов Михаил", position: "Нападающий", age: "15 лет", icon: "⚽", foot: "Правая", height: "180 см", weight: "72 кг", rating: 89, number: "(57)", description: "Коч коч братан", playstyles: ["borec", "pushka"], playstyleColors: { borec: "gold", pushka: "gold" } },
     { id: "mes", name: "Кирьянов Артем", position: "Полузащитник", age: "15 лет", icon: "⚽", foot: "Правая", height: "160 см", weight: "55 кг", rating: 89, number: "(28)", description: "Не имей сто друзей а имей в друзьях Меса", playstyles: ["otraz"], playstyleColors: { otraz: "gold" } },
@@ -77,7 +77,7 @@ const yuzhkaPlayers = [
 
 const arsenalPlayers = [
     { id: "andryushka", name: "Бузмаков Андрей", position: "Нападающий", age: "9 лет", icon: "⚽", foot: "Правая", height: "140 см", weight: "32 кг", rating: 80, number: "(7)", description: "Самый молодой игрок двора", playstyles: ['bistro_silver', 'tochno_silver'], playstyleColors: { bistro_silver: "silver", tochno_silver: "silver" } },
-    { id: "gleb", name: "Глеб", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 80, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: { naves: "gold", vinos_silver: "silver" } },
+    { id: "gleb", name: "Зарюта Глеб", position: "Защитник", age: "13 лет", icon: "⚽", foot: "Правая", height: "168 см", weight: "48 кг", rating: 80, number: "(15)", description: "Работяга", playstyles: ["naves", "vinos_silver"], playstyleColors: { naves: "gold", vinos_silver: "silver" } },
     { id: "kostya", name: "Лехнер Константин", position: "Вратарь", age: "12 лет", icon: "⚽", foot: "Правая", height: "150 см", weight: "35 кг", rating: 84, number: "(32)", description: "Не бойся творить историю", playstyles: ['vihod', "otraz_silver"], playstyleColors: { vihod: "gold", otraz_silver: "silver" } },
     { id: "saveliy_78", name: "Соколов Савелий", position: "Полузащитник", age: "12 лет", icon: "⚽", foot: "Правая", height: "164 см", weight: "45 кг", rating: 81, number: "(78)", description: "Самый преданный игрок", playstyles: ["truk_gold", "simulant_silver"], playstyleColors: { truk_gold: "gold", simulant_silver: "silver" } }
 ];
