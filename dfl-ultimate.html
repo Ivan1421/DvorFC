@@ -1472,14 +1472,20 @@ function guestId(){
   return g;
 }
 function setIdentity(){
-  if(CURRENT_USER){ UID='u_'+CURRENT_USER.id; UNAME=CURRENT_USER.name||CURRENT_USER.username||UID; }
-  else { const g=guestId(); UID='g_'+g; UNAME='Гость '+g.slice(0,4).toUpperCase(); }
+  if(CURRENT_USER){ UID=('u_'+CURRENT_USER.id).toLowerCase(); UNAME=CURRENT_USER.name||CURRENT_USER.username||UID; }
+  else { const g=guestId(); UID=('g_'+g).toLowerCase(); UNAME='Гость '+g.slice(0,4).toUpperCase(); }
 }
 function loadConfigCache(){ try{ const c=JSON.parse(localStorage.getItem('ut_config')||'null'); if(c&&c.prices) CONFIG=c; }catch(e){} }
 function schedulePush(){ if(!SB||!UID)return; clearTimeout(pushTimer); pushTimer=setTimeout(pushSave,1500); }
 async function pushSave(){
   if(!SB||!UID||!STATE||BANNED)return;
-  try{ await SB.from('ultimate_saves').upsert({user_id:UID,name:UNAME,is_guest:!CURRENT_USER,data:STATE,updated_at:new Date().toISOString()},{onConflict:'user_id'}); }catch(e){}
+  try{
+    const { error } = await SB.from('ultimate_saves').upsert(
+      {user_id:UID,name:UNAME,is_guest:!CURRENT_USER,data:STATE,updated_at:new Date().toISOString()},
+      {onConflict:'user_id'}
+    );
+    if (error) console.error('[pushSave] error:', error);
+  }catch(e){ console.error('[pushSave] exception:', e); }
 }
 async function checkBan(){
   try{ const {data}=await SB.from('ultimate_bans').select('reason').eq('user_id',UID).maybeSingle(); BANNED=data?(data.reason||'Без причины'):null; }catch(e){}
@@ -1753,8 +1759,8 @@ async function addFriend(){
   try {
     // Проверяем, что игрок вообще существует (заходил хоть раз)
     const [onlineRes, savesRes] = await Promise.all([
-      SB.from('ultimate_online').select('user_id').eq('user_id', id).maybeSingle(),
-      SB.from('ultimate_saves').select('user_id').eq('user_id', id).maybeSingle(),
+      SB.from('ultimate_online').select('user_id').ilike('user_id', id).maybeSingle(),
+      SB.from('ultimate_saves').select('user_id').ilike('user_id', id).maybeSingle(),
     ]);
 
     const checkFailed = onlineRes.error && savesRes.error;
@@ -2006,6 +2012,10 @@ async function startApp(){
   const sp=syncStart();
   try{ await Promise.race([sp,new Promise(r=>setTimeout(r,4000))]); }catch(e){}
   setBusy(false);
+
+  // ← ДОБАВИТЬ: сразу сохраняем сейв, чтобы друг мог его найти
+  await pushSave();
+
   sp.then(()=>{ if($('app').classList.contains('active')){ if(BANNED) showBan(); else renderAll(); } }).catch(()=>{});
   startPoll();
   if(BANNED){ showBan(); return; }
@@ -3800,7 +3810,9 @@ function setupTabs(){
 }
 async function startFriendMatch(friendId, friendName, matchId, isMirror){
   try {
-    const { data } = await SB.from('ultimate_saves').select('data').eq('user_id', friendId).maybeSingle();
+    console.log('[startFriendMatch] friendId =', JSON.stringify(friendId), 'isMirror =', isMirror);
+    const { data } = await SB.from('ultimate_saves').select('data').ilike('user_id', friendId).maybeSingle();
+    console.log('[startFriendMatch] saves result:', data);
     if (!data || !data.data) return toast('Не удалось загрузить состав друга', 'error');
 
     const friendState = data.data;
