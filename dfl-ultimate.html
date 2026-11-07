@@ -1797,9 +1797,16 @@ function joinMatchChannel(matchId, asHost, onReady) {
 
 function broadcastMatchEvent(type, data) {
   if (!IS_HOST || !MATCH_CHANNEL) return;
+  
+  // Переворачиваем сторону и счёт для гостя
+  let payloadData = data;
+  if (type === 'goal' && data && data.side) {
+    payloadData = { ...data, side: data.side === 'home' ? 'away' : 'home' };
+  }
+  
   MATCH_CHANNEL.send({
     type: 'broadcast', event: 'match_event',
-    payload: { type, data, min: MS.min, hs: MS.hs, as: MS.as }
+    payload: { type, data: payloadData, min: MS.min, hs: MS.as, as: MS.hs }  // ← hs и as местами
   });
 }
 function broadcastGuestAction(actionType, data) {
