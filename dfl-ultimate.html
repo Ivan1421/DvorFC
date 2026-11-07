@@ -4057,30 +4057,24 @@ function openLobby(opponentName, matchId, isHost, opponentReady, opponentId){
     btn.textContent = '⏳ Ждём соперника...';
     textEl.innerHTML = `Ты готов! Ждём, пока <strong>${opponentName}</strong> нажмёт «Продолжить»...<br><br><div style="color:var(--gold);font-weight:900;animation:pulse 1.5s infinite">Ожидание...</div>`;
 
-    // Отправляем сигнал, что мы готовы (меняем статус)
-    const myStatus = isHost ? 'host_ready' : 'guest_ready';
-    await SB.from('ultimate_matches').update({ status: myStatus }).eq('id', matchId);
+    // Сигналим, что мы готовы
+    await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
     
     if (LOBBY_POLL) clearInterval(LOBBY_POLL);
     LOBBY_POLL = setInterval(async () => {
+      // Проверяем, не поставил ли второй игрок статус both_ready
       const { data } = await SB.from('ultimate_matches').select('status').eq('id', matchId).maybeSingle();
       
-      // Если статус стал both_ready — значит оба нажали и можно стартовать
       if (data && data.status === 'both_ready') {
         clearInterval(LOBBY_POLL);
         $('script-modal').classList.remove('active');
         
+        // Запускаем матч у обоих
         if (isHost) {
           await startFriendMatch(opponentId, opponentName, matchId, false);
         } else {
           await startFriendMatch(opponentId, opponentName, matchId, true);
         }
-      }
-      
-      // Если второй игрок нажал (статус сменился на его), мы ставим both_ready
-      const oppReady = isHost ? (data.status === 'guest_ready') : (data.status === 'host_ready');
-      if (oppReady) {
-        await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
       }
     }, 1000);
   };
@@ -4125,7 +4119,7 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
       }
     };
 
-    // Если гость (зеркало) — не запускаем симуляцию сами, ждём broadcast от хоста
+
     if (isMirror) {
       CURRENT_STAGE = stage;
       $('stage-modal').classList.remove('active');
@@ -4134,13 +4128,7 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
       return;
     }
 
-    // Хост: соединяемся с каналом и ЖДЁМ подписки
-    if (matchId) {
-      await new Promise(resolve => {
-        joinMatchChannel(matchId, true, resolve);
-      });
-      heartbeat();
-    }
+ 
 
     CURRENT_STAGE = stage;
     $('stage-modal').classList.remove('active');
