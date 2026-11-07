@@ -3,7 +3,7 @@
 (function () {
 'use strict';
 
-// Каталог игроков Ultimate (держите в синхроне с ALL_PLAYERS в dfl-ultimate.html): [id, имя, позиция, рейтинг]
+// Каталог игроков Ultimate (ДЕРЖАТЬ ОБЯЗАТЕЛЬНО в синхроне с ALL_PLAYERS в dfl-ultimate.html): [id, имя, позиция, рейтинг]
 const CATALOG = [
 ['nazar','Осинцев Назар','DF',56],['artem','Соколов Артём','FW',67],['EgorNast','Зверев Егор','MF',67],
 ['kuharskiy','Кухарский Тимофей','FW',76],['irakliy','Дарсалия Ираклий','FW',77],['maxronaldo','Максим Роналду','FW',77],
