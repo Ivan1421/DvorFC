@@ -1202,9 +1202,19 @@ const PLAYSTYLES_MAP = {
   saveliy_78:{playstyles:['truk_gold','simulant_silver'],playstyleColors:{truk_gold:'gold',simulant_silver:'silver'}},
   haaland:{playstyles:['borec_silver','tiki_taka_silver'],playstyleColors:{borec_silver:'silver',tiki_taka_silver:'silver'}}
 };
+
+const GOLD_BASE = {
+  gold_russkov:'russkov_artem', gold_doroshenko:'aleksey_doroshenko',
+  gold_bobrikov:'sanya_bobrikov', gold_zykov:'maxim_dcp',
+  gold_maxim:'maxim', gold_shustov:'raya', gold_zaytsev:'timofey_zaytsev',
+  gold_tankov:'tankov', gold_bombar:'bombar', gold_batrakov:'batrakov',
+  gold_elisey:'elisey', gold_churilov:'lesha_podavalny'
+};
 ALL_PLAYERS.forEach(p=>{
-  const ps = PLAYSTYLES_MAP[p.id] || {playstyles:[],playstyleColors:{}};
-  p.playstyles = ps.playstyles; p.playstyleColors = ps.playstyleColors;
+  const key = p.goldEvent ? GOLD_BASE[p.id] : p.id;
+  const ps = PLAYSTYLES_MAP[key] || {playstyles:[],playstyleColors:{}};
+  p.playstyles = ps.playstyles;
+  p.playstyleColors = ps.playstyleColors;
 });
 // группы плейстайлов для матча
 const STYLE_GROUPS = {
@@ -1455,7 +1465,7 @@ function sfxBoom(){ playTone(80,.6,'sine',.3); playTone(55,.9,'sine',.3); [523,6
 const SUPABASE_URL='https://pgcdeufbvdricaccjpls.supabase.co';
 const SUPABASE_KEY='sb_publishable_8Tf6g3Uvv4d2f3kewhAVUQ_CoIZ5qxp';
 let SB=null; try{ if(window.supabase&&window.supabase.createClient) SB=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY); }catch(e){ SB=null; }
-let UID=null, UNAME='', BANNED=null, POLL=null, pushTimer=null;
+let UID=null, UNAME='', BANNED=null, POLL=null, pushTimer=null, HEARTBEAT_TIMER=null;
 function guestId(){
   let g=null; try{ g=localStorage.getItem('ut_guest_id'); }catch(e){}
   if(!g){ g=Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-3); try{localStorage.setItem('ut_guest_id',g);}catch(e){} }
@@ -1828,8 +1838,18 @@ async function sendMatchInvite(friendId, friendName){
 async function acceptMatchInvite(invId, fromId, fromName){
   try {
     const inv = FRIENDS.invites.find(i => i.id === invId);
-    const matchId = inv && inv.match_id;
-    if (!matchId) { toast('Ошибка: у приглашения нет match_id', 'error'); return; }
+    let matchId = inv && inv.match_id;
+
+    // Если старое приглашение без match_id — создаём матч на лету
+    if (!matchId) {
+      const { data: m, error: mErr } = await SB.from('ultimate_matches').insert({
+        host_id: fromId, guest_id: UID, status: 'active'
+      }).select().maybeSingle();
+      if (mErr) throw mErr;
+      matchId = m.id;
+      // привязываем match_id к приглашению (на будущее)
+      await SB.from('ultimate_match_invites').update({ match_id: matchId }).eq('id', invId);
+    }
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
     await SB.from('ultimate_matches').update({ status: 'active' }).eq('id', matchId);
@@ -1903,12 +1923,13 @@ function setupFriends(){
 
   // Табы
   document.querySelectorAll('[data-ftab]').forEach(t => {
-    t.onclick = () => {
+    t.onclick = async () => {
       sfxClick();
       document.querySelectorAll('[data-ftab]').forEach(x => x.classList.remove('active'));
       t.classList.add('active');
       FRIENDS_TAB = t.dataset.ftab;
       renderFriends();
+      await loadFriends();     // ← подтянуть свежее с сервера
     };
   });
 }
@@ -1926,10 +1947,13 @@ async function heartbeat(){
     }, { onConflict: 'user_id' });
   } catch(e){}
 }
+
 async function startApp(){
+  BANNED = null;
   setIdentity();
-  heartbeat();
-  setInterval(heartbeat, 15000);
+  await heartbeat();
+  if (HEARTBEAT_TIMER) clearInterval(HEARTBEAT_TIMER);
+  HEARTBEAT_TIMER = setInterval(heartbeat, 15000);
   subscribeInvites();  
   SAVE_KEY='ut_campaign_'+(CURRENT_USER?CURRENT_USER.id:'guest');
   unregisterCustoms();
@@ -2643,7 +2667,11 @@ function runMatch(stage, opts){
 
   // Зеркало не тикает само — ждёт broadcast от хоста
   if (opts && opts.mirror) {
-    MS.phase = 'mirror'; // особый режим: tick не запускается
+    MS.phase = 'mirror';
+    // применить события, пришедшие до создания MS
+    const pending = PENDING_EVENTS.slice();
+    PENDING_EVENTS = [];
+    pending.forEach(applyRemoteEvent);
     return;
   }
   MS.timer=setInterval(tick,1500);
@@ -2844,6 +2872,7 @@ function pitchHtml(side, ratings, flip) {
       </div>
     </div>`;
 }
+
 let PENDING_EVENTS = [];
 function applyRemoteEvent(payload) {
     if (!MS) {
@@ -2897,6 +2926,7 @@ function finishMirrorMatch(payload) {
     if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL = null; }
     IS_HOST = false;
     CURRENT_MATCH_ID = null;
+    heartbeat();
     renderAll();
   };
 }
