@@ -1576,24 +1576,39 @@ async function loadFriends(){
     (f || []).forEach(row => {
       if (row.status === 'accepted') {
         const otherId = row.user_id === UID ? row.friend_id : row.user_id;
-        FRIENDS.my.push({ id: otherId, raw: row });
+        FRIENDS.my.push({ id: otherId, raw: row, online: false, name: otherId, inMatch: false });
       } else if (row.status === 'pending') {
-        if (row.friend_id === UID) FRIENDS.incoming.push({ id: row.user_id, raw: row });
-        else FRIENDS.outgoing.push({ id: row.friend_id, raw: row });
+        if (row.friend_id === UID) FRIENDS.incoming.push({ id: row.user_id, raw: row, name: row.user_id });
+        else FRIENDS.outgoing.push({ id: row.friend_id, raw: row, name: row.friend_id });
       }
     });
 
-    // Онлайн-статусы друзей
-    const ids = FRIENDS.my.map(f => f.id);
-    if (ids.length) {
-      const { data: online } = await SB.from('ultimate_online').select('*').in('user_id', ids);
+    // Онлайн-статусы и имена для всех трёх списков
+    const allOtherIds = [
+      ...FRIENDS.my.map(f => f.id),
+      ...FRIENDS.incoming.map(f => f.id),
+      ...FRIENDS.outgoing.map(f => f.id),
+    ];
+    if (allOtherIds.length) {
+      const { data: online } = await SB.from('ultimate_online')
+        .select('user_id,name,last_seen,in_match')
+        .in('user_id', allOtherIds);
       const map = {};
       (online || []).forEach(o => map[o.user_id] = o);
+
       FRIENDS.my.forEach(f => {
         const o = map[f.id];
         f.online = o ? (Date.now() - new Date(o.last_seen).getTime() < 60000) : false;
-        f.name = o ? o.name : f.id;
-        f.inMatch = o ? o.in_match : false;
+        f.name = (o && o.name) ? o.name : f.id;
+        f.inMatch = o ? !!o.in_match : false;
+      });
+      FRIENDS.incoming.forEach(f => {
+        const o = map[f.id];
+        f.name = (o && o.name) ? o.name : f.id;
+      });
+      FRIENDS.outgoing.forEach(f => {
+        const o = map[f.id];
+        f.name = (o && o.name) ? o.name : f.id;
       });
     }
 
@@ -1623,7 +1638,7 @@ function renderFriends(){
           <div class="stage-name">${f.name}</div>
           <div class="stage-sub">${f.online ? (f.inMatch ? 'в матче' : 'онлайн') : 'оффлайн'}</div>
         </div>
-        ${f.online && !f.inMatch ? `<button class="btn btn-primary" data-invite="${f.id}" data-invite-name="${f.name}" style="padding:8px 16px;font-size:.8rem">⚽ Вызвать</button>` : ''}
+        ${!f.inMatch ? `<button class="btn ${f.online?'btn-primary':'btn-ghost'}" data-invite="${f.id}" data-invite-name="${f.name}" style="padding:8px 16px;font-size:.8rem">${f.online ? '⚽ Вызвать' : '🤖 Матч с составом'}</button>` : ''}
       </div>`).join('');
   } else if (FRIENDS_TAB === 'requests') {
     let reqs = '';
@@ -1632,7 +1647,10 @@ function renderFriends(){
       reqs += FRIENDS.incoming.map(f => `
         <div class="stage" style="cursor:default;margin-bottom:8px">
           <div class="stage-num" style="background:var(--bg-2)">📩</div>
-          <div class="stage-info"><div class="stage-name">${f.id}</div><div class="stage-sub">Хочет добавить вас</div></div>
+          <div class="stage-info">
+            <div class="stage-name">${f.name || f.id}</div>
+            <div class="stage-sub">Хочет добавить вас${f.name && f.name !== f.id ? ` · ${f.id}` : ''}</div>
+          </div>
           <div style="display:flex;gap:6px">
             <button class="btn btn-primary" data-accept="${f.id}" style="padding:6px 12px;font-size:.75rem">✓</button>
             <button class="btn btn-danger" data-decline="${f.id}" style="padding:6px 12px;font-size:.75rem">×</button>
@@ -1644,7 +1662,10 @@ function renderFriends(){
       reqs += FRIENDS.outgoing.map(f => `
         <div class="stage locked" style="cursor:default;margin-bottom:8px">
           <div class="stage-num">⏳</div>
-          <div class="stage-info"><div class="stage-name">${f.id}</div><div class="stage-sub">Ожидает подтверждения</div></div>
+          <div class="stage-info">
+            <div class="stage-name">${f.name || f.id}</div>
+            <div class="stage-sub">Ожидает подтверждения${f.name && f.name !== f.id ? ` · ${f.id}` : ''}</div>
+          </div>
         </div>`).join('');
     }
     html = reqs || '<div class="empty"><div class="empty-icon">📭</div><p>Нет заявок</p></div>';
@@ -1673,58 +1694,156 @@ function renderFriends(){
   box.querySelectorAll('[data-accept-match]').forEach(b => b.onclick = () => acceptMatchInvite(b.dataset.acceptMatch, b.dataset.from, b.dataset.fromName));
   box.querySelectorAll('[data-decline-match]').forEach(b => b.onclick = () => declineMatchInvite(b.dataset.declineMatch));
 }
+let MATCH_CHANNEL = null;
+let IS_HOST = false;
+let CURRENT_MATCH_ID = null;
+function joinMatchChannel(matchId, asHost) {
+  if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} }
+  IS_HOST = asHost;
+  CURRENT_MATCH_ID = matchId;
+
+  MATCH_CHANNEL = SB.channel('match:' + matchId, {
+    config: { broadcast: { self: false } }  // хост не слушает сам себя
+  });
+
+  MATCH_CHANNEL
+    .on('broadcast', { event: 'match_event' }, ({ payload }) => {
+      if (IS_HOST) return; // хост игнорирует (он источник)
+      applyRemoteEvent(payload);
+    })
+    .on('broadcast', { event: 'match_end' }, ({ payload }) => {
+      if (IS_HOST) return;
+      finishMirrorMatch(payload);
+    })
+    .subscribe();
+}
+function broadcastMatchEvent(type, data) {
+  if (!IS_HOST || !MATCH_CHANNEL) return;
+  MATCH_CHANNEL.send({
+    type: 'broadcast',
+    event: 'match_event',
+    payload: { type, data, min: MS.min, hs: MS.hs, as: MS.as }
+  });
+}
 async function addFriend(){
-  const id = ($('friend-search').value || '').trim();
+  let id = ($('friend-search').value || '').trim().toLowerCase();
   if (!id) return toast('Введите ID', 'error');
   if (id === UID) return toast('Это вы сами', 'error');
 
   try {
-    const { data: exists } = await SB.from('ultimate_online').select('user_id').eq('user_id', id).maybeSingle();
-    if (!exists) return toast('Игрок не найден. Пусть он зайдёт в игру.', 'error');
+    // Проверяем, что игрок вообще существует (заходил хоть раз)
+    const [onlineRes, savesRes] = await Promise.all([
+      SB.from('ultimate_online').select('user_id').eq('user_id', id).maybeSingle(),
+      SB.from('ultimate_saves').select('user_id').eq('user_id', id).maybeSingle(),
+    ]);
 
-    const { error } = await SB.from('ultimate_friends').insert({ user_id: UID, friend_id: id, status: 'pending' });
+    const checkFailed = onlineRes.error && savesRes.error;
+    const exists = onlineRes.data || savesRes.data;
+
+    if (checkFailed) {
+      console.warn('exist check failed (RLS?):', onlineRes.error, savesRes.error);
+      // не блокируем
+    } else if (!exists) {
+      return toast('Игрок с таким ID не найден. Проверьте ID.', 'error');
+    }
+
+    const { error } = await SB.from('ultimate_friends')
+      .insert({ user_id: UID, friend_id: id, status: 'pending' });
+
     if (error) {
-      if (error.message.includes('duplicate')) return toast('Заявка уже отправлена', 'warn');
+      if (/duplicate|unique/i.test(error.message)) return toast('Заявка уже отправлена', 'warn');
       throw error;
     }
+
     toast('✅ Заявка отправлена', 'success');
     $('friend-search').value = '';
-    loadFriends();
+    await loadFriends();
   } catch (e) {
+    console.error('addFriend error:', e);
+    toast('Ошибка: ' + (e.message || e), 'error');
+  }
+}
+async function acceptFriend(uid){
+  try {
+    const { data, error } = await SB.from('ultimate_friends')
+      .update({ status: 'accepted' })
+      .or(`and(user_id.eq.${uid},friend_id.eq.${UID}),and(user_id.eq.${UID},friend_id.eq.${uid})`)
+      .select();
+    if (error) throw error;
+    if (!data || !data.length) {
+      toast('Заявка не найдена (возможно, уже обработана)', 'warn');
+    } else {
+      toast('✅ Друг добавлен', 'success');
+    }
+
+    // Переключить на вкладку «Мои друзья»
+    FRIENDS_TAB = 'my';
+    document.querySelectorAll('[data-ftab]').forEach(t => {
+      t.classList.toggle('active', t.dataset.ftab === 'my');
+    });
+
+    await loadFriends();
+  } catch (e) {
+    console.error('acceptFriend error:', e);
     toast('Ошибка: ' + (e.message || e), 'error');
   }
 }
 
-async function acceptFriend(uid){
-  try {
-    await SB.from('ultimate_friends').update({ status: 'accepted' }).eq('user_id', uid).eq('friend_id', UID);
-    toast('✅ Друг добавлен', 'success');
-    loadFriends();
-  } catch (e) { toast('Ошибка', 'error'); }
-}
-
 async function declineFriend(uid){
   try {
-    await SB.from('ultimate_friends').delete().eq('user_id', uid).eq('friend_id', UID);
-    loadFriends();
-  } catch (e) {}
+    const { error } = await SB.from('ultimate_friends')
+      .delete()
+      .or(`and(user_id.eq.${uid},friend_id.eq.${UID}),and(user_id.eq.${UID},friend_id.eq.${uid})`);
+    if (error) throw error;
+    toast('Заявка отклонена', 'info');
+    await loadFriends();
+  } catch (e) {
+    console.error('declineFriend error:', e);
+    toast('Ошибка: ' + (e.message || e), 'error');
+  }
 }
 
 async function sendMatchInvite(friendId, friendName){
   try {
-    await SB.from('ultimate_match_invites').insert({ from_id: UID, from_name: UNAME, to_id: friendId, status: 'pending' });
+    // 1. Создаём матч
+    const { data: m, error: mErr } = await SB.from('ultimate_matches').insert({
+      host_id: UID, guest_id: friendId, status: 'pending'
+    }).select().maybeSingle();
+    if (mErr) throw mErr;
+
+    // 2. Создаём приглашение со ссылкой на матч
+    const { error } = await SB.from('ultimate_match_invites').insert({
+      from_id: UID, from_name: UNAME, to_id: friendId,
+      status: 'pending', match_id: m.id
+    });
+    if (error) throw error;
+
     toast('⚽ Приглашение отправлено', 'success');
-  } catch (e) { toast('Ошибка отправки', 'error'); }
+  } catch (e) {
+    console.error('sendMatchInvite error:', e);
+    toast('Ошибка отправки: ' + (e.message || e), 'error');
+  }
 }
 
 async function acceptMatchInvite(invId, fromId, fromName){
   try {
+    const inv = FRIENDS.invites.find(i => i.id === invId);
+    const matchId = inv && inv.match_id;
+    if (!matchId) { toast('Ошибка: у приглашения нет match_id', 'error'); return; }
+
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
-    // Запускаем матч против друга
-    startFriendMatch(fromId, fromName);
+    await SB.from('ultimate_matches').update({ status: 'active' }).eq('id', matchId);
+
+    // Гость подключается к каналу и ждёт события хоста
+    joinMatchChannel(matchId, false);
+    await startFriendMatch(fromId, fromName, matchId, true); // isMirror=true
+
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
-  } catch (e) { toast('Ошибка', 'error'); }
+  } catch (e) {
+    console.error('acceptMatchInvite error:', e);
+    toast('Ошибка: ' + (e.message || e), 'error');
+  }
 }
 
 async function declineMatchInvite(invId){
@@ -2040,6 +2159,10 @@ function addLog(type,html,icon){
   d.className='log-line log-'+type;
   d.innerHTML=`<span class="log-min">${MS.min}'</span><span class="log-ico">${icon||''}</span><span class="log-txt">${html}</span>`;
   MS.log.appendChild(d); MS.log.scrollTop=MS.log.scrollHeight;
+  // хост транслирует событие зеркалу
+  if (IS_HOST && MS.phase !== 'mirror') {
+    broadcastMatchEvent('log', { type, html, icon });
+  }
 }
 function ico(p,group,fallback){ const k=styleOf(p,group); if(k){ const im=psImg(k,'log'); if(im)return im; } return fallback; }
 function defIcon(d){ const k=['guard','fight','intuit'].map(g=>styleOf(d,g)).find(Boolean); return k?(psImg(k,'log')||'🛡️'):'🛡️'; }
@@ -2101,6 +2224,7 @@ function scoreGoal(A,sh,txt,icon,assist){
   const home=A.key==='home';
   addLog(home?'goal-home':'goal-away',(home?'⚽ ГОЛ! ':'⚽ Гол соперника — ')+txt+(assist?` Ассист: ${assist.name}.`:''),icon||'⚽');
   sfxGoal();
+  if (IS_HOST) broadcastMatchEvent('goal', { side: A.key });
 }
 const MISS_TXT=['мимо ворот','выше ворот','чуть левее штанги','чуть правее штанги','в защитника'];
 function saveText(gk,o){
@@ -2488,7 +2612,7 @@ function neutralEvents(){
   });
 }
 
-function runMatch(stage){
+function runMatch(stage, opts){
   const bonus=STAGE_BONUS[stage.difficulty]||STAGE_BONUS.medium;
   const myTeam=STATE.starters.filter(Boolean).map(pid=>PLAYER_MAP[pid]);
   const oppTeam=stage.players.map(pid=>{ const p=PLAYER_MAP[pid]; return p?{...p,rating:Math.max(50,Math.min(99,p.rating+bonus.ratingShift))}:null; }).filter(Boolean);
@@ -2516,10 +2640,16 @@ function runMatch(stage){
   if(!oppTeam.some(p=>p.pos==='GK')) addLog('info',`У ${stage.name} нет вратаря — в воротах стоит полевой игрок`,'⚠️');
   renderStaPanel();
   sfxWhistle();
+
+  // Зеркало не тикает само — ждёт broadcast от хоста
+  if (opts && opts.mirror) {
+    MS.phase = 'mirror'; // особый режим: tick не запускается
+    return;
+  }
   MS.timer=setInterval(tick,1500);
 }
 function tick(){
-  if(MS.phase==='ended')return;
+  if(MS.phase!=='first' && MS.phase!=='second') return; // ← защита
   MS.min+=1;
   if(MS.min>15&&MS.half===1)MS.min=15;
   if(MS.min>30&&MS.half===2)MS.min=30;
@@ -2529,6 +2659,8 @@ function tick(){
   order.forEach(([att,def])=>{ if(R(attackProb(att,def))) runAttack(att,def); });
   neutralEvents();
   checkStaLog(); renderStaPanel();
+  // отправляем зеркалу текущее состояние
+  if (IS_HOST) broadcastMatchEvent('tick', {});
   if(MS.half===1&&MS.min>=15){ endFirstHalf(); return; }
   if(MS.half===2&&MS.min>=30){ endMatch(); return; }
 }
@@ -2712,10 +2844,74 @@ function pitchHtml(side, ratings, flip) {
       </div>
     </div>`;
 }
+let PENDING_EVENTS = [];
+function applyRemoteEvent(payload) {
+    if (!MS) {
+    PENDING_EVENTS.push(payload);
+    return;
+  }
+  const { type, data, min, hs, as } = payload || {};
 
+  // синхронизируем счёт и время
+  if (typeof min === 'number') MS.min = min;
+  if (typeof hs === 'number') { MS.hs = hs; MS.H.goals = hs; }
+  if (typeof as === 'number') { MS.as = as; MS.A.goals = as; }
+  updateScore();
+  updateClock();
+
+  if (type === 'log' && data) {
+    // создаём DOM-элемент напрямую, без addLog (чтобы не отправить broadcast обратно)
+    const d = document.createElement('div');
+    d.className = 'log-line log-' + (data.type || 'info');
+    d.innerHTML = `<span class="log-min">${MS.min}'</span><span class="log-ico">${data.icon || ''}</span><span class="log-txt">${data.html || ''}</span>`;
+    MS.log.appendChild(d);
+    MS.log.scrollTop = MS.log.scrollHeight;
+    if (data.type === 'goal-home' || data.type === 'goal-away') sfxGoal();
+  }
+  if (type === 'goal') sfxGoal();
+  if (type === 'tick') renderStaPanel();
+}
+
+function finishMirrorMatch(payload) {
+  if (!MS) return;
+  MS.phase = 'ended';
+  MS.hs = payload.hs || 0;
+  MS.as = payload.as || 0;
+  MS.H.goals = MS.hs;
+  MS.A.goals = MS.as;
+  MS.goals = payload.goals || [];
+  updateScore();
+  MS.timeEl.textContent = 'Матч окончен';
+
+  // показываем результат (без наград — их получает только хост)
+  const result = MS.hs > MS.as ? 'win' : MS.hs < MS.as ? 'loss' : 'draw';
+  MS.resCont.innerHTML = `<div class="result-box ${result}">
+    <div class="result-title">${result==='win'?'🏆 ПОБЕДА':result==='loss'?'❌ Поражение':'🤝 Ничья'}</div>
+    <div class="result-score">${MS.hs} : ${MS.as}</div>
+    <div style="margin-top:10px;font-size:.78rem;color:var(--muted)">Матч завершён (просмотр)</div>
+  </div>`;
+  $('btn-match-close').onclick = () => {
+    $('match-modal').classList.remove('active');
+    MS = null;
+    // очистка канала матча
+    if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL = null; }
+    IS_HOST = false;
+    CURRENT_MATCH_ID = null;
+    renderAll();
+  };
+}
 function endMatch(){
   clearInterval(MS.timer);
   MS.phase='ended'; MS.timeEl.textContent='Матч окончен';
+
+  // хост сообщает зеркалу, что матч окончен
+  if (IS_HOST && MATCH_CHANNEL) {
+    MATCH_CHANNEL.send({
+      type: 'broadcast', event: 'match_end',
+      payload: { hs: MS.hs, as: MS.as, goals: MS.goals }
+    });
+    SB.from('ultimate_matches').update({ status: 'finished' }).eq('id', CURRENT_MATCH_ID).then(()=>{});
+  }
   const stage=MS.stage, bonus=MS.bonus, hs=MS.hs, as=MS.as;
   let result,resultText,baseReward;
   if(hs>as){ result='win'; resultText='🏆 ПОБЕДА'; baseReward=stage.reward; }
@@ -2802,8 +2998,16 @@ function endMatch(){
   closeBtn.style.display='block';
   closeBtn.onclick=()=>{
     $('match-modal').classList.remove('active');
+
+    // очистка канала матча и сброс «в матче»
+    if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL = null; }
+    IS_HOST = false;
+    CURRENT_MATCH_ID = null;
+    MS = null;
+    heartbeat();
+
     renderAll();
-    
+
     if(result==='win'){
       if (stage.isGolden) {
         // Переход к следующему матчу турнира «Золотой мяч»
@@ -3488,6 +3692,14 @@ function setupModals(){
     sfxClick();
     clearTimeout(pushTimer); await pushSave();
     clearInterval(POLL);
+
+    // очистка матч-канала и heartbeat
+    if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL = null; }
+    IS_HOST = false;
+    CURRENT_MATCH_ID = null;
+    if (typeof HEARTBEAT_TIMER !== 'undefined' && HEARTBEAT_TIMER) { clearInterval(HEARTBEAT_TIMER); HEARTBEAT_TIMER = null; }
+    if (INVITE_SUB) { try { SB.removeChannel(INVITE_SUB); } catch(e){} INVITE_SUB = null; }
+
     $('app').classList.remove('active');
     $('login-screen').classList.add('active');
     const dfl=checkDFLSession();
@@ -3513,24 +3725,19 @@ function setupTabs(){
     };
   });
 }
-async function startFriendMatch(friendId, friendName){
+async function startFriendMatch(friendId, friendName, matchId, isMirror){
   try {
-    // Загружаем сейв друга
     const { data } = await SB.from('ultimate_saves').select('data').eq('user_id', friendId).maybeSingle();
     if (!data || !data.data) return toast('Не удалось загрузить состав друга', 'error');
 
     const friendState = data.data;
     const friendStarters = (friendState.starters || []).filter(Boolean);
-
     if (friendStarters.length < 5) {
       return toast(`У ${friendName} неполный состав — матч невозможен`, 'warn');
     }
-
-    // Создаём «соперника» из состава друга
     const oppPlayers = friendStarters.map(pid => PLAYER_MAP[pid]).filter(Boolean);
     if (oppPlayers.length < 5) return toast('Ошибка: игроки друга не найдены', 'error');
 
-    // Создаём виртуальный stage
     const stage = {
       id: 'friend_' + friendId,
       team: friendName,
@@ -3545,6 +3752,20 @@ async function startFriendMatch(friendId, friendName){
         text: `Ты вызываешь <strong>${friendName}</strong> на поле. Победи, чтобы доказать кто сильнее!`
       }
     };
+
+    // Если гость (зеркало) — не запускаем симуляцию сами, ждём broadcast от хоста
+    if (isMirror) {
+      CURRENT_STAGE = stage;
+      $('stage-modal').classList.remove('active');
+      showScript(stage.intro, () => {
+        // создаём пустой MS и открываем окно матча
+        runMatch(stage, { mirror: true });
+      });
+      return;
+    }
+
+    // Хост: соединяемся с каналом и запускаем симуляцию
+    if (matchId) joinMatchChannel(matchId, true);
 
     CURRENT_STAGE = stage;
     $('stage-modal').classList.remove('active');
