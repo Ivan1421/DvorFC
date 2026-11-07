@@ -1740,6 +1740,7 @@ function renderFriends(){
 let MATCH_CHANNEL = null;
 let IS_HOST = false;
 let CURRENT_MATCH_ID = null;
+let CURRENT_MATCH_META = null;
 
 function joinMatchChannel(matchId, asHost, onReady) {
   if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} }
@@ -1783,6 +1784,31 @@ function joinMatchChannel(matchId, asHost, onReady) {
       updateClock();
       sfxWhistle();
     })
+    .on('broadcast', { event: 'match_start' }, () => {
+  if (IS_HOST) return;
+  if (!CURRENT_MATCH_META) return;
+  const { friendId, friendName, matchId } = CURRENT_MATCH_META;
+  CURRENT_MATCH_META = null;
+  startFriendMatch(friendId, friendName, matchId, true);
+})
+    .on('broadcast', { event: 'host_action' }, ({ payload }) => {
+  if (IS_HOST) return;
+  if (!MS) return;
+
+  if (payload.actionType === 'substitution') {
+    const { inId, position } = payload.data;
+    const inPlayer = PLAYER_MAP[inId];
+    if (inPlayer && MS.A.team[position]) {
+      MS.A.team[position] = { ...inPlayer };
+      MS.A.sta[inId] = 100;
+      MS.usedBench.push(inId);
+    }
+  }
+
+  if (payload.actionType === 'tactic_change') {
+    MS.A.tac = { ...MS.A.tac, style: payload.data.style, press: payload.data.press };
+  }
+})
     .on('broadcast', { event: 'guest_action' }, ({ payload }) => {
       if (!IS_HOST) return;
       console.log('[host] received guest action:', payload);
@@ -2003,14 +2029,16 @@ async function sendMatchInvite(friendId, friendName){
     heartbeat();
 
     // Ждем, пока гость нажмёт "Играть". Статус в БД станет 'ready'.
-    if (LOBBY_POLL) clearInterval(LOBBY_POLL);
-    LOBBY_POLL = setInterval(async () => {
-      const { data } = await SB.from('ultimate_matches').select('status').eq('id', m.id).maybeSingle();
-      if (data && data.status === 'ready') {
-        clearInterval(LOBBY_POLL);
-        await startFriendMatch(friendId, friendName, m.id, false);
-      }
-    }, 1000);
+LOBBY_POLL = setInterval(async () => {
+  const { data } = await SB.from('ultimate_matches').select('status').eq('id', m.id).maybeSingle();
+  if (data && data.status === 'ready') {
+    clearInterval(LOBBY_POLL);
+    await startFriendMatch(friendId, friendName, m.id, false);
+    if (MATCH_CHANNEL) {
+      MATCH_CHANNEL.send({ type: 'broadcast', event: 'match_start', payload: {} });
+    }
+  }
+}, 300); 
 
   } catch (e) {
     console.error('sendMatchInvite error:', e);
@@ -2038,7 +2066,8 @@ async function acceptMatchInvite(invId, fromId, fromName){
 
     // Ставим статус 'ready' для хоста и запускаем матч
     await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId);
-    await startFriendMatch(fromId, fromName, matchId, true);
+    CURRENT_MATCH_META = { friendId: fromId, friendName: fromName, matchId };
+toast('⏳ Матч запускается…', 'info');
 
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
@@ -2441,7 +2470,7 @@ function scoreGoal(A,sh,txt,icon,assist){
   if(A.st[sh.id]) A.st[sh.id].goals++;
   if(assist && A.st[assist.id]) A.st[assist.id].assists++;
   const home=A.key==='home';
-  addLog(home?'goal-home':'goal-away',(home?'⚽ ГОЛ! ':'⚽ Гол соперника — ')+txt+(assist?` Ассист: ${assist.name}.`:''),icon||'⚽');
+  addLog(home?'goal-home':'goal-away', `⚽ ГОЛ! ${txt}${assist?` Ассист: ${assist.name}.`:''}`, icon||'⚽');
   sfxGoal();
   if (IS_HOST) broadcastMatchEvent('goal', { side: A.key });
 }
@@ -3119,12 +3148,17 @@ hs.querySelectorAll('[data-ht-tactic]').forEach(group=>{
       // У обоих меняем СВОЮ тактику через MS.H.tac
       MS.H.tac[key] = btn.dataset.val;
       // Гость сообщает хосту о смене, чтобы хост применил её к MS.A.tac
-      if (!IS_HOST) {
-        broadcastGuestAction('tactic_change', {
-          style: MS.H.tac.style,
-          press: MS.H.tac.press
-        });
-      }
+if (!IS_HOST) {
+  broadcastGuestAction('tactic_change', {
+    style: MS.H.tac.style,
+    press: MS.H.tac.press
+  });
+} else if (MATCH_CHANNEL) {
+  MATCH_CHANNEL.send({
+    type:'broadcast', event:'host_action',
+    payload:{ actionType:'tactic_change', data:{ style: MS.H.tac.style, press: MS.H.tac.press } }
+  });
+}
       group.querySelectorAll('.ht-tactic-btn').forEach(b=>b.classList.toggle('active',b===btn));
     };
   });
@@ -3158,23 +3192,26 @@ hs.querySelectorAll('[data-ht-tactic]').forEach(group=>{
     renderStaPanel();
     addHalftimePanel();
 
-    // Гость сообщает хосту о своей замене
-    if (!IS_HOST) {
-      broadcastGuestAction('substitution', { outId:o.id, inId:i.id, position:selOut });
-    }
+if (!IS_HOST) {
+  broadcastGuestAction('substitution', { outId:o.id, inId:i.id, position:selOut });
+} else if (MATCH_CHANNEL) {
+  MATCH_CHANNEL.send({
+    type:'broadcast', event:'host_action',
+    payload:{ actionType:'substitution', data:{ outId:o.id, inId:i.id, position:selOut } }
+  });
+}
   };}
 
   // Кнопка «2-й тайм»
-  $('ht-continue').onclick=()=>{
+$('ht-continue').onclick=()=>{
     sfxClick();
-    if (IS_HOST) {
+    if (!MATCH_CHANNEL) {
+      // Локальный матч (кампания) — просто продолжаем
       resumeMatch();
-      // оповестить гостя о начале второго тайма
-      if (MATCH_CHANNEL) {
-        MATCH_CHANNEL.send({ type:'broadcast', event:'second_half', payload:{} });
-      }
+    } else if (IS_HOST) {
+      resumeMatch();
+      MATCH_CHANNEL.send({ type:'broadcast', event:'second_half', payload:{} });
     } else {
-      // гость: сообщаем хосту, что готов продолжать
       broadcastGuestAction('resume_match', {});
       hs.innerHTML='';
       MS.phase='second';
@@ -3195,7 +3232,7 @@ function resumeMatch(){
   const styleRu={attack:'атака',balanced:'баланс',defense:'защита',possession:'контроль'}[MS.tactics.style];
   addLog('info',`2-й тайм. Тактика: ${styleRu}, прессинг: ${MS.tactics.press}`,'▶️');
   sfxWhistle();
-  if (IS_HOST) MS.timer=setInterval(tick,1500);  // ← таймер только у хоста
+if (!MATCH_CHANNEL || IS_HOST) MS.timer=setInterval(tick,1500);// ← таймер только у хоста
 }
 
 // ============================================================
@@ -3309,16 +3346,22 @@ function applyRemoteEvent(payload) {
     addHalftimePanel();
   }
 
-  if (type === 'log' && data) {
-    const d = document.createElement('div');
-    d.className = 'log-line log-' + (data.type || 'info');
-    d.innerHTML = `<span class="log-min">${MS.min}'</span><span class="log-ico">${data.icon || ''}</span><span class="log-txt">${data.html || ''}</span>`;
-    MS.log.appendChild(d);
-    MS.log.scrollTop = MS.log.scrollHeight;
-    if (data.type === 'goal-home' || data.type === 'goal-away') sfxGoal();
+if (type === 'log' && data) {
+  // У гостя переворачиваем цвет гол-лога, чтобы он был "свой/чужой"
+  let logType = data.type || 'info';
+  if (!IS_HOST) {
+    if (logType === 'goal-home') logType = 'goal-away';
+    else if (logType === 'goal-away') logType = 'goal-home';
   }
-  if (type === 'goal') sfxGoal();
-  if (type === 'tick') renderStaPanel();
+  const d = document.createElement('div');
+  d.className = 'log-line log-' + logType;
+  d.innerHTML = `<span class="log-min">${MS.min}'</span><span class="log-ico">${data.icon || ''}</span><span class="log-txt">${data.html || ''}</span>`;
+  MS.log.appendChild(d);
+  MS.log.scrollTop = MS.log.scrollHeight;
+  if (data.type === 'goal-home' || data.type === 'goal-away') sfxGoal();
+}
+if (type === 'goal') sfxGoal();
+if (type === 'tick') renderStaPanel();
 }
 
 function finishMirrorMatch(payload) {
