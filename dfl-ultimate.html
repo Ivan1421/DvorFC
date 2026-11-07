@@ -1933,13 +1933,12 @@ async function sendMatchInvite(friendId, friendName){
     });
     heartbeat();
 
-    // Хост просто ждет, пока гость примет. Никаких лобби.
+    // Ждем, пока гость нажмёт "Играть". Статус в БД станет 'ready'.
     if (LOBBY_POLL) clearInterval(LOBBY_POLL);
     LOBBY_POLL = setInterval(async () => {
       const { data } = await SB.from('ultimate_matches').select('status').eq('id', m.id).maybeSingle();
       if (data && data.status === 'ready') {
         clearInterval(LOBBY_POLL);
-        // Гость готов — запускаем матч у хоста!
         await startFriendMatch(friendId, friendName, m.id, false);
       }
     }, 1000);
@@ -1962,16 +1961,14 @@ async function acceptMatchInvite(invId, fromId, fromName){
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
     
-    // Подключаемся к каналу как гость
+    // Подключаемся к каналу
     await new Promise(resolve => {
       joinMatchChannel(matchId, false, resolve);
     });
     heartbeat();
 
-    // Ставим статус 'ready', чтобы хост понял, что мы готовы
+    // Ставим статус 'ready' для хоста и запускаем матч
     await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId);
-
-    // Запускаем матч у гостя
     await startFriendMatch(fromId, fromName, matchId, true);
 
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
