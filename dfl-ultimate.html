@@ -1804,6 +1804,16 @@ function broadcastMatchEvent(type, data) {
     payloadData = { ...data, side: data.side === 'home' ? 'away' : 'home' };
   }
 
+  // Если это лог — заменяем названия команд для гостя
+  if (type === 'log' && data && data.html) {
+    let html = data.html;
+    // Меняем «Ваша команда» на «Соперник» и наоборот (для гостя)
+    html = html.replace(/Ваша команда/g, '__HOME__');
+    html = html.replace(/Соперник/g, 'Ваша команда');
+    html = html.replace(/__HOME__/g, 'Соперник');
+    payloadData = { ...data, html };
+  }
+
   MATCH_CHANNEL.send({
     type: 'broadcast', event: 'match_event',
     payload: { type, data: payloadData, min: MS.min, hs: MS.as, as: MS.hs }
