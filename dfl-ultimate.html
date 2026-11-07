@@ -1927,14 +1927,23 @@ async function sendMatchInvite(friendId, friendName){
 
     toast('⚽ Приглашение отправлено. Ждём соперника...', 'success');
 
-    // Подключаемся к каналу связи
+    // Подключаемся к каналу
     await new Promise(resolve => {
       joinMatchChannel(m.id, true, resolve);
     });
     heartbeat();
 
-    // Показываем экран ожидания хосту
-    openLobby(friendName, m.id, true, false, friendId);
+    // Хост просто ждет, пока гость примет. Никаких лобби.
+    if (LOBBY_POLL) clearInterval(LOBBY_POLL);
+    LOBBY_POLL = setInterval(async () => {
+      const { data } = await SB.from('ultimate_matches').select('status').eq('id', m.id).maybeSingle();
+      if (data && data.status === 'ready') {
+        clearInterval(LOBBY_POLL);
+        // Гость готов — запускаем матч у хоста!
+        await startFriendMatch(friendId, friendName, m.id, false);
+      }
+    }, 1000);
+
   } catch (e) {
     console.error('sendMatchInvite error:', e);
     toast('Ошибка отправки: ' + (e.message || e), 'error');
@@ -1953,14 +1962,17 @@ async function acceptMatchInvite(invId, fromId, fromName){
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
     
-    // Подключаемся к каналу как гость (зеркало)
+    // Подключаемся к каналу как гость
     await new Promise(resolve => {
       joinMatchChannel(matchId, false, resolve);
     });
     heartbeat();
 
-    // Гость тоже открывает экран ожидания
-    openLobby(fromName, matchId, false, false, fromId);
+    // Ставим статус 'ready', чтобы хост понял, что мы готовы
+    await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId);
+
+    // Запускаем матч у гостя
+    await startFriendMatch(fromId, fromName, matchId, true);
 
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
@@ -4057,26 +4069,34 @@ function openLobby(opponentName, matchId, isHost, opponentReady, opponentId){
     btn.textContent = '⏳ Ждём соперника...';
     textEl.innerHTML = `Ты готов! Ждём, пока <strong>${opponentName}</strong> нажмёт «Продолжить»...<br><br><div style="color:var(--gold);font-weight:900;animation:pulse 1.5s infinite">Ожидание...</div>`;
 
-    // Сигналим, что мы готовы
-    await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
+    // Если это хост — он будет главным, кто ставит both_ready
+    if (isHost) {
+      await SB.from('ultimate_matches').update({ status: 'host_ready' }).eq('id', matchId);
+    } else {
+      await SB.from('ultimate_matches').update({ status: 'guest_ready' }).eq('id', matchId);
+    }
     
     if (LOBBY_POLL) clearInterval(LOBBY_POLL);
     LOBBY_POLL = setInterval(async () => {
-      // Проверяем, не поставил ли второй игрок статус both_ready
       const { data } = await SB.from('ultimate_matches').select('status').eq('id', matchId).maybeSingle();
       
-      if (data && data.status === 'both_ready') {
-        clearInterval(LOBBY_POLL);
-        $('script-modal').classList.remove('active');
-        
-        // Запускаем матч у обоих
-        if (isHost) {
+      if (isHost) {
+        // Хост: ждёт, пока гость поставит guest_ready
+        if (data && (data.status === 'guest_ready' || data.status === 'both_ready')) {
+          await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
+          clearInterval(LOBBY_POLL);
+          $('script-modal').classList.remove('active');
           await startFriendMatch(opponentId, opponentName, matchId, false);
-        } else {
+        }
+      } else {
+        // Гость: ждёт, пока хост поставит both_ready (проверяет реже)
+        if (data && data.status === 'both_ready') {
+          clearInterval(LOBBY_POLL);
+          $('script-modal').classList.remove('active');
           await startFriendMatch(opponentId, opponentName, matchId, true);
         }
       }
-    }, 1000);
+    }, isHost ? 1000 : 2500);
   };
 }
 async function startFriendMatch(friendId, friendName, matchId, isMirror){
