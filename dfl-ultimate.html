@@ -1067,10 +1067,33 @@ const R = x => Math.random() < x;
 const rnd = a => a[Math.floor(Math.random()*a.length)];
 const PP = () => window.playerPhotos || {};
 const PSP = () => window.playstylePhotos || {};
-const PHOTO_ALIAS = {matveyB:'matvey', EgorNast:'egor'};   // id в игре → ключ в photos.js
+const PHOTO_ALIAS = {matveyB:'matvey', EgorNast:'egor'};  
+
 function baseId(id){ return String(id).split('__c')[0]; }
-function photoOf(id){ const m=PP(), b=baseId(id); return m[id]||m[b]||m[PHOTO_ALIAS[b]]||null; }
-function photoImg(id){ const s=photoOf(id); return s?`<img src="${s}" alt="" onerror="this.style.display='none'">`:''; }
+
+
+function photoOf(id){ 
+  const m = PP(); 
+  const b = baseId(id); 
+  
+
+  if (b.startsWith('gold_')) {
+   
+    if (m[b]) return m[b];
+  
+    const basePlayerId = GOLD_BASE[b];
+    if (basePlayerId && m[basePlayerId]) return m[basePlayerId];
+  }
+  
+  
+  return m[id] || m[b] || m[PHOTO_ALIAS[b]] || null; 
+}
+
+// Функция для вставки тега img
+function photoImg(id){ 
+  const s = photoOf(id); 
+  return s ? `<img src="${s}" alt="" onerror="this.style.display='none'">` : ''; 
+}
 function psImg(key,cls){ const s=PSP()[key]; return s?`<img class="ps-img ${cls||''}" src="${s}" alt="" onerror="this.style.display='none'">`:''; }
 function logoOf(team){
   const c=window.clubPhotos||{};
