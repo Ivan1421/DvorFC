@@ -1648,7 +1648,10 @@ function renderFriends(){
           <div class="stage-name">${f.name}</div>
           <div class="stage-sub">${f.online ? (f.inMatch ? 'в матче' : 'онлайн') : 'оффлайн'}</div>
         </div>
-        ${!f.inMatch ? `<button class="btn ${f.online?'btn-primary':'btn-ghost'}" data-invite="${f.id}" data-invite-name="${f.name}" style="padding:8px 16px;font-size:.8rem">${f.online ? '⚽ Вызвать' : '🤖 Матч с составом'}</button>` : ''}
+        <div style="display:flex;gap:6px">
+          ${!f.inMatch ? `<button class="btn ${f.online?'btn-primary':'btn-ghost'}" data-invite="${f.id}" data-invite-name="${f.name}" style="padding:8px 16px;font-size:.8rem">${f.online ? '⚽ Вызвать' : '🤖 Матч с составом'}</button>` : ''}
+          <button class="btn btn-danger" data-remove-friend="${f.id}" data-remove-name="${f.name}" style="padding:8px 12px;font-size:.8rem" title="Удалить из друзей">🗑️</button>
+        </div>
       </div>`).join('');
   } else if (FRIENDS_TAB === 'requests') {
     let reqs = '';
@@ -1703,11 +1706,12 @@ function renderFriends(){
   box.querySelectorAll('[data-invite]').forEach(b => b.onclick = () => sendMatchInvite(b.dataset.invite, b.dataset.inviteName));
   box.querySelectorAll('[data-accept-match]').forEach(b => b.onclick = () => acceptMatchInvite(b.dataset.acceptMatch, b.dataset.from, b.dataset.fromName));
   box.querySelectorAll('[data-decline-match]').forEach(b => b.onclick = () => declineMatchInvite(b.dataset.declineMatch));
+  box.querySelectorAll('[data-remove-friend]').forEach(b => b.onclick = () => removeFriend(b.dataset.removeFriend, b.dataset.removeName));
 }
 let MATCH_CHANNEL = null;
 let IS_HOST = false;
 let CURRENT_MATCH_ID = null;
-function joinMatchChannel(matchId, asHost) {
+function joinMatchChannel(matchId, asHost, onReady) {
   if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} }
   IS_HOST = asHost;
   CURRENT_MATCH_ID = matchId;
@@ -1715,7 +1719,7 @@ function joinMatchChannel(matchId, asHost) {
   MATCH_CHANNEL = SB.channel('match:' + matchId, {
     config: {
       broadcast: { self: false },
-      private: true   // ← ДОБАВИТЬ ЭТО
+      private: true
     }
   });
 
@@ -1728,7 +1732,10 @@ function joinMatchChannel(matchId, asHost) {
       if (IS_HOST) return;
       finishMirrorMatch(payload);
     })
-    .subscribe();
+    .subscribe((status, err) => {
+      console.log('[channel] status:', status, err || '');
+      if (status === 'SUBSCRIBED' && onReady) onReady();
+    });
 }
 function broadcastMatchEvent(type, data) {
   if (!IS_HOST || !MATCH_CHANNEL) return;
@@ -1815,6 +1822,28 @@ async function declineFriend(uid){
     toast('Ошибка: ' + (e.message || e), 'error');
   }
 }
+async function removeFriend(friendId, friendName){
+  if (!friendId) return;
+  const ok = confirm(`Удалить ${friendName || friendId} из друзей?`);
+  if (!ok) return;
+
+  try {
+    const { error } = await SB.from('ultimate_friends')
+      .delete()
+      .or(`and(user_id.eq.${UID},friend_id.eq.${friendId}),and(user_id.eq.${friendId},friend_id.eq.${UID})`)
+      .select();
+
+    if (error) throw error;
+
+    toast(`🗑️ ${friendName || friendId} удалён из друзей`, 'info');
+    FRIENDS.my = FRIENDS.my.filter(f => f.id !== friendId);
+    renderFriends();
+    await loadFriends();
+  } catch (e) {
+    console.error('removeFriend error:', e);
+    toast('Ошибка: ' + (e.message || e), 'error');
+  }
+}
 
 async function sendMatchInvite(friendId, friendName){
   try {
@@ -1843,23 +1872,25 @@ async function acceptMatchInvite(invId, fromId, fromName){
     const inv = FRIENDS.invites.find(i => i.id === invId);
     let matchId = inv && inv.match_id;
 
-    // Если старое приглашение без match_id — создаём матч на лету
     if (!matchId) {
       const { data: m, error: mErr } = await SB.from('ultimate_matches').insert({
         host_id: fromId, guest_id: UID, status: 'active'
       }).select().maybeSingle();
       if (mErr) throw mErr;
       matchId = m.id;
-      // привязываем match_id к приглашению (на будущее)
       await SB.from('ultimate_match_invites').update({ match_id: matchId }).eq('id', invId);
     }
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
     await SB.from('ultimate_matches').update({ status: 'active' }).eq('id', matchId);
 
-    // Гость подключается к каналу и ждёт события хоста
-    joinMatchChannel(matchId, false);
-    await startFriendMatch(fromId, fromName, matchId, true); // isMirror=true
+    // Гость подключается и ЖДЁТ подтверждения подписки
+    await new Promise(resolve => {
+      joinMatchChannel(matchId, false, resolve);
+    });
+    heartbeat();
+
+    await startFriendMatch(fromId, fromName, matchId, true);
 
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
@@ -3806,8 +3837,13 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
       return;
     }
 
-    // Хост: соединяемся с каналом и запускаем симуляцию
-    if (matchId) joinMatchChannel(matchId, true);
+    // Хост: соединяемся с каналом и ЖДЁМ подписки
+    if (matchId) {
+      await new Promise(resolve => {
+        joinMatchChannel(matchId, true, resolve);
+      });
+      heartbeat();
+    }
 
     CURRENT_STAGE = stage;
     $('stage-modal').classList.remove('active');
