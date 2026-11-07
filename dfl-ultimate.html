@@ -1748,11 +1748,10 @@ function joinMatchChannel(matchId, asHost, onReady) {
 }
 function broadcastMatchEvent(type, data) {
   if (!IS_HOST || !MATCH_CHANNEL) return;
-  MATCH_CHANNEL.send({
-    type: 'broadcast',
-    event: 'match_event',
-    payload: { type, data, min: MS.min, hs: MS.hs, as: MS.as }
-  });
+MATCH_CHANNEL.send({
+  type: 'broadcast', event: 'match_end',
+  payload: { hs: MS.as, as: MS.hs, goals: MS.goals }  // ← меняем местами
+});
 }
 async function addFriend(){
   let id = ($('friend-search').value || '').trim().toLowerCase();
@@ -2996,17 +2995,21 @@ function finishMirrorMatch(payload) {
   updateScore();
   MS.timeEl.textContent = 'Матч окончен';
 
-  // показываем результат (без наград — их получает только хост)
   const result = MS.hs > MS.as ? 'win' : MS.hs < MS.as ? 'loss' : 'draw';
-  MS.resCont.innerHTML = `<div class="result-box ${result}">
-    <div class="result-title">${result==='win'?'🏆 ПОБЕДА':result==='loss'?'❌ Поражение':'🤝 Ничья'}</div>
-    <div class="result-score">${MS.hs} : ${MS.as}</div>
-    <div style="margin-top:10px;font-size:.78rem;color:var(--muted)">Матч завершён (просмотр)</div>
-  </div>`;
+  const resultTitle = result==='win'?'🏆 ПОБЕДА':result==='loss'?'❌ Поражение':'🤝 Ничья';
+
+  MS.resCont.innerHTML = `
+    <div class="result-box ${result}">
+      <div class="result-title">${resultTitle}</div>
+      <div class="result-score">${MS.hs} : ${MS.as}</div>
+      <div style="margin-top:10px;font-size:.78rem;color:var(--muted)">Матч завершён (просмотр)</div>
+    </div>
+    ${renderRatings()}
+  `;
+
   $('btn-match-close').onclick = () => {
     $('match-modal').classList.remove('active');
     MS = null;
-    // очистка канала матча
     if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL = null; }
     if (typeof HOST_WAIT_CHANNEL !== 'undefined' && HOST_WAIT_CHANNEL) {
       try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){}
@@ -3017,6 +3020,8 @@ function finishMirrorMatch(payload) {
     heartbeat();
     renderAll();
   };
+
+  $('btn-match-close').style.display = 'block';
 }
 function endMatch(){
   clearInterval(MS.timer);
