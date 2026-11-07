@@ -3070,8 +3070,8 @@ function endFirstHalf(){
 // ============================================================
 function addHalftimePanel(){
   const hs=MS.htCont;
-  // «Моя» сторона: хост играет за H, гость (mirror) — за A
-  const MY = IS_HOST ? MS.H : MS.A;
+  // «Моя» сторона — это всегда MS.H (свой состав) и у хоста, и у гостя
+  const MY = MS.H;
 
   const benchPool=STATE.bench.filter(Boolean)
   .filter(pid=>!MS.usedBench.includes(pid))
@@ -3080,8 +3080,8 @@ function addHalftimePanel(){
   const styleLabels={attack:'⚡ Атака',balanced:'⚖️ Баланс',defense:'🛡️ Защита',possession:'🎯 Контроль'};
   const pressLabels={high:'🔥 Высокий',medium:'⚖️ Средний',low:'🧊 Низкий'};
 
-  // Текущая тактика «моей» стороны
-  const myTac = IS_HOST ? MS.tactics : MS.oppTactics;
+  // Текущая тактика «моей» стороны — тоже всегда MS.H.tac
+  const myTac = MS.H.tac;
 
   hs.innerHTML=`
     <div class="ht-panel">
@@ -3116,11 +3116,14 @@ hs.querySelectorAll('[data-ht-tactic]').forEach(group=>{
   group.querySelectorAll('.ht-tactic-btn').forEach(btn=>{
     btn.onclick=()=>{
       sfxClick();
-      if (IS_HOST) {
-        MS.tactics[key]=btn.dataset.val;
-      } else {
-        MS.oppTactics[key]=btn.dataset.val; // своя тактика у гостя — oppTactics
-        broadcastGuestAction('tactic_change', { style: MS.oppTactics.style, press: MS.oppTactics.press });
+      // У обоих меняем СВОЮ тактику через MS.H.tac
+      MS.H.tac[key] = btn.dataset.val;
+      // Гость сообщает хосту о смене, чтобы хост применил её к MS.A.tac
+      if (!IS_HOST) {
+        broadcastGuestAction('tactic_change', {
+          style: MS.H.tac.style,
+          press: MS.H.tac.press
+        });
       }
       group.querySelectorAll('.ht-tactic-btn').forEach(b=>b.classList.toggle('active',b===btn));
     };
