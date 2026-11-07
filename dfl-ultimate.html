@@ -1724,11 +1724,11 @@ function joinMatchChannel(matchId, asHost, onReady) {
   CURRENT_MATCH_ID = matchId;
 
   MATCH_CHANNEL = SB.channel('match:' + matchId, {
-    config: {
-      broadcast: { self: false },
-      private: true
-    }
+    config: { broadcast: { self: false }, private: false }
   });
+
+  let done = false;
+  const finish = () => { if (!done) { done = true; if (onReady) onReady(); } };
 
   MATCH_CHANNEL
     .on('broadcast', { event: 'match_event' }, ({ payload }) => {
@@ -1741,8 +1741,10 @@ function joinMatchChannel(matchId, asHost, onReady) {
     })
     .subscribe((status, err) => {
       console.log('[channel] status:', status, err || '');
-      if (status === 'SUBSCRIBED' && onReady) onReady();
+      if (status === 'SUBSCRIBED') finish();
     });
+
+  setTimeout(finish, 4000);   // страховка: не висим, если канал не подписался
 }
 function broadcastMatchEvent(type, data) {
   if (!IS_HOST || !MATCH_CHANNEL) return;
@@ -1899,36 +1901,36 @@ async function sendMatchInvite(friendId, friendName){
 
 async function acceptMatchInvite(invId, fromId, fromName){
   try {
+    console.log('[guest] acceptMatchInvite:', { invId, fromId, fromName });
     const inv = FRIENDS.invites.find(i => i.id === invId);
     let matchId = inv && inv.match_id;
 
     if (!matchId) {
-      const { data: m, error: mErr } = await SB.from('ultimate_matches').insert({
-        host_id: fromId, guest_id: UID, status: 'active'
-      }).select().maybeSingle();
-      if (mErr) throw mErr;
-      matchId = m.id;
-      await SB.from('ultimate_match_invites').update({ match_id: matchId }).eq('id', invId);
+      const { data: fresh } = await SB.from('ultimate_match_invites').select('match_id').eq('id', invId).maybeSingle();
+      matchId = fresh && fresh.match_id;
     }
+    if (!matchId) {
+      console.error('[guest] no match_id');
+      return toast('Ошибка: приглашение без match_id', 'error');
+    }
+    console.log('[guest] matchId:', matchId);
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
-
-    // ✅ Сначала подписываемся на канал как зеркало
-    await new Promise(resolve => {
-      joinMatchChannel(matchId, false, resolve);
-    });
+    await new Promise(resolve => joinMatchChannel(matchId, false, resolve));
+    console.log('[guest] channel ready');
     heartbeat();
 
-    // ✅ Потом сигналим хосту «готов» через статус матча
-    await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId);
+    const upd = await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId).select();
+    console.log('[guest] match → ready:', upd);
+    if (!upd.data || !upd.data.length) {
+      console.warn('[guest] UPDATE 0 rows — RLS?');
+    }
 
-    // Гость открывает окно матча в режиме зеркала
     await startFriendMatch(fromId, fromName, matchId, true);
-
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
   } catch (e) {
-    console.error('acceptMatchInvite error:', e);
+    console.error('[guest] acceptMatchInvite EXCEPTION:', e);
     toast('Ошибка: ' + (e.message || e), 'error');
   }
 }
