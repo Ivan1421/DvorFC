@@ -1740,7 +1740,7 @@ function renderFriends(){
 let MATCH_CHANNEL = null;
 let IS_HOST = false;
 let CURRENT_MATCH_ID = null;
-let HOST_WAIT_CHANNEL = null;
+
 function joinMatchChannel(matchId, asHost, onReady) {
   if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} }
   IS_HOST = asHost;
@@ -1749,9 +1749,6 @@ function joinMatchChannel(matchId, asHost, onReady) {
   MATCH_CHANNEL = SB.channel('match:' + matchId, {
     config: { broadcast: { self: false }, private: false }
   });
-
-  let done = false;
-  const finish = () => { if (!done) { done = true; if (onReady) onReady(); } };
 
   MATCH_CHANNEL
     .on('broadcast', { event: 'match_event' }, ({ payload }) => {
@@ -1762,20 +1759,58 @@ function joinMatchChannel(matchId, asHost, onReady) {
       if (IS_HOST) return;
       finishMirrorMatch(payload);
     })
+    .on('broadcast', { event: 'guest_action' }, ({ payload }) => {
+      if (!IS_HOST) return;
+      console.log('[host] received guest action:', payload);
+      
+      if (payload.actionType === 'penalty_kicker') {
+        PENALTY_DUEL.shooterId = payload.data.shooterId;
+        PENALTY_DUEL.kickerDir = payload.data.dir;
+        if (PENALTY_DUEL.gkDir) resolvePenaltyDuel(MS.H, MS.A); 
+      }
+      
+      if (payload.actionType === 'penalty_gk') {
+        PENALTY_DUEL.gkDir = payload.data.dir;
+        if (PENALTY_DUEL.kickerDir) resolvePenaltyDuel(MS.H, MS.A); 
+      }
+
+      if (payload.actionType === 'freekick_choice') {
+        const shooter = MS.H.team.find(p => p.id === payload.data.playerId);
+        if (shooter) {
+          if (payload.data.shoot) {
+             const grp = styleOf(shooter,'precise')?'precise':styleOf(shooter,'cannon')?'cannon':null;
+             shoot(MS.H, MS.A, shooter, {kind:'free',onT:-0.10,g:sB(shooter,'precise',0.10)+sB(shooter,'cannon',0.05),lead:'исполнил штрафной'+(grp?styleTag(shooter,grp):''),icon:grp?ico(shooter,grp,'🎯'):'🎯'});
+             resumeAfterPenalty();
+          } else {
+             addLog('info', `Штрафной разыгрывают`,'↗️');
+             EVH.cross(MS.H, MS.A, false);
+             resumeAfterPenalty();
+          }
+        }
+      }
+    })
     .subscribe((status, err) => {
       console.log('[channel] status:', status, err || '');
-      if (status === 'SUBSCRIBED') finish();
+      if (status === 'SUBSCRIBED' && onReady) onReady();
     });
-
-  setTimeout(finish, 4000);   // страховка: не висим, если канал не подписался
 }
+
 function broadcastMatchEvent(type, data) {
   if (!IS_HOST || !MATCH_CHANNEL) return;
-MATCH_CHANNEL.send({
-  type: 'broadcast', event: 'match_end',
-  payload: { hs: MS.as, as: MS.hs, goals: MS.goals }  // ← меняем местами
-});
+  MATCH_CHANNEL.send({
+    type: 'broadcast', event: 'match_event',
+    payload: { type, data, min: MS.min, hs: MS.hs, as: MS.as }
+  });
 }
+function broadcastGuestAction(actionType, data) {
+  if (IS_HOST || !MATCH_CHANNEL) return;
+  MATCH_CHANNEL.send({
+    type: 'broadcast', event: 'guest_action',
+    payload: { actionType, data }
+  });
+}
+
+
 async function addFriend(){
   let id = ($('friend-search').value || '').trim().toLowerCase();
   if (!id) return toast('Введите ID', 'error');
@@ -2512,8 +2547,160 @@ freekick(A,D){
   }
 };
 function takePenalty(A,D){
-  if (A.key === 'home') { askPenaltyChoice(A, D); return; }
-  autoPenalty(A, D);
+  clearInterval(MS.timer);
+  PENALTY_DUEL = { active: true, kickerSide: null, kickerDir: null, gkDir: null, shooterId: null };
+  addLog('info', `ПЕНАЛЬТИ!`, '🎯');
+
+  if (IS_HOST) {
+    // Если это хост, он выбирает игрока и сторону, а гость (если он защищается) — сторону
+    showPenaltyKickerChoice(A, D);
+    broadcastMatchEvent('penalty_wait', {}); // Гостю: жди выбора бьющего
+  } else {
+    // Если это гость, и он защищается — он выбирает сторону вратаря
+    // (А если он бьет — то он выберет игрока и сторону, но об этом ниже)
+    showPenaltyGkChoice(A, D);
+  }
+}
+function showPenaltyKickerChoice(A, D) {
+  const field = A.team.filter(p=>p.pos!=='GK'); 
+  const pool = field.length ? field : A.team;
+
+  const modal = document.createElement('div');
+  modal.className = 'overlay active';
+  modal.style.zIndex = '3000';
+  modal.innerHTML = `
+    <div class="panel" style="max-width:420px">
+      <div class="tactic-title">🎯 Пенальти! Кто бьёт?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:14px" id="pen-pool">
+        ${pool.map(p=>`<div class="ht-card t-${cardTier(p)}" data-pid="${p.id}">
+          <div class="ht-card-photo">${p.icon||'⚽'}${photoImg(p.id)}</div>
+          <div class="ht-card-name">${shortName(p)}</div>
+          <div class="ht-card-meta">⭐${p.rating}</div>
+        </div>`).join('')}
+      </div>
+      <div style="display:flex;gap:12px;margin-bottom:16px;justify-content:center">
+        <button class="btn btn-ghost" id="pen-left" style="font-size:1.5rem;padding:20px 30px">← Влево</button>
+        <button class="btn btn-ghost" id="pen-right" style="font-size:1.5rem;padding:20px 30px">Вправо →</button>
+      </div>
+      <div id="pen-status" style="text-align:center;font-size:.8rem;color:var(--muted)">Выбери бьющего и направление</div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  let chosen = null;
+  let chosenDir = null;
+
+  modal.querySelectorAll('.ht-card').forEach(el => {
+    el.onclick = () => {
+      chosen = pool.find(p=>p.id===el.dataset.pid);
+      modal.querySelectorAll('.ht-card').forEach(x=>x.style.borderColor='');
+      el.style.borderColor = '#22c55e';
+      sfxClick();
+      if (chosenDir) lockChoice();
+    };
+  });
+
+  const selectDir = (dir) => {
+    chosenDir = dir;
+    if (!chosen) { 
+       modal.querySelector('#pen-status').textContent = 'Теперь выбери бьющего'; 
+       return; 
+    }
+    lockChoice();
+  };
+
+  modal.querySelector('#pen-left').onclick = () => { sfxClick(); selectDir('left'); };
+  modal.querySelector('#pen-right').onclick = () => { sfxClick(); selectDir('right'); };
+
+  function lockChoice() {
+    modal.querySelectorAll('button, .ht-card').forEach(el => el.style.pointerEvents = 'none');
+    modal.querySelector('#pen-status').textContent = 'Ждём ответа вратаря...';
+    
+    PENALTY_DUEL.shooterId = chosen.id;
+    PENALTY_DUEL.kickerDir = chosenDir;
+    
+    if (IS_HOST) {
+      if (PENALTY_DUEL.gkDir) resolvePenaltyDuel(A, D);
+      // Если хост бьет, а гость защищается - хост ждет
+    } else {
+      broadcastGuestAction('penalty_kicker', { shooterId: chosen.id, dir: chosenDir });
+    }
+  }
+}
+function showPenaltyGkChoice(A, D) {
+  const modal = document.createElement('div');
+  modal.className = 'overlay active';
+  modal.style.zIndex = '3000';
+  modal.innerHTML = `
+    <div class="panel" style="max-width:420px;text-align:center">
+      <div class="tactic-title">🧤 Пенальти! Куда прыгнуть?</div>
+      <div style="display:flex;gap:12px;margin-bottom:16px;justify-content:center">
+        <button class="btn btn-ghost" id="pen-left" style="font-size:2rem;padding:30px 40px">← Влево</button>
+        <button class="btn btn-ghost" id="pen-right" style="font-size:2rem;padding:30px 40px">Вправо →</button>
+      </div>
+      <div id="pen-status" style="font-size:.8rem;color:var(--muted)">Выбери сторону</div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  const selectDir = (dir) => {
+    modal.querySelectorAll('button').forEach(el => el.style.pointerEvents = 'none');
+    modal.querySelector('#pen-status').textContent = 'Ждём удара...';
+    
+    PENALTY_DUEL.gkDir = dir;
+    
+    if (IS_HOST) {
+      if (PENALTY_DUEL.kickerDir) resolvePenaltyDuel(A, D);
+    } else {
+      broadcastGuestAction('penalty_gk', { dir });
+    }
+  };
+
+  modal.querySelector('#pen-left').onclick = () => { sfxClick(); selectDir('left'); };
+  modal.querySelector('#pen-right').onclick = () => { sfxClick(); selectDir('right'); };
+}
+function resolvePenaltyDuel(A, D) {
+  // Закрываем все модалки
+  document.querySelectorAll('.overlay').forEach(el => {
+     if(el.innerHTML.includes('Пенальти')) el.remove();
+  });
+
+  const shooter = PLAYER_MAP[PENALTY_DUEL.shooterId] || A.team.find(p=>p.id===PENALTY_DUEL.shooterId);
+  const gk = D.team.find(p => p.pos === 'GK');
+
+  // Вероятность промаха бьющего (зависит от скилла)
+  const finB = shooter.attrs ? ((shooter.attrs.fin||50) - 50) * 0.003 : 0;
+  const missChance = cl(0.10 - finB, 0.02, 0.20);
+  
+  if (R(missChance)) {
+    addLog('chance', `${shooter.name} промахнулся мимо ворот!`, '😱');
+    endPenaltyDuel();
+    return;
+  }
+
+  // Проверяем, угадал ли вратарь
+  if (PENALTY_DUEL.kickerDir === PENALTY_DUEL.gkDir) {
+    // Вратарь угадал. Но у бьющего может быть мощный удар (шанс, что пробьет)
+    const shoB = shooter.attrs ? ((shooter.attrs.sho||50) - 50) * 0.003 : 0;
+    const scoreChance = cl(0.20 + shoB, 0.05, 0.40); // 20-40% шанс забить даже если угадали
+
+    if (R(scoreChance)) {
+      scoreGoal(A, shooter, `${shooter.name} пробил в угол, вратарь угадал, но не спас!`, '🎯');
+    } else {
+      addLog('save', `${gk ? gk.name : 'Вратарь'} угадал направление и взял пенальти!`, '🧤');
+    }
+  } else {
+    // Вратарь не угадал — гол
+    scoreGoal(A, shooter, `${shooter.name} развел вратаря и забил!`, '🎯');
+  }
+  
+  endPenaltyDuel();
+}
+
+function endPenaltyDuel() {
+  PENALTY_DUEL = { active: false, kickerSide: null, kickerDir: null, gkDir: null, shooterId: null };
+  // Если мы хост - продолжаем симуляцию. Если гость - ждем broadcast.
+  if (IS_HOST) {
+     MS.timer = setInterval(tick, 1500);
+  }
 }
 function autoPenalty(A,D){
   const field=A.team.filter(p=>p.pos!=='GK'); const pool=field.length?field:A.team;
@@ -3028,11 +3215,11 @@ function endMatch(){
   clearInterval(MS.timer);
   MS.phase='ended'; MS.timeEl.textContent='Матч окончен';
 
-  // хост сообщает зеркалу, что матч окончен
+  // хост сообщает зеркалу, что матч окончен (переворачиваем счёт для гостя)
   if (IS_HOST && MATCH_CHANNEL) {
     MATCH_CHANNEL.send({
       type: 'broadcast', event: 'match_end',
-      payload: { hs: MS.hs, as: MS.as, goals: MS.goals }
+      payload: { hs: MS.as, as: MS.hs, goals: MS.goals } 
     });
     SB.from('ultimate_matches').update({ status: 'finished' }).eq('id', CURRENT_MATCH_ID).then(()=>{});
   }
@@ -3851,9 +4038,8 @@ function setupTabs(){
   });
 }
 let LOBBY_POLL = null;
-
+let PENALTY_DUEL = { active: false, kickerSide: null, kickerDir: null, gkDir: null, shooterId: null };
 function openLobby(opponentName, matchId, isHost, opponentReady, opponentId){
-  // Показываем скрипт-заглушку
   $('script-icon').textContent = '⚔️';
   $('script-title').textContent = 'Матч против ' + opponentName;
   $('script-text').innerHTML = `Ты вызываешь <strong>${opponentName}</strong> на поле. Победи, чтобы доказать кто сильнее!`;
@@ -3861,43 +4047,42 @@ function openLobby(opponentName, matchId, isHost, opponentReady, opponentId){
   const btn = $('script-continue');
   const textEl = $('script-text');
   
-  if (opponentReady) {
-    btn.textContent = '▶ Начать матч';
-    btn.disabled = false;
-  } else {
-    btn.textContent = '⏳ Ждём соперника...';
-    btn.disabled = true;
-    textEl.innerHTML += `<br><br><div style="color:var(--gold);font-weight:900;animation:pulse 1.5s infinite">Ожидание подтверждения от ${opponentName}...</div>`;
-  }
-
+  btn.textContent = '▶ Продолжить';
+  btn.disabled = false;
   $('script-modal').classList.add('active');
 
-  // Обработка нажатия на кнопку
   btn.onclick = async () => {
     sfxClick();
     btn.disabled = true;
     btn.textContent = '⏳ Ждём соперника...';
     textEl.innerHTML = `Ты готов! Ждём, пока <strong>${opponentName}</strong> нажмёт «Продолжить»...<br><br><div style="color:var(--gold);font-weight:900;animation:pulse 1.5s infinite">Ожидание...</div>`;
 
-    // Отправляем сигнал, что мы готовы (меняем статус матча)
-    await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
+    // Отправляем сигнал, что мы готовы (меняем статус)
+    const myStatus = isHost ? 'host_ready' : 'guest_ready';
+    await SB.from('ultimate_matches').update({ status: myStatus }).eq('id', matchId);
     
-    // Начинаем проверять статус в БД, чтобы понять, готов ли второй игрок
     if (LOBBY_POLL) clearInterval(LOBBY_POLL);
     LOBBY_POLL = setInterval(async () => {
       const { data } = await SB.from('ultimate_matches').select('status').eq('id', matchId).maybeSingle();
+      
+      // Если статус стал both_ready — значит оба нажали и можно стартовать
       if (data && data.status === 'both_ready') {
         clearInterval(LOBBY_POLL);
         $('script-modal').classList.remove('active');
         
-        // Запускаем матч
         if (isHost) {
           await startFriendMatch(opponentId, opponentName, matchId, false);
         } else {
           await startFriendMatch(opponentId, opponentName, matchId, true);
         }
       }
-    }, 1000); // проверяем каждую секунду
+      
+      // Если второй игрок нажал (статус сменился на его), мы ставим both_ready
+      const oppReady = isHost ? (data.status === 'guest_ready') : (data.status === 'host_ready');
+      if (oppReady) {
+        await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
+      }
+    }, 1000);
   };
 }
 async function startFriendMatch(friendId, friendName, matchId, isMirror){
@@ -3944,10 +4129,8 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
     if (isMirror) {
       CURRENT_STAGE = stage;
       $('stage-modal').classList.remove('active');
-      showScript(stage.intro, () => {
-        // создаём пустой MS и открываем окно матча
-        runMatch(stage, { mirror: true });
-      });
+      // Сюжет уже показан в лобби, сразу запускаем матч
+      runMatch(stage, { mirror: true });
       return;
     }
 
