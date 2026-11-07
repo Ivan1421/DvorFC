@@ -16,13 +16,23 @@ const CATALOG = [
 ['raya','Шустик','GK',94],['shuklin','Шуклин Кирилл','MF',94],['diana','Епончинцева Диана','MF',94],
 ['timofey_zaytsev','Зайцев Тимофей','FW',94],['aleksey_doroshenko','Дорошенко Алексей','FW',95],
 ['sanya_bobrikov','Бобриков Александр','FW',95],['maxim_dcp','Максим ДЦП','GK',95],['russkov_artem','Руссё Диктатор','MF',98],
-['ostap','Остап','MF',1]
+['ostap','Остап','MF',1],
+// === ЗОЛОТОЙ МЯЧ ===
+['gold_russkov','Руссё Диктатор (Gold)','MF',102],['gold_doroshenko','Дорошенко Алексей (Gold)','FW',100],
+['gold_bobrikov','Бобриков Александр (Gold)','FW',100],['gold_zykov','Зыков Максим (Gold)','GK',100],
+['gold_maxim','Бузмаков Максим (Gold)','DF',100],['gold_shustov','Шустов Иван (Gold)','GK',100],
+['gold_zaytsev','Зайцев Тимофей (Gold)','FW',100],['gold_tankov','Танков Тимофей (Gold)','MF',99],
+['gold_bombar','Бадартинов Михаил (Gold)','FW',100],['gold_batrakov','Кравченко Глеб (Gold)','MF',100],
+['gold_elisey','Пожидаев Елисей (Gold)','MF',99],['gold_churilov','Чурилов Алексей (Gold)','MF',100]
 ];
 const CAT = {}; CATALOG.forEach(c => CAT[c[0]] = { id: c[0], name: c[1], pos: c[2], rating: c[3] });
-const TIERS = ['common', 'rare', 'epic', 'legend', 'icon'];
-const TIER_LABEL = { common: 'Обычный', rare: 'Редкий', epic: 'Эпик', legend: 'Легенда', icon: 'Икона' };
-const DEFAULT_PRICE = { common: 25, rare: 75, epic: 200, legend: 500, icon: 1200 };
-const rarityOf = r => r >= 94 ? 'icon' : r >= 90 ? 'legend' : r >= 85 ? 'epic' : r >= 75 ? 'rare' : 'common';
+const TIERS = ['common', 'rare', 'epic', 'legend', 'icon', 'gold'];
+const TIER_LABEL = { common: 'Обычный', rare: 'Редкий', epic: 'Эпик', legend: 'Легенда', icon: 'Икона', gold: 'Золотой мяч' };
+const DEFAULT_PRICE = { common: 25, rare: 75, epic: 200, legend: 500, icon: 1200, gold: 2500 };
+const rarityOf = (r, id) => {
+  if (id && String(id).startsWith('gold_')) return 'gold';
+  return r >= 94 ? 'icon' : r >= 90 ? 'legend' : r >= 85 ? 'epic' : r >= 75 ? 'rare' : 'common';
+};
 const FIELD_ATTRS = [['fin','Завершение'],['sho','Удар'],['pas','Пас'],['dri','Дриблинг'],['def','Защита'],['phy','Физика'],['spd','Скорость']];
 const GK_ATTRS = [['ref','Реакция'],['div','Бросок'],['han','Игра руками'],['kic','Удар от ворот'],['spd','Скорость'],['pos','Позиционирование']];
 
@@ -48,6 +58,7 @@ function injectStyle() {
   .ult-tag{font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:999px;background:rgba(128,128,128,.25);margin-left:6px}
   .ult-tag.ban{background:#dc2626;color:#fff}
   .ult-tag.on{background:#16a34a;color:#fff}
+  .ult-tag.gold{background:#f59e0b;color:#3a1e00}
   .ult-box{border:1px solid rgba(128,128,128,.3);border-radius:12px;padding:14px;margin:12px 0;background:rgba(128,128,128,.06)}
   .ult-box h4{margin-bottom:10px;font-size:.95rem}
   .ult-line{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
@@ -61,6 +72,7 @@ function injectStyle() {
   .ult-prices{width:100%;border-collapse:collapse;font-size:.82rem}
   .ult-prices td,.ult-prices th{padding:6px 8px;border-bottom:1px solid rgba(128,128,128,.25);text-align:left}
   .ult-prices input[type=number]{width:90px}
+  .ult-prices tr[data-tier="gold"]{background:rgba(255,209,102,.08)}
   .ult-hint{font-size:.74rem;opacity:.7;margin:6px 0}
   `;
   document.head.appendChild(st);
@@ -151,7 +163,6 @@ async function openUser(uid, keep) {
     const { data } = await sb().from('ultimate_ops').select('*').eq('user_id', uid).eq('applied', false).order('id');
     S.pending = data || [];
   } catch (e) { S.pending = []; }
-  document.querySelectorAll('#ult-list .ult-row').forEach((el, i) => {});
   const list = document.getElementById('ult-list'); if (list) list.innerHTML = visibleUsers().map(rowHtml).join('');
   const box = document.getElementById('ult-detail'); if (!box) return;
   box.innerHTML = detailHtml(u);
@@ -165,8 +176,9 @@ function ownedHtml(d) {
     const c = custom[pid];
     const name = c ? `${catName(c.base)} ★ особая` : catName(pid);
     const rating = c ? c.rating : (CAT[pid] ? CAT[pid].rating : '?');
+    const isGold = !c && String(pid).startsWith('gold_');
     const n = 1 + (dupes[pid] || 0);
-    return `<div class="ult-row"><div><b>${E(name)}</b> <span class="ult-tag">ОВР ${rating}</span>${n > 1 ? `<span class="ult-tag">×${n}</span>` : ''}</div>
+    return `<div class="ult-row"><div><b>${E(name)}</b> ${isGold ? '<span class="ult-tag gold">🏅 GOLD</span>' : ''}<span class="ult-tag">ОВР ${rating}</span>${n > 1 ? `<span class="ult-tag">×${n}</span>` : ''}</div>
       <button class="ult-btn red" data-act="removeCard" data-pid="${E(pid)}">Убрать 1</button></div>`;
   }).join('');
 }
@@ -177,7 +189,10 @@ function attrInputs(base) {
 function detailHtml(u) {
   const d = u.data || {}; const uid = u.user_id; const ban = S.bans[uid];
   const sorted = CATALOG.slice().sort((a, b) => b[3] - a[3]);
-  const opts = sorted.map(c => `<option value="${c[0]}">${E(c[1])} (${c[3]})</option>`).join('');
+  const opts = sorted.map(c => {
+    const gold = c[0].startsWith('gold_') ? ' 🏅' : '';
+    return `<option value="${c[0]}">${E(c[1])} (${c[3]})${gold}</option>`;
+  }).join('');
   return `<div class="ult-box" data-uid="${E(uid)}">
     <h4>🎮 ${E(u.name || uid)} <span class="ult-tag">${E(uid)}</span> ${ban ? '<span class="ult-tag ban">БАН</span>' : ''}</h4>
     <p class="ult-hint">Изменения применятся, когда игрок откроет DFL Ultimate (до 20 секунд, если игра уже открыта).${S.pending.length ? ` <b>В очереди: ${S.pending.length}</b>` : ''}</p>
@@ -212,10 +227,63 @@ function detailHtml(u) {
       <button class="ult-btn green" data-act="giveCustom">Выдать особую карточку</button>
     </div>
 
+    <div class="ult-box"><h4>👥 Друзья <span id="ult-friends-count" class="ult-tag">…</span></h4>
+      <div id="ult-friends-list"><p class="ult-hint">Загрузка…</p></div>
+    </div>
+
     ${S.pending.length ? `<div class="ult-box"><h4>⏳ Ожидают применения</h4>${S.pending.map(o => `<div class="ult-sub">#${o.id} · ${E(o.type)} · ${E(JSON.stringify(o.payload))}</div>`).join('')}</div>` : ''}
   </div>`;
+  loadUserFriends(uid);
 }
-
+async function loadUserFriends(uid){
+  const listEl = document.getElementById('ult-friends-list');
+  const countEl = document.getElementById('ult-friends-count');
+  if (!listEl) return;
+  
+  try {
+    const { data, error } = await sb().from('ultimate_friends')
+      .select('*')
+      .or(`user_id.eq.${uid},friend_id.eq.${uid}`);
+    
+    if (error) throw error;
+    
+    const accepted = (data || []).filter(f => f.status === 'accepted');
+    const pending = (data || []).filter(f => f.status === 'pending');
+    
+    if (countEl) countEl.textContent = `${accepted.length} принято · ${pending.length} в ожидании`;
+    
+    if (!data || !data.length) {
+      listEl.innerHTML = '<p class="ult-hint">Нет друзей и заявок</p>';
+      return;
+    }
+    
+    // Собираем ID всех других пользователей
+    const otherIds = data.map(f => f.user_id === uid ? f.friend_id : f.user_id);
+    
+    // Подтягиваем имена из ultimate_online
+    const { data: online } = await sb().from('ultimate_online').select('user_id,name').in('user_id', otherIds);
+    const namesMap = {};
+    (online || []).forEach(o => namesMap[o.user_id] = o.name);
+    
+    listEl.innerHTML = data.map(f => {
+      const isAccepted = f.status === 'accepted';
+      const otherId = f.user_id === uid ? f.friend_id : f.user_id;
+      const otherName = namesMap[otherId] || otherId;
+      const statusLabel = isAccepted ? '✓ друг' : (f.status === 'pending' ? '⏳ заявка' : '× отказ');
+      const statusClass = isAccepted ? 'on' : (f.status === 'pending' ? '' : 'ban');
+      return `<div class="ult-row">
+        <div>
+          <b>${E(otherName)}</b>
+          <span class="ult-tag ${statusClass}">${statusLabel}</span>
+          <div class="ult-sub">${E(otherId)}</div>
+        </div>
+        <button class="ult-btn red" data-act="removeFriend" data-fid="${E(f.id)}">Удалить</button>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    listEl.innerHTML = '<p class="ult-hint" style="color:#dc2626">Ошибка: ' + E(e.message || e) + '</p>';
+  }
+}
 async function op(uid, type, payload) {
   try {
     const { error } = await sb().from('ultimate_ops').insert({ user_id: uid, type, payload: payload || {} });
@@ -245,11 +313,12 @@ async function setBan(uid, on) {
 function renderShop() {
   const body = document.getElementById('ult-body');
   const rows = CATALOG.slice().sort((a, b) => b[3] - a[3]).map(c => {
-    const t = rarityOf(c[3]); const def = DEFAULT_PRICE[t]; const cur = S.prices[c[0]];
+    const t = rarityOf(c[3], c[0]); const def = DEFAULT_PRICE[t]; const cur = S.prices[c[0]];
     const sold = !(typeof cur === 'number' && cur <= 0);
     const val = typeof cur === 'number' && cur > 0 ? cur : def;
+    const goldTag = t === 'gold' ? ' 🏅' : '';
     return `<tr data-pid="${c[0]}" data-def="${def}" data-tier="${t}">
-      <td>${E(c[1])}</td><td>${c[3]}</td><td>${TIER_LABEL[t]}</td><td>${def}</td>
+      <td>${E(c[1])}${goldTag}</td><td>${c[3]}</td><td>${TIER_LABEL[t]}</td><td>${def}</td>
       <td><input type="number" min="1" class="ult-price" value="${val}" ${sold ? '' : 'disabled'}></td>
       <td><label><input type="checkbox" class="ult-sold" ${sold ? 'checked' : ''}> в продаже</label></td></tr>`;
   }).join('');
@@ -324,6 +393,14 @@ function init() {
     }
     else if (act === 'resetPrices') { document.querySelectorAll('#ult-price-rows tr').forEach(tr => { tr.querySelector('.ult-price').value = tr.dataset.def; tr.querySelector('.ult-sold').checked = true; tr.querySelector('.ult-price').disabled = false; }); }
     else if (act === 'savePrices') savePrices();
+        else if (act === 'removeFriend') {
+      if (!confirm('Удалить дружбу/заявку? Это действие удалит запись из БД.')) return;
+      sb().from('ultimate_friends').delete().eq('id', parseInt(b.dataset.fid))
+        .then(({error}) => {
+          if (error) toast('❌ ' + error.message, 'error');
+          else { toast('✅ Удалено', 'success'); loadUserFriends(uid); }
+        });
+    }
   });
 }
 document.addEventListener('DOMContentLoaded', init);
