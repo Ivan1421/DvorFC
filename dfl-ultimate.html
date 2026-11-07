@@ -1878,14 +1878,12 @@ async function removeFriend(friendId, friendName){
 
 async function sendMatchInvite(friendId, friendName){
   try {
-    // 1. Создаём матч
     const { data: m, error: mErr } = await SB.from('ultimate_matches').insert({
       host_id: UID, guest_id: friendId, status: 'pending'
     }).select().maybeSingle();
     if (mErr) throw mErr;
-    if (!m) throw new Error('Не удалось создать матч (RLS?)');
+    if (!m) throw new Error('Не удалось создать матч');
 
-    // 2. Создаём приглашение
     const { error } = await SB.from('ultimate_match_invites').insert({
       from_id: UID, from_name: UNAME, to_id: friendId,
       status: 'pending', match_id: m.id
@@ -1894,36 +1892,21 @@ async function sendMatchInvite(friendId, friendName){
 
     toast('⚽ Приглашение отправлено. Ждём соперника...', 'success');
 
-    // 3. Хост ждёт status='ready' от гостя
-    if (HOST_WAIT_CHANNEL) { try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){} }
-    HOST_WAIT_CHANNEL = SB.channel('match-ready-' + m.id)
-      .on('postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'ultimate_matches', filter: `id=eq.${m.id}` },
-        async payload => {
-          console.log('[host] match update:', payload.new);
-          if (payload.new && payload.new.status === 'ready') {
-            try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){}
-            HOST_WAIT_CHANNEL = null;
-            try {
-              await startFriendMatch(friendId, friendName, m.id, false);
-            } catch (err) {
-              console.error('[host] startFriendMatch failed:', err);
-              toast('Ошибка запуска матча: ' + (err.message || err), 'error');
-            }
-          }
-        })
-      .subscribe((status, err) => {
-        console.log('[host] wait-channel status:', status, err || '');
-      });
+    // Подключаемся к каналу связи
+    await new Promise(resolve => {
+      joinMatchChannel(m.id, true, resolve);
+    });
+    heartbeat();
+
+    // Показываем экран ожидания хосту
+    openLobby(friendName, m.id, true, false, friendId);
   } catch (e) {
     console.error('sendMatchInvite error:', e);
     toast('Ошибка отправки: ' + (e.message || e), 'error');
   }
 }
-
 async function acceptMatchInvite(invId, fromId, fromName){
   try {
-    console.log('[guest] acceptMatchInvite:', { invId, fromId, fromName });
     const inv = FRIENDS.invites.find(i => i.id === invId);
     let matchId = inv && inv.match_id;
 
@@ -1931,28 +1914,23 @@ async function acceptMatchInvite(invId, fromId, fromName){
       const { data: fresh } = await SB.from('ultimate_match_invites').select('match_id').eq('id', invId).maybeSingle();
       matchId = fresh && fresh.match_id;
     }
-    if (!matchId) {
-      console.error('[guest] no match_id');
-      return toast('Ошибка: приглашение без match_id', 'error');
-    }
-    console.log('[guest] matchId:', matchId);
+    if (!matchId) return toast('Ошибка: приглашение без match_id', 'error');
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
-    await new Promise(resolve => joinMatchChannel(matchId, false, resolve));
-    console.log('[guest] channel ready');
+    
+    // Подключаемся к каналу как гость (зеркало)
+    await new Promise(resolve => {
+      joinMatchChannel(matchId, false, resolve);
+    });
     heartbeat();
 
-    const upd = await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId).select();
-    console.log('[guest] match → ready:', upd);
-    if (!upd.data || !upd.data.length) {
-      console.warn('[guest] UPDATE 0 rows — RLS?');
-    }
+    // Гость тоже открывает экран ожидания
+    openLobby(fromName, matchId, false, false, fromId);
 
-    await startFriendMatch(fromId, fromName, matchId, true);
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
   } catch (e) {
-    console.error('[guest] acceptMatchInvite EXCEPTION:', e);
+    console.error('acceptMatchInvite error:', e);
     toast('Ошибка: ' + (e.message || e), 'error');
   }
 }
@@ -3871,6 +3849,56 @@ function setupTabs(){
 }
     };
   });
+}
+let LOBBY_POLL = null;
+
+function openLobby(opponentName, matchId, isHost, opponentReady, opponentId){
+  // Показываем скрипт-заглушку
+  $('script-icon').textContent = '⚔️';
+  $('script-title').textContent = 'Матч против ' + opponentName;
+  $('script-text').innerHTML = `Ты вызываешь <strong>${opponentName}</strong> на поле. Победи, чтобы доказать кто сильнее!`;
+  
+  const btn = $('script-continue');
+  const textEl = $('script-text');
+  
+  if (opponentReady) {
+    btn.textContent = '▶ Начать матч';
+    btn.disabled = false;
+  } else {
+    btn.textContent = '⏳ Ждём соперника...';
+    btn.disabled = true;
+    textEl.innerHTML += `<br><br><div style="color:var(--gold);font-weight:900;animation:pulse 1.5s infinite">Ожидание подтверждения от ${opponentName}...</div>`;
+  }
+
+  $('script-modal').classList.add('active');
+
+  // Обработка нажатия на кнопку
+  btn.onclick = async () => {
+    sfxClick();
+    btn.disabled = true;
+    btn.textContent = '⏳ Ждём соперника...';
+    textEl.innerHTML = `Ты готов! Ждём, пока <strong>${opponentName}</strong> нажмёт «Продолжить»...<br><br><div style="color:var(--gold);font-weight:900;animation:pulse 1.5s infinite">Ожидание...</div>`;
+
+    // Отправляем сигнал, что мы готовы (меняем статус матча)
+    await SB.from('ultimate_matches').update({ status: 'both_ready' }).eq('id', matchId);
+    
+    // Начинаем проверять статус в БД, чтобы понять, готов ли второй игрок
+    if (LOBBY_POLL) clearInterval(LOBBY_POLL);
+    LOBBY_POLL = setInterval(async () => {
+      const { data } = await SB.from('ultimate_matches').select('status').eq('id', matchId).maybeSingle();
+      if (data && data.status === 'both_ready') {
+        clearInterval(LOBBY_POLL);
+        $('script-modal').classList.remove('active');
+        
+        // Запускаем матч
+        if (isHost) {
+          await startFriendMatch(opponentId, opponentName, matchId, false);
+        } else {
+          await startFriendMatch(opponentId, opponentName, matchId, true);
+        }
+      }
+    }, 1000); // проверяем каждую секунду
+  };
 }
 async function startFriendMatch(friendId, friendName, matchId, isMirror){
   try {
