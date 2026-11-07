@@ -1759,10 +1759,8 @@ function joinMatchChannel(matchId, asHost, onReady) {
       if (IS_HOST) return;
       finishMirrorMatch(payload);
     })
-    // ✅ Обработчик перерыва для гостя
     .on('broadcast', { event: 'halftime' }, ({ payload }) => {
       if (IS_HOST) return;
-      console.log('[guest] received halftime:', payload);
       MS.hs = payload.hs;
       MS.as = payload.as;
       MS.H.goals = MS.hs;
@@ -1774,32 +1772,43 @@ function joinMatchChannel(matchId, asHost, onReady) {
       sfxWhistle();
       addHalftimePanel();
     })
+    .on('broadcast', { event: 'second_half' }, () => {
+      if (IS_HOST) return;
+      if (!MS) return;
+      MS.htCont.innerHTML = '';
+      MS.phase = 'second';
+      MS.half = 2;
+      MS.min = 15;
+      MS.timeEl.textContent = '2-й тайм';
+      updateClock();
+      sfxWhistle();
+    })
     .on('broadcast', { event: 'guest_action' }, ({ payload }) => {
       if (!IS_HOST) return;
       console.log('[host] received guest action:', payload);
-      
+
       if (payload.actionType === 'penalty_kicker') {
         PENALTY_DUEL.shooterId = payload.data.shooterId;
         PENALTY_DUEL.kickerDir = payload.data.dir;
-        if (PENALTY_DUEL.gkDir) resolvePenaltyDuel(MS.H, MS.A); 
+        if (PENALTY_DUEL.gkDir) resolvePenaltyDuel(MS.H, MS.A);
       }
-      
+
       if (payload.actionType === 'penalty_gk') {
         PENALTY_DUEL.gkDir = payload.data.dir;
-        if (PENALTY_DUEL.kickerDir) resolvePenaltyDuel(MS.H, MS.A); 
+        if (PENALTY_DUEL.kickerDir) resolvePenaltyDuel(MS.H, MS.A);
       }
 
       if (payload.actionType === 'freekick_choice') {
         const shooter = MS.H.team.find(p => p.id === payload.data.playerId);
         if (shooter) {
           if (payload.data.shoot) {
-             const grp = styleOf(shooter,'precise')?'precise':styleOf(shooter,'cannon')?'cannon':null;
-             shoot(MS.H, MS.A, shooter, {kind:'free',onT:-0.10,g:sB(shooter,'precise',0.10)+sB(shooter,'cannon',0.05),lead:'исполнил штрафной'+(grp?styleTag(shooter,grp):''),icon:grp?ico(shooter,grp,'🎯'):'🎯'});
-             resumeAfterPenalty();
+            const grp = styleOf(shooter,'precise')?'precise':styleOf(shooter,'cannon')?'cannon':null;
+            shoot(MS.H, MS.A, shooter, {kind:'free',onT:-0.10,g:sB(shooter,'precise',0.10)+sB(shooter,'cannon',0.05),lead:'исполнил штрафной'+(grp?styleTag(shooter,grp):''),icon:grp?ico(shooter,grp,'🎯'):'🎯'});
+            resumeAfterPenalty();
           } else {
-             addLog('info', `Штрафной разыгрывают`,'↗️');
-             EVH.cross(MS.H, MS.A, false);
-             resumeAfterPenalty();
+            addLog('info', `Штрафной разыгрывают`,'↗️');
+            EVH.cross(MS.H, MS.A, false);
+            resumeAfterPenalty();
           }
         }
       }
@@ -1809,7 +1818,7 @@ function joinMatchChannel(matchId, asHost, onReady) {
         const { outId, inId, position } = payload.data;
         const inPlayer = PLAYER_MAP[inId];
         if (inPlayer && MS.A.team[position]) {
-          MS.A.team[position] = inPlayer;
+          MS.A.team[position] = { ...inPlayer };
           MS.A.sta[inId] = 100;
           MS.subs++;
           MS.usedBench.push(inId);
@@ -1820,12 +1829,16 @@ function joinMatchChannel(matchId, asHost, onReady) {
       // ✅ Смена тактики у гостя
       if (payload.actionType === 'tactic_change') {
         MS.A.tac = { ...MS.A.tac, style: payload.data.style, press: payload.data.press };
+        MS.oppTactics = { ...MS.A.tac };
         addLog('info', `Соперник сменил тактику`,'🎯');
       }
 
       // ✅ Гость нажал «Продолжить»
       if (payload.actionType === 'resume_match') {
         resumeMatch();
+        if (MATCH_CHANNEL) {
+          MATCH_CHANNEL.send({ type: 'broadcast', event: 'second_half', payload: {} });
+        }
       }
     })
     .subscribe((status, err) => {
@@ -3044,14 +3057,10 @@ function endFirstHalf(){
   renderStaPanel();
   addHalftimePanel();
 
-  // ✅ Отправляем гостю сигнал «перерыв»
   if (IS_HOST && MATCH_CHANNEL) {
     MATCH_CHANNEL.send({
       type: 'broadcast', event: 'halftime',
-      payload: { 
-        hs: MS.as, 
-        as: MS.hs
-      }
+      payload: { hs: MS.as, as: MS.hs }
     });
   }
 }
@@ -3061,12 +3070,19 @@ function endFirstHalf(){
 // ============================================================
 function addHalftimePanel(){
   const hs=MS.htCont;
+  // «Моя» сторона: хост играет за H, гость (mirror) — за A
+  const MY = IS_HOST ? MS.H : MS.A;
+
   const benchPool=STATE.bench.filter(Boolean)
   .filter(pid=>!MS.usedBench.includes(pid))
   .map(pid=>PLAYER_MAP[pid]).filter(Boolean);
   const remaining=MS.maxSubs-MS.subs;
   const styleLabels={attack:'⚡ Атака',balanced:'⚖️ Баланс',defense:'🛡️ Защита',possession:'🎯 Контроль'};
   const pressLabels={high:'🔥 Высокий',medium:'⚖️ Средний',low:'🧊 Низкий'};
+
+  // Текущая тактика «моей» стороны
+  const myTac = IS_HOST ? MS.tactics : MS.oppTactics;
+
   hs.innerHTML=`
     <div class="ht-panel">
       <div class="ht-title">⏸️ Перерыв</div>
@@ -3076,8 +3092,8 @@ function addHalftimePanel(){
         ${remaining>0?`
           <div class="ht-hint">Тапни игрока на поле (красный), затем со скамейки (зелёный). Затем «Заменить». Вратаря меняют только на вратаря. Игрок со скамейки выходит со 100% выносливости.</div>
           <div style="font-size:.66rem;font-weight:900;color:var(--muted);margin-bottom:6px;letter-spacing:1px">НА ПОЛЕ</div>
-          <div class="ht-cards" id="ht-starters">${MS.H.team.map((p,i)=>{
-            const v=Math.round(MS.H.sta[p.id]); const c=v>=60?'hi':v>=30?'mid':'lo';
+          <div class="ht-cards" id="ht-starters">${MY.team.map((p,i)=>{
+            const v=Math.round(MY.sta[p.id]); const c=v>=60?'hi':v>=30?'mid':'lo';
             return `<div class="ht-card t-${cardTier(p)}" data-ht-starter="${i}"><div class="ht-card-photo">${p.icon||'⚽'}${photoImg(p.id)}</div><div class="ht-card-name">${shortName(p)}</div><div class="ht-card-meta">⭐${p.rating} · ${posRu(p.pos)}</div><div class="ht-fatigue"><div class="sta-fill ${c}" style="width:${v}%;height:3px"></div></div><div class="ht-card-meta" style="font-size:.52rem">выносл. ${v}%</div></div>`;
           }).join('')}</div>
           <div style="font-size:.66rem;font-weight:900;color:var(--muted);margin:12px 0 6px;letter-spacing:1px">СКАМЕЙКА</div>
@@ -3088,44 +3104,84 @@ function addHalftimePanel(){
       </div>
       <div class="ht-sec">
         <div class="ht-sec-title" style="margin-bottom:10px">🎯 Изменить тактику</div>
-        <div class="ht-tactic-group"><label>Стиль</label><div class="ht-tactic-opts" data-ht-tactic="style">${Object.entries(styleLabels).map(([v,l])=>`<button class="ht-tactic-btn ${MS.tactics.style===v?'active':''}" data-val="${v}">${l}</button>`).join('')}</div></div>
-        <div class="ht-tactic-group"><label>Прессинг</label><div class="ht-tactic-opts" data-ht-tactic="press">${Object.entries(pressLabels).map(([v,l])=>`<button class="ht-tactic-btn ${MS.tactics.press===v?'active':''}" data-val="${v}">${l}</button>`).join('')}</div></div>
+        <div class="ht-tactic-group"><label>Стиль</label><div class="ht-tactic-opts" data-ht-tactic="style">${Object.entries(styleLabels).map(([v,l])=>`<button class="ht-tactic-btn ${myTac.style===v?'active':''}" data-val="${v}">${l}</button>`).join('')}</div></div>
+        <div class="ht-tactic-group"><label>Прессинг</label><div class="ht-tactic-opts" data-ht-tactic="press">${Object.entries(pressLabels).map(([v,l])=>`<button class="ht-tactic-btn ${myTac.press===v?'active':''}" data-val="${v}">${l}</button>`).join('')}</div></div>
       </div>
       <button class="ht-cont" id="ht-continue">▶ 2-й тайм</button>
     </div>`;
-  hs.querySelectorAll('[data-ht-tactic]').forEach(group=>{
-    const key=group.dataset.htTactic;
-    group.querySelectorAll('.ht-tactic-btn').forEach(btn=>{
-      btn.onclick=()=>{ sfxClick(); MS.tactics[key]=btn.dataset.val; group.querySelectorAll('.ht-tactic-btn').forEach(b=>b.classList.toggle('active',b===btn)); };
-    });
+
+  // Смена тактики
+hs.querySelectorAll('[data-ht-tactic]').forEach(group=>{
+  const key=group.dataset.htTactic;
+  group.querySelectorAll('.ht-tactic-btn').forEach(btn=>{
+    btn.onclick=()=>{
+      sfxClick();
+      if (IS_HOST) {
+        MS.tactics[key]=btn.dataset.val;
+      } else {
+        MS.oppTactics[key]=btn.dataset.val; // своя тактика у гостя — oppTactics
+        broadcastGuestAction('tactic_change', { style: MS.oppTactics.style, press: MS.oppTactics.press });
+      }
+      group.querySelectorAll('.ht-tactic-btn').forEach(b=>b.classList.toggle('active',b===btn));
+    };
   });
+});
+
   let selOut=null, selIn=null;
   const selEl=hs.querySelector('#ht-sel'); const subBtn=hs.querySelector('#ht-submit');
   function updateSel(){
     hs.querySelectorAll('[data-ht-starter]').forEach(el=>{ el.classList.toggle('sel-out',parseInt(el.dataset.htStarter)===selOut); });
     hs.querySelectorAll('[data-ht-bench]').forEach(el=>{ el.classList.toggle('sel-in',parseInt(el.dataset.htBench)===selIn); });
     if(selOut!==null&&selIn!==null){
-      const o=MS.H.team[selOut], i=benchPool[selIn];
+      const o=MY.team[selOut], i=benchPool[selIn];
       selEl.innerHTML=`<span class="so">${shortName(o)} ⬇</span> ⇄ <span class="si">${shortName(i)} ⬆</span>`;
       subBtn.disabled=false;
     } else { if(selEl)selEl.textContent='Выбери пару'; if(subBtn)subBtn.disabled=true; }
   }
   hs.querySelectorAll('[data-ht-starter]').forEach(el=>{ el.onclick=()=>{ sfxClick(); const i=parseInt(el.dataset.htStarter); selOut=(selOut===i)?null:i; updateSel(); }; });
   hs.querySelectorAll('[data-ht-bench]').forEach(el=>{ el.onclick=()=>{ sfxClick(); const i=parseInt(el.dataset.htBench); selIn=(selIn===i)?null:i; updateSel(); }; });
+
   if(subBtn){ subBtn.onclick=()=>{
     if(selOut===null||selIn===null)return;
     if(MS.subs>=MS.maxSubs){ toast('Лимит замен','warn'); return; }
-    const o=MS.H.team[selOut], i=benchPool[selIn];
+    const o=MY.team[selOut], i=benchPool[selIn];
     if((o.pos==='GK')!==(i.pos==='GK')){ toast('Вратаря меняют только на вратаря','warn'); return; }
-    MS.H.team[selOut]=i;
-    MS.H.sta[i.id]=100;
+
+    MY.team[selOut]=i;
+    MY.sta[i.id]=100;
     MS.subs++;
     MS.usedBench.push(i.id);
     addLog('info',`Замена: ${o.name} → ${i.name}`,'🔄');
     renderStaPanel();
     addHalftimePanel();
+
+    // Гость сообщает хосту о своей замене
+    if (!IS_HOST) {
+      broadcastGuestAction('substitution', { outId:o.id, inId:i.id, position:selOut });
+    }
   };}
-  $('ht-continue').onclick=()=>{ sfxClick(); resumeMatch(); };
+
+  // Кнопка «2-й тайм»
+  $('ht-continue').onclick=()=>{
+    sfxClick();
+    if (IS_HOST) {
+      resumeMatch();
+      // оповестить гостя о начале второго тайма
+      if (MATCH_CHANNEL) {
+        MATCH_CHANNEL.send({ type:'broadcast', event:'second_half', payload:{} });
+      }
+    } else {
+      // гость: сообщаем хосту, что готов продолжать
+      broadcastGuestAction('resume_match', {});
+      hs.innerHTML='';
+      MS.phase='second';
+      MS.half=2;
+      MS.min=15;
+      MS.timeEl.textContent='2-й тайм';
+      updateClock();
+      sfxWhistle();
+    }
+  };
 }
 function resumeMatch(){
   MS.htCont.innerHTML=''; MS.phase='second'; MS.half=2; MS.min=15;
@@ -3136,7 +3192,7 @@ function resumeMatch(){
   const styleRu={attack:'атака',balanced:'баланс',defense:'защита',possession:'контроль'}[MS.tactics.style];
   addLog('info',`2-й тайм. Тактика: ${styleRu}, прессинг: ${MS.tactics.press}`,'▶️');
   sfxWhistle();
-  MS.timer=setInterval(tick,1500);
+  if (IS_HOST) MS.timer=setInterval(tick,1500);  // ← таймер только у хоста
 }
 
 // ============================================================
@@ -3222,21 +3278,35 @@ function pitchHtml(side, ratings, flip) {
 
 let PENDING_EVENTS = [];
 function applyRemoteEvent(payload) {
-    if (!MS) {
+  if (!MS) {
     PENDING_EVENTS.push(payload);
     return;
   }
   const { type, data, min, hs, as } = payload || {};
 
-  // синхронизируем счёт и время
   if (typeof min === 'number') MS.min = min;
   if (typeof hs === 'number') { MS.hs = hs; MS.H.goals = hs; }
   if (typeof as === 'number') { MS.as = as; MS.A.goals = as; }
   updateScore();
   updateClock();
 
+  // ✅ Гость: если хост уже в перерыве (min >= 15) или матч на паузе — показать панель,
+  //    даже если halftime не дошёл
+  const panelEl = $('halftime-container');
+  const panelVisible = panelEl && panelEl.innerHTML.trim().length > 0;
+  const shouldShowPanel = !IS_HOST && !panelVisible && (
+    (typeof min === 'number' && min >= 15) ||
+    (MS.phase === 'ht')
+  );
+  if (shouldShowPanel) {
+    clearInterval(MS.timer);
+    MS.phase = 'ht';
+    MS.timeEl.textContent = 'ПЕРЕРЫВ';
+    sfxWhistle();
+    addHalftimePanel();
+  }
+
   if (type === 'log' && data) {
-    // создаём DOM-элемент напрямую, без addLog (чтобы не отправить broadcast обратно)
     const d = document.createElement('div');
     d.className = 'log-line log-' + (data.type || 'info');
     d.innerHTML = `<span class="log-min">${MS.min}'</span><span class="log-ico">${data.icon || ''}</span><span class="log-txt">${data.html || ''}</span>`;
