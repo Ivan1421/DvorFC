@@ -1717,6 +1717,7 @@ function renderFriends(){
 let MATCH_CHANNEL = null;
 let IS_HOST = false;
 let CURRENT_MATCH_ID = null;
+let HOST_WAIT_CHANNEL = null;
 function joinMatchChannel(matchId, asHost, onReady) {
   if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} }
   IS_HOST = asHost;
@@ -1851,8 +1852,6 @@ async function removeFriend(friendId, friendName){
   }
 }
 
-let HOST_WAIT_CHANNEL = null;  // глобальная переменная рядом с MATCH_CHANNEL
-
 async function sendMatchInvite(friendId, friendName){
   try {
     // 1. Создаём матч
@@ -1860,6 +1859,7 @@ async function sendMatchInvite(friendId, friendName){
       host_id: UID, guest_id: friendId, status: 'pending'
     }).select().maybeSingle();
     if (mErr) throw mErr;
+    if (!m) throw new Error('Не удалось создать матч (RLS?)');
 
     // 2. Создаём приглашение
     const { error } = await SB.from('ultimate_match_invites').insert({
@@ -1870,19 +1870,27 @@ async function sendMatchInvite(friendId, friendName){
 
     toast('⚽ Приглашение отправлено. Ждём соперника...', 'success');
 
-    // 3. ✅ Хост ждёт, пока гость поставит status='ready'
+    // 3. Хост ждёт status='ready' от гостя
     if (HOST_WAIT_CHANNEL) { try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){} }
     HOST_WAIT_CHANNEL = SB.channel('match-ready-' + m.id)
       .on('postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'ultimate_matches', filter: `id=eq.${m.id}` },
         async payload => {
+          console.log('[host] match update:', payload.new);
           if (payload.new && payload.new.status === 'ready') {
             try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){}
             HOST_WAIT_CHANNEL = null;
-            await startFriendMatch(friendId, friendName, m.id, false);
+            try {
+              await startFriendMatch(friendId, friendName, m.id, false);
+            } catch (err) {
+              console.error('[host] startFriendMatch failed:', err);
+              toast('Ошибка запуска матча: ' + (err.message || err), 'error');
+            }
           }
         })
-      .subscribe();
+      .subscribe((status, err) => {
+        console.log('[host] wait-channel status:', status, err || '');
+      });
   } catch (e) {
     console.error('sendMatchInvite error:', e);
     toast('Ошибка отправки: ' + (e.message || e), 'error');
@@ -1905,15 +1913,16 @@ async function acceptMatchInvite(invId, fromId, fromName){
 
     await SB.from('ultimate_match_invites').update({ status: 'accepted' }).eq('id', invId);
 
-    // ✅ Гость сначала подписывается на канал (как зеркало)
+    // ✅ Сначала подписываемся на канал как зеркало
     await new Promise(resolve => {
       joinMatchChannel(matchId, false, resolve);
     });
     heartbeat();
 
-    // ✅ И только ПОСЛЕ подписки сигналим хосту «я готов» через статус матча
+    // ✅ Потом сигналим хосту «готов» через статус матча
     await SB.from('ultimate_matches').update({ status: 'ready' }).eq('id', matchId);
 
+    // Гость открывает окно матча в режиме зеркала
     await startFriendMatch(fromId, fromName, matchId, true);
 
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
@@ -2743,6 +2752,8 @@ function runMatch(stage, opts){
     const pending = PENDING_EVENTS.slice();
     PENDING_EVENTS = [];
     pending.forEach(applyRemoteEvent);
+    // на всякий случай обновим панель
+    renderStaPanel();
     return;
   }
   MS.timer=setInterval(tick,1500);
@@ -3106,6 +3117,7 @@ function endMatch(){
 
     // очистка канала матча и сброс «в матче»
     if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL = null; }
+    if (HOST_WAIT_CHANNEL) { try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){} HOST_WAIT_CHANNEL = null; }
     IS_HOST = false;
     CURRENT_MATCH_ID = null;
     MS = null;
