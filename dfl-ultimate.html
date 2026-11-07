@@ -3816,12 +3816,22 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
     if (!data || !data.data) return toast('Не удалось загрузить состав друга', 'error');
 
     const friendState = data.data;
+
+    // ← регистрируем кастомные карточки друга в PLAYER_MAP
+    Object.entries(friendState.custom || {}).forEach(([id, c]) => {
+      if (!PLAYER_MAP[id]) registerCustom(id, c);
+    });
+
     const friendStarters = (friendState.starters || []).filter(Boolean);
     if (friendStarters.length < 5) {
       return toast(`У ${friendName} неполный состав — матч невозможен`, 'warn');
     }
     const oppPlayers = friendStarters.map(pid => PLAYER_MAP[pid]).filter(Boolean);
-    if (oppPlayers.length < 5) return toast('Ошибка: игроки друга не найдены', 'error');
+    if (oppPlayers.length < 5) {
+      const missing = friendStarters.filter(pid => !PLAYER_MAP[pid]);
+      console.warn('Не найдены игроки друга:', missing);
+      return toast('Ошибка: игроки друга не найдены (' + missing.join(', ') + ')', 'error');
+    }
 
     const stage = {
       id: 'friend_' + friendId,
