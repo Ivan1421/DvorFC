@@ -1713,12 +1713,15 @@ function joinMatchChannel(matchId, asHost) {
   CURRENT_MATCH_ID = matchId;
 
   MATCH_CHANNEL = SB.channel('match:' + matchId, {
-    config: { broadcast: { self: false } }  // хост не слушает сам себя
+    config: {
+      broadcast: { self: false },
+      private: true   // ← ДОБАВИТЬ ЭТО
+    }
   });
 
   MATCH_CHANNEL
     .on('broadcast', { event: 'match_event' }, ({ payload }) => {
-      if (IS_HOST) return; // хост игнорирует (он источник)
+      if (IS_HOST) return;
       applyRemoteEvent(payload);
     })
     .on('broadcast', { event: 'match_end' }, ({ payload }) => {
@@ -1868,10 +1871,19 @@ async function acceptMatchInvite(invId, fromId, fromName){
 
 async function declineMatchInvite(invId){
   try {
-    await SB.from('ultimate_match_invites').update({ status: 'declined' }).eq('id', invId);
+    const { error } = await SB.from('ultimate_match_invites')
+      .update({ status: 'declined' })
+      .eq('id', invId);
+
+    if (error) throw error;
+
+    toast('Приглашение отклонено', 'info');
     FRIENDS.invites = FRIENDS.invites.filter(i => i.id !== invId);
     renderFriends();
-  } catch (e) {}
+  } catch (e) {
+    console.error('declineMatchInvite error:', e);
+    toast('Ошибка отклонения: ' + (e.message || e), 'error');
+  }
 }
 function subscribeInvites(){
   if (!SB || !UID) return;
