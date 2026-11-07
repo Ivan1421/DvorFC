@@ -1759,6 +1759,21 @@ function joinMatchChannel(matchId, asHost, onReady) {
       if (IS_HOST) return;
       finishMirrorMatch(payload);
     })
+    // ✅ Обработчик перерыва для гостя
+    .on('broadcast', { event: 'halftime' }, ({ payload }) => {
+      if (IS_HOST) return;
+      console.log('[guest] received halftime:', payload);
+      MS.hs = payload.hs;
+      MS.as = payload.as;
+      MS.H.goals = MS.hs;
+      MS.A.goals = MS.as;
+      updateScore();
+      clearInterval(MS.timer);
+      MS.phase = 'ht';
+      MS.timeEl.textContent = 'ПЕРЕРЫВ';
+      sfxWhistle();
+      addHalftimePanel();
+    })
     .on('broadcast', { event: 'guest_action' }, ({ payload }) => {
       if (!IS_HOST) return;
       console.log('[host] received guest action:', payload);
@@ -1787,6 +1802,30 @@ function joinMatchChannel(matchId, asHost, onReady) {
              resumeAfterPenalty();
           }
         }
+      }
+
+      // ✅ Замена у гостя
+      if (payload.actionType === 'substitution') {
+        const { outId, inId, position } = payload.data;
+        const inPlayer = PLAYER_MAP[inId];
+        if (inPlayer && MS.A.team[position]) {
+          MS.A.team[position] = inPlayer;
+          MS.A.sta[inId] = 100;
+          MS.subs++;
+          MS.usedBench.push(inId);
+          addLog('info', `Замена у соперника: ${inPlayer.name}`,'🔄');
+        }
+      }
+
+      // ✅ Смена тактики у гостя
+      if (payload.actionType === 'tactic_change') {
+        MS.A.tac = { ...MS.A.tac, style: payload.data.style, press: payload.data.press };
+        addLog('info', `Соперник сменил тактику`,'🎯');
+      }
+
+      // ✅ Гость нажал «Продолжить»
+      if (payload.actionType === 'resume_match') {
+        resumeMatch();
       }
     })
     .subscribe((status, err) => {
@@ -3004,6 +3043,17 @@ function endFirstHalf(){
   [MS.H,MS.A].forEach(S=>S.team.forEach(p=>{ S.sta[p.id]=Math.min(100,S.sta[p.id]+16+Math.random()*8); }));
   renderStaPanel();
   addHalftimePanel();
+
+  // ✅ Отправляем гостю сигнал «перерыв»
+  if (IS_HOST && MATCH_CHANNEL) {
+    MATCH_CHANNEL.send({
+      type: 'broadcast', event: 'halftime',
+      payload: { 
+        hs: MS.as, 
+        as: MS.hs
+      }
+    });
+  }
 }
 
 // ============================================================
