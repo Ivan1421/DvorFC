@@ -1773,6 +1773,12 @@ function joinMatchChannel(matchId, asHost, onReady) {
       sfxWhistle();
       addHalftimePanel();
     })
+        .on('broadcast', { event: 'host_second_half_ready' }, () => {
+      if (IS_HOST) return;
+      if (!MS) return;
+      MS.htReadyRemote = true;
+      toast('⚔️ Соперник готов ко второму тайму', 'info');
+    })
     .on('broadcast', { event: 'second_half' }, () => {
       if (IS_HOST) return;
       if (!MS) return;
@@ -1861,9 +1867,16 @@ function joinMatchChannel(matchId, asHost, onReady) {
 
       // ✅ Гость нажал «Продолжить»
       if (payload.actionType === 'resume_match') {
-        resumeMatch();
-        if (MATCH_CHANNEL) {
-          MATCH_CHANNEL.send({ type: 'broadcast', event: 'second_half', payload: {} });
+        MS.htReadyRemote = true;
+        if (MS.htReadyLocal) {
+          // Хост тоже уже готов → старт
+          resumeMatch();
+          if (MATCH_CHANNEL) {
+            MATCH_CHANNEL.send({ type: 'broadcast', event: 'second_half', payload: {} });
+          }
+        } else {
+          // Гость готов, хост ещё нет — только подсказка
+          toast('⚔️ Соперник готов ко второму тайму', 'info');
         }
       }
     })
@@ -2350,6 +2363,8 @@ function showScript(intro,cb){
 // MATCH ENGINE — выносливость, события, плейстайлы
 // ============================================================
 let MS=null;
+
+const MATCH_TICK_MS = 2000;
 function mkSide(key,team,tac,name){
   const sta={}, st={};
   team.forEach(p=>{
@@ -2658,17 +2673,28 @@ function takePenalty(A,D){
   PENALTY_DUEL = { active: true, kickerSide: null, kickerDir: null, gkDir: null, shooterId: null };
   addLog('info', `ПЕНАЛЬТИ!`, '🎯');
 
+  // === ЛОКАЛЬНЫЙ МАТЧ (кампания) ===
+  // Канала нет — соперник бот. Разделяем по тому, кто атакует.
+  if (!MATCH_CHANNEL) {
+    if (A.key === 'home') {
+      // Игрок бьёт — выбирает исполнителя и направление, бот-вратарь реагирует
+      showPenaltyKickerChoice(A, D, 'local');
+    } else {
+      // Бот бьёт — бот сам выбирает исполнителя и направление, игрок выбирает сторону вратаря
+      showPenaltyGkChoice(A, D, 'local');
+    }
+    return;
+  }
+
+  // === PVP ===
   if (IS_HOST) {
-    // Если это хост, он выбирает игрока и сторону, а гость (если он защищается) — сторону
-    showPenaltyKickerChoice(A, D);
-    broadcastMatchEvent('penalty_wait', {}); // Гостю: жди выбора бьющего
+    showPenaltyKickerChoice(A, D, 'pvp');
+    broadcastMatchEvent('penalty_wait', {});
   } else {
-    // Если это гость, и он защищается — он выбирает сторону вратаря
-    // (А если он бьет — то он выберет игрока и сторону, но об этом ниже)
-    showPenaltyGkChoice(A, D);
+    showPenaltyGkChoice(A, D, 'pvp');
   }
 }
-function showPenaltyKickerChoice(A, D) {
+function showPenaltyKickerChoice(A, D, mode) {
   const field = A.team.filter(p=>p.pos!=='GK'); 
   const pool = field.length ? field : A.team;
 
@@ -2720,20 +2746,30 @@ function showPenaltyKickerChoice(A, D) {
 
   function lockChoice() {
     modal.querySelectorAll('button, .ht-card').forEach(el => el.style.pointerEvents = 'none');
-    modal.querySelector('#pen-status').textContent = 'Ждём ответа вратаря...';
-    
+
     PENALTY_DUEL.shooterId = chosen.id;
     PENALTY_DUEL.kickerDir = chosenDir;
-    
+
+    // Локальный матч: бот-вратарь мгновенно реагирует (без ожидания)
+    if (mode === 'local') {
+      const gk = D.team.find(p => p.pos === 'GK');
+      const gkSkillBonus = gk && gk.attrs ? ((gk.attrs.ref||50) - 50) * 0.005 : 0;
+      const guessChance = cl(0.5 + gkSkillBonus, 0.3, 0.7); // 30–70% в зависимости от реакции GK
+      PENALTY_DUEL.gkDir = R(guessChance) ? chosenDir : (chosenDir === 'left' ? 'right' : 'left');
+      resolvePenaltyDuel(A, D);
+      return;
+    }
+
+    // PvP
+    modal.querySelector('#pen-status').textContent = 'Ждём ответа вратаря...';
     if (IS_HOST) {
       if (PENALTY_DUEL.gkDir) resolvePenaltyDuel(A, D);
-      // Если хост бьет, а гость защищается - хост ждет
     } else {
       broadcastGuestAction('penalty_kicker', { shooterId: chosen.id, dir: chosenDir });
     }
   }
 }
-function showPenaltyGkChoice(A, D) {
+function showPenaltyGkChoice(A, D, mode) {
   const modal = document.createElement('div');
   modal.className = 'overlay active';
   modal.style.zIndex = '3000';
@@ -2750,10 +2786,35 @@ function showPenaltyGkChoice(A, D) {
 
   const selectDir = (dir) => {
     modal.querySelectorAll('button').forEach(el => el.style.pointerEvents = 'none');
+
+    // Локальный матч: бот сам выбирает бьющего и направление
+    if (mode === 'local') {
+      const field = A.team.filter(p => p.pos !== 'GK');
+      const pool = field.length ? field : A.team;
+      // Взвешенный выбор: у кого выше fin+sho — тот чаще бьёт
+      const weights = pool.map(p => {
+        const fin = (p.attrs && p.attrs.fin) || 50;
+        const sho = (p.attrs && p.attrs.sho) || 50;
+        return Math.max(1, (fin + sho) / 2);
+      });
+      const total = weights.reduce((a,b)=>a+b, 0);
+      let r = Math.random() * total;
+      let shooter = pool[0];
+      for (let i = 0; i < pool.length; i++) {
+        r -= weights[i];
+        if (r <= 0) { shooter = pool[i]; break; }
+      }
+      const botDir = R(0.5) ? 'left' : 'right';
+      PENALTY_DUEL.shooterId = shooter.id;
+      PENALTY_DUEL.kickerDir = botDir;
+      PENALTY_DUEL.gkDir = dir;
+      resolvePenaltyDuel(A, D);
+      return;
+    }
+
+    // PvP
     modal.querySelector('#pen-status').textContent = 'Ждём удара...';
-    
     PENALTY_DUEL.gkDir = dir;
-    
     if (IS_HOST) {
       if (PENALTY_DUEL.kickerDir) resolvePenaltyDuel(A, D);
     } else {
@@ -3018,7 +3079,8 @@ function runMatch(stage, opts){
   const oppTeam=stage.players.map(pid=>{ const p=PLAYER_MAP[pid]; return p?{...p,rating:Math.max(50,Math.min(99,p.rating+bonus.ratingShift))}:null; }).filter(Boolean);
   const tactics={...CURRENT_TACTICS};
   const oppTactics={style:rnd(['balanced','balanced','attack','defense','possession']),press:rnd(['medium','medium','high','low'])};
-  MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,usedBench:[],timer:null,phase:'first',goals:[],
+MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,usedBench:[],timer:null,phase:'first',goals:[],
+    htReadyLocal:false, htReadyRemote:false,
     H:mkSide('home',myTeam,tactics,'Ваша команда'),A:mkSide('away',oppTeam,oppTactics,stage.name),
     log:$('match-log'),clockFill:$('clock-fill'),clockLbl:$('half-lbl'),
     scoreEl:$('match-score'),timeEl:$('match-time'),resCont:$('result-container'),htCont:$('halftime-container')};
@@ -3202,29 +3264,56 @@ if (!IS_HOST) {
 }
   };}
 
-  // Кнопка «2-й тайм»
-$('ht-continue').onclick=()=>{
+  // ====== Если игрок уже нажал «2-й тайм» — блокируем панель ======
+  if (MS.htReadyLocal) {
+    const btn0 = hs.querySelector('#ht-continue');
+    if (btn0) { btn0.textContent = '⏳ Ждём соперника...'; btn0.disabled = true; }
+    hs.querySelectorAll('.ht-tactic-btn').forEach(b => b.disabled = true);
+    hs.querySelectorAll('.ht-card').forEach(c => c.style.pointerEvents = 'none');
+    const sb0 = hs.querySelector('#ht-submit');
+    if (sb0) sb0.disabled = true;
+  }
+
+  // ====== Кнопка «2-й тайм» ======
+  const continueBtn = hs.querySelector('#ht-continue');
+  if (continueBtn) continueBtn.onclick = () => {
     sfxClick();
+    if (MS.htReadyLocal) return; // уже нажимал
+
+    // Кампания (нет PvP-канала) — соперника нет, стартуем сразу
     if (!MATCH_CHANNEL) {
-      // Локальный матч (кампания) — просто продолжаем
       resumeMatch();
-    } else if (IS_HOST) {
-      resumeMatch();
-      MATCH_CHANNEL.send({ type:'broadcast', event:'second_half', payload:{} });
+      return;
+    }
+
+    // PvP — фиксируем свою готовность
+    MS.htReadyLocal = true;
+
+    // Блокируем UI, показываем «ждём»
+    continueBtn.textContent = '⏳ Ждём соперника...';
+    continueBtn.disabled = true;
+    hs.querySelectorAll('.ht-tactic-btn').forEach(b => b.disabled = true);
+    hs.querySelectorAll('.ht-card').forEach(c => c.style.pointerEvents = 'none');
+    const sbBtn = hs.querySelector('#ht-submit');
+    if (sbBtn) sbBtn.disabled = true;
+
+    if (IS_HOST) {
+      // Хост: сообщаем гостю «я готов», проверяем его готовность
+      MATCH_CHANNEL.send({ type: 'broadcast', event: 'host_second_half_ready', payload: {} });
+      if (MS.htReadyRemote) {
+        // Оба готовы → старт
+        resumeMatch();
+        MATCH_CHANNEL.send({ type: 'broadcast', event: 'second_half', payload: {} });
+      }
     } else {
+      // Гость: сообщаем хосту о готовности
       broadcastGuestAction('resume_match', {});
-      hs.innerHTML='';
-      MS.phase='second';
-      MS.half=2;
-      MS.min=15;
-      MS.timeEl.textContent='2-й тайм';
-      updateClock();
-      sfxWhistle();
     }
   };
 }
 function resumeMatch(){
   MS.htCont.innerHTML=''; MS.phase='second'; MS.half=2; MS.min=15;
+  MS.htReadyLocal=false; MS.htReadyRemote=false;
   MS.timeEl.textContent='2-й тайм';
   updateClock();
   MS.H.logged={};
