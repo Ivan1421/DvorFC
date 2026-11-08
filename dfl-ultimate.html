@@ -2523,7 +2523,7 @@ function mkSide(key,team,tac,name){
   const sta={}, st={};
   team.forEach(p=>{
     sta[p.id]=100;
-    st[p.id]={goals:0,assists:0,saves:0,tackles:0,shots:0,cards:0,passes:0};
+    st[p.id]={goals:0,assists:0,saves:0,tackles:0,shots:0,cards:0,passes:0,penMiss:0};
   });
   return {key,team,tac,name,sta,st,goals:0,yellow:{},logged:{}};
 }
@@ -2996,6 +2996,7 @@ function resolvePenaltyDuel(A, D) {
   const missChance = cl(0.10 - finB, 0.02, 0.20);
   
   if (R(missChance)) {
+    if (A.st[shooter.id]) A.st[shooter.id].penMiss++;
     addLog('chance', `${shooter.name} промахнулся мимо ворот!`, '😱');
     endPenaltyDuel();
     return;
@@ -3049,7 +3050,7 @@ function autoPenalty(A,D){
   const k=styleOf(t,'precise')||styleOf(t,'bomber');
   if(R(pg)) scoreGoal(A,t,`${t.name} уверенно реализует пенальти!`,k?(psImg(k,'log')||'🎯'):'🎯');
   else if(gk&&R(0.7)){ const rk=styleOf(gk,'reflex'); addLog('save',`${gk.name} угадал угол и отразил пенальти!${rk?' (Отражение)':''}`,rk?(psImg(rk,'log')||'🧤'):'🧤'); }
-  else addLog('chance',`${t.name} не забил пенальти — мимо ворот`,'😱');
+  else { if(A.st[t.id]) A.st[t.id].penMiss++; addLog('chance',`${t.name} не забил пенальти — мимо ворот`,'😱'); }
 }
 function askFreekickChoice(A,D){
   const prevPhase = MS.phase;
@@ -3195,6 +3196,7 @@ function resolvePenalty(A,D,shooter,dir){
   const onTarget = 0.85 + finB + shoB;
 
   if (!R(onTarget)) {
+    if (A.st[shooter.id]) A.st[shooter.id].penMiss++;
     addLog('chance',`${shooter.name} промахнулся мимо ворот!`,'😱');
     resumeAfterPenalty(); return;
   }
@@ -3301,8 +3303,13 @@ function tick(){
   order.forEach(([att,def])=>{ if(R(attackProb(att,def))) runAttack(att,def); });
   neutralEvents();
   checkStaLog(); renderStaPanel();
-  // отправляем зеркалу текущее состояние
-if (IS_HOST) broadcastMatchEvent('tick', {});
+
+if (IS_HOST) {
+  broadcastMatchEvent('tick', {
+    sta: MS.H.team.map(p => ({ id: p.id, v: MS.H.sta[p.id] })),
+    oppSta: MS.A.team.map(p => ({ id: p.id, v: MS.A.sta[p.id] }))
+  });
+}
 // Если внутри тика произошёл пенальти/штрафной — фаза сменилась, тайм не завершаем
 if (MS.phase !== 'first' && MS.phase !== 'second') return;
 if(MS.half===1&&MS.min>=15){ endFirstHalf(); return; }
@@ -3507,18 +3514,33 @@ function calcRatings(S){
   const out={};
   S.team.forEach(p=>{
     const st=S.st[p.id]||{};
-    const base=p.rating/10;
-    let bonus=0;
-    bonus+=(st.goals||0)*0.9;
-    bonus+=(st.assists||0)*0.6;
-    bonus+=(st.saves||0)*0.10;
-    bonus+=(st.tackles||0)*0.05;
-    bonus+=(st.shots||0)*0.03;
-    bonus-=(st.cards||0)*0.4;
-    const fat=1-(100-(S.sta[p.id]||100))/500;
-    let r=(base+bonus)*fat;
-    r=Math.max(1.0,Math.min(10.0,r));
-    out[p.id]=Math.round(r*10)/10;
+    // База 6.0, чуть-чуть за высокий OVR (макс +0.6 при OVR 99)
+    let r = 6.0 + (p.rating - 70) * 0.02;
+
+    r += (st.goals||0) * 1.0;
+    r += (st.assists||0) * 0.7;
+    r += (st.saves||0) * 0.12;
+    r += (st.tackles||0) * 0.06;
+    r += (st.shots||0) * 0.02;
+    r -= (st.cards||0) * 0.6;
+    r -= (st.penMiss||0) * 1.2;     // промах пенальти
+    r -= (st.ownGoals||0) * 2.0;
+
+    // Усталость: при 0% стамины −1.0, при 100% — 0
+    r -= (100 - (S.sta[p.id] ?? 100)) / 100 * 1.0;
+
+    r = Math.max(1.0, Math.min(10.0, r));
+    out[p.id] = Math.round(r * 10) / 10;
+
+    // 10.0 — только за выдающийся матч
+    if (r >= 8.8) {
+      const goals = st.goals || 0;
+      const assists = st.assists || 0;
+      const cards = st.cards || 0;
+      const hero = (goals >= 3) || (goals >= 2 && assists >= 1 && cards === 0);
+      if (hero) out[p.id] = 10.0;
+      else      out[p.id] = Math.min(9.9, out[p.id]);
+    }
   });
   return out;
 }
@@ -3613,7 +3635,17 @@ if (type === 'log' && data) {
   if (data.type === 'goal-home' || data.type === 'goal-away') sfxGoal();
 }
 if (type === 'goal') sfxGoal();
-if (type === 'tick') renderStaPanel();
+if (type === 'tick') {
+  if (data && data.sta) {
+  
+    data.sta.forEach(x => { if (MS.A.sta[x.id] != null) MS.A.sta[x.id] = x.v; });
+  }
+  if (data && data.oppSta) {
+
+    data.oppSta.forEach(x => { if (MS.H.sta[x.id] != null) MS.H.sta[x.id] = x.v; });
+  }
+  renderStaPanel();
+}
 }
 
 function finishMirrorMatch(payload) {
