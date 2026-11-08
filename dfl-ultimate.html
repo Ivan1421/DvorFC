@@ -394,7 +394,7 @@ body{
 .pack-skip{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:999px;font-size:.74rem;font-weight:800;cursor:pointer;font-family:inherit;z-index:10;transition:.2s;display:none}
 .pack-skip:hover{background:rgba(255,255,255,.2);transform:scale(1.05)}
 .pack-counter{position:absolute;top:26px;left:50%;transform:translateX(-50%);font-size:.78rem;font-weight:900;letter-spacing:3px;color:rgba(255,255,255,.55);z-index:10}
-.pack-stage{position:relative;width:100%;max-width:600px;height:70vh;max-height:600px;display:flex;align-items:center;justify-content:center;perspective:1400px}
+.pack-stage{position:relative;z-index:2;width:100%;max-width:600px;height:70vh;max-height:600px;display:flex;align-items:center;justify-content:center;perspective:1400px}
 .reveal-slot{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
 .pack-next{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:12;min-width:210px;display:none;font-size:.95rem;padding:14px 28px}
 .pack-next.show{display:inline-flex;animation:nextIn .5s cubic-bezier(.2,.8,.2,1)}
@@ -658,9 +658,14 @@ body{
 .pcard.gold {
   --tier-color: #ffd700;
   --tier-glow: rgba(255,215,0,.9);
-  animation: goldGlow 2s ease-in-out infinite;
-  background: linear-gradient(180deg, rgba(255,215,0,.08), var(--panel));
+  background: linear-gradient(180deg, rgba(255,215,0,.1), var(--panel));
   border-color: #ffd700;
+  border-width: 2px;
+  box-shadow:
+    0 0 14px rgba(255,215,0,.75),
+    0 0 30px rgba(255,215,0,.45),
+    0 0 60px rgba(255,215,0,.2),
+    inset 0 0 16px rgba(255,215,0,.35);
 }
 .pcard.gold::before {
   background: radial-gradient(circle at 50% 0%, rgba(255,215,0,.4), transparent 60%);
@@ -685,14 +690,48 @@ body{
 
 
 .rev-final.gold {
-  background: linear-gradient(135deg, #2a1a00 0%, #ffd700 50%, #2a1a00 100%);
-  background-size: 200% 200%;
-  animation: goldSlide 3s linear infinite;
+  --tier-color: #ffd700;
+  --tier-glow: rgba(255,215,0,.85);
+  background: linear-gradient(
+    120deg,
+    #7a5500 0%,
+    #d4a000 20%,
+    #ffd700 35%,
+    #fff8dc 50%,
+    #ffd700 65%,
+    #d4a000 80%,
+    #7a5500 100%
+  );
+  background-size: 300% 100%;
   border: 4px solid #fff;
+  will-change: background-position;
+  animation:
+    goldSlide 6s ease-in-out infinite,
+    goldGlowPulse 3s ease-in-out infinite;
 }
+
 @keyframes goldSlide {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@keyframes goldGlowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(255,215,0,.6),
+      0 0 60px rgba(255,215,0,.35),
+      0 0 110px rgba(255,215,0,.15),
+      inset 0 0 25px rgba(255,255,255,.2),
+      0 20px 60px rgba(0,0,0,.8);
+  }
+  50% {
+    box-shadow:
+      0 0 60px rgba(255,215,0,1),
+      0 0 130px rgba(255,215,0,.7),
+      0 0 220px rgba(255,215,0,.35),
+      inset 0 0 50px rgba(255,255,255,.4),
+      0 20px 60px rgba(0,0,0,.8);
+  }
 }
 .rev-gold-bg {
   position: fixed;   
@@ -728,26 +767,36 @@ body{
   animation: goldRaysSpin 12s linear infinite;
   pointer-events: none;
 }
-@keyframes goldRaysSpin {
-  to { transform: rotate(360deg); }
-}
+
 .pack.golden {
-  border-color: rgba(255,215,0,.6);
-  background: linear-gradient(180deg, var(--panel), rgba(255,215,0,.08));
+  border-color: rgba(255,215,0,.85);
+  background: linear-gradient(180deg, var(--panel), rgba(255,215,0,.1));
   position: relative;
+  isolation: isolate;
+  animation: goldenPackGlow 3s ease-in-out infinite;
+  will-change: box-shadow;
 }
-.pack.golden::after {
-  content: "🏅";
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  font-size: 1.4rem;
-  filter: drop-shadow(0 0 12px #ffd700);
+@keyframes goldenPackGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 12px rgba(255,215,0,.55),
+      0 0 28px rgba(255,215,0,.3);
+  }
+  50% {
+    box-shadow:
+      0 0 24px rgba(255,215,0,1),
+      0 0 56px rgba(255,215,0,.65);
+  }
 }
-.pack.golden .pack-price {
-  background: linear-gradient(135deg, #ffd700, #f59e0b);
-  color: #3a1e00;
-  box-shadow: 0 0 20px rgba(255,215,0,.4);
+/* Внутреннее пульсирующее свечение — перекрываем общий .pack::before */
+.pack.golden::before {
+  background: radial-gradient(circle at 50% 0%, rgba(255,215,0,.55), transparent 65%);
+  opacity: .6;
+  animation: goldenPackInnerPulse 3s ease-in-out infinite;
+}
+@keyframes goldenPackInnerPulse {
+  0%, 100% { opacity: .5; }
+  50%      { opacity: 1;  }
 }
 </style>
 </head>
@@ -1738,10 +1787,11 @@ function renderFriends(){
   box.querySelectorAll('[data-remove-friend]').forEach(b => b.onclick = () => removeFriend(b.dataset.removeFriend, b.dataset.removeName));
 }
 let MATCH_CHANNEL = null;
+let WAITING_FOR_MATCH = null;
 let IS_HOST = false;
 let CURRENT_MATCH_ID = null;
 let CURRENT_MATCH_META = null;
-
+let HOST_WAIT_CHANNEL = null;
 function joinMatchChannel(matchId, asHost, onReady) {
   if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} }
   IS_HOST = asHost;
@@ -2051,41 +2101,114 @@ async function removeFriend(friendId, friendName){
 }
 
 async function sendMatchInvite(friendId, friendName){
+  // 1) Уже ждём ответа от кого-то — блокируем
+  if (WAITING_FOR_MATCH) {
+    toast('Вы уже ждёте ответа. Дождитесь или отмените приглашение.', 'warn');
+    return;
+  }
+
+  // 2) Нельзя вызвать самого себя (на всякий случай)
+  if (friendId === UID) {
+    toast('Это вы сами', 'error');
+    return;
+  }
+
   try {
+    // 3) Проверяем: уже отправлял приглашение этому игроку?
+    const { data: out } = await SB.from('ultimate_match_invites')
+      .select('id')
+      .eq('from_id', UID)
+      .eq('to_id', friendId)
+      .eq('status', 'pending')
+      .maybeSingle();
+    if (out) {
+      toast('Вы уже отправили приглашение. Ждите ответа.', 'warn');
+      return;
+    }
+
+    // 4) Проверяем: он уже вызвал МЕНЯ? → принимаем его приглашение
+    const { data: inc } = await SB.from('ultimate_match_invites')
+      .select('id,match_id')
+      .eq('from_id', friendId)
+      .eq('to_id', UID)
+      .eq('status', 'pending')
+      .maybeSingle();
+    if (inc) {
+      toast('Этот игрок уже вызвал вас — принимаем его приглашение', 'info');
+      return acceptMatchInvite(inc.id, friendId, friendName);
+    }
+
+    // 5) Блокируем кнопку до ответа
+    WAITING_FOR_MATCH = friendId;
+    renderFriends();
+
+    // 6) Создаём матч
     const { data: m, error: mErr } = await SB.from('ultimate_matches').insert({
       host_id: UID, guest_id: friendId, status: 'pending'
     }).select().maybeSingle();
     if (mErr) throw mErr;
     if (!m) throw new Error('Не удалось создать матч');
 
+    // 7) Создаём приглашение
     const { error } = await SB.from('ultimate_match_invites').insert({
       from_id: UID, from_name: UNAME, to_id: friendId,
       status: 'pending', match_id: m.id
     });
-    if (error) throw error;
+    if (error) {
+      // Откат: удаляем пустой матч, если приглашение не создалось
+      await SB.from('ultimate_matches').delete().eq('id', m.id);
+      throw error;
+    }
 
     toast('⚽ Приглашение отправлено. Ждём соперника...', 'success');
 
-    // Подключаемся к каналу
+    // 8) Подключаемся к каналу
     await new Promise(resolve => {
       joinMatchChannel(m.id, true, resolve);
     });
     heartbeat();
 
-    // Ждем, пока гость нажмёт "Играть". Статус в БД станет 'ready'.
-LOBBY_POLL = setInterval(async () => {
-  const { data } = await SB.from('ultimate_matches').select('status').eq('id', m.id).maybeSingle();
-  if (data && data.status === 'ready') {
-    clearInterval(LOBBY_POLL);
-    await startFriendMatch(friendId, friendName, m.id, false);
-    if (MATCH_CHANNEL) {
-      MATCH_CHANNEL.send({ type: 'broadcast', event: 'match_start', payload: {} });
-    }
-  }
-}, 300); 
+    // 9) Ждём, пока гость нажмёт «Играть» (status = 'ready')
+    LOBBY_POLL = setInterval(async () => {
+      const { data } = await SB.from('ultimate_matches')
+        .select('status').eq('id', m.id).maybeSingle();
+      if (data && data.status === 'ready') {
+        clearInterval(LOBBY_POLL);
+        WAITING_FOR_MATCH = null;
+        renderFriends();
+        await startFriendMatch(friendId, friendName, m.id, false);
+        if (MATCH_CHANNEL) {
+          MATCH_CHANNEL.send({ type: 'broadcast', event: 'match_start', payload: {} });
+        }
+      }
+    }, 300);
+
+    // 10) Автоотмена через 60 секунд, если гость так и не ответил
+    setTimeout(async () => {
+      if (WAITING_FOR_MATCH !== friendId) return; // уже ответили/отменили
+      clearInterval(LOBBY_POLL);
+      WAITING_FOR_MATCH = null;
+      renderFriends();
+      try {
+        await SB.from('ultimate_match_invites')
+          .update({ status: 'expired' })
+          .eq('match_id', m.id)
+          .eq('status', 'pending');
+        await SB.from('ultimate_matches')
+          .update({ status: 'expired' })
+          .eq('id', m.id);
+      } catch(e) {}
+      if (MATCH_CHANNEL) {
+        try { SB.removeChannel(MATCH_CHANNEL); } catch(e){}
+        MATCH_CHANNEL = null;
+      }
+      toast('Соперник не ответил. Можно пригласить снова.', 'info');
+    }, 60000);
 
   } catch (e) {
     console.error('sendMatchInvite error:', e);
+    WAITING_FOR_MATCH = null;
+    renderFriends();
     toast('Ошибка отправки: ' + (e.message || e), 'error');
   }
 }
@@ -2929,6 +3052,10 @@ function autoPenalty(A,D){
   else addLog('chance',`${t.name} не забил пенальти — мимо ворот`,'😱');
 }
 function askFreekickChoice(A,D){
+  const prevPhase = MS.phase;
+  MS.phase = 'freekick';          // ← блокирует endFirstHalf/endMatch в tick()
+  clearInterval(MS.timer);
+
   const field = A.team.filter(p=>p.pos!=='GK');
   const pool = field.length ? field : A.team;
 
@@ -2967,6 +3094,7 @@ function askFreekickChoice(A,D){
   modal.querySelector('#fk-shoot').onclick = () => {
     if (!chosen) return;
     modal.remove();
+    MS.phase = prevPhase;                       // ← восстанавливаем ДО resumeAfterPenalty
     const grp = styleOf(chosen,'precise')?'precise':styleOf(chosen,'cannon')?'cannon':null;
     shoot(A,D,chosen,{kind:'free',onT:-0.10,g:sB(chosen,'precise',0.10)+sB(chosen,'cannon',0.05),lead:'исполнил штрафной'+(grp?styleTag(chosen,grp):''),icon:grp?ico(chosen,grp,'🎯'):'🎯'});
     resumeAfterPenalty();
@@ -2975,6 +3103,7 @@ function askFreekickChoice(A,D){
   modal.querySelector('#fk-cross').onclick = () => {
     if (!chosen) return;
     modal.remove();
+    MS.phase = prevPhase;                       // ← восстанавливаем
     addLog('info',`Штрафной разыгрывают`,'↗️');
     EVH.cross(A,D,false);
     resumeAfterPenalty();
@@ -3468,20 +3597,7 @@ function applyRemoteEvent(payload) {
 
   // ✅ Гость: если хост уже в перерыве (min >= 15) или матч на паузе — показать панель,
   //    даже если halftime не дошёл
-  const panelEl = $('halftime-container');
-  const panelVisible = panelEl && panelEl.innerHTML.trim().length > 0;
- const shouldShowPanel = !IS_HOST && !panelVisible && MS.phase !== 'penalty' && (
-  (typeof min === 'number' && min >= 15) ||
-  (MS.phase === 'ht')
-);
-  if (shouldShowPanel) {
-    clearInterval(MS.timer);
-    MS.phase = 'ht';
-    MS.timeEl.textContent = 'ПЕРЕРЫВ';
-    sfxWhistle();
-    addHalftimePanel();
-  }
-
+  
 if (type === 'log' && data) {
   // У гостя переворачиваем цвет гол-лога, чтобы он был "свой/чужой"
   let logType = data.type || 'info';
@@ -3842,8 +3958,8 @@ function openPlayerDetail(pid){
   }
   c.innerHTML=`
     <div class="detail-head">
-      <div class="detail-photo"><span>${p.icon||'⚽'}</span>${photoImg(pid)}<div class="detail-ovr">${p.rating}</div></div>
-      <div class="detail-name">${p.name}</div>
+  <div class="detail-photo"><span>${p.icon||'⚽'}</span>${photoImg(pid)}</div>
+  <div class="detail-name">${p.name}</div>
       <div class="detail-sub">${posRu(p.pos,true)} · ${p.team}</div>
       <div class="detail-tags"><span class="detail-tag">${posRu(p.pos)}</span><span class="detail-tag ${isTop?'legend':''}">${TIER_EMOJI[tier]} ${TIER_LABEL[tier]}</span>${p.custom?'<span class="detail-tag legend">★ Особая</span>':''}</div>
     </div>
@@ -4416,30 +4532,67 @@ function openLobby(opponentName, matchId, isHost, opponentReady, opponentId){
   };
 }
 async function startFriendMatch(friendId, friendName, matchId, isMirror){
+  // Сбрасываем блокировку приглашений в любом исходе
+  WAITING_FOR_MATCH = null;
+  renderFriends();
+
+  // На всякий случай гасим старый polling лобби
+  if (typeof LOBBY_POLL !== 'undefined' && LOBBY_POLL) {
+    clearInterval(LOBBY_POLL);
+    LOBBY_POLL = null;
+  }
+
   try {
-    console.log('[startFriendMatch] friendId =', JSON.stringify(friendId), 'isMirror =', isMirror);
-    const { data } = await SB.from('ultimate_saves').select('data').ilike('user_id', friendId).maybeSingle();
-    console.log('[startFriendMatch] saves result:', data);
-    if (!data || !data.data) return toast('Не удалось загрузить состав друга', 'error');
+    console.log('[startFriendMatch] friendId =', JSON.stringify(friendId),
+                'matchId =', matchId, 'isMirror =', isMirror);
+
+    if (!friendId) {
+      toast('Ошибка: не указан ID соперника', 'error');
+      return;
+    }
+    if (!matchId && !isMirror) {
+      toast('Ошибка: не указан ID матча', 'error');
+      return;
+    }
+
+    // 1) Загружаем сохранение друга
+    const { data, error } = await SB.from('ultimate_saves')
+      .select('data')
+      .ilike('user_id', friendId)
+      .maybeSingle();
+    console.log('[startFriendMatch] saves result:', data, 'error:', error);
+
+    if (error) throw error;
+    if (!data || !data.data) {
+      toast(`Не удалось загрузить состав ${friendName}`, 'error');
+      return;
+    }
 
     const friendState = data.data;
 
-    // ← регистрируем кастомные карточки друга в PLAYER_MAP
+    // 2) Регистрируем кастомные карточки друга (если ещё не зарегистрированы)
     Object.entries(friendState.custom || {}).forEach(([id, c]) => {
-      if (!PLAYER_MAP[id]) registerCustom(id, c);
+      if (!PLAYER_MAP[id]) {
+        try { registerCustom(id, c); } catch(e){ console.warn('custom reg fail:', id, e); }
+      }
     });
 
+    // 3) Проверяем состав друга
     const friendStarters = (friendState.starters || []).filter(Boolean);
     if (friendStarters.length < 5) {
-      return toast(`У ${friendName} неполный состав — матч невозможен`, 'warn');
+      toast(`У ${friendName} неполный состав — матч невозможен`, 'warn');
+      return;
     }
+
     const oppPlayers = friendStarters.map(pid => PLAYER_MAP[pid]).filter(Boolean);
     if (oppPlayers.length < 5) {
       const missing = friendStarters.filter(pid => !PLAYER_MAP[pid]);
       console.warn('Не найдены игроки друга:', missing);
-      return toast('Ошибка: игроки друга не найдены (' + missing.join(', ') + ')', 'error');
+      toast('Ошибка: игроки друга не найдены (' + missing.join(', ') + ')', 'error');
+      return;
     }
 
+    // 4) Собираем stage
     const stage = {
       id: 'friend_' + friendId,
       team: friendName,
@@ -4455,22 +4608,30 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
       }
     };
 
-
+    // 5) Режим гостя (зеркало): матч запускается сразу
     if (isMirror) {
       CURRENT_STAGE = stage;
       $('stage-modal').classList.remove('active');
-      // Сюжет уже показан в лобби, сразу запускаем матч
       runMatch(stage, { mirror: true });
       return;
     }
 
- 
-
+    // 6) Режим хоста: показываем сюжет и стартуем
     CURRENT_STAGE = stage;
     $('stage-modal').classList.remove('active');
     showScript(stage.intro, () => runMatch(stage));
+
   } catch (e) {
-    toast('Ошибка загрузки: ' + (e.message || e), 'error');
+    console.error('[startFriendMatch] error:', e);
+    toast('Ошибка загрузки матча: ' + (e.message || e), 'error');
+    // Не даём залипнуть каналу и флагу «в матче»
+    if (MATCH_CHANNEL) {
+      try { SB.removeChannel(MATCH_CHANNEL); } catch(err){}
+      MATCH_CHANNEL = null;
+    }
+    IS_HOST = false;
+    CURRENT_MATCH_ID = null;
+    heartbeat();
   }
 }
 
