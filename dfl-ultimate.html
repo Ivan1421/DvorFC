@@ -902,7 +902,7 @@ body{
       <div class="hero-content">
         <div class="hero-icon">🏆</div>
         <h2>Путь к вершине</h2>
-        <p>6 матчей против команд ДФЛ — от ФК ПСЖ до финала с ФК МЕРА</p>
+        <p>6 матчей против команд ДФЛ — от ФК ПСЖ до ФК МЕРА</p>
         <div class="hero-progress"><div class="hero-progress-fill" id="hero-progress-fill" style="width:0%"></div></div>
         <div class="hero-stats">
           <div class="hero-stat"><div class="val" id="stat-wins">0</div><div class="lbl">Побед</div></div>
@@ -935,8 +935,8 @@ body{
           <div class="slot" data-slot="4"><span class="slot-label">ПФ</span></div>
         </div>
         <div class="pitch-row">
-          <div class="slot" data-slot="1"><span class="slot-label">ЦП</span></div>
-          <div class="slot" data-slot="2"><span class="slot-label">ЦП</span></div>
+          <div class="slot" data-slot="1"><span class="slot-label">ЦЗ</span></div>
+          <div class="slot" data-slot="2"><span class="slot-label">ЦЗ</span></div>
         </div>
         <div class="pitch-row">
           <div class="slot" data-slot="0"><span class="slot-label">ВРТ</span></div>
@@ -956,12 +956,12 @@ body{
   <!-- SHOP -->
   <div class="page" id="page-shop">
     <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">Магазин</h2>
-    <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:20px">Открывай паки и обменивай лишних игроков на пазлы</p>
+    <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:20px">Открывай паки и обменивай дубликаты на пазлы</p>
     <div class="section-title">📦 Паки</div>
     <div class="section-sub">Игроки могут повторяться — дубликаты можно обменять на пазлы в коллекции</div>
     <div class="packs" id="packs-grid"></div>
     <div class="section-title" style="margin-top:30px">🧩 Магазин за пазлы</div>
-    <div class="section-sub">Цена зависит от редкости. Можно купить любого игрока, даже если он уже есть, — получишь дубликат.</div>
+    <div class="section-sub">Цена зависит от редкости. Можно купить любого игрока, если он уже есть — получишь дубликат.</div>
     <div class="chips" id="frag-filter"></div>
     <div class="pgrid" id="frag-grid"></div>
   </div>
@@ -1196,14 +1196,14 @@ const ALL_PLAYERS = [
   {id:'russkov_artem',name:'Руссков Артём',pos:'MF',rating:98,team:'Южный',icon:'🎯'},
   {id:'ostap',name:'Остап',pos:'MF',rating:1,team:'78 школа',icon:'😂'},
   {id:'gold_russkov', name:'Руссё Диктатор', pos:'MF', rating:102, team:'Южный', icon:'👑', goldEvent:true},
-  {id:'gold_doroshenko', name:'Дорошенко Алексей', pos:'FW', rating:100, team:'МЕРА', icon:'👑', goldEvent:true},
-  {id:'gold_bobrikov', name:'Бобриков Александр', pos:'FW', rating:100, team:'78 школа', icon:'👑', goldEvent:true},
+  {id:'gold_doroshenko', name:'Дорошенко Алексей', pos:'FW', rating:101, team:'МЕРА', icon:'👑', goldEvent:true},
+  {id:'gold_bobrikov', name:'Бобриков Александр', pos:'FW', rating:101, team:'78 школа', icon:'👑', goldEvent:true},
   {id:'gold_zykov', name:'Зыков Максим', pos:'GK', rating:100, team:'78 школа', icon:'👑', goldEvent:true},
   {id:'gold_maxim', name:'Бузмаков Максим', pos:'DF', rating:100, team:'МЕРА', icon:'👑', goldEvent:true},
   {id:'gold_shustov', name:'Шустов Иван', pos:'GK', rating:100, team:'МЕРА', icon:'👑', goldEvent:true},
   {id:'gold_zaytsev', name:'Зайцев Тимофей', pos:'FW', rating:100, team:'78 школа', icon:'👑', goldEvent:true},
-  {id:'gold_tankov', name:'Танков Тимофей', pos:'MF', rating:99, team:'МЕРА', icon:'👑', goldEvent:true},
-  {id:'gold_bombar', name:'Бадартинов Михаил', pos:'FW', rating:100, team:'Южный', icon:'👑', goldEvent:true},
+  {id:'gold_tankov', name:'Танков Тимофей', pos:'MF', rating:98, team:'МЕРА', icon:'👑', goldEvent:true},
+  {id:'gold_bombar', name:'Бадартинов Михаил', pos:'FW', rating:99, team:'Южный', icon:'👑', goldEvent:true},
   {id:'gold_batrakov', name:'Кравченко Глеб', pos:'MF', rating:100, team:'МЕРА', icon:'👑', goldEvent:true},
   {id:'gold_elisey', name:'Пожидаев Елисей', pos:'MF', rating:99, team:'78 школа', icon:'👑', goldEvent:true},
   {id:'gold_churilov', name:'Чурилов Алексей', pos:'MF', rating:100, team:'78 школа', icon:'👑', goldEvent:true}
@@ -1418,7 +1418,7 @@ function lineupFor(team){
   // 4. Оставшиеся (если не хватает нападающих или ПЗ)
   const rest = roster.filter(p=>p!==gk && !mids.includes(p) && !fwds.includes(p)).sort((a,b)=>b.rating-a.rating);
   
-  // Собираем состав по порядку: ВРТ, 2 ЦП, 2 НАП
+  // Собираем состав по порядку: ВРТ, 2 ЦЗ, 2 НАП
   const lineup = [];
   if(gk) lineup.push(gk.id);
   
@@ -1437,9 +1437,9 @@ const CAMPAIGN = [
   {id:1,team:'ПСЖ',name:'ФК ПСЖ',difficulty:'easy',reward:150,desc:"Четыре игрока и ни одного вратаря.",intro:{icon:"🔵",title:"Этап 1: ФК ПСЖ",text:"Начинается лига. <em>ФК ПСЖ</em> выходит вчетвером, и вратаря у них нет — в воротах стоит полевой игрок. Главная угроза — <strong>Шапов Леонид</strong>."}},
   {id:2,team:'Звёзды',name:'ФК Звёзды',difficulty:'easy',reward:250,desc:"Лидер атак — Давид Дарсалия.",intro:{icon:"⭐",title:"Этап 2: ФК Звёзды",text:"<em>ФК Звёзды</em> — пять игроков, в воротах <strong>Матвей Бобов</strong>. Атаки строит Давид Дарсалия."}},
   {id:3,team:'Арсенал',name:'ФК Арсенал',difficulty:'medium',reward:400,desc:"Вратарь Лехнер Костя — стена.",intro:{icon:"🔴",title:"Этап 3: ФК Арсенал",text:"<em>Арсенал</em> играет вчетвером, зато в воротах — <strong>Лехнер Константин</strong>. Не торопись: пробить его непросто."}},
-  {id:4,team:'78 школа',name:'ФК 78 школа',difficulty:'hard',reward:550,desc:"Самый широкий состав в лиге.",intro:{icon:"⚪",title:"Этап 4: ФК 78 школа",text:"<em>78 школа</em> — самый глубокий состав ДФЛ. Атаку ведут <strong>Бобриков</strong> и <strong>Зайцев</strong>."}},
-  {id:5,team:'Южный',name:'ФК Южный',difficulty:'hard',reward:750,desc:"Сильнейшая районная команда.",intro:{icon:"🟢",title:"Этап 5: ФК Южный",text:"<em>ФК Южный</em> — команда с самым высоким рейтингом в лиге. <strong>Руссё Диктатор</strong> — главная угроза. Вратаря у них тоже нет."}},
-  {id:6,team:'МЕРА',name:'ФК МЕРА',difficulty:'boss',reward:1500,desc:"ФИНАЛ. Легендарная команда ДФЛ.",isBoss:true,intro:{icon:"👑",title:"ФИНАЛ: ФК МЕРА",text:"<em>ФК МЕРА</em> — лучшая команда Дворовой Футбольной Лиги. Победи их — и станешь легендой."}}
+  {id:4,team:'78 школа',name:'ФК 78 школа',difficulty:'hard',reward:550,desc:"Самый широкий состав в лиге.",intro:{icon:"⚪",title:"Этап 4: ФК 78 школа",text:"<em>78 школа</em> — самый многочисленный состав ДФЛ. Атаку ведут <strong>Бобриков</strong> и <strong>Зайцев</strong>."}},
+  {id:5,team:'Южный',name:'ФК Южный',difficulty:'hard',reward:750,desc:"Сильнейшая районная команда.",intro:{icon:"🟢",title:"Этап 5: ФК Южный",text:"<em>ФК Южный</em> — команда с самым высоким рейтингом в лиге. <strong>Руссков Артём</strong> — главная угроза. Вратаря у них тоже нет."}},
+  {id:6,team:'МЕРА',name:'ФК МЕРА',difficulty:'boss',reward:1500,desc:"ФИНАЛ. Легендарная команда ДФЛ.",isBoss:true,intro:{icon:"👑",title:"ФИНАЛ: ФК МЕРА",text:"<em>ФК МЕРА</em> — первая команда Дворовой Футбольной Лиги. Победи их — и станешь легендой."}}
 ];
 CAMPAIGN.forEach(s=>{ s.players=lineupFor(s.team); });
 const STAGE_BONUS = {easy:{ratingShift:-8,rewardPerGoal:5},medium:{ratingShift:-6,rewardPerGoal:8},hard:{ratingShift:-3,rewardPerGoal:12},boss:{ratingShift:0,rewardPerGoal:20}};
