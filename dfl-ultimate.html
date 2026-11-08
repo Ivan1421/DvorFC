@@ -1282,6 +1282,13 @@ const GOLD_BASE = {
   gold_tankov:'tankov', gold_bombar:'bombar', gold_batrakov:'batrakov',
   gold_elisey:'elisey', gold_churilov:'lesha_podavalny'
 };
+
+
+function personOf(pid){
+  if (!pid) return null;
+  const b = baseId(pid);               
+  return GOLD_BASE[b] || b;
+}
 ALL_PLAYERS.forEach(p=>{
   const key = p.goldEvent ? GOLD_BASE[p.id] : p.id;
   const ps = PLAYSTYLES_MAP[key] || {playstyles:[],playstyleColors:{}};
@@ -1822,6 +1829,17 @@ function joinMatchChannel(matchId, asHost, onReady) {
       MS.timeEl.textContent = 'ПЕРЕРЫВ';
       sfxWhistle();
       addHalftimePanel();
+    })
+        .on('broadcast', { event: 'freekick_pause' }, () => {
+      if (IS_HOST) return; if (!MS) return;
+      MS.phase = 'freekick';
+      clearInterval(MS.timer);
+      toast('🎯 Штрафной у соперника — матч на паузе', 'info');
+    })
+    .on('broadcast', { event: 'freekick_resume' }, () => {
+      if (IS_HOST) return; if (!MS) return;
+      MS.phase = MS.half === 1 ? 'first' : 'second';
+      // таймера у гостя нет — только ждём следующий tick
     })
     .on('broadcast', { event: 'penalty_request_gk' }, () => {
   if (IS_HOST) return; if (!MS) return;
@@ -2501,6 +2519,14 @@ function startMatch(){
   if(valid.length<5){ toast('Заполните все 5 позиций!','error'); return; }
   if(!STATE.starters[0]||PLAYER_MAP[STATE.starters[0]].pos!=='GK'){ toast('На ВРТ должен быть вратарь!','error'); return; }
   if(STATE.starters.slice(1).some(pid=>PLAYER_MAP[pid]&&PLAYER_MAP[pid].pos==='GK')){ toast('Вратарь может стоять только в воротах!','error'); return; }
+
+  // один человек — не больше одной карточки в стартовом составе
+  const persons = STATE.starters.map(personOf);
+  if (new Set(persons).size < persons.length) {
+    toast('Один человек не может стоять в составе дважды (разные карточки)', 'error');
+    return;
+  }
+
   $('stage-modal').classList.remove('active');
   showScript(stage.intro,()=>runMatch(stage));
 }
@@ -2782,6 +2808,10 @@ freekick(A,D){
   
   if (A.key === 'home') {
     clearInterval(MS.timer);
+  
+    if (IS_HOST && MATCH_CHANNEL) {
+      MATCH_CHANNEL.send({ type:'broadcast', event:'freekick_pause', payload:{} });
+    }
     askFreekickChoice(A, D);
   } else {
     // Соперник бьёт автоматически
@@ -3098,6 +3128,9 @@ function askFreekickChoice(A,D){
     MS.phase = prevPhase;                       // ← восстанавливаем ДО resumeAfterPenalty
     const grp = styleOf(chosen,'precise')?'precise':styleOf(chosen,'cannon')?'cannon':null;
     shoot(A,D,chosen,{kind:'free',onT:-0.10,g:sB(chosen,'precise',0.10)+sB(chosen,'cannon',0.05),lead:'исполнил штрафной'+(grp?styleTag(chosen,grp):''),icon:grp?ico(chosen,grp,'🎯'):'🎯'});
+    if (IS_HOST && MATCH_CHANNEL) {
+      MATCH_CHANNEL.send({ type:'broadcast', event:'freekick_resume', payload:{} });
+    }
     resumeAfterPenalty();
   };
 
@@ -3107,6 +3140,9 @@ function askFreekickChoice(A,D){
     MS.phase = prevPhase;                       // ← восстанавливаем
     addLog('info',`Штрафной разыгрывают`,'↗️');
     EVH.cross(A,D,false);
+    if (IS_HOST && MATCH_CHANNEL) {
+      MATCH_CHANNEL.send({ type:'broadcast', event:'freekick_resume', payload:{} });
+    }
     resumeAfterPenalty();
   };
 }
@@ -3429,6 +3465,11 @@ if (!IS_HOST) {
     const o=MY.team[selOut], i=benchPool[selIn];
     if((o.pos==='GK')!==(i.pos==='GK')){ toast('Вратаря меняют только на вратаря','warn'); return; }
 
+    
+    const inPerson = personOf(i.id);
+    const conflict = MY.team.some((p, idx) => idx !== selOut && p && personOf(p.id) === inPerson);
+    if (conflict) { toast('Этот игрок уже есть на поле (другой картой)','warn'); return; }
+
     MY.team[selOut]=i;
     MY.sta[i.id]=100;
     MS.subs++;
@@ -3532,8 +3573,9 @@ function calcRatings(S){
     r = Math.max(1.0, Math.min(10.0, r));
     out[p.id] = Math.round(r * 10) / 10;
 
-    // 10.0 — только за выдающийся матч
-    if (r >= 8.8) {
+    
+    const baseRating = 6.0 + (p.rating - 70) * 0.02;
+    if (r >= baseRating + 2.5) {
       const goals = st.goals || 0;
       const assists = st.assists || 0;
       const cards = st.cards || 0;
@@ -3656,6 +3698,9 @@ function finishMirrorMatch(payload) {
   MS.H.goals = MS.hs;
   MS.A.goals = MS.as;
   MS.goals = payload.goals || [];
+  // получаем реальные статы от хоста
+  if (payload.stH) MS.A.st = payload.stH;   
+  if (payload.stA) MS.H.st = payload.stA;   
   updateScore();
   MS.timeEl.textContent = 'Матч окончен';
 
@@ -3695,7 +3740,10 @@ function endMatch(){
   if (IS_HOST && MATCH_CHANNEL) {
     MATCH_CHANNEL.send({
       type: 'broadcast', event: 'match_end',
-      payload: { hs: MS.as, as: MS.hs, goals: MS.goals } 
+      payload: { 
+        hs: MS.as, as: MS.hs, goals: MS.goals,
+        stH: MS.H.st, stA: MS.A.st   // ← полные статы
+      } 
     });
     SB.from('ultimate_matches').update({ status: 'finished' }).eq('id', CURRENT_MATCH_ID).then(()=>{});
   }
@@ -3889,8 +3937,22 @@ function openPickModal(){
   const currentId=PICK_SLOT.type==='starter'?STATE.starters[PICK_SLOT.idx]:STATE.bench[PICK_SLOT.idx];
   const labels=['ВРТ','ЦП','ЦП','ЛФ','ПФ'];
   $('pick-title').textContent=PICK_SLOT.type==='starter'?`Позиция: ${labels[PICK_SLOT.idx]}`:`Скамейка #${PICK_SLOT.idx+1}`;
-  const used=new Set([...STATE.starters.filter(Boolean),...STATE.bench.filter(Boolean)]);
-  let list=STATE.owned.filter(pid=>PLAYER_MAP[pid]&&(!used.has(pid)||pid===currentId));
+
+  
+  const usedPersons = new Set();
+  [...STATE.starters.filter(Boolean), ...STATE.bench.filter(Boolean)].forEach(pid => {
+    if (pid === currentId) return;        
+    const p = personOf(pid);
+    if (p) usedPersons.add(p);
+  });
+
+  let list = STATE.owned.filter(pid => {
+    if (!PLAYER_MAP[pid]) return false;
+    if (pid === currentId) return true;       
+    const p = personOf(pid);
+    return p && !usedPersons.has(p);
+  });
+
   if(PICK_SLOT.type==='starter'){
     list=list.filter(pid=>PICK_SLOT.idx===0?PLAYER_MAP[pid].pos==='GK':PLAYER_MAP[pid].pos!=='GK');
   }
@@ -3911,8 +3973,24 @@ function openPickModal(){
 }
 function assignPlayer(pid){
   if(!PICK_SLOT)return;
-  for(let i=0;i<STATE.starters.length;i++) if(STATE.starters[i]===pid)STATE.starters[i]=null;
-  for(let i=0;i<STATE.bench.length;i++) if(STATE.bench[i]===pid)STATE.bench[i]=null;
+  const person = personOf(pid);
+
+  
+  for(let i=0;i<STATE.starters.length;i++){
+    const cur = STATE.starters[i];
+    if(!cur) continue;
+    if(cur === pid || (person && personOf(cur) === person)){
+      if(!(PICK_SLOT.type==='starter' && i === PICK_SLOT.idx)) STATE.starters[i]=null;
+    }
+  }
+  for(let i=0;i<STATE.bench.length;i++){
+    const cur = STATE.bench[i];
+    if(!cur) continue;
+    if(cur === pid || (person && personOf(cur) === person)){
+      if(!(PICK_SLOT.type==='bench' && i === PICK_SLOT.idx)) STATE.bench[i]=null;
+    }
+  }
+
   if(PICK_SLOT.type==='starter')STATE.starters[PICK_SLOT.idx]=pid;
   else STATE.bench[PICK_SLOT.idx]=pid;
   saveState();
@@ -4612,6 +4690,13 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
     const friendStarters = (friendState.starters || []).filter(Boolean);
     if (friendStarters.length < 5) {
       toast(`У ${friendName} неполный состав — матч невозможен`, 'warn');
+      return;
+    }
+
+    // дубликаты «людей» (разные карточки одного человека) — блокируем
+    const oppPersons = friendStarters.map(personOf);
+    if (new Set(oppPersons).size < oppPersons.length) {
+      toast(`У ${friendName} в составе дубликаты игроков — матч невозможен`, 'warn');
       return;
     }
 
