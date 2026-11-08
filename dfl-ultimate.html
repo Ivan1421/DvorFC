@@ -72,7 +72,11 @@ body{
 .coin.frag{background:rgba(168,85,247,.12);color:#c084fc;border-color:rgba(168,85,247,.3)}
 .coin.bump{animation:coinBump .5s cubic-bezier(.2,.8,.2,1)}
 @keyframes coinBump{0%{transform:scale(1)}50%{transform:scale(1.15);background:rgba(255,209,102,.25)}100%{transform:scale(1)}}
-.user-chip{display:flex;align-items:center;gap:8px}
+.user-chip{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 10px;border-radius:10px;transition:.2s}
+.user-chip:hover{background:rgba(255,255,255,.05)}
+.user-chip:active{transform:scale(.97)}
+.user-team{font-weight:800;font-size:.8rem;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.15;color:var(--text)}
+.user-owner{font-size:.6rem;color:var(--muted);font-weight:700;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.15;margin-top:1px}
 .user-name{font-weight:800;font-size:.78rem;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .logout-btn{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);border-radius:999px;padding:6px 14px;font-size:.72rem;font-weight:800;cursor:pointer;font-family:inherit;transition:.2s}
 .logout-btn:hover{background:rgba(239,68,68,.3)}
@@ -798,6 +802,29 @@ body{
   0%, 100% { opacity: .5; }
   50%      { opacity: 1;  }
 }
+
+/* ============ LEADERBOARD ============ */
+.lb-list{display:flex;flex-direction:column;gap:6px;max-width:600px;margin:0 auto}
+.lb-row{background:var(--panel);border:1px solid var(--line-2);border-radius:12px;padding:12px 16px;display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;transition:.2s}
+.lb-row:hover{transform:translateX(2px);border-color:var(--cyan);box-shadow:var(--shadow-sm)}
+.lb-row.me{border-color:var(--gold);background:linear-gradient(90deg,rgba(255,209,102,.12),var(--panel));box-shadow:0 0 16px rgba(255,209,102,.25)}
+.lb-rank{font-size:1rem;font-weight:900;text-align:center;color:var(--muted);min-width:32px;line-height:1}
+.lb-rank.gold{font-size:1.6rem;color:var(--gold);text-shadow:0 0 10px rgba(255,209,102,.6)}
+.lb-rank.silver{font-size:1.5rem;color:#c0c0c0;text-shadow:0 0 10px rgba(192,192,192,.5)}
+.lb-rank.bronze{font-size:1.4rem;color:#cd7f32;text-shadow:0 0 10px rgba(205,127,50,.5)}
+.lb-name{font-weight:800;font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-name .lb-tag{display:inline-block;font-size:.58rem;padding:1px 7px;border-radius:999px;background:rgba(34,197,94,.15);color:var(--green);font-weight:900;margin-left:6px;vertical-align:middle;letter-spacing:.4px}
+.lb-ovr{font-size:1.05rem;font-weight:900;background:var(--grad);color:#04121c;padding:5px 14px;border-radius:999px;min-width:52px;text-align:center;box-shadow:0 4px 14px rgba(0,229,255,.25)}
+.lb-row.me .lb-ovr{background:var(--grad-gold);color:#3a1e00;box-shadow:0 4px 14px rgba(255,209,102,.35)}
+.lb-meta{font-size:.66rem;color:var(--muted);font-weight:700;margin-top:2px}
+@media(max-width:480px){
+  .lb-row{padding:10px 12px;grid-template-columns:36px 1fr auto;gap:8px}
+  .lb-rank{font-size:.9rem}
+  .lb-rank.gold{font-size:1.3rem}
+  .lb-rank.silver{font-size:1.2rem}
+  .lb-rank.bronze{font-size:1.1rem}
+  .lb-ovr{font-size:.95rem;padding:4px 10px;min-width:44px}
+}
 </style>
 </head>
 <body>
@@ -851,8 +878,8 @@ body{
         <div class="coin" id="coin-display"><span>💰</span><span id="coin-count">0</span></div>
         <div class="coin frag" id="frag-display"><span>🧩</span><span id="frag-count">0</span></div>
       </div>
-      <div class="user-chip">
-        <span class="user-name" id="current-user">—</span>
+      <div class="user-chip" id="user-chip" title="Нажми, чтобы изменить название команды">
+        <div id="current-user"></div>
         <button class="logout-btn" id="btn-logout">Выход</button>
       </div>
     </div>
@@ -864,6 +891,7 @@ body{
     <button class="nav-item" data-page="shop">🛒 Магазин</button>
     <button class="nav-item" data-page="collection">🃏 Коллекция</button>
     <button class="nav-item" data-page="history">📊 История</button>
+    <button class="nav-item" data-page="leaderboard">🏅 Лидеры</button>
     <button class="nav-item" data-page="friends">👥 Друзья</button>
   </div>
 <!-- FRIENDS -->
@@ -979,6 +1007,16 @@ body{
     <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 16px">История матчей</h2>
     <div id="history-list"></div>
   </div>
+
+  <!-- LEADERBOARD -->
+  <div class="page" id="page-leaderboard">
+    <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">🏅 Лидеры</h2>
+    <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:16px">Рейтинг по среднему OVR состава</p>
+    <div class="toolbar"><button class="btn btn-ghost" id="lb-refresh">🔄 Обновить</button></div>
+    <div id="leaderboard-list" class="lb-list">
+      <div class="empty"><div class="empty-icon">📊</div><p>Загрузка…</p></div>
+    </div>
+  </div>
 </div>
 
 <!-- STAGE MODAL -->
@@ -1086,6 +1124,27 @@ body{
     </div>
   </div>
 </div>
+
+<!-- SQUAD VIEW -->
+<div class="overlay" id="squad-view-modal">
+  <div class="panel" style="max-width:520px">
+    <button class="close-x" id="sv-close">×</button>
+    <div id="sv-content"></div>
+  </div>
+</div>
+<!-- TEAMNAME MODAL -->
+<div class="overlay" id="teamname-modal">
+  <div class="panel" style="max-width:400px;text-align:center">
+    <div class="confirm-title">Название команды</div>
+    <div class="confirm-text">Отображается в таблице лидеров, у друзей и в матчах. Владелец аккаунта показывается мелким шрифтом под названием.</div>
+    <input class="lg-field" id="teamname-input" placeholder="Например: ФК Динамо" maxlength="24" autocomplete="off">
+    <div class="actions">
+      <button class="btn btn-ghost" id="teamname-cancel">Отмена</button>
+      <button class="btn btn-primary" id="teamname-save">Сохранить</button>
+    </div>
+  </div>
+</div>
+
 
 <!-- SCRIPT -->
 <div class="overlay" id="script-modal">
@@ -1471,7 +1530,7 @@ let PICK_SLOT = null;
 let FRAG_FILTER = 'all';
 const TCLS = ['t-common','t-rare','t-epic','t-legend','t-icon','t-meme'];
 
-function defaultState(){ return {ver:SAVE_VERSION,savedAt:0,coins:400,fragments:0,owned:[...STARTER_SQUAD],dupes:{},custom:{},starters:[...STARTER_SQUAD],bench:[],history:[],campaignProgress:0,campaignResults:{}}; }
+function defaultState(){ return {ver:SAVE_VERSION,savedAt:0,coins:400,fragments:0,owned:[...STARTER_SQUAD],dupes:{},custom:{},starters:[...STARTER_SQUAD],bench:[],history:[],campaignProgress:0,campaignResults:{},teamName:''}; }
 function migrate(s){
   s=s||{};
   s.coins=s.coins||0; s.fragments=s.fragments||0; s.savedAt=s.savedAt||0;
@@ -1481,6 +1540,7 @@ function migrate(s){
   s.starters=s.starters||[...STARTER_SQUAD];
   s.bench=s.bench||[]; s.history=s.history||[];
   s.campaignProgress=s.campaignProgress||0; s.campaignResults=s.campaignResults||{};
+  s.teamName = s.teamName || '';
   if(s.ver!==SAVE_VERSION){ s.campaignProgress=0; s.campaignResults={}; s.ver=SAVE_VERSION; }
   return s;
 }
@@ -1685,26 +1745,34 @@ async function loadFriends(){
       ...FRIENDS.outgoing.map(f => f.id),
     ];
     if (allOtherIds.length) {
-      const { data: online } = await SB.from('ultimate_online')
-        .select('user_id,name,last_seen,in_match')
-        .in('user_id', allOtherIds);
-      const map = {};
-      (online || []).forEach(o => map[o.user_id] = o);
+      const [{ data: online }, { data: savesData }] = await Promise.all([
+        SB.from('ultimate_online')
+          .select('user_id,name,last_seen,in_match')
+          .in('user_id', allOtherIds),
+        SB.from('ultimate_saves')
+          .select('user_id,name,data')
+          .in('user_id', allOtherIds)
+      ]);
 
-      FRIENDS.my.forEach(f => {
-        const o = map[f.id];
+      const onlineMap = {};
+      (online || []).forEach(o => onlineMap[o.user_id] = o);
+      const savesMap = {};
+      (savesData || []).forEach(s => savesMap[s.user_id] = s);
+
+      function enrich(f){
+        const o = onlineMap[f.id];
+        const s = savesMap[f.id];
         f.online = o ? (Date.now() - new Date(o.last_seen).getTime() < 60000) : false;
-        f.name = (o && o.name) ? o.name : f.id;
         f.inMatch = o ? !!o.in_match : false;
-      });
-      FRIENDS.incoming.forEach(f => {
-        const o = map[f.id];
-        f.name = (o && o.name) ? o.name : f.id;
-      });
-      FRIENDS.outgoing.forEach(f => {
-        const o = map[f.id];
-        f.name = (o && o.name) ? o.name : f.id;
-      });
+        const stn = (s && s.data && s.data.teamName) ? s.data.teamName : null;
+        f.teamName = stn || (o && o.name) || f.id;
+        f.owner = (s && s.name) || (o && o.name) || f.id;
+        f.name = f.teamName;
+      }
+
+      FRIENDS.my.forEach(enrich);
+      FRIENDS.incoming.forEach(enrich);
+      FRIENDS.outgoing.forEach(enrich);
     }
 
     // Приглашения
@@ -1730,10 +1798,11 @@ function renderFriends(){
       <div class="stage" style="cursor:default;margin-bottom:8px">
         <div class="stage-num" style="background:${f.online?'rgba(34,197,94,.2)':'var(--bg-2)'};color:${f.online?'var(--green)':'var(--muted)'}">${f.online?'●':'○'}</div>
         <div class="stage-info">
-          <div class="stage-name">${f.name}</div>
-          <div class="stage-sub">${f.online ? (f.inMatch ? 'в матче' : 'онлайн') : 'оффлайн'}</div>
+          <div class="stage-name">${escapeHtml(f.teamName || f.name || f.id)}</div>
+          <div class="stage-sub">${escapeHtml(f.owner || '')} · ${f.online ? (f.inMatch ? 'в матче' : 'онлайн') : 'оффлайн'}</div>
         </div>
         <div style="display:flex;gap:6px">
+          <button class="btn btn-ghost" data-view-squad="${f.id}" data-view-name="${escapeHtml(f.name)}" style="padding:8px 12px;font-size:.8rem" title="Состав">👁</button>
           ${!f.inMatch ? `<button class="btn ${f.online?'btn-primary':'btn-ghost'}" data-invite="${f.id}" data-invite-name="${f.name}" style="padding:8px 16px;font-size:.8rem">${f.online ? '⚽ Вызвать' : '🤖 Матч с составом'}</button>` : ''}
           <button class="btn btn-danger" data-remove-friend="${f.id}" data-remove-name="${f.name}" style="padding:8px 12px;font-size:.8rem" title="Удалить из друзей">🗑️</button>
         </div>
@@ -1746,8 +1815,8 @@ function renderFriends(){
         <div class="stage" style="cursor:default;margin-bottom:8px">
           <div class="stage-num" style="background:var(--bg-2)">📩</div>
           <div class="stage-info">
-            <div class="stage-name">${f.name || f.id}</div>
-            <div class="stage-sub">Хочет добавить вас${f.name && f.name !== f.id ? ` · ${f.id}` : ''}</div>
+            <div class="stage-name">${escapeHtml(f.teamName || f.name || f.id)}</div>
+            <div class="stage-sub">${escapeHtml(f.owner || '')}${f.owner && f.owner !== f.teamName ? ` · ${f.id}` : ''}</div>
           </div>
           <div style="display:flex;gap:6px">
             <button class="btn btn-primary" data-accept="${f.id}" style="padding:6px 12px;font-size:.75rem">✓</button>
@@ -1761,8 +1830,8 @@ function renderFriends(){
         <div class="stage locked" style="cursor:default;margin-bottom:8px">
           <div class="stage-num">⏳</div>
           <div class="stage-info">
-            <div class="stage-name">${f.name || f.id}</div>
-            <div class="stage-sub">Ожидает подтверждения${f.name && f.name !== f.id ? ` · ${f.id}` : ''}</div>
+            <div class="stage-name">${escapeHtml(f.teamName || f.name || f.id)}</div>
+            <div class="stage-sub">Ожидает подтверждения · ${escapeHtml(f.owner || f.id)}</div>
           </div>
         </div>`).join('');
     }
@@ -1791,7 +1860,8 @@ function renderFriends(){
   box.querySelectorAll('[data-invite]').forEach(b => b.onclick = () => sendMatchInvite(b.dataset.invite, b.dataset.inviteName));
   box.querySelectorAll('[data-accept-match]').forEach(b => b.onclick = () => acceptMatchInvite(b.dataset.acceptMatch, b.dataset.from, b.dataset.fromName));
   box.querySelectorAll('[data-decline-match]').forEach(b => b.onclick = () => declineMatchInvite(b.dataset.declineMatch));
-  box.querySelectorAll('[data-remove-friend]').forEach(b => b.onclick = () => removeFriend(b.dataset.removeFriend, b.dataset.removeName));
+   box.querySelectorAll('[data-remove-friend]').forEach(b => b.onclick = () => removeFriend(b.dataset.removeFriend, b.dataset.removeName));
+  box.querySelectorAll('[data-view-squad]').forEach(b => b.onclick = () => { sfxClick(); openSquadView(b.dataset.viewSquad, b.dataset.viewName); });
 }
 let MATCH_CHANNEL = null;
 let WAITING_FOR_MATCH = null;
@@ -2169,7 +2239,7 @@ async function sendMatchInvite(friendId, friendName){
 
     // 7) Создаём приглашение
     const { error } = await SB.from('ultimate_match_invites').insert({
-      from_id: UID, from_name: UNAME, to_id: friendId,
+      from_id: UID, from_name: STATE.teamName || UNAME, to_id: friendId,
       status: 'pending', match_id: m.id
     });
     if (error) {
@@ -2375,13 +2445,46 @@ async function startApp(){
   sp.then(()=>{ if($('app').classList.contains('active')){ if(BANNED) showBan(); else renderAll(); } }).catch(()=>{});
   startPoll();
   if(BANNED){ showBan(); return; }
-  $('current-user').textContent=UNAME;
+  updateUserDisplay();
   $('login-screen').classList.remove('active');
   $('ban-screen').classList.remove('active');
   $('app').classList.add('active');
   renderAll();
+
+  // если у игрока ещё нет названия команды — попросить ввести
+  if (!STATE.teamName) {
+    setTimeout(() => openTeamNameModal(), 500);
+  }
 }
-function renderAll(){ updateWallet(); renderCampaign(); renderSquad(); renderShop(); renderCollection(); renderHistory(); }
+function renderAll(){ updateWallet(); renderCampaign(); renderSquad(); renderShop(); renderCollection(); renderHistory(); updateUserDisplay(); }
+
+function updateUserDisplay(){
+  const el = $('current-user');
+  if (!el) return;
+  const tn = (STATE && STATE.teamName) ? STATE.teamName : UNAME;
+  el.innerHTML = `<div class="user-team">${escapeHtml(tn)}</div><div class="user-owner">${escapeHtml(UNAME)}</div>`;
+}
+
+function openTeamNameModal(){
+  if (!STATE) return;
+  const inp = $('teamname-input');
+  if (inp) inp.value = STATE.teamName || '';
+  $('teamname-modal').classList.add('active');
+  setTimeout(() => { if (inp) { inp.focus(); inp.select(); } }, 100);
+}
+
+function saveTeamName(){
+  const inp = $('teamname-input');
+  const val = (inp?.value || '').trim().slice(0, 24);
+  if (!val) { toast('Введи название команды', 'error'); return; }
+  STATE.teamName = val;
+  saveState();
+  $('teamname-modal').classList.remove('active');
+  updateUserDisplay();
+  heartbeat();
+  toast('✅ Название сохранено', 'success');
+}
+
 function updateWallet(){
   $('coin-count').textContent=STATE.coins;
   $('frag-count').textContent=STATE.fragments;
@@ -2490,8 +2593,9 @@ function openStageModal(stage){
   CURRENT_STAGE=stage;
   const myAvg=getMyAvg(); const oppAvg=getOppAvg(stage);
   const oppLogo=logoOf(stage.team);
+  const myTeamName = STATE.teamName || 'Ваша команда';
   $('stage-vs').innerHTML=`
-    <div class="vs-team"><div class="vs-logo">🏠</div><div class="vs-name">Ваша команда</div><div class="vs-avg">⭐ ${myAvg}</div></div>
+    <div class="vs-team"><div class="vs-logo">🏠</div><div class="vs-name">${escapeHtml(myTeamName)}</div><div class="vs-avg">⭐ ${myAvg}</div></div>
     <div class="vs-mid">VS</div>
     <div class="vs-team"><div class="vs-logo">${oppLogo?`<img src="${oppLogo}" onerror="this.style.display='none'">`:'⚽'}</div><div class="vs-name">${stage.name}</div><div class="vs-avg">⭐ ${oppAvg}</div></div>`;
   const names=stage.players.map(id=>PLAYER_MAP[id]).filter(Boolean).map(p=>`${p.name} (${posRu(p.pos)})`);
@@ -3297,7 +3401,7 @@ MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,usedB
     log:$('match-log'),clockFill:$('clock-fill'),clockLbl:$('half-lbl'),
     scoreEl:$('match-score'),timeEl:$('match-time'),resCont:$('result-container'),htCont:$('halftime-container')};
   $('match-stage-name').textContent=`Этап ${stage.id}: ${stage.name}`;
-  $('match-home-name').textContent='Ваша команда';
+  $('match-home-name').textContent = STATE.teamName || 'Ваша команда';
   $('match-away-name').textContent=stage.name;
   const oppLogo=logoOf(stage.team);
   $('match-home-logo').innerHTML='🏠';
@@ -3308,7 +3412,7 @@ MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,usedB
   $('btn-match-close').style.display='none';
   $('match-modal').classList.add('active');
   const diff=Math.round(strength(MS.H)-strength(MS.A));
-  addLog('info',`Средний рейтинг: вы ${Math.round(strength(MS.H))} vs ${stage.name} ${Math.round(strength(MS.A))} (${diff>=0?'+':''}${diff})`,'📊');
+  addLog('info',`Средний рейтинг: ${escapeHtml(STATE.teamName || 'вы')} ${Math.round(strength(MS.H))} vs ${stage.name} ${Math.round(strength(MS.A))} (${diff>=0?'+':''}${diff})`,'📊');
   const styleRu={balanced:'сбалансированный',attack:'атакующий',defense:'оборонительный',possession:'контроль мяча'}[oppTactics.style];
   addLog('info',`${stage.name} играет в ${styleRu} стиль`,'📋');
   if(!oppTeam.some(p=>p.pos==='GK')) addLog('info',`У ${stage.name} нет вратаря — в воротах стоит полевой игрок`,'⚠️');
@@ -4533,7 +4637,244 @@ function renderHistory(){
   if(!STATE.history.length){ l.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><p>Пока нет матчей</p></div>`; return; }
   l.innerHTML=STATE.history.map(h=>`<div class="hist-item ${h.result}"><div class="hist-top"><span class="hist-score">${h.homeScore} : ${h.awayScore}</span><span class="hist-opp">vs ${h.stageName}</span><span class="hist-reward">+💰${h.reward}</span></div><div class="hist-date">${new Date(h.date).toLocaleString('ru-RU')}</div></div>`).join('');
 }
+// ============================================================
+// LEADERBOARD ТАБЛИЦА ЛИДЕРОВ
+// ============================================================
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, c => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[c]));
+}
 
+async function loadLeaderboard(){
+  const box = $('leaderboard-list');
+  if (!box) return;
+  if (!SB || !UID) {
+    box.innerHTML = '<div class="empty"><div class="empty-icon">🔌</div><p>Нет подключения</p></div>';
+    return;
+  }
+  box.innerHTML = '<div class="empty"><div class="empty-icon">📊</div><p>Загрузка…</p></div>';
+
+  try {
+    const { data, error } = await SB.from('ultimate_saves')
+      .select('user_id,name,data,updated_at')
+      .order('updated_at', { ascending: false })
+      .limit(500);
+
+    if (error) throw error;
+
+    const rows = [];
+    (data || []).forEach(row => {
+      const d = row.data || {};
+      const starters = (d.starters || []).filter(Boolean);
+      const custom = d.custom || {};
+
+      const ratings = starters.map(pid => {
+        const p = PLAYER_MAP[pid];
+        if (p) return p.rating;
+        const c = custom[pid];
+        if (c && typeof c.rating === 'number') return c.rating;
+        return null;
+      }).filter(r => typeof r === 'number');
+
+      if (!ratings.length) return;
+
+      const avg = Math.round(ratings.reduce((a, b) => a + b, 0) / ratings.length);
+      rows.push({
+        uid: row.user_id,
+        teamName: d.teamName || row.name || row.user_id,
+        owner: row.name || row.user_id,
+        avg,
+        count: ratings.length,
+        isMe: row.user_id === UID,
+        updatedAt: row.updated_at
+      });
+    });
+
+    if (!rows.length) {
+      box.innerHTML = '<div class="empty"><div class="empty-icon">📊</div><p>Пока нет данных</p></div>';
+      return;
+    }
+
+   
+    rows.sort((a, b) => {
+      if (b.avg !== a.avg) return b.avg - a.avg;
+      return String(a.teamName).localeCompare(String(b.teamName));
+    });
+
+    renderLeaderboard(rows);
+  } catch (e) {
+    console.warn('[loadLeaderboard] error:', e);
+    box.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Не удалось загрузить таблицу</p></div>';
+  }
+}
+
+function renderLeaderboard(rows){
+  const box = $('leaderboard-list');
+  if (!box) return;
+
+  // топ-10
+  const top = rows.slice(0, 10);
+  const myRow = rows.find(r => r.isMe);
+  const myInTop = myRow && top.some(r => r.uid === myRow.uid);
+
+  let html = top.map((r, idx) => {
+    let rankHtml;
+    if (idx === 0) rankHtml = '<div class="lb-rank gold">🥇</div>';
+    else if (idx === 1) rankHtml = '<div class="lb-rank silver">🥈</div>';
+    else if (idx === 2) rankHtml = '<div class="lb-rank bronze">🥉</div>';
+    else rankHtml = `<div class="lb-rank">${idx + 1}</div>`;
+
+    const tag = r.isMe ? '<span class="lb-tag">ВЫ</span>' : '';
+    const ownerTxt = escapeHtml(r.owner || '');
+    const meta = ownerTxt ? `${ownerTxt} · Основа: ${r.count}/5` : `Основа: ${r.count}/5`;
+
+    return `<div class="lb-row ${r.isMe ? 'me' : ''}" data-view-squad="${escapeHtml(r.uid)}" style="cursor:pointer">
+      ${rankHtml}
+      <div>
+        <div class="lb-name">${escapeHtml(r.teamName)}${tag}</div>
+        <div class="lb-meta">${meta}</div>
+      </div>
+      <div class="lb-ovr">${r.avg}</div>
+    </div>`;
+  }).join('');
+
+  // если я не в топ-10 — показываем моё место снизу
+  if (myRow && !myInTop) {
+    const myIdx = rows.findIndex(r => r.isMe) + 1;
+    html += `<div style="margin-top:16px;padding-top:16px;border-top:1px dashed var(--line-2);">
+      <div class="lb-row me" data-view-squad="${escapeHtml(myRow.uid)}" style="cursor:pointer">
+        <div class="lb-rank">${myIdx}</div>
+        <div>
+          <div class="lb-name">${escapeHtml(myRow.teamName)}<span class="lb-tag">ВЫ</span></div>
+          <div class="lb-meta">${escapeHtml(myRow.owner || '')} · вне топ-10</div>
+        </div>
+        <div class="lb-ovr">${myRow.avg}</div>
+      </div>
+    </div>`;
+  }
+
+  box.innerHTML = html;
+
+  // клик по строке → открыть состав
+  box.querySelectorAll('[data-view-squad]').forEach(el => {
+    el.onclick = () => { sfxClick(); openSquadView(el.dataset.viewSquad); };
+  });
+}
+
+// ============================================================
+// SQUAD VIEW — просмотр состава друга / игрока из лидерборда
+// ============================================================
+let SQV_ADDED = [];
+
+async function openSquadView(uid, displayName){
+  const box = $('sv-content');
+  if (!box) return;
+  if (!SB || !uid) return;
+
+  box.innerHTML = '<div class="empty"><div class="empty-icon">⏳</div><p>Загрузка состава…</p></div>';
+  $('squad-view-modal').classList.add('active');
+
+  try {
+    const { data, error } = await SB.from('ultimate_saves')
+      .select('data,name')
+      .ilike('user_id', uid)
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!data || !data.data) {
+      box.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><p>Состав не найден</p></div>';
+      return;
+    }
+
+const st = data.data;
+const custom = st.custom || {};
+const name = displayName || (st && st.teamName) || data.name || uid;
+
+    // регистрируем кастомные карточки игрока на время просмотра
+    SQV_ADDED = [];
+    Object.entries(custom).forEach(([id, c]) => {
+      if (!PLAYER_MAP[id]) {
+        try { registerCustom(id, c); SQV_ADDED.push(id); } catch(e){}
+      }
+    });
+
+    const starters = (st.starters || []).slice(0, 5);
+    while (starters.length < 5) starters.push(null);
+    const bench = (st.bench || []).slice(0, 3);
+    while (bench.length < 3) bench.push(null);
+
+    const startersP = starters.map(pid => pid && PLAYER_MAP[pid]).filter(Boolean);
+    const avg = startersP.length
+      ? Math.round(startersP.reduce((a,p)=>a+p.rating,0)/startersP.length)
+      : 0;
+
+    box.innerHTML = renderSquadViewContent(name, starters, bench, avg);
+  } catch(e) {
+    console.warn('[openSquadView]', e);
+    box.innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div><p>Не удалось загрузить</p></div>';
+  }
+}
+
+function closeSquadView(){
+  $('squad-view-modal').classList.remove('active');
+  SQV_ADDED.forEach(id => { delete PLAYER_MAP[id]; });
+  SQV_ADDED = [];
+}
+
+function renderSquadViewContent(name, starters, bench, avg){
+  const labels = ['ВРТ','ЦЗ','ЦЗ','ЛФ','ПФ'];
+
+  function slotHtml(idx){
+    const pid = starters[idx];
+    const p = pid && PLAYER_MAP[pid];
+    if (!p) {
+      return `<div class="slot" style="cursor:default;opacity:.5">
+        <span class="slot-label">${labels[idx]}</span>
+        <div style="font-size:1.6rem;opacity:.3">—</div>
+      </div>`;
+    }
+    return `<div class="slot filled t-${cardTier(p)}" style="cursor:default">
+      <span class="slot-label">${labels[idx]}</span>
+      <div class="sp"><span>${p.icon||'⚽'}</span>${photoImg(p.id)}</div>
+      <div class="sn">${shortName(p)}</div>
+      <div class="sr">${p.rating} ${posRu(p.pos)}</div>
+    </div>`;
+  }
+
+  function benchHtml(idx){
+    const pid = bench[idx];
+    const p = pid && PLAYER_MAP[pid];
+    if (!p) {
+      return `<div class="bench-slot" style="cursor:default;opacity:.5">—</div>`;
+    }
+    return `<div class="bench-slot filled t-${cardTier(p)}" style="cursor:default">
+      <div class="bp"><span>${p.icon||'⚽'}</span>${photoImg(p.id)}</div>
+      <div class="bn">${shortName(p)}</div>
+      <div class="br">${p.rating}</div>
+    </div>`;
+  }
+
+  return `
+    <div style="text-align:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line)">
+      <div style="font-size:.62rem;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px">Состав игрока</div>
+      <div style="font-size:1.15rem;font-weight:900;margin-top:4px">${escapeHtml(name)}</div>
+      <div style="font-size:.66rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-top:10px">Средний OVR</div>
+      <div style="font-size:2.2rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1">${avg || '—'}</div>
+    </div>
+    <div class="pitch-section">
+      <div class="pitch">
+        <div class="pitch-row">${slotHtml(3)}${slotHtml(4)}</div>
+        <div class="pitch-row">${slotHtml(1)}${slotHtml(2)}</div>
+        <div class="pitch-row">${slotHtml(0)}</div>
+      </div>
+      <div class="bench">
+        <div class="bench-title">🔄 Скамейка</div>
+        <div class="bench-slots">${benchHtml(0)}${benchHtml(1)}${benchHtml(2)}</div>
+      </div>
+    </div>
+  `;
+}
 // ============================================================
 // MODALS / TABS (настраиваются один раз)
 // ============================================================
@@ -4553,6 +4894,38 @@ function setupModals(){
     if(info){ e.stopPropagation(); e.preventDefault(); openPlayerDetail(info.dataset.info); }
   },true);
   $('btn-sell-dupes').onclick=()=>{ sfxClick(); sellAllDupes(); };
+  const lbBtn = $('lb-refresh');
+  if (lbBtn) lbBtn.onclick = () => { sfxClick(); loadLeaderboard(); };
+
+  const svClose = $('sv-close');
+  if (svClose) svClose.onclick = () => { sfxClick(); closeSquadView(); };
+
+  // ---- teamName modal ----
+  const tnSave = $('teamname-save');
+  if (tnSave) tnSave.onclick = () => { sfxClick(); saveTeamName(); };
+  const tnCancel = $('teamname-cancel');
+  if (tnCancel) tnCancel.onclick = () => {
+    sfxClick();
+    $('teamname-modal').classList.remove('active');
+    if (!STATE.teamName) { STATE.teamName = 'Команда'; saveState(); updateUserDisplay(); heartbeat(); }
+  };
+  const tnInput = $('teamname-input');
+  if (tnInput) {
+    tnInput.addEventListener('keydown', e => { if (e.key === 'Enter') saveTeamName(); });
+  }
+  const chip = $('user-chip');
+  if (chip) chip.onclick = (e) => {
+    if (e.target.closest('#btn-logout')) return;
+    sfxClick();
+    openTeamNameModal();
+  };
+
+  const svModal = $('squad-view-modal');
+  if (svModal) {
+    svModal.addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeSquadView();
+    });
+  }
   $('btn-logout').onclick=async ()=>{
     sfxClick();
     clearTimeout(pushTimer); await pushSave();
@@ -4583,10 +4956,14 @@ function setupTabs(){
       
 
       if (tab.dataset.page === 'friends') {
-  const uidEl = $('my-uid-value');
-  if (uidEl) uidEl.textContent = UID || '—';
-  loadFriends();
-}
+        const uidEl = $('my-uid-value');
+        if (uidEl) uidEl.textContent = UID || '—';
+        loadFriends();
+      }
+
+      if (tab.dataset.page === 'leaderboard') {
+        loadLeaderboard();
+      }
     };
   });
 }
