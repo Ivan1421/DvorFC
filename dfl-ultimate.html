@@ -286,6 +286,110 @@ body{
 .vs-avg{font-size:.72rem;color:var(--muted);font-weight:800;margin-top:3px}
 .vs-mid{font-size:1.8rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .vs-roster{font-size:.7rem;color:var(--muted);text-align:center;margin-bottom:18px;line-height:1.5;font-weight:600}
+/* ============ OPPONENT SQUAD PREVIEW ============ */
+.opp-squad-title {
+  font-size: .68rem;
+  font-weight: 900;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 4px 0 10px;
+  text-align: center;
+}
+.opp-squad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.opp-card {
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, var(--tier-glow, transparent), var(--panel-2) 80%);
+  border: 1px solid var(--tier-color, var(--line-2));
+  box-shadow: 0 0 10px var(--tier-glow, transparent);
+  border-radius: 12px;
+  padding: 10px 6px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.opp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px var(--tier-glow, rgba(0,229,255,.3));
+}
+.opp-ovr {
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  font-size: .72rem;
+  font-weight: 900;
+  color: var(--tier-color, var(--cyan));
+  text-shadow: 0 0 8px var(--tier-glow, transparent);
+  line-height: 1;
+}
+.opp-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  border: 2px solid var(--tier-color, var(--cyan));
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  overflow: hidden;
+  position: relative;
+  margin-top: 8px;
+  box-shadow: 0 0 10px var(--tier-glow, transparent);
+}
+.opp-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.opp-name {
+  font-size: .6rem;
+  font-weight: 900;
+  line-height: 1.1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.opp-pos {
+  font-size: .55rem;
+  font-weight: 800;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  line-height: 1.1;
+}
+.opp-warn {
+  text-align: center;
+  font-size: .7rem;
+  font-weight: 800;
+  color: var(--gold-2);
+  background: rgba(245, 158, 11, .1);
+  border: 1px solid rgba(245, 158, 11, .3);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+}
+
+.t-origins{--tier-color:#c9a44c;--tier-glow:rgba(201,164,76,.5)}
+@media(max-width:480px){
+  .opp-squad-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+  .opp-photo { width: 34px; height: 34px; font-size: 1rem; }
+  .opp-ovr { font-size: .64rem; }
+  .opp-name { font-size: .55rem; }
+  .opp-pos { font-size: .5rem; }
+}
 .tactic{background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:16px;margin-bottom:16px}
 .tactic-title{font-size:.72rem;font-weight:900;color:var(--cyan);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
 .tactic-group{margin-bottom:14px}
@@ -431,6 +535,7 @@ body{
 .rev-final.legend{--tier-color:var(--tier-legend);--tier-glow:rgba(255,209,102,.7)}
 .rev-final.icon{--tier-color:var(--tier-icon);--tier-glow:rgba(0,229,255,.75)}
 .rev-final.meme{--tier-color:var(--tier-meme);--tier-glow:rgba(255,43,74,.7)}
+.rev-final.origins{--tier-color:#c9a44c;--tier-glow:rgba(201,164,76,.75)}
 @keyframes finalDrop{0%{opacity:0;transform:scale(.4) translateY(-80px) rotate(-10deg)}70%{opacity:1;transform:scale(1.05) translateY(0) rotate(2deg)}100%{opacity:1;transform:scale(1) translateY(0) rotate(0)}}
 .rev-final-photo{width:120px;height:120px;border-radius:50%;border:4px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);display:grid;place-items:center;font-size:3.5rem;overflow:hidden;position:relative;box-shadow:0 0 40px var(--tier-glow)}
 .rev-final-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
@@ -804,6 +909,128 @@ body{
 }
 
 /* ============ LEADERBOARD ============ */
+/* ============ MEMORY COIN (🎞️) ============ */
+.coin.mem{background:rgba(201,164,76,.15);color:#d4a574;border-color:rgba(201,164,76,.4)}
+.coin.mem.bump{animation:coinBump .5s cubic-bezier(.2,.8,.2,1)}
+
+/* ============ ORIGINS CARDS (📜) ============ */
+.pcard.origins{
+  --tier-color:#c9a44c;
+  --tier-glow:rgba(201,164,76,.5);
+  background: linear-gradient(180deg, rgba(60,45,20,.55), var(--panel) 80%);
+  border: 2px solid #c9a44c;
+  border-style: solid;
+  position: relative;
+  overflow: hidden;
+}
+.pcard.origins::before{
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(201,164,76,.06) 8px, rgba(201,164,76,.06) 9px),
+    radial-gradient(circle at 50% 0%, rgba(201,164,76,.35), transparent 65%);
+  opacity: 1;
+}
+.pcard.origins .ovr-num{color:#e0b870;text-shadow:0 0 14px rgba(201,164,76,.7)}
+.pcard.origins .photo{border-color:#c9a44c;box-shadow:0 0 22px rgba(201,164,76,.4)}
+.pcard.origins .team{color:#c9a44c;letter-spacing:1px}
+.pcard.origins .origins-seal{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  font-size:1rem;
+  background:linear-gradient(135deg,#c9a44c,#8b6f2f);
+  color:#1a0f00;
+  border-radius:50%;
+  border:2px solid #e0b870;
+  font-weight:900;
+  z-index:6;
+  box-shadow:0 4px 14px rgba(201,164,76,.4);
+}
+.pcard.origins .origins-date{
+  position:absolute;
+  bottom:4px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:.5rem;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#c9a44c;
+  opacity:.7;
+  z-index:5;
+  white-space:nowrap;
+}
+
+/* origins в слотах/бенче/ht */
+.slot.filled.t-origins,.bench-slot.filled.t-origins,.ht-card.t-origins{
+  --tier-color:#c9a44c;
+  --tier-glow:rgba(201,164,76,.5);
+  animation: originsPulse 3s ease-in-out infinite;
+}
+@keyframes originsPulse{
+  0%,100%{box-shadow:0 0 14px rgba(201,164,76,.4),inset 0 0 12px rgba(201,164,76,.2)}
+  50%{box-shadow:0 0 26px rgba(201,164,76,.6),0 0 40px rgba(201,164,76,.3),inset 0 0 20px rgba(201,164,76,.3)}
+}
+
+/* Профиль Истоков */
+.origins-panel{
+  background:linear-gradient(135deg,rgba(60,45,20,.35),rgba(30,22,10,.6));
+  border:2px solid rgba(201,164,76,.5);
+  border-radius:var(--radius);
+  padding:18px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+}
+.origins-panel::before{
+  content:"";
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,transparent 0,transparent 12px,rgba(201,164,76,.04) 12px,rgba(201,164,76,.04) 13px);
+  pointer-events:none;
+}
+.origins-shop-card{
+  cursor:pointer;
+  border-radius:var(--radius);
+  transition:transform .2s;
+}
+.origins-shop-card:hover{transform:translateY(-3px)}
+.origins-title{
+  font-size:1.2rem;font-weight:900;
+  background:linear-gradient(135deg,#e0b870,#c9a44c);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:1px;margin-bottom:6px;text-align:center;
+}
+.origins-sub{font-size:.72rem;color:#a89676;text-align:center;margin-bottom:14px;font-weight:600}
+.origins-progress{display:flex;justify-content:center;gap:6px;margin-bottom:14px}
+.origins-progress .op-dot{width:14px;height:14px;border-radius:50%;border:2px solid #c9a44c;background:transparent;transition:.3s}
+.origins-progress .op-dot.done{background:#c9a44c;box-shadow:0 0 10px #c9a44c}
+.origins-btn-quiz{
+  width:100%;padding:12px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,#c9a44c,#8b6f2f);color:#1a0f00;
+  border:none;font-weight:900;font-size:.9rem;cursor:pointer;font-family:inherit;
+  transition:.2s;margin-top:8px;
+}
+.origins-btn-quiz:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 22px rgba(201,164,76,.5)}
+.origins-btn-quiz:disabled{opacity:.4;cursor:not-allowed}
+
+.quiz-modal .quiz-q{font-size:1rem;font-weight:900;margin-bottom:14px;line-height:1.35;text-align:center;color:#e8eefc}
+.quiz-modal .quiz-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.quiz-modal .quiz-opt{
+  padding:12px 16px;border-radius:var(--radius-sm);
+  background:rgba(201,164,76,.08);border:1px solid rgba(201,164,76,.35);
+  color:var(--text);font-weight:800;cursor:pointer;font-family:inherit;font-size:.86rem;
+  transition:.2s;text-align:left;
+}
+.quiz-modal .quiz-opt:hover:not(:disabled){background:rgba(201,164,76,.18);border-color:#c9a44c}
+.quiz-modal .quiz-opt.picked{background:linear-gradient(135deg,#c9a44c,#8b6f2f);color:#1a0f00;border-color:transparent}
+.quiz-modal .quiz-opt.correct{background:rgba(34,197,94,.25);border-color:#22c55e;color:#86efac}
+.quiz-modal .quiz-opt.wrong{background:rgba(239,68,68,.25);border-color:#ef4444;color:#fca5a5}
+.quiz-modal .quiz-opt:disabled{cursor:default}
+.quiz-modal .quiz-status{text-align:center;font-size:.84rem;font-weight:800;min-height:20px;margin-bottom:8px}
+.quiz-modal .quiz-status.ok{color:#4ade80}
+.quiz-modal .quiz-status.bad{color:#fca5a5}
 .lb-list{display:flex;flex-direction:column;gap:6px;max-width:600px;margin:0 auto}
 .lb-row{background:var(--panel);border:1px solid var(--line-2);border-radius:12px;padding:12px 16px;display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;transition:.2s}
 .lb-row:hover{transform:translateX(2px);border-color:var(--cyan);box-shadow:var(--shadow-sm)}
@@ -877,6 +1104,7 @@ body{
       <div class="wallet">
         <div class="coin" id="coin-display"><span>💰</span><span id="coin-count">0</span></div>
         <div class="coin frag" id="frag-display"><span>🧩</span><span id="frag-count">0</span></div>
+        <div class="coin mem" id="mem-display"><span>🎞️</span><span id="mem-count">0</span></div>
       </div>
       <div class="user-chip" id="user-chip" title="Нажми, чтобы изменить название команды">
         <div id="current-user"></div>
@@ -887,6 +1115,7 @@ body{
 
   <div class="nav">
     <button class="nav-item active" data-page="campaign">🏆 Кампания</button>
+    <button class="nav-item" data-page="origins">🏛️ Истоки</button>
     <button class="nav-item" data-page="squad">👥 Состав</button>
     <button class="nav-item" data-page="shop">🛒 Магазин</button>
     <button class="nav-item" data-page="collection">🃏 Коллекция</button>
@@ -985,6 +1214,7 @@ body{
   <div class="page" id="page-shop">
     <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">Магазин</h2>
     <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:20px">Открывай паки и обменивай дубликаты на пазлы</p>
+    <div id="origins-shop"></div>
     <div class="section-title">📦 Паки</div>
     <div class="section-sub">Игроки могут повторяться — дубликаты можно обменять на пазлы в коллекции</div>
     <div class="packs" id="packs-grid"></div>
@@ -1016,6 +1246,13 @@ body{
     <div id="leaderboard-list" class="lb-list">
       <div class="empty"><div class="empty-icon">📊</div><p>Загрузка…</p></div>
     </div>
+  </div>
+
+  <!-- ORIGINS -->
+  <div class="page" id="page-origins">
+    <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">🏛️ Истоки</h2>
+    <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:16px">Исторические составы клубов · Лето 2026</p>
+    <div id="origins-content"></div>
   </div>
 </div>
 
@@ -1145,6 +1382,23 @@ body{
   </div>
 </div>
 
+<!-- QUIZ MODAL -->
+<div class="overlay quiz-modal" id="quiz-modal">
+  <div class="panel" style="max-width:440px">
+    <button class="close-x" id="quiz-close">×</button>
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:2.5rem;margin-bottom:6px">🎞️</div>
+      <div style="font-size:1.1rem;font-weight:900;color:#e0b870">Квиз «Истоки»</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:4px" id="quiz-progress">Вопрос 1 из 3</div>
+    </div>
+    <div id="quiz-body"></div>
+    <div id="quiz-result" style="display:none;text-align:center">
+      <div style="font-size:1.2rem;font-weight:900;color:#e0b870;margin-bottom:8px" id="quiz-total"></div>
+      <div style="font-size:.86rem;color:var(--muted);margin-bottom:14px">Квиз можно пройти только один раз</div>
+      <button class="btn btn-primary btn-block" id="quiz-finish">Продолжить</button>
+    </div>
+  </div>
+</div>
 
 <!-- SCRIPT -->
 <div class="overlay" id="script-modal">
@@ -1265,11 +1519,20 @@ const ALL_PLAYERS = [
   {id:'gold_bombar', name:'Бадартинов Михаил', pos:'FW', rating:99, team:'Южный', icon:'👑', goldEvent:true},
   {id:'gold_batrakov', name:'Кравченко Глеб', pos:'MF', rating:100, team:'МЕРА', icon:'👑', goldEvent:true},
   {id:'gold_elisey', name:'Пожидаев Елисей', pos:'MF', rating:99, team:'78 школа', icon:'👑', goldEvent:true},
-  {id:'gold_churilov', name:'Чурилов Алексей', pos:'MF', rating:100, team:'78 школа', icon:'👑', goldEvent:true}
+  {id:'gold_churilov', name:'Чурилов Алексей', pos:'MF', rating:100, team:'78 школа', icon:'👑', goldEvent:true},
+  // === ИСТОКИ — карты лето 2026 ===
+  {id:'gold_andryushka', name:'Бузмаков Андрей (Gold)', pos:'FW', rating:99, team:'Арсенал', icon:'👑', goldEvent:true},
+  {id:'demid_mera_s26', name:'Демид Пасько · Истоки', pos:'FW', rating:99, team:'МЕРА', icon:'📜', origins:true},
+  {id:'churilov_mera_s26', name:'Алексей Чурилов · Истоки', pos:'MF', rating:99, team:'МЕРА', icon:'📜', origins:true},
+  {id:'pogidaev_mera_s26', name:'Елисей Пожидаев · Истоки', pos:'MF', rating:99, team:'МЕРА', icon:'📜', origins:true},
+  {id:'lang_mera_s26', name:'Александр Ланг · Истоки', pos:'SUB', rating:90, team:'МЕРА', icon:'❓', origins:true},
+  {id:'saveliy_mera_s26', name:'Савелий Соколов · Истоки', pos:'MF', rating:99, team:'МЕРА', icon:'📜', origins:true},
+  {id:'andryushka_mera_s26', name:'Андрей Бузмаков · Истоки', pos:'FW', rating:99, team:'МЕРА', icon:'📜', origins:true},
+  {id:'tankov_78_s26', name:'Тимофей Танков · Истоки', pos:'MF', rating:99, team:'78 школа', icon:'📜', origins:true}
 ];
 const PLAYER_MAP = {}; ALL_PLAYERS.forEach(p => PLAYER_MAP[p.id] = p);
-const POS_RU = {GK:'ВРТ', DF:'ЗАЩ', MF:'ПЗЩ', FW:'НАП'};
-const POS_RU_FULL = {GK:'Вратарь', DF:'Защитник', MF:'Полузащитник', FW:'Нападающий'};
+const POS_RU = {GK:'ВРТ', DF:'ЗАЩ', MF:'ПЗЩ', FW:'НАП', SUB:'ЗАП'};
+const POS_RU_FULL = {GK:'Вратарь', DF:'Защитник', MF:'Полузащитник', FW:'Нападающий', SUB:'Запасной'};
 function posRu(pos, full){ return (full ? POS_RU_FULL : POS_RU)[pos] || pos; }
 
 const PLAYSTYLE_DESC = {
@@ -1339,13 +1602,25 @@ const GOLD_BASE = {
   gold_bobrikov:'sanya_bobrikov', gold_zykov:'maxim_dcp',
   gold_maxim:'maxim', gold_shustov:'raya', gold_zaytsev:'timofey_zaytsev',
   gold_tankov:'tankov', gold_bombar:'bombar', gold_batrakov:'batrakov',
-  gold_elisey:'elisey', gold_churilov:'lesha_podavalny'
+  gold_elisey:'elisey', gold_churilov:'lesha_podavalny',
+  gold_andryushka:'andryushka'
 };
 
 
+const ORIGINS_PERSON = {
+  demid_mera_s26:'demid',
+  churilov_mera_s26:'lesha_podavalny',
+  pogidaev_mera_s26:'elisey',
+  saveliy_mera_s26:'saveliy_78',
+  andryushka_mera_s26:'andryushka',
+  tankov_78_s26:'tankov'
+ 
+};
+
 function personOf(pid){
   if (!pid) return null;
-  const b = baseId(pid);               
+  const b = baseId(pid);
+  if (ORIGINS_PERSON[b]) return ORIGINS_PERSON[b];
   return GOLD_BASE[b] || b;
 }
 ALL_PLAYERS.forEach(p=>{
@@ -1382,7 +1657,11 @@ function rarityOf(p){
   if(p.goldEvent) return 'gold'; // Новый тип
   const r=p.rating; if(r>=94)return'icon'; if(r>=90)return'legend'; if(r>=85)return'epic'; if(r>=75)return'rare'; return'common'; 
 }
-function cardTier(p){ return baseId(p.id)==='ostap'?'meme':rarityOf(p); }
+function cardTier(p){
+  if (baseId(p.id)==='ostap') return 'meme';
+  if (p.origins) return 'origins';
+  return rarityOf(p);
+}
 function sellValue(p){ return SELL_VALUE[rarityOf(p)]; }
 function buyCost(p){
   const o=CONFIG.prices&&CONFIG.prices[baseId(p.id)];
@@ -1416,6 +1695,7 @@ function genAttrs(p){
   } else {
     const posMod = {
       FW: { fin: 8, sho: 6, pas: -2, dri: 4, def: -10, phy: 2, spd: 6 },
+      SUB: { fin: 8, sho: 6, pas: -2, dri: 4, def: -10, phy: 2, spd: 6 },
       MF: { fin: -2, sho: 0, pas: 8, dri: 6, def: 2, phy: -2, spd: 2 },
       DF: { fin: -10, sho: -6, pas: 2, dri: -4, def: 10, phy: 8, spd: -2 }
     }[p.pos] || {};
@@ -1508,8 +1788,19 @@ const CAMPAIGN = [
   {id:6,team:'МЕРА',name:'ФК МЕРА',difficulty:'boss',reward:1500,desc:"ФИНАЛ. Легендарная команда ДФЛ.",isBoss:true,intro:{icon:"👑",title:"ФИНАЛ: ФК МЕРА",text:"<em>ФК МЕРА</em> — первая команда Дворовой Футбольной Лиги. Победи их — и станешь легендой."}}
 ];
 CAMPAIGN.forEach(s=>{ s.players=lineupFor(s.team); });
-const STAGE_BONUS = {easy:{ratingShift:-8,rewardPerGoal:5},medium:{ratingShift:-6,rewardPerGoal:8},hard:{ratingShift:-3,rewardPerGoal:12},boss:{ratingShift:0,rewardPerGoal:20}};
-
+const STAGE_BONUS = {easy:{ratingShift:-8,rewardPerGoal:5},medium:{ratingShift:-6,rewardPerGoal:8},hard:{ratingShift:-3,rewardPerGoal:12},boss:{ratingShift:0,rewardPerGoal:20},origins:{ratingShift:0,rewardPerGoal:0}};
+// ============================================================
+// ORIGINS_SHOP — карты Истоков
+// ============================================================
+const ORIGINS_SHOP = [
+  { id:'demid_mera_s26',    price:250 },
+  { id:'churilov_mera_s26', price:250 },
+  { id:'pogidaev_mera_s26', price:250 },
+  { id:'saveliy_mera_s26',  price:250 },
+  { id:'andryushka_mera_s26', price:250 },
+  { id:'lang_mera_s26',     price:222 },
+  { id:'tankov_78_s26',     price:250 }
+];
 // ============================================================
 // PACKS — веса по редкости: [обычный, редкий, эпик, легенда, икона]
 // ============================================================
@@ -1528,9 +1819,9 @@ let CURRENT_STAGE = null;
 let CURRENT_TACTICS = {style:'attack',press:'medium'};
 let PICK_SLOT = null;
 let FRAG_FILTER = 'all';
-const TCLS = ['t-common','t-rare','t-epic','t-legend','t-icon','t-meme'];
+const TCLS = ['t-common','t-rare','t-epic','t-legend','t-icon','t-meme','t-gold','t-origins'];
 
-function defaultState(){ return {ver:SAVE_VERSION,savedAt:0,coins:400,fragments:0,owned:[...STARTER_SQUAD],dupes:{},custom:{},starters:[...STARTER_SQUAD],bench:[],history:[],campaignProgress:0,campaignResults:{},teamName:''}; }
+function defaultState(){ return {ver:SAVE_VERSION,savedAt:0,coins:400,fragments:0,fragmentsMemory:0,owned:[...STARTER_SQUAD],dupes:{},custom:{},starters:[...STARTER_SQUAD],bench:[],history:[],campaignProgress:0,campaignResults:{},teamName:'',originsDone:{},originsQuizDone:false,originsQuizIdx:0,originsQuizScore:0}; }
 function migrate(s){
   s=s||{};
   s.coins=s.coins||0; s.fragments=s.fragments||0; s.savedAt=s.savedAt||0;
@@ -1541,6 +1832,11 @@ function migrate(s){
   s.bench=s.bench||[]; s.history=s.history||[];
   s.campaignProgress=s.campaignProgress||0; s.campaignResults=s.campaignResults||{};
   s.teamName = s.teamName || '';
+  s.fragmentsMemory = s.fragmentsMemory || 0;
+  s.originsDone = s.originsDone || {};
+  s.originsQuizDone = !!s.originsQuizDone;
+  s.originsQuizIdx = s.originsQuizIdx || 0;
+  s.originsQuizScore = s.originsQuizScore || 0;
   if(s.ver!==SAVE_VERSION){ s.campaignProgress=0; s.campaignResults={}; s.ver=SAVE_VERSION; }
   return s;
 }
@@ -2456,7 +2752,7 @@ async function startApp(){
     setTimeout(() => openTeamNameModal(), 500);
   }
 }
-function renderAll(){ updateWallet(); renderCampaign(); renderSquad(); renderShop(); renderCollection(); renderHistory(); updateUserDisplay(); }
+function renderAll(){ updateWallet(); renderCampaign(); renderSquad(); renderShop(); renderCollection(); renderHistory(); updateUserDisplay(); renderOrigins(); }
 
 function updateUserDisplay(){
   const el = $('current-user');
@@ -2488,7 +2784,11 @@ function saveTeamName(){
 function updateWallet(){
   $('coin-count').textContent=STATE.coins;
   $('frag-count').textContent=STATE.fragments;
+  const mem = $('mem-count');
+  if (mem) mem.textContent = STATE.fragmentsMemory || 0;
   const bar=$('coin-display'); bar.classList.remove('bump'); void bar.offsetWidth; bar.classList.add('bump');
+  const memBar=$('mem-display');
+  if (memBar) { memBar.classList.remove('bump'); void memBar.offsetWidth; memBar.classList.add('bump'); }
 }
 
 // ============================================================
@@ -2576,7 +2876,6 @@ function renderCampaign(){
       if(stage) openStageModal(stage);
     });
   });
-  
   list.querySelectorAll('.stage.current[data-gold-stage]').forEach(card=>{
     card.addEventListener('click',()=>{
       sfxClick();
@@ -2598,9 +2897,7 @@ function openStageModal(stage){
     <div class="vs-team"><div class="vs-logo">🏠</div><div class="vs-name">${escapeHtml(myTeamName)}</div><div class="vs-avg">⭐ ${myAvg}</div></div>
     <div class="vs-mid">VS</div>
     <div class="vs-team"><div class="vs-logo">${oppLogo?`<img src="${oppLogo}" onerror="this.style.display='none'">`:'⚽'}</div><div class="vs-name">${stage.name}</div><div class="vs-avg">⭐ ${oppAvg}</div></div>`;
-  const names=stage.players.map(id=>PLAYER_MAP[id]).filter(Boolean).map(p=>`${p.name} (${posRu(p.pos)})`);
-  const hasGk=stage.players.some(id=>PLAYER_MAP[id]&&PLAYER_MAP[id].pos==='GK');
-  $('stage-roster').innerHTML=`Состав ДФЛ: ${names.join(' · ')}${hasGk?'':'<br>⚠️ Вратаря нет — в воротах полевой игрок'}`;
+$('stage-roster').innerHTML = renderOpponentSquad(stage);
   CURRENT_TACTICS={style:'attack',press:'medium'};
   document.querySelectorAll('#stage-modal [data-tactic]').forEach(group=>{
     const key=group.dataset.tactic;
@@ -2611,8 +2908,35 @@ function openStageModal(stage){
   });
   $('stage-modal').classList.add('active');
 }
+function renderOpponentSquad(stage){
+  const bonus = STAGE_BONUS[stage.difficulty] || STAGE_BONUS.medium;
+  const players = (stage.players || []).map(id => {
+    const p = PLAYER_MAP[id];
+    if (!p) return null;
+    const eff = Math.max(50, Math.min(120, p.rating + (bonus.ratingShift || 0)));
+    return { p, eff };
+  }).filter(Boolean);
+
+  const hasGk = players.some(x => x.p.pos === 'GK');
+  const cards = players.map(({ p, eff }) => {
+    const tier = cardTier(p);
+    return `<div class="opp-card t-${tier}" data-info="${p.id}" title="${escapeHtml(p.name)}">
+      <div class="opp-ovr">${eff}</div>
+      <div class="opp-photo"><span>${p.icon || '⚽'}</span>${photoImg(p.id)}</div>
+      <div class="opp-name">${shortName(p)}</div>
+      <div class="opp-pos">${posRu(p.pos)}</div>
+    </div>`;
+  }).join('');
+
+  const count = players.length;
+  const word = count === 1 ? 'игрок' : (count < 5 ? 'игрока' : 'игроков');
+
+  return `<div class="opp-squad-title">Состав соперника · ${count} ${word}</div>
+    <div class="opp-squad-grid">${cards}</div>
+    ${hasGk ? '' : '<div class="opp-warn">⚠️ Вратаря нет — в воротах полевой игрок</div>'}`;
+}
 function getMyAvg(){ const s=STATE.starters.filter(Boolean).map(pid=>PLAYER_MAP[pid]).filter(Boolean); if(!s.length)return 0; return Math.round(s.reduce((a,p)=>a+p.rating,0)/s.length); }
-function getOppAvg(stage){ const b=STAGE_BONUS[stage.difficulty]||STAGE_BONUS.medium; const ps=stage.players.map(pid=>PLAYER_MAP[pid]).filter(Boolean); if(!ps.length)return 70; return Math.round(ps.reduce((a,p)=>a+Math.max(50,Math.min(99,p.rating+b.ratingShift)),0)/ps.length); }
+function getOppAvg(stage){ const b=STAGE_BONUS[stage.difficulty]||STAGE_BONUS.medium; const ps=stage.players.map(pid=>PLAYER_MAP[pid]).filter(Boolean); if(!ps.length)return 70; return Math.round(ps.reduce((a,p)=>a+Math.max(50,Math.min(120,p.rating+b.ratingShift)),0)/ps.length); }
 
 // ============================================================
 // MATCH START
@@ -3395,7 +3719,7 @@ function runMatch(stage, opts){
   const oppTeam=stage.players.map(pid=>{ const p=PLAYER_MAP[pid]; return p?{...p,rating:Math.max(50,Math.min(99,p.rating+bonus.ratingShift))}:null; }).filter(Boolean);
   const tactics={...CURRENT_TACTICS};
   const oppTactics={style:rnd(['balanced','balanced','attack','defense','possession']),press:rnd(['medium','medium','high','low'])};
-MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:3,usedBench:[],timer:null,phase:'first',goals:[],
+MS={stage,bonus,tactics,oppTactics,hs:0,as:0,min:0,half:1,subs:0,maxSubs:Math.min(3, STATE.bench.filter(Boolean).length),usedBench:[],timer:null,phase:'first',goals:[],
     htReadyLocal:false, htReadyRemote:false,
     H:mkSide('home',myTeam,tactics,'Ваша команда'),A:mkSide('away',oppTeam,oppTactics,stage.name),
     log:$('match-log'),clockFill:$('clock-fill'),clockLbl:$('half-lbl'),
@@ -3565,8 +3889,9 @@ if (!IS_HOST) {
 
   if(subBtn){ subBtn.onclick=()=>{
     if(selOut===null||selIn===null)return;
-    if(MS.subs>=MS.maxSubs){ toast('Лимит замен','warn'); return; }
     const o=MY.team[selOut], i=benchPool[selIn];
+    if(!o || !i){ toast('Выбери игроков заново','warn'); return; }
+    if(MS.subs>=MS.maxSubs){ toast('Лимит замен исчерпан','warn'); return; }
     if((o.pos==='GK')!==(i.pos==='GK')){ toast('Вратаря меняют только на вратаря','warn'); return; }
 
     
@@ -3852,6 +4177,56 @@ function endMatch(){
     SB.from('ultimate_matches').update({ status: 'finished' }).eq('id', CURRENT_MATCH_ID).then(()=>{});
   }
   const stage=MS.stage, bonus=MS.bonus, hs=MS.hs, as=MS.as;
+  
+  // === ИСТОКИ — отдельная логика ===
+  if (stage.isOrigins) {
+    let memReward = 0;
+    let result, resultText;
+    if (hs>as) { result='win'; resultText='🏆 ПОБЕДА'; memReward=100; }
+    else if (hs<as) { result='loss'; resultText='❌ Поражение'; memReward=0; }
+    else { result='draw'; resultText='🤝 Ничья'; memReward=10; }
+    
+    STATE.fragmentsMemory = (STATE.fragmentsMemory || 0) + memReward;
+    STATE.originsDone = STATE.originsDone || {};
+    if (result==='win') STATE.originsDone[stage.id] = true;
+    
+    if (result==='win') sfxFanfare(); else sfxWhistle();
+    saveState();
+    updateWallet();
+    
+    const scorers = MS.goals.length
+      ? `<div class="result-goals">${MS.goals.map(g=>`${g.min}' ${g.side==='home'?'🟢':'🔴'} ${g.name}`).join(' · ')}</div>`
+      : '';
+    
+    MS.resCont.innerHTML = `
+      <div class="result-box ${result}">
+        <div class="result-title">${resultText}</div>
+        <div class="result-score">${hs} : ${as}</div>
+        ${scorers}
+        <div class="result-rewards">
+          <div class="result-rw" style="background:rgba(201,164,76,.15);color:#d4a574;border-color:rgba(201,164,76,.4)">🎞️ +${memReward}</div>
+        </div>
+      </div>
+      ${renderRatings()}
+      <div style="margin-top:12px;text-align:center;font-size:.78rem;color:var(--muted)">
+        ${result==='win' ? 'Хорошая работа! Возвращайся за новыми жетонами.' : 'Соберись — каждый матч даёт шанс.'}
+      </div>`;
+    
+    const closeBtn=$('btn-match-close');
+    closeBtn.style.display='block';
+    closeBtn.onclick=()=>{
+      $('match-modal').classList.remove('active');
+      if (MATCH_CHANNEL) { try { SB.removeChannel(MATCH_CHANNEL); } catch(e){} MATCH_CHANNEL=null; }
+      if (HOST_WAIT_CHANNEL) { try { SB.removeChannel(HOST_WAIT_CHANNEL); } catch(e){} HOST_WAIT_CHANNEL=null; }
+      IS_HOST=false; CURRENT_MATCH_ID=null; MS=null;
+      heartbeat();
+      renderAll();
+      renderOrigins();
+    };
+    return;
+  }
+  
+  // === обычная логика кампании / золотого мяча ===
   let result,resultText,baseReward;
   if(hs>as){ result='win'; resultText='🏆 ПОБЕДА'; baseReward=stage.reward; }
   else if(hs<as){ result='loss'; resultText='❌ Поражение'; baseReward=Math.round(stage.reward*0.2); }
@@ -3962,6 +4337,62 @@ function endMatch(){
     }
   };
 }
+// ============================================================
+// ORIGINS — исторические матчи лета 2026
+// ============================================================
+const ORIGINS_EVENTS = [
+  {
+    id:'o_mera26', team:'МЕРА · лето 2026', name:'ФК МЕРА · лето 2026',
+    difficulty:'origins', reward:0, isOrigins:true,
+    desc:'Исторический состав МЕРЫ летом 2026',
+    players:['raya','pogidaev_mera_s26','churilov_mera_s26','demid_mera_s26','andryushka_mera_s26'],
+    subs:['lang_mera_s26','saveliy_mera_s26'],
+    intro:{icon:'📜',title:'Истоки · МЕРА лето 2026',
+      text:'Лето 2026. <em>МЕРА</em> выходит в историческом составе. В воротах — <strong>Шустик</strong>. В атаке — <strong>Пасько</strong> и <strong>Бузмаков Андрей</strong>. А на скамейке — таинственный <strong>Александр Ланг</strong> (❓).'}
+  },
+  {
+    id:'o_78_26', team:'78 школа · лето 2026', name:'ФК 78 школа · лето 2026',
+    difficulty:'origins', reward:0, isOrigins:true,
+    desc:'Исторический состав 78 школы летом 2026',
+    players:['maxim_dcp','tankov_78_s26','safonov','sanya_bobrikov','timofey_zaytsev'],
+    subs:[],
+    intro:{icon:'📜',title:'Истоки · 78 школа лето 2026',
+      text:'Лето 2026. <em>78 школа</em> — уже без Пожидаева, Чурилова и Пасько (они ушли в МЕРУ). Но с <strong>Танковым</strong> в старте. В атаке — <strong>Бобриков</strong> и <strong>Зайцев</strong>.'}
+  },
+  {
+    id:'o_yuzh26', team:'Южный · лето 2026', name:'ФК Южный · лето 2026',
+    difficulty:'origins', reward:0, isOrigins:true,
+    desc:'Исторический состав Южки летом 2026',
+    players:['russkov_artem','shuklin','mes','shilov','bombar'],
+    subs:[],
+    intro:{icon:'📜',title:'Истоки · Южный лето 2026',
+      text:'Лето 2026. <em>Южный</em> — без Дианы. Но с <strong>Руссковым</strong> и <strong>Бадартиновым</strong>. Вратаря у них нет — в воротах полевой.'}
+  },
+  {
+    id:'o_psg_cur', team:'ПСЖ', name:'ФК ПСЖ · сейчас',
+    difficulty:'easy', reward:0, isOrigins:true,
+    desc:'Текущий состав ПСЖ',
+    players:['haaland','maxronaldo','EgorNast','artem'],
+    subs:[],
+    intro:{icon:'🔵',title:'Истоки · ПСЖ сейчас',
+      text:'Современный <em>ПСЖ</em>. Сравни с историческими составами — насколько изменилась лига!'}
+  },
+  {
+    id:'o_ars_cur', team:'Арсенал', name:'ФК Арсенал · сейчас',
+    difficulty:'medium', reward:0, isOrigins:true,
+    desc:'Текущий состав Арсенала',
+    players:['kostya','saveliy_78','andryushka','gleb'],
+    subs:[],
+    intro:{icon:'🔴',title:'Истоки · Арсенал сейчас',
+      text:'Современный <em>Арсенал</em>. <strong>Костя Лехнер</strong> в воротах, <strong>Бузмаков Андрей</strong> — в атаке. Помнишь, каким он был в МЕРЕ летом 2026?'}
+  }
+];
+
+const ORIGINS_BONUS = {
+  origins: {ratingShift: 0, rewardPerGoal: 0},
+  easy: {ratingShift: -6, rewardPerGoal: 0},
+  medium: {ratingShift: -4, rewardPerGoal: 0}
+};
 const GOLDEN_EVENT = {
   unlockedAt: 1,
   matches: [
@@ -4163,11 +4594,14 @@ function openPlayerDetail(pid){
   } else stylesHTML='<div class="detail-empty">Нет плейстайлов</div>';
   const n=copiesOf(pid);
   let actions='';
-  if(n>0){
+  if(n>0 && !p.origins){
     const val=sellValue(p);
     actions+=`<div class="detail-section"><div class="detail-section-title">♻️ Обмен на пазлы</div><div class="detail-own">В коллекции: ×${n}${n>1?' (есть лишние копии)':' (последняя копия)'}</div><button class="btn ${n>1?'btn-primary':'btn-danger'} btn-block" id="d-sell">${n>1?`Обменять копию · +${val} 🧩`:`Обменять игрока · +${val} 🧩`}</button></div>`;
   }
-  if(!p.custom&&onSale(p)){
+  if(n>0 && p.origins){
+    actions+=`<div class="detail-section"><div class="detail-section-title">📜 Истоки</div><div class="detail-own">Исторические карты не обмениваются на пазлы</div></div>`;
+  }
+  if(!p.custom && !p.origins && onSale(p)){
     actions+=`<div class="detail-section"><div class="detail-section-title">🧩 Магазин пазлов</div><button class="btn btn-gold btn-block" id="d-buy">${n>0?'Купить ещё копию':'Купить'} · ${buyCost(p)} 🧩</button></div>`;
   }
   c.innerHTML=`
@@ -4223,7 +4657,11 @@ function sellCopy(pid){
   });
 }
 function totalDupeFragments(){
-  return Object.entries(STATE.dupes).reduce((s,[id,n])=>PLAYER_MAP[id]?s+n*sellValue(PLAYER_MAP[id]):s,0);
+  return Object.entries(STATE.dupes).reduce((s,[id,n])=>{
+    const p = PLAYER_MAP[id];
+    if (!p || p.origins) return s;
+    return s + n * sellValue(p);
+  },0);
 }
 function sellAllDupes(){
   const total=totalDupeFragments();
@@ -4237,7 +4675,7 @@ function sellAllDupes(){
 }
 function buyWithFragments(pid){
   const p = PLAYER_MAP[pid]; 
-  if(!p || p.custom) return;
+  if(!p || p.custom || p.origins) return;
   if(!onSale(p)) { toast('Этот игрок снят с продажи','error'); return; }
   
   const cost = buyCost(p); 
@@ -4275,6 +4713,7 @@ function oddsText(pack){
 }
 function renderShop(){
   const g=$('packs-grid');
+  renderOriginsShop();
 g.innerHTML=PACKS.map(p=>{
   if (p.onlyGold && STATE.campaignProgress < 1) return '';
   const ok=STATE.coins>=p.price;
@@ -4289,13 +4728,196 @@ g.innerHTML=PACKS.map(p=>{
   g.querySelectorAll('.pack:not(.disabled)').forEach(card=>{ card.onclick=()=>{ sfxClick(); openPack(card.dataset.pack); }; });
   renderFragShop();
 }
+function renderOriginsShop(){
+  const box = $('origins-shop');
+  if (!box) return;
+  
+  const cards = ORIGINS_SHOP.map(item => {
+    const p = PLAYER_MAP[item.id];
+    if (!p) return '';
+    const have = copiesOf(item.id);
+    const can = STATE.fragmentsMemory >= item.price;
+    const badge = have
+      ? { label: `КУПЛЕНО ×${have}`, cls: 'starter' }
+      : { label: `🎞️ ${item.price}`, cls: 'frag' + (can ? '' : ' cant') };
+    return `<div class="origins-shop-card" data-orig-pid="${item.id}" data-orig-price="${item.price}">
+      ${playerCard(p, badge, {showInfo: true})}
+    </div>`;
+  }).join('');
+  
+  box.innerHTML = `
+    <div class="origins-panel" style="margin-bottom:20px">
+      <div class="origins-title" style="font-size:1.05rem">📜 Магазин Истоков</div>
+      <div class="origins-sub">Только за 🎞️ жетоны памяти · у тебя: <b style="color:#e0b870">${STATE.fragmentsMemory||0} 🎞️</b></div>
+      <div class="pgrid" style="margin-top:10px" id="origins-shop-grid">
+        ${cards || '<div class="empty"><div class="empty-icon">📭</div><p>Карт пока нет</p></div>'}
+      </div>
+    </div>`;
+  
+  box.querySelectorAll('[data-orig-pid]').forEach(card => {
+    card.onclick = (e) => {
+      if (e.target.closest('[data-info]')) return;
+      buyOriginsCard(card.dataset.origPid, parseInt(card.dataset.origPrice));
+    };
+  });
+}
+// ============================================================
+// ORIGINS QUIZ
+// ============================================================
+const ORIGINS_QUIZ = [
+  {
+    q: 'Какой был первый клуб Соколова Савелия?',
+    opts: ['ФК МЕРА', 'ФК Арсенал', 'ФК Южный', 'ФК 78 школа'],
+    correct: 0
+  },
+  {
+    q: 'Какая причина перехода Пасько и Чурилова в 78 школу?',
+    opts: ['Разругались со всем составом', 'Их подговорил Елисей Пожидаев', 'Их выгнали'],
+    correct: 1
+  },
+  {
+    q: 'Вам нравится игра?',
+    opts: ['Да', 'Нет'],
+    correct: 0
+  }
+];
+
+let QUIZ_STATE = { idx: 0, score: 0, locked: false };
+
+function openOriginsQuiz(){
+  if (STATE.originsQuizDone) {
+    toast('Квиз уже пройден', 'info');
+    return;
+  }
+  QUIZ_STATE = {
+    idx: STATE.originsQuizIdx || 0,
+    score: STATE.originsQuizScore || 0,
+    locked: false
+  };
+  $('quiz-modal').classList.add('active');
+  if (QUIZ_STATE.idx >= ORIGINS_QUIZ.length) {
+    $('quiz-body').innerHTML = '';
+    $('quiz-progress').textContent = '';
+    $('quiz-result').style.display = 'block';
+    $('quiz-total').textContent = `Результат: ${QUIZ_STATE.score} / ${ORIGINS_QUIZ.length} · +${QUIZ_STATE.score * 50} 🎞️`;
+  } else {
+    $('quiz-result').style.display = 'none';
+    renderQuizQuestion();
+  }
+}
+
+function renderQuizQuestion(){
+  const wrap = $('quiz-body');
+  if (!wrap) return;
+  const q = ORIGINS_QUIZ[QUIZ_STATE.idx];
+  if (!q) return finishQuiz();
+  
+  $('quiz-progress').textContent = `Вопрос ${QUIZ_STATE.idx + 1} из ${ORIGINS_QUIZ.length}`;
+  
+  wrap.innerHTML = `
+    <div class="quiz-q">${escapeHtml(q.q)}</div>
+    <div class="quiz-opts">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" data-qi="${i}">${escapeHtml(o)}</button>`).join('')}
+    </div>
+    <div class="quiz-status" id="quiz-status"></div>
+    <button class="btn btn-primary btn-block" id="quiz-next" style="display:none">Дальше ▶</button>
+  `;
+  
+  wrap.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.onclick = () => answerQuiz(parseInt(btn.dataset.qi));
+  });
+  
+  const nextBtn = wrap.querySelector('#quiz-next');
+  if (nextBtn) {
+    nextBtn.onclick = () => {
+      QUIZ_STATE.idx++;
+      QUIZ_STATE.locked = false;
+      if (QUIZ_STATE.idx >= ORIGINS_QUIZ.length) finishQuiz();
+      else renderQuizQuestion();
+    };
+  }
+}
+
+function answerQuiz(idx){
+  if (QUIZ_STATE.locked) return;
+  QUIZ_STATE.locked = true;
+  const q = ORIGINS_QUIZ[QUIZ_STATE.idx];
+  const status = $('quiz-status');
+  const correct = idx === q.correct;
+  
+  const wrap = $('quiz-body');
+  wrap.querySelectorAll('.quiz-opt').forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.correct) b.classList.add('correct');
+    else if (i === idx) b.classList.add('wrong');
+  });
+  
+  if (correct) {
+    QUIZ_STATE.score++;
+    STATE.originsQuizScore = QUIZ_STATE.score;
+    STATE.originsQuizIdx = QUIZ_STATE.idx + 1;
+    STATE.fragmentsMemory = (STATE.fragmentsMemory || 0) + 50;
+    saveState();
+    updateWallet();
+    status.textContent = '✅ Верно! +50 🎞️';
+    status.className = 'quiz-status ok';
+    sfxFanfare();
+  } else {
+    STATE.originsQuizIdx = QUIZ_STATE.idx + 1;
+    saveState();
+    status.textContent = '❌ Неверно. Правильный ответ: ' + q.opts[q.correct];
+    status.className = 'quiz-status bad';
+  }
+  
+  const nextBtn = $('quiz-next');
+  if (nextBtn) nextBtn.style.display = 'inline-flex';
+}
+
+function finishQuiz(){
+  STATE.originsQuizDone = true;
+  STATE.originsQuizIdx = ORIGINS_QUIZ.length;
+  saveState();
+  $('quiz-body').innerHTML = '';
+  $('quiz-progress').textContent = '';
+  $('quiz-result').style.display = 'block';
+  $('quiz-total').textContent = `Результат: ${QUIZ_STATE.score} / ${ORIGINS_QUIZ.length} · +${QUIZ_STATE.score * 50} 🎞️`;
+  renderOrigins();
+}
+function buyOriginsCard(pid, price){
+  const p = PLAYER_MAP[pid];
+  if (!p) return;
+  if ((STATE.fragmentsMemory || 0) < price) {
+    toast(`Не хватает 🎞️: нужно ${price}`, 'error');
+    return;
+  }
+  const have = copiesOf(pid);
+  const note = have ? ` Уже есть ×${have} — получишь дубликат.` : '';
+  askConfirm(
+    'Купить карту Истоков?',
+    `${p.name} (${p.rating}) за 🎞️ ${price}?${note}`,
+    'Купить',
+    () => {
+      if ((STATE.fragmentsMemory || 0) < price) return;
+      STATE.fragmentsMemory -= price;
+      addCard(pid);
+      saveState();
+      updateWallet();
+      renderShop();
+      renderCollection();
+      renderSquad();
+      toast(`📜 Куплено: ${p.name}`, 'success');
+      const isNew = have === 0;
+      setTimeout(() => showPackReveal([{ p, isNew }]), 250);
+    }
+  );
+}
 function renderFragShop(){
   const chips=$('frag-filter');
   const filters=['all',...TIERS];
   chips.innerHTML=filters.map(f=>`<button class="chip ${FRAG_FILTER===f?'active':''}" data-f="${f}">${f==='all'?'Все':TIER_EMOJI[f]+' '+TIER_LABEL[f]}</button>`).join('');
   chips.querySelectorAll('.chip').forEach(b=>{ b.onclick=()=>{ sfxClick(); FRAG_FILTER=b.dataset.f; renderFragShop(); }; });
   const grid=$('frag-grid');
-  const list=ALL_PLAYERS.filter(p=>onSale(p)&&(FRAG_FILTER==='all'||rarityOf(p)===FRAG_FILTER)).sort((a,b)=>b.rating-a.rating);
+  const list=ALL_PLAYERS.filter(p=>!p.origins && onSale(p)&&(FRAG_FILTER==='all'||rarityOf(p)===FRAG_FILTER)).sort((a,b)=>b.rating-a.rating);
   if(!list.length){ grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>Сейчас здесь нет игроков в продаже</p></div>`; return; }
   grid.innerHTML=list.map(p=>{
     const cost=buyCost(p); const can=STATE.fragments>=cost; const n=copiesOf(p.id);
@@ -4316,7 +4938,7 @@ function drawTier(weights){
   return TIERS[0];
 }
 function drawPlayerOfTier(tier){
-  const list=ALL_PLAYERS.filter(p=>rarityOf(p)===tier);
+  const list=ALL_PLAYERS.filter(p=>rarityOf(p)===tier && !p.origins);
   return list[Math.floor(Math.random()*list.length)];
 }
 function openPack(packId){
@@ -4638,6 +5260,73 @@ function renderHistory(){
   l.innerHTML=STATE.history.map(h=>`<div class="hist-item ${h.result}"><div class="hist-top"><span class="hist-score">${h.homeScore} : ${h.awayScore}</span><span class="hist-opp">vs ${h.stageName}</span><span class="hist-reward">+💰${h.reward}</span></div><div class="hist-date">${new Date(h.date).toLocaleString('ru-RU')}</div></div>`).join('');
 }
 // ============================================================
+// ORIGINS — экран Истоков
+// ============================================================
+function renderOrigins(){
+  const box = $('origins-content');
+  if (!box) return;
+  
+  const doneMap = STATE.originsDone || {};
+  const total = ORIGINS_EVENTS.length;
+  const doneCount = ORIGINS_EVENTS.filter(e => doneMap[e.id]).length;
+  const allDone = doneCount >= total;
+  const quizDone = !!STATE.originsQuizDone;
+  
+  const cards = ORIGINS_EVENTS.map((ev, idx) => {
+    const isDone = !!doneMap[ev.id];
+    const cls = isDone ? 'stage done' : 'stage current';
+    const status = isDone
+      ? '<span class="stage-status ok">✓ Пройден</span>'
+      : '<span class="stage-status play">▶ Играть</span>';
+    return `<div class="stage-row">
+      <div class="${cls}" data-origin-stage="${ev.id}">
+        <div class="stage-num" style="background:linear-gradient(135deg,#c9a44c,#8b6f2f);color:#1a0f00;border:none;font-size:1.1rem">📜</div>
+        <div class="stage-info">
+          <div class="stage-name">${ev.name}</div>
+          <div class="stage-sub">${ev.desc} · 💰 0 / 🎞️ +100</div>
+        </div>
+        ${status}
+      </div>
+    </div>`;
+  }).join('');
+  
+  const dots = ORIGINS_EVENTS.map(ev => `<div class="op-dot ${doneMap[ev.id] ? 'done' : ''}"></div>`).join('');
+  
+  const quizBlock = quizDone
+    ? `<div class="origins-btn-quiz" style="background:rgba(201,164,76,.15);color:#a89676;cursor:default;border:1px solid rgba(201,164,76,.3)">✓ Квиз пройден</div>`
+    : `<button class="origins-btn-quiz" id="origins-quiz-btn" ${!allDone ? 'disabled' : ''}>
+         ${allDone ? '🎞️ Пройти квиз · +150 🎞️' : `🔒 Квиз · пройди все ${total} матчей`}
+       </button>`;
+  
+  box.innerHTML = `
+    <div class="origins-panel">
+      <div class="origins-title">🏛️ Истоки · Лето 2026</div>
+      <div class="origins-sub">Сыграй против исторических составов, заработай 🎞️ и покупай карты в магазине Истоков</div>
+      <div class="origins-progress">${dots}</div>
+      <div style="text-align:center;font-size:.74rem;color:var(--muted);margin-bottom:12px">
+        Пройдено <b style="color:#e0b870">${doneCount} / ${total}</b>
+      </div>
+      ${quizBlock}
+    </div>
+    <div class="stages">${cards}</div>
+  `;
+  
+  // Обработчики кликов по матчам
+  box.querySelectorAll('[data-origin-stage]').forEach(el => {
+    el.addEventListener('click', () => {
+      sfxClick();
+      const ev = ORIGINS_EVENTS.find(e => e.id === el.dataset.originStage);
+      if (ev) {
+        CURRENT_STAGE = ev;
+        openStageModal(ev);
+      }
+    });
+  });
+  
+  const qBtn = box.querySelector('#origins-quiz-btn');
+  if (qBtn && !qBtn.disabled) qBtn.onclick = () => { sfxClick(); openOriginsQuiz(); };
+}
+// ============================================================
 // LEADERBOARD ТАБЛИЦА ЛИДЕРОВ
 // ============================================================
 function escapeHtml(s){
@@ -4926,6 +5615,18 @@ function setupModals(){
       if (e.target === e.currentTarget) closeSquadView();
     });
   }
+
+  // Quiz modal
+  const qzClose = $('quiz-close');
+  if (qzClose) qzClose.onclick = () => { sfxClick(); $('quiz-modal').classList.remove('active'); };
+  const qzFinish = $('quiz-finish');
+  if (qzFinish) qzFinish.onclick = () => { sfxClick(); $('quiz-modal').classList.remove('active'); };
+  const qzModal = $('quiz-modal');
+  if (qzModal) {
+    qzModal.addEventListener('click', e => {
+      if (e.target === e.currentTarget) qzModal.classList.remove('active');
+    });
+  }
   $('btn-logout').onclick=async ()=>{
     sfxClick();
     clearTimeout(pushTimer); await pushSave();
@@ -4963,6 +5664,10 @@ function setupTabs(){
 
       if (tab.dataset.page === 'leaderboard') {
         loadLeaderboard();
+      }
+
+      if (tab.dataset.page === 'origins') {
+        renderOrigins();
       }
     };
   });
