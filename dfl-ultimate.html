@@ -6,6 +6,219 @@
 <title>DFL Ultimate — Кампания</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+/* ============================================================
+   MOBILE FIX — адаптация под телефон после Истоков и opp-карточек
+   ============================================================ */
+@media (max-width: 560px) {
+
+  /* ---------- TOPBAR: не даём монетам и юзеру разъехаться ---------- */
+  .topbar { padding: 10px 12px; }
+  .topbar-inner {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+  .logo { order: 1; flex: 0 0 auto; }
+  .logo-text { display: none; }
+  .wallet {
+    order: 2;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    gap: 5px;
+    min-width: 0;
+  }
+  .coin {
+    padding: 5px 9px;
+    font-size: .74rem;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .coin span:first-child { font-size: .8rem; }
+  .user-chip {
+    order: 3;
+    flex: 1 1 100%;
+    justify-content: space-between;
+    padding: 6px 8px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  #current-user { min-width: 0; flex: 1 1 auto; }
+  .user-team {
+    font-size: .78rem;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .user-owner { font-size: .58rem; }
+  .logout-btn { flex-shrink: 0; padding: 6px 10px; font-size: .68rem; }
+
+  /* ---------- NAV: аккуратный горизонтальный скролл ---------- */
+  .nav {
+    padding: 12px 12px 6px;
+    gap: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-item {
+    padding: 8px 12px;
+    font-size: .72rem;
+    gap: 4px;
+  }
+
+  /* ---------- HERO: не «пухнет» ---------- */
+  .hero { padding: 22px 16px; border-radius: 18px; }
+  .hero-icon { font-size: 2.6rem; }
+  .hero h2 { font-size: 1.15rem; }
+  .hero p { font-size: .78rem; margin-bottom: 12px; }
+  .hero-stats { gap: 14px; margin-top: 12px; }
+  .hero-stat .val { font-size: 1.1rem; }
+  .hero-stat .lbl { font-size: .56rem; }
+
+  /* ---------- STAGE: компактнее, статус переносится ---------- */
+  .stage {
+    padding: 12px 12px;
+    gap: 10px;
+    grid-template-columns: auto 1fr;
+  }
+  .stage-num { width: 40px; height: 40px; font-size: .9rem; border-radius: 12px; }
+  .stage-name { font-size: .9rem; }
+  .stage-sub { font-size: .68rem; white-space: normal; line-height: 1.3; }
+  .stage-status {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 2px;
+    padding: 4px 10px;
+    font-size: .58rem;
+  }
+
+  /* ---------- OPPONENT SQUAD (карточки соперника) ---------- */
+  .opp-squad-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .opp-card {
+    padding: 8px 4px 6px;
+    border-radius: 10px;
+  }
+  .opp-ovr { font-size: .62rem; top: 3px; left: 5px; }
+  .opp-photo {
+    width: 32px; height: 32px;
+    font-size: .95rem;
+    margin-top: 6px;
+    border-width: 1.5px;
+  }
+  .opp-name { font-size: .54rem; }
+  .opp-pos { font-size: .46rem; }
+  .opp-squad-title { font-size: .62rem; margin-bottom: 8px; }
+  .opp-warn { font-size: .64rem; padding: 6px 8px; margin-bottom: 10px; }
+
+  /* ---------- STAGE MODAL: vs-блок компактнее ---------- */
+  .vs-block { gap: 10px; margin-bottom: 12px; }
+  .vs-logo { width: 60px; height: 60px; font-size: 1.6rem; }
+  .vs-name { font-size: .8rem; }
+  .vs-avg { font-size: .64rem; }
+  .vs-mid { font-size: 1.4rem; }
+  .tactic { padding: 12px; }
+  .tactic-title { font-size: .66rem; margin-bottom: 10px; }
+  .tactic-opts { grid-template-columns: repeat(2, 1fr); }
+  .tactic-btn { padding: 8px 6px; font-size: .66rem; }
+  .actions { gap: 8px; }
+  .actions .btn { min-width: 0; padding: 12px 14px; font-size: .82rem; }
+
+  /* ---------- MATCH: выносливость и лог ---------- */
+  .sta-panel { grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .sta-chip { padding: 5px 5px 6px; }
+  .sta-top { font-size: .54rem; }
+  .sta-title { font-size: .6rem; }
+  .score-big { font-size: 2.2rem; }
+  .score-logo { width: 44px; height: 44px; font-size: 1.2rem; }
+  .score-team-name { font-size: .6rem; max-width: 70px; }
+  .match-log { padding: 10px; max-height: 220px; }
+  .log-line { font-size: .76rem; padding: 5px 8px; gap: 6px; }
+  .log-min { font-size: .66rem; min-width: 26px; }
+
+  /* ---------- HALFTIME ---------- */
+  .ht-cards { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
+  .ht-card { padding: 6px 4px; }
+  .ht-card-photo { width: 30px; height: 30px; font-size: .95rem; }
+  .ht-card-name { font-size: .56rem; }
+  .ht-card-meta { font-size: .52rem; }
+  .ht-tactic-opts { grid-template-columns: repeat(2, 1fr); }
+  .ht-tactic-btn { font-size: .58rem; padding: 7px 4px; }
+  .ht-score { font-size: 1.7rem; margin-bottom: 12px; }
+
+  /* ---------- RESULT: питчи не вылезают ---------- */
+  .result-pitches-wrap { gap: 12px; }
+  .result-pitch { padding: 16px 6px; max-width: 320px; }
+  .rp-row { gap: 14px; height: 62px; margin-bottom: 8px; }
+  .rp-photo { width: 40px; height: 40px; font-size: 1rem; }
+  .rp-name { font-size: .54rem; }
+  .rp-rating { font-size: .58rem; padding: 1px 5px; }
+  .result-title { font-size: 1.25rem; }
+  .result-score { font-size: 2rem; margin-bottom: 10px; }
+  .result-rw { font-size: .7rem; padding: 6px 10px; }
+
+  /* ---------- ORIGINS: не даём панелям раздуваться ---------- */
+  .origins-panel { padding: 14px; margin-bottom: 12px; }
+  .origins-title { font-size: 1rem; }
+  .origins-sub { font-size: .68rem; margin-bottom: 10px; }
+  .origins-progress { margin-bottom: 10px; }
+  .origins-progress .op-dot { width: 12px; height: 12px; }
+  .origins-btn-quiz { font-size: .82rem; padding: 10px; }
+
+  /* ---------- SHOP: пак-карточки ---------- */
+  .packs { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pack { padding: 18px 10px; border-radius: 14px; }
+  .pack-icon { font-size: 2.2rem; }
+  .pack-name { font-size: .92rem; }
+  .pack-desc { font-size: .66rem; min-height: 2.2em; }
+  .pack-odds { font-size: .56rem; margin-bottom: 10px; }
+  .pack-price { font-size: .8rem; padding: 7px 16px; }
+
+  /* ---------- COLLECTION: карточки игроков ---------- */
+  .pgrid { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 8px; }
+  .pcard { padding: 10px 6px 8px; min-height: 172px; border-radius: 14px; }
+  .pcard .ovr-num { font-size: 1rem; }
+  .pcard .photo { width: 52px; height: 52px; font-size: 1.35rem; margin: 16px auto 8px; }
+  .pcard .name { font-size: .7rem; min-height: 2em; }
+  .pcard .team { font-size: .56rem; margin-bottom: 6px; }
+  .pcard .style-dot { width: 20px; height: 20px; }
+  .pcard .info-btn { width: 20px; height: 20px; font-size: .6rem; top: 8px; right: 8px; }
+  .pcard .copies { font-size: .52rem; top: 32px; right: 7px; }
+  .pcard .badge { font-size: .52rem; padding: 2px 8px; }
+
+  /* ---------- FRIENDS: строки не вылезают ---------- */
+  #page-friends .stage { grid-template-columns: auto 1fr; row-gap: 8px; }
+  #page-friends .stage > div:last-child {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- LEADERBOARD ---------- */
+  .lb-list { gap: 5px; }
+  .lb-row { padding: 10px 12px; grid-template-columns: 30px 1fr auto; gap: 8px; }
+  .lb-rank { font-size: .82rem; }
+  .lb-rank.gold { font-size: 1.2rem; }
+  .lb-rank.silver { font-size: 1.1rem; }
+  .lb-rank.bronze { font-size: 1rem; }
+  .lb-name { font-size: .82rem; }
+  .lb-meta { font-size: .6rem; }
+  .lb-ovr { font-size: .86rem; padding: 4px 9px; min-width: 40px; }
+}
+
+/* Очень узкие экраны (iPhone SE и т.п.) */
+@media (max-width: 360px) {
+  .opp-squad-grid { grid-template-columns: repeat(3, 1fr); }
+  .sta-panel { grid-template-columns: repeat(2, 1fr); }
+  .packs { grid-template-columns: 1fr; }
+  .pgrid { grid-template-columns: repeat(2, 1fr); }
+  .ht-cards { grid-template-columns: repeat(3, 1fr); }
+  .coin { padding: 4px 8px; font-size: .7rem; }
+  .nav-item { padding: 7px 10px; font-size: .68rem; }
+}
 :root{
   --bg:#080b14;--bg-2:#0e1322;--panel:#121828;--panel-2:#1a2236;
   --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.16);
