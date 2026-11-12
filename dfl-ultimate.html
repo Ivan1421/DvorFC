@@ -5677,15 +5677,16 @@ function openPack(packId){
     for (let i = 0; i < pack.count; i++) {
       picks.push(goldPool[Math.floor(Math.random() * goldPool.length)]);
     }
-  } else if (pack.onlyNewYear) {
-    // Пак «Новогодний» — только ny_* карточки, БЕЗ Захарова
-    const nyPool = ALL_PLAYERS.filter(p =>
-      p.id.startsWith('ny_') && p.id !== 'ny_zaharov'
-    );
-    for (let i = 0; i < pack.count; i++) {
-      picks.push(nyPool[Math.floor(Math.random() * nyPool.length)]);
-    }
-  } else {
+} else if (pack.onlyNewYear) {
+  // Пак «Новогодний» — только карточки финального матча ny8 (без Захарова)
+  const NY_PACK_IDS = ['ny_gk','ny_gleb','ny_maxim','ny_russkov','ny_batrakov'];
+  const nyPool = NY_PACK_IDS
+    .map(id => PLAYER_MAP[id])
+    .filter(Boolean);
+  for (let i = 0; i < pack.count; i++) {
+    picks.push(nyPool[Math.floor(Math.random() * nyPool.length)]);
+  }
+} else {
     // Обычные паки — по весам
     for(let i=0;i<pack.count;i++) picks.push(drawPlayerOfTier(drawTier(pack.weights)));
     if(pack.minTier){
