@@ -51,7 +51,7 @@ const CATALOG = [
 const CAT = {}; CATALOG.forEach(c => CAT[c[0]] = { id: c[0], name: c[1], pos: c[2], rating: c[3] });
 const TIERS = ['common', 'rare', 'epic', 'legend', 'icon', 'gold'];
 const TIER_LABEL = { common: 'Обычный', rare: 'Редкий', epic: 'Эпик', legend: 'Легенда', icon: 'Икона', gold: 'Золотой мяч' };
-const DEFAULT_PRICE = { common: 25, rare: 75, epic: 200, legend: 500, icon: 1200, gold: 2500 };
+const DEFAULT_PRICE = { common: 3500, rare: 3500, epic: 3500, legend: 3500, icon: 3500, gold: 3500 };
 const rarityOf = (r, id) => {
   if (id && String(id).startsWith('gold_')) return 'gold';
   if (id && String(id).startsWith('ny_')) return 'gold';
