@@ -24,7 +24,6 @@ const CATALOG = [
 ['gold_zaytsev','Зайцев Тимофей (Gold)','FW',100],['gold_tankov','Танков Тимофей (Gold)','MF',99],
 ['gold_bombar','Бадартинов Михаил (Gold)','FW',100],['gold_batrakov','Кравченко Глеб (Gold)','MF',100],
 ['gold_elisey','Пожидаев Елисей (Gold)','MF',99],['gold_churilov','Чурилов Алексей (Gold)','MF',100],
-['mbappe','Килиан Мбаппе','FW',150]
 ];
 const CAT = {}; CATALOG.forEach(c => CAT[c[0]] = { id: c[0], name: c[1], pos: c[2], rating: c[3] });
 const TIERS = ['common', 'rare', 'epic', 'legend', 'icon', 'gold'];
