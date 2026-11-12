@@ -24,7 +24,6 @@ const CATALOG = [
 ['gold_zaytsev','Зайцев Тимофей (Gold)','FW',100],['gold_tankov','Танков Тимофей (Gold)','MF',99],
 ['gold_bombar','Бадартинов Михаил (Gold)','FW',100],['gold_batrakov','Кравченко Глеб (Gold)','MF',100],
 ['gold_elisey','Пожидаев Елисей (Gold)','MF',99],['gold_churilov','Чурилов Алексей (Gold)','MF',100],
-['mbappe','Килиан Мбаппе','FW',150],
 ['gold_elisey','Пожидаев Елисей (Gold)','MF',99],['gold_churilov','Чурилов Алексей (Gold)','MF',100],
 ['mbappe','Килиан Мбаппе','FW',150],
 ['haaland_real','Эрлинг Холланд','FW',150]
