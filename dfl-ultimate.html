@@ -1288,6 +1288,59 @@ body{
 }
 #promo-status.ok{color:#4ade80}
 #promo-status.bad{color:#fca5a5}
+/* NEW YEAR container cells */
+.ny-cells-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  max-width:360px;
+  margin:12px auto 0;
+}
+.ny-cell{
+  aspect-ratio:1;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:1rem;
+  border:2px solid var(--line-2);
+  background:var(--bg-2);
+  color:var(--muted);
+  transition:.2s;
+  position:relative;
+  overflow:hidden;
+}
+.ny-cell.locked{ opacity:.5; }
+.ny-cell.next{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,rgba(255,209,102,.25),rgba(245,158,11,.1));
+  color:var(--gold);
+  box-shadow:0 0 16px rgba(255,209,102,.5);
+  animation:nyCellPulse 1.6s ease-in-out infinite;
+  cursor:pointer;
+}
+@keyframes nyCellPulse{
+  0%,100%{ box-shadow:0 0 12px rgba(255,209,102,.4); }
+  50%{ box-shadow:0 0 26px rgba(255,209,102,.8); }
+}
+.ny-cell.opened{
+  border-color:rgba(34,197,94,.4);
+  background:rgba(34,197,94,.08);
+  color:var(--green);
+}
+.ny-cell.opened::after{
+  content:"";
+  position:absolute;
+  left:8%; right:8%; top:50%;
+  height:2px;
+  background:var(--green);
+  transform:rotate(-15deg);
+  opacity:.8;
+}
+@media(max-width:480px){
+  .ny-cells-grid{ grid-template-columns:repeat(5,1fr); gap:6px; max-width:300px; }
+  .ny-cell{ font-size:.8rem; }
+}
 </style>
 </head>
 <body>
@@ -1792,7 +1845,26 @@ const ALL_PLAYERS = [
   {id:'tankov_78_s26', name:'Тимофей Танков · Истоки', pos:'MF', rating:99, team:'78 школа', icon:'📜', origins:true},
   // профчики
   {id:'mbappe', name:'Килиан Мбаппе', short:'Мбаппе', pos:'FW', rating:150, team:'PRO', icon:'⚡', pro:true},
-  {id:'haaland_real', name:'Эрлинг Холланд', short:'Холланд', pos:'FW', rating:150, team:'PRO', icon:'⚡', pro:true}
+  {id:'haaland_real', name:'Эрлинг Холланд', short:'Холланд', pos:'FW', rating:150, team:'PRO', icon:'⚡', pro:true},
+    // === НОВЫЙ ГОД — Кайрат (только для ивента) ===
+  {id:'kairat_gk',  name:'Асхат Бекболатов',  short:'Бекболатов', pos:'GK', rating:90, team:'Кайрат', icon:'🧤', eventOnly:true},
+  {id:'kairat_df1', name:'Ерлан Жумабаев',    short:'Жумабаев',   pos:'DF', rating:90, team:'Кайрат', icon:'🛡️', eventOnly:true},
+  {id:'kairat_df2', name:'Данияр Сейтказы',   short:'Сейтказы',   pos:'DF', rating:90, team:'Кайрат', icon:'🛡️', eventOnly:true},
+  {id:'kairat_fw1', name:'Алихан Нургалиев',  short:'Нургалиев',  pos:'FW', rating:90, team:'Кайрат', icon:'⚽', eventOnly:true},
+  {id:'kairat_fw2', name:'Санжар Оспанов',    short:'Оспанов',    pos:'FW', rating:90, team:'Кайрат', icon:'⚽', eventOnly:true},
+  // === НОВЫЙ ГОД — Снеговики ===
+  {id:'snowman_gk',  name:'Снеговик-вратарь',    short:'Снеговик', pos:'GK', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
+  {id:'snowman_df1', name:'Снеговик-защитник',   short:'Снеговик', pos:'DF', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
+  {id:'snowman_df2', name:'Снеговик-защитник',   short:'Снеговик', pos:'DF', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
+  {id:'snowman_fw1', name:'Снеговик-нападающий', short:'Снеговик', pos:'FW', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
+  {id:'snowman_fw2', name:'Снеговик-нападающий', short:'Снеговик', pos:'FW', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
+  // === НОВЫЙ ГОД — Новогодние звёзды (8-й матч) ===
+  {id:'ny_gk',       name:'Новогодний вратарь',  short:'Вратарь',   pos:'GK', rating:104, team:'Новый год', icon:'🎄', eventOnly:true},
+  {id:'ny_gleb',     name:'Глеб',                short:'Глеб',      pos:'DF', rating:103, team:'Новый год', icon:'🎄', eventOnly:true},
+  {id:'ny_maxim',    name:'Максим Бузмаков',     short:'Бузмаков',  pos:'DF', rating:105, team:'Новый год', icon:'🎄', eventOnly:true},
+  {id:'ny_russkov',  name:'Руссков Артём',       short:'Руссков',   pos:'FW', rating:105, team:'Новый год', icon:'🎄', eventOnly:true},
+  {id:'ny_batrakov', name:'Кравченко Глеб',      short:'Кравченко', pos:'FW', rating:104, team:'Новый год', icon:'🎄', eventOnly:true},
+  {id:'ny_zaharov', name:'Максим Захаров', short:'Захаров', pos:'GK', rating:105, team:'Новый год', icon:'🎁', eventOnly:true},
 ];
 const PLAYER_MAP = {}; ALL_PLAYERS.forEach(p => PLAYER_MAP[p.id] = p);
 const POS_RU = {GK:'ВРТ', DF:'ЗАЩ', MF:'ПЗЩ', FW:'НАП', SUB:'ЗАП'};
@@ -1861,7 +1933,13 @@ const PLAYSTYLES_MAP = {
   haaland:{playstyles:['borec_silver','tiki_taka_silver'],playstyleColors:{borec_silver:'silver',tiki_taka_silver:'silver'}},
   mbappe:{playstyles:['pushka','bistro_gold','truk_gold'],playstyleColors:{pushka:'gold',bistro_gold:'gold',truk_gold:'gold'}},
   mbappe:{playstyles:['pushka','bistro_gold','truk_gold'],playstyleColors:{pushka:'gold',bistro_gold:'gold',truk_gold:'gold'}},
-  haaland_real:{playstyles:['pushka','borec','bistro_gold'],playstyleColors:{pushka:'gold',borec:'gold',bistro_gold:'gold'}}
+  haaland_real:{playstyles:['pushka','borec','bistro_gold'],playstyleColors:{pushka:'gold',borec:'gold',bistro_gold:'gold'}},
+  ny_gleb:{playstyles:['strag','borec'],playstyleColors:{strag:'gold',borec:'gold'}},
+  ny_maxim:{playstyles:['strag','intuation','borec'],playstyleColors:{strag:'gold',intuation:'gold',borec:'gold'}},
+  ny_russkov:{playstyles:['tiki_taka','bombardir','bistro_gold'],playstyleColors:{tiki_taka:'gold',bombardir:'gold',bistro_gold:'gold'}},
+  ny_batrakov:{playstyles:['Bezjalostniy','naves','tiki_taka'],playstyleColors:{Bezjalostniy:'gold',naves:'gold',tiki_taka:'gold'}},
+  ny_zaharov:{playstyles:['vihod','otraz','far'],playstyleColors:{vihod:'gold',otraz:'gold',far:'gold'}},
+  ny_gk:{playstyles:['vihod','otraz','far'],playstyleColors:{vihod:'gold',otraz:'gold',far:'gold'}}
 };
 
 const GOLD_BASE = {
@@ -2089,7 +2167,9 @@ let PICK_SLOT = null;
 let FRAG_FILTER = 'all';
 const TCLS = ['t-common','t-rare','t-epic','t-legend','t-icon','t-meme','t-gold','t-origins','t-pro'];
 
-function defaultState(){ return {ver:SAVE_VERSION,savedAt:0,coins:400,fragments:0,fragmentsMemory:0,owned:[...STARTER_SQUAD],dupes:{},custom:{},starters:[...STARTER_SQUAD],bench:[],history:[],campaignProgress:0,campaignResults:{},teamName:'',originsDone:{},originsQuizDone:false,originsQuizIdx:0,originsQuizScore:0}; }
+function defaultState(){ return {ver:SAVE_VERSION,savedAt:0,coins:400,fragments:0,fragmentsMemory:0,owned:[...STARTER_SQUAD],dupes:{},custom:{},starters:[...STARTER_SQUAD],bench:[],history:[],campaignProgress:0,campaignResults:{},teamName:'',originsDone:{},originsQuizDone:false,originsQuizIdx:0,originsQuizScore:0,
+  nyCellsOpened:[], nyLastOpenDay:'', nyZaharovObtained:false
+}; }
 function migrate(s){
   s=s||{};
   s.coins=s.coins||0; s.fragments=s.fragments||0; s.savedAt=s.savedAt||0;
@@ -2105,6 +2185,9 @@ function migrate(s){
   s.originsQuizDone = !!s.originsQuizDone;
   s.originsQuizIdx = s.originsQuizIdx || 0;
   s.originsQuizScore = s.originsQuizScore || 0;
+    s.nyCellsOpened = Array.isArray(s.nyCellsOpened) ? s.nyCellsOpened : [];
+  s.nyLastOpenDay = s.nyLastOpenDay || '';
+  s.nyZaharovObtained = !!s.nyZaharovObtained;
   if(s.ver!==SAVE_VERSION){ s.campaignProgress=0; s.campaignResults={}; s.ver=SAVE_VERSION; }
   return s;
 }
@@ -3133,6 +3216,71 @@ function renderCampaign(){
       prevGoldDone = isDone; // Следующий матч откроется только если этот пройден
     });
   }
+
+  // === НОВОГОДНИЙ ИВЕНТ (после прохождения Золотого мяча) ===
+  const goldDone = STATE.campaignResults['g5'] === 'win';
+  if (goldDone) {
+    html += `<div class="connector" style="height:40px;background:linear-gradient(180deg,var(--cyan),transparent)"></div>`;
+    html += `<div style="text-align:center;margin:20px 0 14px;">
+      <div style="font-size:2rem;animation:heroFloat 3s ease-in-out infinite">🎄</div>
+      <div style="font-size:1.2rem;font-weight:900;background:linear-gradient(135deg,#00e5ff,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1.5px">НОВОГОДНИЙ ТУРНИР</div>
+      <div style="font-size:.72rem;color:var(--muted);font-weight:600;margin-top:4px">8 матчей · контейнер с Захаровым</div>
+    </div>`;
+
+    let prevNyDone = true;
+    NEWYEAR_EVENT.matches.forEach((stage) => {
+      const isDone = STATE.campaignResults[stage.id] === 'win';
+      const isCurrent = prevNyDone && !isDone;
+      const isLocked = !prevNyDone;
+      let cls = 'stage';
+      if (isDone) cls += ' done';
+      else if (isCurrent) cls += ' current';
+      else if (isLocked) cls += ' locked';
+      if (stage.isNewYearFinal) cls += ' boss';
+
+      let statusHTML;
+      if (isDone) statusHTML = '<span class="stage-status ok">✓ Пройден</span>';
+      else if (isCurrent) statusHTML = '<span class="stage-status play">▶ Играть</span>';
+      else statusHTML = '<span class="stage-status lock">🔒</span>';
+
+      const num = stage.isNewYearFinal ? '🎄' : stage.id.replace('ny','');
+      html += `<div class="stage-row" style="margin-top:10px">
+        <div class="${cls}" data-ny-stage="${stage.id}" style="border-color:rgba(0,229,255,.4)">
+          <div class="stage-num" style="background:linear-gradient(135deg,#00e5ff,#a855f7);color:#04121c;border:none">${num}</div>
+          <div class="stage-info"><div class="stage-name">${stage.name}</div><div class="stage-sub">${stage.desc}</div></div>
+          ${statusHTML}
+        </div>
+      </div>`;
+      prevNyDone = isDone;
+    });
+
+    // === Контейнер Захарова: 10 ячеек, 1 в день ===
+    if (STATE.campaignResults['ny8'] === 'win') {
+      const opened = STATE.nyCellsOpened || [];
+      const canOpen = zaharovCanOpenToday();
+      const nextIdx = opened.length;
+      let cellsHTML = '';
+      for (let i = 0; i < ZAHAROV_CONTAINER.cells; i++) {
+        const isOpened = opened.includes(i);
+        const isNext = (i === nextIdx) && canOpen;
+        let cls = 'ny-cell';
+        if (isOpened) cls += ' opened';
+        else if (isNext) cls += ' next';
+        else cls += ' locked';
+        cellsHTML += `<div class="${cls}" data-cell="${i}">${isOpened ? '✓' : (i+1)}</div>`;
+      }
+      html += `<div class="origins-panel" style="margin-top:18px;background:linear-gradient(135deg,rgba(255,209,102,.12),rgba(30,22,10,.6));border-color:rgba(255,209,102,.5)">
+        <div class="origins-title" style="background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">🎁 Контейнер Максима Захарова</div>
+        <div class="origins-sub">${STATE.nyZaharovObtained ? '✓ Захаров уже в коллекции' : `Открыто ${opened.length} / ${ZAHAROV_CONTAINER.cells} · гарант на 10-й ячейке`}</div>
+        <div class="ny-cells-grid">${cellsHTML}</div>
+        <div style="text-align:center;margin-top:12px">
+          <button class="btn btn-gold" id="open-ny-container" ${canOpen ? '' : 'disabled'} style="min-width:220px">
+            ${STATE.nyZaharovObtained ? '✓ Получен' : (canOpen ? '🎁 Открыть ячейку' : (STATE.nyLastOpenDay === zaharovToday() ? '⏳ Приходи завтра' : '⏳ Нет попыток'))}
+          </button>
+        </div>
+      </div>`;
+    }
+  }
   
   list.innerHTML = html;
   
@@ -3150,6 +3298,20 @@ function renderCampaign(){
       const stage=GOLDEN_EVENT.matches.find(s=>s.id===card.dataset.goldStage);
       if(stage) openStageModal(stage);
     });
+  });
+
+  // === НОВЫЙ ГОД — обработчики ===
+  list.querySelectorAll('.stage.current[data-ny-stage]').forEach(card=>{
+    card.addEventListener('click',()=>{
+      sfxClick();
+      const stage=NEWYEAR_EVENT.matches.find(s=>s.id===card.dataset.nyStage);
+      if(stage) openStageModal(stage);
+    });
+  });
+  const nyCont = list.querySelector('#open-ny-container');
+  if (nyCont) nyCont.onclick = () => { sfxClick(); openZaharovContainer(); };
+  list.querySelectorAll('.ny-cell.next').forEach(cell=>{
+    cell.addEventListener('click', ()=>{ sfxClick(); openZaharovContainer(); });
   });
 }
 
@@ -4696,7 +4858,189 @@ const GOLDEN_EVENT = {
             text:'Сборная золотых звёзд — <strong>Шустик</strong>, <strong>Бузмаков</strong>, <strong>Руссё</strong>, <strong>Бобриков</strong>, <strong>Бадартинов</strong>. Победа = бесплатная золотая карточка!'}}
   ]
 };
+// ============================================================
+// NEW YEAR EVENT — доступен после прохождения Золотого мяча
+// ============================================================
+const NEWYEAR_EVENT = {
+  id: 'new_year',
+  unlockAfterGoldMatch: 'g5',   // открывается после финала Золотого мяча (g5)
+  matches: [
+    {
+      id:'ny1', team:'Кайрат', name:'ФК Кайрат', difficulty:'medium', reward:600,
+      desc:'Казахстанский клуб · ОВР 90',
+      players:['kairat_gk','kairat_df1','kairat_df2','kairat_fw1','kairat_fw2'],
+      intro:{icon:'🇰🇿',title:'Новый год 1: ФК Кайрат',
+        text:'Начинается <em>Новогодний турнир</em>. Первый соперник — <strong>Кайрат</strong> из Казахстана. Крепкая команда с ровным составом по 90 ОВР.'}
+    },
+    {
+      id:'ny2', team:'Снеговики', name:'Снеговики', difficulty:'medium', reward:700,
+      desc:'Они существуют только здесь · ОВР 95',
+      players:['snowman_gk','snowman_df1','snowman_df2','snowman_fw1','snowman_fw2'],
+      intro:{icon:'⛄',title:'Новый год 2: Снеговики',
+        text:'Никто не видел их вне турнира. <strong>Снеговики</strong> — все по 95 ОВР. Холодная голова и твёрдый удар.'}
+    },
+    {
+      id:'ny3', team:'ПСЖ', name:'ФК ПСЖ', difficulty:'hard', reward:900,
+      desc:'Сильнейшие карточки ПСЖ',
+      players:lineupFor('ПСЖ'),
+      intro:{icon:'🔵',title:'Новый год 3: ФК ПСЖ',
+        text:'<em>ПСЖ</em> выставляет лучших. Разминка закончилась — здесь уже серьёзно.'}
+    },
+    {
+      id:'ny4', team:'Арсенал', name:'ФК Арсенал', difficulty:'hard', reward:900,
+      desc:'Сильнейшие карточки Арсенала',
+      players:lineupFor('Арсенал'),
+      intro:{icon:'🔴',title:'Новый год 4: ФК Арсенал',
+        text:'<em>Арсенал</em> с лучшими картами. Держи оборону.'}
+    },
+    {
+      id:'ny5', team:'78 школа', name:'ФК 78 школа', difficulty:'hard', reward:1000,
+      desc:'Сильнейшие карточки 78 школы',
+      players:lineupFor('78 школа'),
+      intro:{icon:'⚪',title:'Новый год 5: ФК 78 школа',
+        text:'<em>78 школа</em> — самый широкий состав. Будь готов к навесам и скорости.'}
+    },
+    {
+      id:'ny6', team:'Южный', name:'ФК Южный', difficulty:'boss', reward:1100,
+      desc:'Сильнейшие карточки Южки',
+      players:lineupFor('Южный'),
+      intro:{icon:'🟢',title:'Новый год 6: ФК Южный',
+        text:'<em>ФК Южный</em> — сильнейшая районная команда. <strong>Руссё</strong> в деле.'}
+    },
+    {
+      id:'ny7', team:'МЕРА', name:'ФК МЕРА', difficulty:'boss', reward:1200,
+      desc:'Сильнейшие карточки МЕРЫ',
+      players:lineupFor('МЕРА'),
+      intro:{icon:'👑',title:'Новый год 7: ФК МЕРА',
+        text:'<em>ФК МЕРА</em> — легенда ДФЛ. Остался последний шаг до финала.'}
+    },
+    {
+      id:'ny8', team:'Новый год', name:'Новогодние звёзды', difficulty:'boss', reward:1500, isNewYearFinal:true,
+      desc:'Финал · новые карточки события',
+      players:['ny_gk','ny_gleb','ny_maxim','ny_russkov','ny_batrakov'],
+      intro:{icon:'🎄',title:'ФИНАЛ: Новогодние звёзды',
+        text:'Сборная новых карточек события: <strong>Глеб</strong>, <strong>Бузмаков</strong>, <strong>Руссё</strong>, <strong>Кравченко</strong> и новогодний вратарь. Победа откроет доступ к контейнеру с <strong>Максимом Захаровым</strong>!'}
+    }
+  ]
+};
 
+// ============================================================
+// NEW YEAR — контейнер Захарова (10 ячеек, 1 в день, выгорают)
+// ============================================================
+const ZAHAROV_CONTAINER = {
+  id: 'zaharov',
+  playerId: 'ny_zaharov',
+  cells: 10,
+  dailyAttempts: 1,
+  guaranteedAfterDays: 10,
+
+  // Пак карточек 99-105 (без Захарова) — выпадает целиком одной картой
+  cardPack99to105: [
+    'gold_russkov',      // 102
+    'gold_doroshenko',   // 101
+    'gold_bobrikov',     // 101
+    'gold_zykov',        // 100
+    'gold_maxim',        // 100
+    'gold_shustov',      // 100
+    'gold_zaytsev',      // 100
+    'gold_batrakov',     // 100
+    'gold_churilov',     // 100
+    'gold_bombar',       // 99
+    'gold_elisey',       // 99
+    'gold_andryushka',   // 99
+    'gold_tankov'        // 98 (на границе, но пусть будет)
+  ],
+
+  // Веса: Захаров — самый маленький. Остальное — ресурсы + пак 99-105.
+  rewards: [
+    { type:'zaharov', weight: 1 },          // Максим Захаров 105
+    { type:'cardpack', weight: 24 },        // случайная карта из cardPack99to105
+    { type:'coins', amount:500, weight: 15 },
+    { type:'coins', amount:250, weight: 15 },
+    { type:'frags', amount:250, weight: 15 },
+    { type:'frags', amount:100, weight: 15 },
+    { type:'mem',   amount:50,  weight: 15 }
+  ]
+};
+// ============================================================
+// NEW YEAR — функции контейнера Захарова
+// ============================================================
+function zaharovToday(){
+  return new Date().toISOString().slice(0,10); // YYYY-MM-DD
+}
+function zaharovCellsLeft(){
+  return ZAHAROV_CONTAINER.cells - ((STATE.nyCellsOpened && STATE.nyCellsOpened.length) || 0);
+}
+function zaharovCanOpenToday(){
+  if (STATE.nyZaharovObtained) return false;
+  if (STATE.nyLastOpenDay === zaharovToday()) return false;
+  if (zaharovCellsLeft() <= 0) return false;
+  return true;
+}
+function grantZaharov(reason){
+  if (STATE.nyZaharovObtained) return;
+  STATE.nyZaharovObtained = true;
+  addCard(ZAHAROV_CONTAINER.playerId);
+  saveState(); updateWallet(); renderCampaign(); renderCollection(); renderSquad();
+  toast(`🎁 ${reason}: Максим Захаров получен!`, 'success');
+  setTimeout(()=>showPackReveal([{ p: PLAYER_MAP[ZAHAROV_CONTAINER.playerId], isNew: true }]), 300);
+}
+function rollZaharovReward(){
+  const rewards = ZAHAROV_CONTAINER.rewards;
+  const total = rewards.reduce((a,r)=>a+r.weight,0);
+  let r = Math.random()*total;
+  for (const rw of rewards){ r -= rw.weight; if (r <= 0) return rw; }
+  return rewards[rewards.length-1];
+}
+function pickRandomCard99to105(){
+  const pool = ZAHAROV_CONTAINER.cardPack99to105.filter(id => PLAYER_MAP[id]);
+  if (!pool.length) return null;
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+function openZaharovContainer(){
+  if (STATE.nyZaharovObtained){ toast('Захаров уже в коллекции!','info'); return; }
+  if (STATE.nyLastOpenDay === zaharovToday()){ toast('Сегодня ячейка уже открыта. Возвращайся завтра!','warn'); return; }
+  if (zaharovCellsLeft() <= 0){ toast('Все 10 ячеек открыты','info'); return; }
+
+  const nextIndex = (STATE.nyCellsOpened && STATE.nyCellsOpened.length) || 0;
+  const isLastCell = nextIndex >= ZAHAROV_CONTAINER.cells - 1;
+
+  let pick;
+  if (isLastCell && !STATE.nyZaharovObtained) {
+    pick = { type:'zaharov' };
+  } else {
+    pick = rollZaharovReward();
+  }
+
+  STATE.nyLastOpenDay = zaharovToday();
+  if (!STATE.nyCellsOpened) STATE.nyCellsOpened = [];
+  STATE.nyCellsOpened.push(nextIndex);
+
+  if (pick.type === 'zaharov'){
+    grantZaharov('Из контейнера!');
+  } else if (pick.type === 'cardpack'){
+    const pid = pickRandomCard99to105();
+    const p = pid ? PLAYER_MAP[pid] : null;
+    if (p){
+      const isNew = !STATE.owned.includes(p.id);
+      addCard(p.id);
+      saveState(); updateWallet(); renderCollection(); renderSquad(); renderCampaign();
+      setTimeout(()=>showPackReveal([{ p, isNew }]), 300);
+    }
+  } else if (pick.type === 'coins'){
+    STATE.coins += pick.amount; saveState(); updateWallet();
+    toast(`💰 +${pick.amount} монет`, 'success');
+  } else if (pick.type === 'frags'){
+    STATE.fragments += pick.amount; saveState(); updateWallet();
+    toast(`🧩 +${pick.amount} пазлов`, 'success');
+  } else if (pick.type === 'mem'){
+    STATE.fragmentsMemory = (STATE.fragmentsMemory||0)+pick.amount; saveState(); updateWallet();
+    toast(`🎞️ +${pick.amount} жетонов`, 'success');
+  }
+
+  saveState();
+  renderCampaign();
+}
 // ============================================================
 // SQUAD
 // ============================================================
@@ -5185,7 +5529,7 @@ function renderFragShop(){
   chips.innerHTML=filters.map(f=>`<button class="chip ${FRAG_FILTER===f?'active':''}" data-f="${f}">${f==='all'?'Все':TIER_EMOJI[f]+' '+TIER_LABEL[f]}</button>`).join('');
   chips.querySelectorAll('.chip').forEach(b=>{ b.onclick=()=>{ sfxClick(); FRAG_FILTER=b.dataset.f; renderFragShop(); }; });
   const grid=$('frag-grid');
-  const list=ALL_PLAYERS.filter(p=>!p.origins && !p.pro && onSale(p)&&(FRAG_FILTER==='all'||rarityOf(p)===FRAG_FILTER)).sort((a,b)=>b.rating-a.rating);
+   const list=ALL_PLAYERS.filter(p=>!p.origins && !p.pro && !p.eventOnly && onSale(p)&&(FRAG_FILTER==='all'||rarityOf(p)===FRAG_FILTER)).sort((a,b)=>b.rating-a.rating);
   if(!list.length){ grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>Сейчас здесь нет игроков в продаже</p></div>`; return; }
   grid.innerHTML=list.map(p=>{
     const cost=buyCost(p); const can=STATE.fragments>=cost; const n=copiesOf(p.id);
@@ -5206,7 +5550,7 @@ function drawTier(weights){
   return TIERS[0];
 }
 function drawPlayerOfTier(tier){
-  const list=ALL_PLAYERS.filter(p=>rarityOf(p)===tier && !p.origins && !p.pro);
+  const list=ALL_PLAYERS.filter(p=>rarityOf(p)===tier && !p.origins && !p.pro && !p.eventOnly);
   return list[Math.floor(Math.random()*list.length)];
 }
 function openPack(packId){
