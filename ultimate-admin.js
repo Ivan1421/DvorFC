@@ -24,9 +24,29 @@ const CATALOG = [
 ['gold_zaytsev','Зайцев Тимофей (Gold)','FW',100],['gold_tankov','Танков Тимофей (Gold)','MF',99],
 ['gold_bombar','Бадартинов Михаил (Gold)','FW',100],['gold_batrakov','Кравченко Глеб (Gold)','MF',100],
 ['gold_elisey','Пожидаев Елисей (Gold)','MF',99],['gold_churilov','Чурилов Алексей (Gold)','MF',100],
-['gold_elisey','Пожидаев Елисей (Gold)','MF',99],['gold_churilov','Чурилов Алексей (Gold)','MF',100],
+['gold_andryushka','Бузмаков Андрей (Gold)','FW',99],
 ['mbappe','Килиан Мбаппе','FW',150],
-['haaland_real','Эрлинг Холланд','FW',150]
+['haaland_real','Эрлинг Холланд','FW',150],
+// === ИСТОКИ ===
+['demid_mera_s26','Демид Пасько · Истоки','FW',99],
+['churilov_mera_s26','Алексей Чурилов · Истоки','MF',99],
+['pogidaev_mera_s26','Елисей Пожидаев · Истоки','MF',99],
+['saveliy_mera_s26','Савелий Соколов · Истоки','MF',99],
+['andryushka_mera_s26','Андрей Бузмаков · Истоки','FW',99],
+['lang_mera_s26','Александр Ланг · Истоки','SUB',90],
+['tankov_78_s26','Тимофей Танков · Истоки','MF',99],
+// === НОВЫЙ ГОД — Кайрат ===
+['kairat_gk','Асхат Бекболатов','GK',90],['kairat_df1','Ерлан Жумабаев','DF',90],
+['kairat_df2','Данияр Сейтказы','DF',90],['kairat_fw1','Алихан Нургалиев','FW',90],
+['kairat_fw2','Санжар Оспанов','FW',90],
+// === НОВЫЙ ГОД — Снеговики ===
+['snowman_gk','Снеговик-вратарь','GK',95],['snowman_df1','Снеговик-защитник','DF',95],
+['snowman_df2','Снеговик-защитник','DF',95],['snowman_fw1','Снеговик-нападающий','FW',95],
+['snowman_fw2','Снеговик-нападающий','FW',95],
+// === НОВЫЙ ГОД — Новогодние звёзды ===
+['ny_gk','Новогодний вратарь','GK',104],['ny_gleb','Глеб','DF',103],
+['ny_maxim','Максим Бузмаков','DF',105],['ny_russkov','Руссков Артём','FW',105],
+['ny_batrakov','Кравченко Глеб','FW',104],['ny_zaharov','Максим Захаров','GK',105]
 ];
 const CAT = {}; CATALOG.forEach(c => CAT[c[0]] = { id: c[0], name: c[1], pos: c[2], rating: c[3] });
 const TIERS = ['common', 'rare', 'epic', 'legend', 'icon', 'gold'];
@@ -34,6 +54,7 @@ const TIER_LABEL = { common: 'Обычный', rare: 'Редкий', epic: 'Эп
 const DEFAULT_PRICE = { common: 25, rare: 75, epic: 200, legend: 500, icon: 1200, gold: 2500 };
 const rarityOf = (r, id) => {
   if (id && String(id).startsWith('gold_')) return 'gold';
+  if (id && String(id).startsWith('ny_')) return 'gold';
   return r >= 94 ? 'icon' : r >= 90 ? 'legend' : r >= 85 ? 'epic' : r >= 75 ? 'rare' : 'common';
 };
 const FIELD_ATTRS = [['fin','Завершение'],['sho','Удар'],['pas','Пас'],['dri','Дриблинг'],['def','Защита'],['phy','Физика'],['spd','Скорость']];
@@ -300,6 +321,8 @@ function ownedHtml(d) {
     const name = c ? `${catName(c.base)} ★ особая` : catName(pid);
     const rating = c ? c.rating : (CAT[pid] ? CAT[pid].rating : '?');
     const isGold = !c && String(pid).startsWith('gold_');
+    const isEvent = !c && String(pid).startsWith('ny_');
+    const isOrigins = !c && String(pid).includes('_s26');
     const n = 1 + (dupes[pid] || 0);
     return `<div class="ult-row"><div><b>${E(name)}</b> ${isGold ? '<span class="ult-tag gold">🏅 GOLD</span>' : ''}<span class="ult-tag">ОВР ${rating}</span>${n > 1 ? `<span class="ult-tag">×${n}</span>` : ''}</div>
       <button class="ult-btn red" data-act="removeCard" data-pid="${E(pid)}">Убрать 1</button></div>`;
