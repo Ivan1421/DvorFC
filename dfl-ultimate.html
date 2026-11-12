@@ -1814,6 +1814,12 @@ function photoOf(id){
     const baseIdOrigins = ORIGINS_PERSON[b];
     if (baseIdOrigins && m[baseIdOrigins]) return m[baseIdOrigins];
   }
+
+  if (NEWYEAR_PERSON[b]) {
+    if (m[b]) return m[b];
+    const baseIdNy = NEWYEAR_PERSON[b];
+    if (baseIdNy && m[baseIdNy]) return m[baseIdNy];
+  }
   
   return m[id] || m[b] || m[PHOTO_ALIAS[b]] || null; 
 }
@@ -2013,6 +2019,12 @@ const ORIGINS_PERSON = {
   andryushka_mera_s26:'andryushka',
   tankov_78_s26:'tankov'
   
+};
+const NEWYEAR_PERSON = {
+  ny_gleb:     'gleb',
+  ny_maxim:    'maxim',
+  ny_russkov:  'russkov_artem',
+  ny_batrakov: 'batrakov',
 };
 
 function personOf(pid){
