@@ -1791,7 +1791,7 @@ const ALL_PLAYERS = [
   {id:'andryushka_mera_s26', name:'Андрей Бузмаков · Истоки', pos:'FW', rating:99, team:'МЕРА', icon:'📜', origins:true},
   {id:'tankov_78_s26', name:'Тимофей Танков · Истоки', pos:'MF', rating:99, team:'78 школа', icon:'📜', origins:true},
   // профчики
-  {id:'mbappe', name:'Килиан Мбаппе', pos:'FW', rating:150, team:'PRO', icon:'⚡', pro:true}
+  {id:'mbappe', name:'Килиан Мбаппе', short:'Мбаппе', pos:'FW', rating:150, team:'PRO', icon:'⚡', pro:true}
 ];
 const PLAYER_MAP = {}; ALL_PLAYERS.forEach(p => PLAYER_MAP[p.id] = p);
 const POS_RU = {GK:'ВРТ', DF:'ЗАЩ', MF:'ПЗЩ', FW:'НАП', SUB:'ЗАП'};
@@ -3274,7 +3274,7 @@ function drainTick(S){
     S.sta[p.id]=Math.max(0,cur-base*m);
   });
 }
-function shortName(p){ return p.name.split(' ')[0]; }
+function shortName(p){ return p.short || p.name.split(' ')[0]; }
 function renderStaPanel(){
   const el=$('sta-panel'); if(!el||!MS)return;
   el.innerHTML=MS.H.team.map(p=>{
