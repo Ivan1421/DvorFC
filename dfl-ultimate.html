@@ -5379,12 +5379,12 @@ function renderZaharovContainer(){
   const box = $('ny-container-box');
   if (!box) return;
 
-  // Контейнер доступен только после победы в финале Нового года (ny8)
-  if (STATE.campaignResults['ny8'] !== 'win') {
-    box.innerHTML = '';
-    box.style.display = 'none';
-    return;
-  }
+if (STATE.campaignResults['ny8'] !== 'win') {
+  // не надо
+  // box.innerHTML = '';
+  // box.style.display = 'none';
+  // return;
+}
   box.style.display = '';
 
   const opened = STATE.nyCellsOpened || [];
@@ -5424,8 +5424,9 @@ function renderShop(){
   renderOriginsShop();
   renderZaharovContainer();
 g.innerHTML=PACKS.map(p=>{
-  if (p.onlyGold && STATE.campaignProgress < 1) return '';
-  if (p.onlyNewYear && STATE.campaignResults['ny8'] !== 'win') return '';
+  // не нужно
+  // if (p.onlyGold && STATE.campaignProgress < 1) return '';
+  // if (p.onlyNewYear && STATE.campaignResults['ny8'] !== 'win') return '';
   const ok=STATE.coins>=p.price;
   return `<div class="pack ${p.id} ${!ok?'disabled':''}" data-pack="${p.id}">
     <span class="pack-icon">${p.icon}</span>
@@ -5627,7 +5628,7 @@ function renderFragShop(){
   chips.innerHTML=filters.map(f=>`<button class="chip ${FRAG_FILTER===f?'active':''}" data-f="${f}">${f==='all'?'Все':TIER_EMOJI[f]+' '+TIER_LABEL[f]}</button>`).join('');
   chips.querySelectorAll('.chip').forEach(b=>{ b.onclick=()=>{ sfxClick(); FRAG_FILTER=b.dataset.f; renderFragShop(); }; });
   const grid=$('frag-grid');
-   const list=ALL_PLAYERS.filter(p=>!p.origins && !p.pro && !p.eventOnly && onSale(p)&&(FRAG_FILTER==='all'||rarityOf(p)===FRAG_FILTER)).sort((a,b)=>b.rating-a.rating);
+   const list=ALL_PLAYERS.filter(p=>!p.origins && !p.pro && onSale(p)&&(FRAG_FILTER==='all'||rarityOf(p)===FRAG_FILTER)).sort((a,b)=>b.rating-a.rating);
   if(!list.length){ grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">📭</div><p>Сейчас здесь нет игроков в продаже</p></div>`; return; }
   grid.innerHTML=list.map(p=>{
     const cost=buyCost(p); const can=STATE.fragments>=cost; const n=copiesOf(p.id);
