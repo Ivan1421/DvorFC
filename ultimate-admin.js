@@ -108,10 +108,130 @@ function render() {
     <div class="ult-bar">
       <button class="ult-subtab ${S.sub === 'accounts' ? 'on' : ''}" data-act="sub" data-v="accounts">👥 Аккаунты</button>
       <button class="ult-subtab ${S.sub === 'shop' ? 'on' : ''}" data-act="sub" data-v="shop">🧩 Магазин (пазлы)</button>
+      <button class="ult-subtab ${S.sub === 'promo' ? 'on' : ''}" data-act="sub" data-v="promo">🎁 Промокоды</button>
       <button class="ult-btn gray" data-act="reload">🔄 Обновить</button>
     </div>
     <div id="ult-body"></div>`;
-  S.sub === 'accounts' ? renderAccounts() : renderShop();
+  if (S.sub === 'accounts') renderAccounts();
+  else if (S.sub === 'shop') renderShop();
+  else renderPromo();
+}
+// ---------- Промокоды ----------
+async function renderPromo() {
+  const body = document.getElementById('ult-body');
+  body.innerHTML = '<p class="ult-hint" style="padding:16px">Загрузка…</p>';
+
+  let promos = [];
+  try {
+    const { data, error } = await sb().from('ultimate_promo')
+      .select('*').order('created_at', { ascending: false }).limit(200);
+    if (error) throw error;
+    promos = data || [];
+  } catch(e) {
+    body.innerHTML = '<p class="ult-hint" style="padding:16px;color:#dc2626">Ошибка: ' + E(e.message) + '</p>';
+    return;
+  }
+
+  const CAT_OPTS = CATALOG.slice().sort((a,b)=>b[3]-a[3])
+    .map(c => `<option value="${c[0]}">${E(c[1])} (${c[3]})</option>`).join('');
+
+  const rows = promos.length ? promos.map(p => {
+    const active = p.active && p.used_count < p.max_uses;
+    const typeLabel = ({coins:'💰 Монеты', frags:'🧩 Пазлы', mem:'🎞️ Жетоны памяти', card:'🃏 Карточка'})[p.type] || p.type;
+    const pl = p.payload || {};
+    let detail = ['coins','frags','mem'].includes(p.type) ? `×${pl.value ?? 0}` : catName(pl.pid);
+    return `<div class="ult-row">
+      <div>
+        <b style="font-family:monospace;letter-spacing:1px;font-size:1rem">${E(p.code)}</b>
+        <span class="ult-tag ${active ? 'on' : 'ban'}">${active ? 'АКТИВЕН' : 'НЕ АКТИВЕН'}</span>
+        <div class="ult-sub">${typeLabel} ${detail} · использован ${p.used_count}/${p.max_uses}</div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="ult-btn gray" data-act="togglePromo" data-id="${p.id}" data-active="${p.active?1:0}">${p.active?'⏸':'▶'}</button>
+        <button class="ult-btn red" data-act="deletePromo" data-id="${p.id}">🗑</button>
+      </div>
+    </div>`;
+  }).join('') : '<p class="ult-hint" style="padding:16px">Промокодов пока нет</p>';
+
+  body.innerHTML = `
+    <div class="ult-box">
+      <h4>🎁 Создать промокод</h4>
+      <div class="ult-line">
+        <label>Код</label>
+        <input type="text" id="promo-code" placeholder="DFL2026" maxlength="32"
+               style="text-transform:uppercase;font-weight:900;letter-spacing:2px;width:180px">
+        <button class="ult-btn gray" data-act="genPromo">🎲 Случайный</button>
+      </div>
+      <div class="ult-line">
+        <label>Награда</label>
+        <select id="promo-type">
+          <option value="coins">💰 Монеты</option>
+          <option value="frags">🧩 Пазлы</option>
+          <option value="mem">🎞️ Жетоны памяти</option>
+          <option value="card">🃏 Карточка игрока</option>
+        </select>
+      </div>
+      <div class="ult-line" id="promo-val-line">
+        <label>Количество</label>
+        <input type="number" id="promo-value" value="500" min="1" style="width:140px">
+      </div>
+      <div class="ult-line" id="promo-card-line" style="display:none">
+        <label>Карточка</label>
+        <select id="promo-card-pid">${CAT_OPTS}</select>
+      </div>
+      <div class="ult-line">
+        <label>Макс. активаций</label>
+        <input type="number" id="promo-uses" value="1" min="1" style="width:120px">
+      </div>
+      <button class="ult-btn green" data-act="createPromo">✅ Создать</button>
+      <p class="ult-hint">Один игрок может активировать каждый код только один раз.</p>
+    </div>
+
+    <div class="ult-box">
+      <h4>📋 Все промокоды (${promos.length})</h4>
+      <div class="ult-cards" style="max-height:none">${rows}</div>
+    </div>`;
+
+  const typeSel = document.getElementById('promo-type');
+  const valLine = document.getElementById('promo-val-line');
+  const cardLine = document.getElementById('promo-card-line');
+  function updateUI() {
+    const t = typeSel.value;
+    valLine.style.display = ['coins','frags','mem'].includes(t) ? 'flex' : 'none';
+    cardLine.style.display = t === 'card' ? 'flex' : 'none';
+  }
+  typeSel.onchange = updateUI; updateUI();
+}
+
+async function createPromo() {
+  const code = (document.getElementById('promo-code').value || '').trim().toUpperCase();
+  if (!/^[A-Z0-9_-]{3,32}$/.test(code)) return toast('Код: 3-32 символа A-Z, 0-9, _ или -', 'error');
+  const type = document.getElementById('promo-type').value;
+  const maxUses = parseInt(document.getElementById('promo-uses').value) || 1;
+  let payload = {};
+  if (['coins','frags','mem'].includes(type)) {
+    const v = parseInt(document.getElementById('promo-value').value);
+    if (!v || v < 1) return toast('Введи количество', 'error');
+    payload = { value: v };
+  } else if (type === 'card') {
+    payload = { pid: document.getElementById('promo-card-pid').value };
+  }
+  try {
+    const { error } = await sb().from('ultimate_promo').insert({ code, type, payload, max_uses: maxUses, active: true });
+    if (error) {
+      if (/duplicate|unique/i.test(error.message)) return toast('Такой код уже есть', 'error');
+      throw error;
+    }
+    toast(`✅ Промокод ${code} создан`, 'success');
+    renderPromo();
+  } catch(e) { toast('❌ ' + (e.message || e), 'error'); }
+}
+
+function genPromoCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s = '';
+  for (let i = 0; i < 8; i++) s += chars[Math.floor(Math.random()*chars.length)];
+  document.getElementById('promo-code').value = s;
 }
 
 // ---------- Аккаунты ----------
@@ -399,6 +519,26 @@ function init() {
         .then(({error}) => {
           if (error) toast('❌ ' + error.message, 'error');
           else { toast('✅ Удалено', 'success'); loadUserFriends(uid); }
+        });
+    }
+        else if (act === 'createPromo') createPromo();
+    else if (act === 'genPromo') genPromoCode();
+    else if (act === 'togglePromo') {
+      const id = parseInt(b.dataset.id);
+      const newActive = b.dataset.active === '1' ? false : true;
+      sb().from('ultimate_promo').update({ active: newActive }).eq('id', id)
+        .then(({error}) => {
+          if (error) toast('❌ ' + error.message, 'error');
+          else { toast(newActive ? '▶ Включён' : '⏸ Отключён', 'success'); renderPromo(); }
+        });
+    }
+    else if (act === 'deletePromo') {
+      if (!confirm('Удалить промокод?')) return;
+      const id = parseInt(b.dataset.id);
+      sb().from('ultimate_promo').delete().eq('id', id)
+        .then(({error}) => {
+          if (error) toast('❌ ' + error.message, 'error');
+          else { toast('🗑 Удалён', 'success'); renderPromo(); }
         });
     }
   });
