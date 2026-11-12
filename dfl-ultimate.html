@@ -1265,6 +1265,8 @@ body{
   .lb-rank.bronze{font-size:1.1rem}
   .lb-ovr{font-size:.95rem;padding:4px 10px;min-width:44px}
 }
+#promo-status.ok{color:#4ade80}
+#promo-status.bad{color:#fca5a5}
 </style>
 </head>
 <body>
@@ -1330,8 +1332,9 @@ body{
     <button class="nav-item active" data-page="campaign">🏆 Кампания</button>
     <button class="nav-item" data-page="origins">🏛️ Истоки</button>
     <button class="nav-item" data-page="squad">👥 Состав</button>
-    <button class="nav-item" data-page="shop">🛒 Магазин</button>
-    <button class="nav-item" data-page="collection">🃏 Коллекция</button>
+<button class="nav-item" data-page="shop">🛒 Магазин</button>
+<button class="nav-item" data-page="promo">🎁 Промокоды</button>
+<button class="nav-item" data-page="collection">🃏 Коллекция</button>
     <button class="nav-item" data-page="history">📊 История</button>
     <button class="nav-item" data-page="leaderboard">🏅 Лидеры</button>
     <button class="nav-item" data-page="friends">👥 Друзья</button>
@@ -1436,7 +1439,27 @@ body{
     <div class="chips" id="frag-filter"></div>
     <div class="pgrid" id="frag-grid"></div>
   </div>
+<!-- PROMO -->
+<div class="page" id="page-promo">
+  <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">Промокоды</h2>
+  <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:16px">Введи код и получи награду</p>
 
+  <div class="origins-panel" style="max-width:480px;margin:0 auto;background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(30,22,50,.6));border-color:rgba(168,85,247,.5)">
+    <div style="text-align:center;font-size:2rem;margin-bottom:6px">🎁</div>
+    <div class="origins-title" style="background:linear-gradient(135deg,#c084fc,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Ввести промокод</div>
+    <div class="origins-sub">Активируй код — получишь монеты, пазлы или карточку</div>
+    <input class="lg-field" id="promo-input" placeholder="DFL2026"
+           style="text-transform:uppercase;letter-spacing:3px;text-align:center;font-weight:900;font-size:1.05rem"
+           autocomplete="off" maxlength="32">
+    <button class="origins-btn-quiz" id="promo-submit" style="background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;margin-top:10px">✅ Активировать</button>
+    <div id="promo-status" style="text-align:center;font-size:.82rem;font-weight:800;min-height:22px;margin-top:10px"></div>
+  </div>
+
+  <div class="origins-panel" style="max-width:480px;margin:16px auto 0;background:rgba(0,0,0,.25);border-color:rgba(255,255,255,.1)">
+    <div style="font-size:.7rem;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;text-align:center">Мои активации</div>
+    <div id="promo-history" style="font-size:.78rem;color:var(--muted);text-align:center">Пока ничего не активировано</div>
+  </div>
+</div>
   <!-- COLLECTION -->
   <div class="page" id="page-collection">
     <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">Коллекция</h2>
@@ -1623,6 +1646,7 @@ body{
   </div>
 </div>
 
+<!-- TOAST -->
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -5858,6 +5882,12 @@ function setupModals(){
     if(dfl){ $('dfl-found').style.display='block'; $('dfl-missing').style.display='none'; }
     else { $('dfl-found').style.display='none'; $('dfl-missing').style.display='block'; }
   };
+
+  // ---- PROMO ----
+  const psub = $('promo-submit');
+  if (psub) psub.onclick = () => { sfxClick(); activatePromo(); };
+  const pinp = $('promo-input');
+  if (pinp) pinp.addEventListener('keydown', e => { if (e.key === 'Enter') activatePromo(); });
 }
 function setupTabs(){
   document.querySelectorAll('.nav-item').forEach(tab=>{
@@ -5881,6 +5911,11 @@ function setupTabs(){
 
       if (tab.dataset.page === 'origins') {
         renderOrigins();
+      }
+      if (tab.dataset.page === 'promo') {
+        $('promo-status').textContent = '';
+        $('promo-status').className = '';
+        loadPromoHistory();
       }
     };
   });
@@ -6045,7 +6080,95 @@ async function startFriendMatch(friendId, friendName, matchId, isMirror){
     heartbeat();
   }
 }
+// ============================================================
+// ПРОМОКОДЫ
+// ============================================================
+async function activatePromo(){
+  const raw = ($('promo-input').value || '').trim().toUpperCase();
+  const st = $('promo-status');
+  st.className = ''; st.textContent = '';
 
+  if (!raw) { st.textContent = 'Введи код'; st.className = 'bad'; return; }
+  if (!SB || !UID) { st.textContent = 'Нет подключения'; st.className = 'bad'; return; }
+
+  st.textContent = 'Проверяем…';
+
+  try {
+    const { data: promo, error } = await SB.from('ultimate_promo')
+      .select('*').eq('code', raw).maybeSingle();
+    if (error) throw error;
+    if (!promo)          { st.textContent = '❌ Промокод не найден'; st.className = 'bad'; return; }
+    if (!promo.active)   { st.textContent = '❌ Промокод отключён'; st.className = 'bad'; return; }
+    if (promo.used_count >= promo.max_uses) { st.textContent = '❌ Лимит активаций исчерпан'; st.className = 'bad'; return; }
+
+    const { data: used } = await SB.from('ultimate_promo_uses')
+      .select('id').eq('promo_id', promo.id).eq('user_id', UID).maybeSingle();
+    if (used) { st.textContent = '❌ Ты уже активировал этот код'; st.className = 'bad'; return; }
+
+    const { error: useErr } = await SB.from('ultimate_promo_uses')
+      .insert({ promo_id: promo.id, user_id: UID });
+    if (useErr) throw useErr;
+    await SB.from('ultimate_promo').update({ used_count: promo.used_count + 1 }).eq('id', promo.id);
+
+    const pl = promo.payload || {};
+    let reward = '';
+    let revealItem = null;
+
+    if (promo.type === 'coins') {
+      const v = parseInt(pl.value) || 0;
+      STATE.coins += v; reward = `💰 +${v} монет`;
+    } else if (promo.type === 'frags') {
+      const v = parseInt(pl.value) || 0;
+      STATE.fragments += v; reward = `🧩 +${v} пазлов`;
+    } else if (promo.type === 'mem') {
+      const v = parseInt(pl.value) || 0;
+      STATE.fragmentsMemory = (STATE.fragmentsMemory || 0) + v;
+      reward = `🎞️ +${v} жетонов памяти`;
+    } else if (promo.type === 'card') {
+      const p = PLAYER_MAP[pl.pid];
+      if (!p) { st.textContent = '❌ Ошибка: карточка не найдена'; st.className = 'bad'; return; }
+      const isNew = !STATE.owned.includes(p.id);
+      addCard(p.id);
+      reward = `🃏 ${p.name}`;
+      revealItem = { p, isNew };
+    }
+
+    saveState();
+    updateWallet();
+    st.textContent = `✅ Получено: ${reward}`;
+    st.className = 'ok';
+    sfxFanfare();
+
+    setTimeout(() => {
+      $('promo-input').value = '';
+      renderAll();
+      if (revealItem) showPackReveal([revealItem]);
+    }, 1000);
+
+  } catch (e) {
+    console.error('[activatePromo]', e);
+    st.textContent = '❌ Ошибка: ' + (e.message || e);
+    st.className = 'bad';
+  }
+}
+
+async function loadPromoHistory(){
+  const el = $('promo-history');
+  if (!el || !SB || !UID) return;
+  try {
+    const { data } = await SB.from('ultimate_promo_uses')
+      .select('used_at, ultimate_promo(code,type,payload)')
+      .eq('user_id', UID).order('used_at', { ascending: false }).limit(20);
+    if (!data || !data.length) { el.textContent = 'Пока ничего не активировано'; return; }
+    el.innerHTML = data.map(r => {
+      const p = r.ultimate_promo || {};
+      const d = new Date(r.used_at).toLocaleDateString('ru-RU');
+      return `<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;gap:8px">
+        <b style="font-family:monospace;color:#c084fc">${escapeHtml(p.code || '—')}</b>
+        <span>${d}</span></div>`;
+    }).join('');
+  } catch(e){}
+}
 // ============================================================
 // TOAST
 // ============================================================
