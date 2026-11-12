@@ -29,7 +29,7 @@ window.playerPhotos = {
     shilov: "./Photos%20(2)/shilov.jpg",
     khalturin: "./Photos%20(2)/6a2197972af4b_640x640.jpg",
     safonov: "./Photos%20(2)/IMG_0873.jpeg",
-    mbappe: "./Photos%20(2)/mbappe.jpg",
+    mbappe: "./Photos%20(2)/Mbappe.jpg",
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
