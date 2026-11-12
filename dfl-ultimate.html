@@ -1674,16 +1674,19 @@ function baseId(id){ return String(id).split('__c')[0]; }
 function photoOf(id){ 
   const m = PP(); 
   const b = baseId(id); 
-  
 
-  if (b.startsWith('gold_')) {
-   
-    if (m[b]) return m[b];
   
+  if (b.startsWith('gold_')) {
+    if (m[b]) return m[b];
     const basePlayerId = GOLD_BASE[b];
     if (basePlayerId && m[basePlayerId]) return m[basePlayerId];
   }
-  
+
+  if (ORIGINS_PERSON[b]) {
+    if (m[b]) return m[b];
+    const baseIdOrigins = ORIGINS_PERSON[b];
+    if (baseIdOrigins && m[baseIdOrigins]) return m[baseIdOrigins];
+  }
   
   return m[id] || m[b] || m[PHOTO_ALIAS[b]] || null; 
 }
@@ -1851,7 +1854,7 @@ const ORIGINS_PERSON = {
   saveliy_mera_s26:'saveliy_78',
   andryushka_mera_s26:'andryushka',
   tankov_78_s26:'tankov'
- 
+  
 };
 
 function personOf(pid){
