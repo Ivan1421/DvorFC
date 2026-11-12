@@ -1341,6 +1341,58 @@ body{
   .ny-cells-grid{ grid-template-columns:repeat(5,1fr); gap:6px; max-width:300px; }
   .ny-cell{ font-size:.8rem; }
 }
+/* ============ SNOW (для новогодних карточек) ============ */
+.snow-layer{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+.snow-flake{
+  position:absolute;
+  top:-10px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.9);
+  opacity:.9;
+  animation: snowFall linear forwards;
+}
+@keyframes snowFall{
+  0%{
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity:0;
+  }
+  10%{ opacity:1; }
+  100%{
+    transform: translateY(110vh) translateX(var(--sx,0px)) rotate(360deg);
+    opacity:.7;
+  }
+}
+
+/* лёгкий иней по краям карточки — включается на ny_* */
+.rev-final.snowy{
+  border-color:#e0f2ff;
+  box-shadow:
+    0 0 60px rgba(200,235,255,.7),
+    0 0 120px rgba(150,210,255,.4),
+    inset 0 0 40px rgba(220,240,255,.2),
+    0 20px 60px rgba(0,0,0,.8);
+}
+.rev-final.snowy::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,255,255,.25), transparent 30%),
+    radial-gradient(circle at 90% 20%, rgba(200,235,255,.2), transparent 30%),
+    radial-gradient(circle at 20% 90%, rgba(180,220,255,.2), transparent 30%),
+    radial-gradient(circle at 85% 85%, rgba(255,255,255,.2), transparent 30%);
+  mix-blend-mode:screen;
+  opacity:.9;
+}
 </style>
 </head>
 <body>
@@ -1504,6 +1556,7 @@ body{
   <div class="page" id="page-shop">
     <h2 style="text-align:center;font-size:1.3rem;font-weight:900;margin:8px 0 4px">Магазин</h2>
     <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:20px">Открывай паки и обменивай дубликаты на пазлы</p>
+    <div id="ny-container-box" style="display:none"></div>
     <div id="origins-shop"></div>
     <div class="section-title">📦 Паки</div>
     <div class="section-sub">Игроки могут повторяться — дубликаты можно обменять на пазлы в коллекции</div>
@@ -2155,7 +2208,8 @@ const PACKS = [
   {id:'standard',name:'Стандартный',icon:'🎁',price:500,count:1,desc:'1 игрок',weights:[38,38,19,4.5,0.5]},
   {id:'premium',name:'Премиум',icon:'💎',price:1200,count:2,desc:'2 игрока, минимум 1 редкий+',weights:[8,44,32,14,2],minTier:'rare'},
   {id:'ultimate',name:'Ультимейт',icon:'👑',price:3500,count:3,desc:'3 игрока, минимум 1 эпик+',weights:[0,30,44,22,4],minTier:'epic'},
-    {id:'golden', name:'Золотой мяч', icon:'🏅', price:6500, count:1, desc:'1 игрок Золотого мяча (ОВР 99-102)', onlyGold:true}
+  {id:'golden', name:'Золотой мяч', icon:'🏅', price:6500, count:1, desc:'1 игрок Золотого мяча (ОВР 99-102)', onlyGold:true},
+  {id:'newyear', name:'Новогодний', icon:'🎄', price:7500, count:1, desc:'1 новогодняя карточка (ОВР 103-105)', onlyNewYear:true}
 ];
 const STARTER_SQUAD = ['matveyB','nazar','EgorNast','artem','kuharskiy'];
 const SAVE_VERSION = 2;
@@ -3254,32 +3308,6 @@ function renderCampaign(){
       prevNyDone = isDone;
     });
 
-    // === Контейнер Захарова: 10 ячеек, 1 в день ===
-    if (STATE.campaignResults['ny8'] === 'win') {
-      const opened = STATE.nyCellsOpened || [];
-      const canOpen = zaharovCanOpenToday();
-      const nextIdx = opened.length;
-      let cellsHTML = '';
-      for (let i = 0; i < ZAHAROV_CONTAINER.cells; i++) {
-        const isOpened = opened.includes(i);
-        const isNext = (i === nextIdx) && canOpen;
-        let cls = 'ny-cell';
-        if (isOpened) cls += ' opened';
-        else if (isNext) cls += ' next';
-        else cls += ' locked';
-        cellsHTML += `<div class="${cls}" data-cell="${i}">${isOpened ? '✓' : (i+1)}</div>`;
-      }
-      html += `<div class="origins-panel" style="margin-top:18px;background:linear-gradient(135deg,rgba(255,209,102,.12),rgba(30,22,10,.6));border-color:rgba(255,209,102,.5)">
-        <div class="origins-title" style="background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">🎁 Контейнер Максима Захарова</div>
-        <div class="origins-sub">${STATE.nyZaharovObtained ? '✓ Захаров уже в коллекции' : `Открыто ${opened.length} / ${ZAHAROV_CONTAINER.cells} · гарант на 10-й ячейке`}</div>
-        <div class="ny-cells-grid">${cellsHTML}</div>
-        <div style="text-align:center;margin-top:12px">
-          <button class="btn btn-gold" id="open-ny-container" ${canOpen ? '' : 'disabled'} style="min-width:220px">
-            ${STATE.nyZaharovObtained ? '✓ Получен' : (canOpen ? '🎁 Открыть ячейку' : (STATE.nyLastOpenDay === zaharovToday() ? '⏳ Приходи завтра' : '⏳ Нет попыток'))}
-          </button>
-        </div>
-      </div>`;
-    }
   }
   
   list.innerHTML = html;
@@ -3307,11 +3335,6 @@ function renderCampaign(){
       const stage=NEWYEAR_EVENT.matches.find(s=>s.id===card.dataset.nyStage);
       if(stage) openStageModal(stage);
     });
-  });
-  const nyCont = list.querySelector('#open-ny-container');
-  if (nyCont) nyCont.onclick = () => { sfxClick(); openZaharovContainer(); };
-  list.querySelectorAll('.ny-cell.next').forEach(cell=>{
-    cell.addEventListener('click', ()=>{ sfxClick(); openZaharovContainer(); });
   });
 }
 
@@ -4767,6 +4790,22 @@ function endMatch(){
     }
   };
 }
+  // === НАГРАДА ЗА ФИНАЛ НОВОГО ГОДА ===
+  if (stage.isNewYearFinal && result === 'win') {
+    const nyPool = ALL_PLAYERS.filter(p =>
+      p.id.startsWith('ny_') && p.id !== 'ny_zaharov'
+    );
+    const randomNy = nyPool[Math.floor(Math.random() * nyPool.length)];
+    const isNewNy = !STATE.owned.includes(randomNy.id);
+    addCard(randomNy.id);
+    saveState();
+
+    freeCardHTML += `<div class="result-rw gold" style="margin-top:10px">🎄 Новогодняя карточка: ${randomNy.name}!</div>`;
+
+    setTimeout(() => {
+      showPackReveal([{ p: randomNy, isNew: isNewNy }]);
+    }, 500);
+  }
 // ============================================================
 // ORIGINS — исторические матчи лета 2026
 // ============================================================
@@ -4936,6 +4975,7 @@ const ZAHAROV_CONTAINER = {
 
   // Пак карточек 99-105 (без Захарова) — выпадает целиком одной картой
   cardPack99to105: [
+    // gold_* — 99..102
     'gold_russkov',      // 102
     'gold_doroshenko',   // 101
     'gold_bobrikov',     // 101
@@ -4948,7 +4988,13 @@ const ZAHAROV_CONTAINER = {
     'gold_bombar',       // 99
     'gold_elisey',       // 99
     'gold_andryushka',   // 99
-    'gold_tankov'        // 98 (на границе, но пусть будет)
+    'gold_tankov',       // 98
+    // ny_* — 103..105 (кроме Захарова)
+    'ny_gk',             // 104
+    'ny_gleb',           // 103
+    'ny_maxim',          // 105
+    'ny_russkov',        // 105
+    'ny_batrakov'        // 104
   ],
 
   // Веса: Захаров — самый маленький. Остальное — ресурсы + пак 99-105.
@@ -4981,7 +5027,7 @@ function grantZaharov(reason){
   if (STATE.nyZaharovObtained) return;
   STATE.nyZaharovObtained = true;
   addCard(ZAHAROV_CONTAINER.playerId);
-  saveState(); updateWallet(); renderCampaign(); renderCollection(); renderSquad();
+  saveState(); updateWallet(); renderCampaign(); renderCollection(); renderSquad(); renderZaharovContainer();
   toast(`🎁 ${reason}: Максим Захаров получен!`, 'success');
   setTimeout(()=>showPackReveal([{ p: PLAYER_MAP[ZAHAROV_CONTAINER.playerId], isNew: true }]), 300);
 }
@@ -5040,6 +5086,7 @@ function openZaharovContainer(){
 
   saveState();
   renderCampaign();
+  renderZaharovContainer();
 }
 // ============================================================
 // SQUAD
@@ -5321,13 +5368,63 @@ function buyWithFragments(pid){
 // ============================================================
 function oddsText(pack){
   if (pack.onlyGold) return '🏅 100% Золотой мяч';
+  if (pack.onlyNewYear) return '🎄 100% Новогодняя карточка';
   return TIERS.map((t,i)=>pack.weights[i]>0?`${TIER_SHORT[t]} ${pack.weights[i]}%`:null).filter(Boolean).join(' · ');
+}
+// ============================================================
+// NEW YEAR — рендер контейнера Захарова в магазине
+// ============================================================
+function renderZaharovContainer(){
+  const box = $('ny-container-box');
+  if (!box) return;
+
+  // Контейнер доступен только после победы в финале Нового года (ny8)
+  if (STATE.campaignResults['ny8'] !== 'win') {
+    box.innerHTML = '';
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = '';
+
+  const opened = STATE.nyCellsOpened || [];
+  const canOpen = zaharovCanOpenToday();
+  const nextIdx = opened.length;
+  let cellsHTML = '';
+  for (let i = 0; i < ZAHAROV_CONTAINER.cells; i++) {
+    const isOpened = opened.includes(i);
+    const isNext = (i === nextIdx) && canOpen;
+    let cls = 'ny-cell';
+    if (isOpened) cls += ' opened';
+    else if (isNext) cls += ' next';
+    else cls += ' locked';
+    cellsHTML += `<div class="${cls}" data-cell="${i}">${isOpened ? '✓' : (i+1)}</div>`;
+  }
+
+  box.innerHTML = `
+    <div class="origins-panel" style="background:linear-gradient(135deg,rgba(255,209,102,.12),rgba(30,22,10,.6));border-color:rgba(255,209,102,.5)">
+      <div class="origins-title" style="background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">🎁 Контейнер Максима Захарова</div>
+      <div class="origins-sub">${STATE.nyZaharovObtained ? '✓ Захаров уже в коллекции' : `Открыто ${opened.length} / ${ZAHAROV_CONTAINER.cells} · гарант на 10-й ячейке`}</div>
+      <div class="ny-cells-grid">${cellsHTML}</div>
+      <div style="text-align:center;margin-top:12px">
+        <button class="btn btn-gold" id="open-ny-container" ${canOpen ? '' : 'disabled'} style="min-width:220px">
+          ${STATE.nyZaharovObtained ? '✓ Получен' : (canOpen ? '🎁 Открыть ячейку' : (STATE.nyLastOpenDay === zaharovToday() ? '⏳ Приходи завтра' : '⏳ Нет попыток'))}
+        </button>
+      </div>
+    </div>`;
+
+  const btn = box.querySelector('#open-ny-container');
+  if (btn) btn.onclick = () => { sfxClick(); openZaharovContainer(); };
+  box.querySelectorAll('.ny-cell.next').forEach(cell => {
+    cell.addEventListener('click', () => { sfxClick(); openZaharovContainer(); });
+  });
 }
 function renderShop(){
   const g=$('packs-grid');
   renderOriginsShop();
+  renderZaharovContainer();
 g.innerHTML=PACKS.map(p=>{
   if (p.onlyGold && STATE.campaignProgress < 1) return '';
+  if (p.onlyNewYear && STATE.campaignResults['ny8'] !== 'win') return '';
   const ok=STATE.coins>=p.price;
   return `<div class="pack ${p.id} ${!ok?'disabled':''}" data-pack="${p.id}">
     <span class="pack-icon">${p.icon}</span>
@@ -5565,6 +5662,14 @@ function openPack(packId){
     for (let i = 0; i < pack.count; i++) {
       picks.push(goldPool[Math.floor(Math.random() * goldPool.length)]);
     }
+  } else if (pack.onlyNewYear) {
+    // Пак «Новогодний» — только ny_* карточки, БЕЗ Захарова
+    const nyPool = ALL_PLAYERS.filter(p =>
+      p.id.startsWith('ny_') && p.id !== 'ny_zaharov'
+    );
+    for (let i = 0; i < pack.count; i++) {
+      picks.push(nyPool[Math.floor(Math.random() * nyPool.length)]);
+    }
   } else {
     // Обычные паки — по весам
     for(let i=0;i<pack.count;i++) picks.push(drawPlayerOfTier(drawTier(pack.weights)));
@@ -5748,6 +5853,35 @@ function goldConfetti(n){
     setTimeout(()=>c.remove(),7000);
   }
 }
+// ============================================================
+// снежок — падает снег на оверлее (для новогодних карточек)
+// ============================================================
+function snowBurst(count, duration){
+  const o = $('pack-overlay');
+  if (!o) return;
+  const n = count || 120;
+  const dur = duration || 4.5;
+  for (let i = 0; i < n; i++) {
+    const flake = document.createElement('div');
+    flake.className = 'snow-flake';
+    const size = 3 + Math.random() * 6; // 3..9px
+    flake.style.width = size + 'px';
+    flake.style.height = size + 'px';
+    flake.style.left = (Math.random() * 100) + '%';
+    flake.style.opacity = (0.5 + Math.random() * 0.5).toFixed(2);
+    const fallDur = dur * (0.6 + Math.random() * 0.8); // 2.7..6.3s
+    flake.style.animationDuration = fallDur.toFixed(2) + 's';
+    flake.style.animationDelay = (Math.random() * 1.2).toFixed(2) + 's';
+    flake.style.setProperty('--sx', ((Math.random() - 0.5) * 200).toFixed(0) + 'px');
+    o.appendChild(flake);
+    setTimeout(() => flake.remove(), (fallDur + 1.5) * 1000);
+  }
+}
+
+function isNewYearCard(p){
+  if (!p) return false;
+  return String(p.id).startsWith('ny_');
+}
 function showFinal(idx, withFx){
   packClearTimers();
   const item = PACK.list[idx]; 
@@ -5756,6 +5890,7 @@ function showFinal(idx, withFx){
   const p = item.p; 
   const cfg = fxCfg(p); 
   const slot = $('pack-slot');
+  const snowy = isNewYearCard(p);
   const pos = POS_LABELS[p.pos] || {label:p.pos, icon:'⚽'};
   const isGold = !!p.goldEvent;
 const isPro = !!p.pro;
@@ -5792,7 +5927,7 @@ const isPro = !!p.pro;
       </div>
     `;
   } else {
-    slot.innerHTML = `<div class="rev-final ${cardTier(p)} ${cfg.top?'holo':''}">
+    slot.innerHTML = `<div class="rev-final ${cardTier(p)} ${cfg.top?'holo':''}${snowy?' snowy':''}">
       <div class="rev-final-photo"><span>${p.icon||'⚽'}</span>${photoImg(p.id)}</div>
       <div class="rev-final-name">${p.name}</div>
       <div class="rev-final-pos">${pos.label}</div>
@@ -5801,6 +5936,18 @@ const isPro = !!p.pro;
       ${badge}
     </div>`;
   }
+
+  // снег на оверлее для новогодних карточек
+  if (snowy) {
+    const layer = document.createElement('div');
+    layer.className = 'snow-layer';
+    $('pack-overlay').appendChild(layer);
+    snowBurst(140, 5);
+    setTimeout(() => { try { layer.remove(); } catch(e){} }, 7000);
+  }
+  
+  setDot(PACK.steps-1);
+  $('pack-skip').style.display = 'none';
   
   setDot(PACK.steps-1);
   $('pack-skip').style.display = 'none';
