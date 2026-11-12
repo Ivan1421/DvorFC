@@ -1918,12 +1918,13 @@ const ALL_PLAYERS = [
   {id:'snowman_fw1', name:'Снеговик-нападающий', short:'Снеговик', pos:'FW', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
   {id:'snowman_fw2', name:'Снеговик-нападающий', short:'Снеговик', pos:'FW', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
   // === НОВЫЙ ГОД — Новогодние звёзды (8-й матч) ===
-  {id:'ny_gk',       name:'Новогодний вратарь',  short:'Вратарь',   pos:'GK', rating:104, team:'Новый год', icon:'🎄', eventOnly:true},
-  {id:'ny_gleb',     name:'Глеб',                short:'Глеб',      pos:'DF', rating:103, team:'Новый год', icon:'🎄', eventOnly:true},
-  {id:'ny_maxim',    name:'Максим Бузмаков',     short:'Бузмаков',  pos:'DF', rating:105, team:'Новый год', icon:'🎄', eventOnly:true},
-  {id:'ny_russkov',  name:'Руссков Артём',       short:'Руссков',   pos:'FW', rating:105, team:'Новый год', icon:'🎄', eventOnly:true},
-  {id:'ny_batrakov', name:'Кравченко Глеб',      short:'Кравченко', pos:'FW', rating:104, team:'Новый год', icon:'🎄', eventOnly:true},
-  {id:'ny_zaharov', name:'Максим Захаров', short:'Захаров', pos:'GK', rating:105, team:'Новый год', icon:'🎁', eventOnly:true},
+    // === НОВЫЙ ГОД — Новогодние звёзды (8-й матч) ===
+  {id:'ny_gk',       name:'Новогодний вратарь',  short:'Вратарь',   pos:'GK', rating:104, team:'МЕРА',    icon:'🎄', eventOnly:true},
+  {id:'ny_gleb',     name:'Глеб',                short:'Глеб',      pos:'DF', rating:103, team:'Арсенал', icon:'🎄', eventOnly:true},
+  {id:'ny_maxim',    name:'Максим Бузмаков',     short:'Бузмаков',  pos:'DF', rating:105, team:'МЕРА',    icon:'🎄', eventOnly:true},
+  {id:'ny_russkov',  name:'Руссков Артём',       short:'Руссков',   pos:'FW', rating:105, team:'Южный',   icon:'🎄', eventOnly:true},
+  {id:'ny_batrakov', name:'Кравченко Глеб',      short:'Кравченко', pos:'FW', rating:104, team:'МЕРА',    icon:'🎄', eventOnly:true},
+  {id:'ny_zaharov',  name:'Максим Захаров',      short:'Захаров',   pos:'GK', rating:105, team:'МЕРА',    icon:'🎁', eventOnly:true},
 ];
 const PLAYER_MAP = {}; ALL_PLAYERS.forEach(p => PLAYER_MAP[p.id] = p);
 const POS_RU = {GK:'ВРТ', DF:'ЗАЩ', MF:'ПЗЩ', FW:'НАП', SUB:'ЗАП'};
@@ -2161,7 +2162,7 @@ ALL_PLAYERS.forEach(p=>{ p.attrs=genAttrs(p); });
 // CAMPAIGN — составы соперников = игроки команд ДФЛ
 // ============================================================
 function lineupFor(team){
-  const roster = ALL_PLAYERS.filter(p=>p.team===team);
+  const roster = ALL_PLAYERS.filter(p=>p.team===team && !p.eventOnly);
   
   // 1. Вратарь
   const gk = roster.filter(p=>p.pos==='GK').sort((a,b)=>b.rating-a.rating)[0];
