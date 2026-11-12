@@ -4721,6 +4721,22 @@ function endMatch(){
       }, 500);
     }
   }
+    // === НАГРАДА ЗА ФИНАЛ НОВОГО ГОДА ===
+  if (stage.isNewYearFinal && result === 'win') {
+    const nyPool = ALL_PLAYERS.filter(p =>
+      p.id.startsWith('ny_') && p.id !== 'ny_zaharov'
+    );
+    const randomNy = nyPool[Math.floor(Math.random() * nyPool.length)];
+    const isNewNy = !STATE.owned.includes(randomNy.id);
+    addCard(randomNy.id);
+    saveState();
+
+    freeCardHTML += `<div class="result-rw gold" style="margin-top:10px">🎄 Новогодняя карточка: ${randomNy.name}!</div>`;
+
+    setTimeout(() => {
+      showPackReveal([{ p: randomNy, isNew: isNewNy }]);
+    }, 500);
+  }
   
   let nextHTML='';
   if(result==='win'){
@@ -4790,22 +4806,7 @@ function endMatch(){
     }
   };
 }
-  // === НАГРАДА ЗА ФИНАЛ НОВОГО ГОДА ===
-  if (stage.isNewYearFinal && result === 'win') {
-    const nyPool = ALL_PLAYERS.filter(p =>
-      p.id.startsWith('ny_') && p.id !== 'ny_zaharov'
-    );
-    const randomNy = nyPool[Math.floor(Math.random() * nyPool.length)];
-    const isNewNy = !STATE.owned.includes(randomNy.id);
-    addCard(randomNy.id);
-    saveState();
 
-    freeCardHTML += `<div class="result-rw gold" style="margin-top:10px">🎄 Новогодняя карточка: ${randomNy.name}!</div>`;
-
-    setTimeout(() => {
-      showPackReveal([{ p: randomNy, isNew: isNewNy }]);
-    }, 500);
-  }
 // ============================================================
 // ORIGINS — исторические матчи лета 2026
 // ============================================================
