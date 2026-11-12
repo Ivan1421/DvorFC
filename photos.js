@@ -30,6 +30,7 @@ window.playerPhotos = {
     khalturin: "./Photos%20(2)/6a2197972af4b_640x640.jpg",
     safonov: "./Photos%20(2)/IMG_0873.jpeg",
     mbappe: "./Photos%20(2)/Mbappe.jpg",
+    haaland_real: "./Photos%20(2)/haaland_org.jpg"
 };
 
 // ==================== ОТНОСИТЕЛЬНЫЕ ПУТИ К ЛОГОТИПАМ КЛУБОВ ====================
