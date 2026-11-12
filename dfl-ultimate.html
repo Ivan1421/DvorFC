@@ -1393,6 +1393,78 @@ body{
   mix-blend-mode:screen;
   opacity:.9;
 }
+/* Новогодняя карточка — белая светящаяся, без анимаций */
+.rev-final.newyear{
+  --tier-color:#ffffff;
+  --tier-glow:rgba(255,255,255,.85);
+  background: linear-gradient(180deg, rgba(30,41,59,.95), rgba(15,23,42,.98));
+  border: 3px solid #ffffff;
+  box-shadow:
+    0 0 30px rgba(255,255,255,.55),
+    0 0 70px rgba(255,255,255,.35),
+    0 0 120px rgba(200,235,255,.2),
+    inset 0 0 30px rgba(255,255,255,.15),
+    0 20px 60px rgba(0,0,0,.8);
+  animation: none;
+}
+.rev-final.newyear .rev-final-photo{
+  border-color:#ffffff;
+  box-shadow:0 0 30px rgba(255,255,255,.7), 0 0 60px rgba(255,255,255,.4);
+}
+.rev-final.newyear .rev-final-name{
+  color:#ffffff;
+  text-shadow:0 0 14px rgba(255,255,255,.7);
+}
+.rev-final.newyear .rev-final-rating{
+  background:rgba(255,255,255,.15);
+  color:#ffffff;
+  border-color:rgba(255,255,255,.6);
+}
+.rev-final.newyear .rev-final-pos,
+.rev-final.newyear .rev-final-team{
+  color:#e0f2ff;
+}
+/* отключаем наклон/пульсацию, если что-то унаследовалось */
+.rev-final.newyear.holo::after{ animation: none; content:none; }
+.rev-final.newyear.snowy{
+  border-color:#ffffff;
+  box-shadow:
+    0 0 30px rgba(255,255,255,.55),
+    0 0 70px rgba(255,255,255,.35),
+    inset 0 0 30px rgba(255,255,255,.15);
+}
+.rev-final.newyear.snowy::before{ content:none; }
+/* Новогодние карточки в сетке — белые, без анимации */
+.pcard.newyear{
+  --tier-color:#ffffff;
+  --tier-glow:rgba(255,255,255,.75);
+  background: linear-gradient(180deg, rgba(30,41,59,.85), var(--panel) 80%);
+  border: 2px solid #ffffff;
+  box-shadow:
+    0 0 14px rgba(255,255,255,.55),
+    0 0 30px rgba(255,255,255,.35),
+    inset 0 0 16px rgba(255,255,255,.15);
+  animation: none;
+}
+.pcard.newyear .ovr-num,
+.pcard.newyear .photo,
+.pcard.newyear .team{
+  color:#ffffff;
+  border-color:#ffffff;
+}
+.pcard.newyear::before{
+  background: radial-gradient(circle at 50% 0%, rgba(255,255,255,.35), transparent 65%);
+  opacity: 1;
+}
+.slot.filled.t-newyear,
+.bench-slot.filled.t-newyear,
+.ht-card.t-newyear{
+  --tier-color:#ffffff;
+  --tier-glow:rgba(255,255,255,.75);
+  border-color:#ffffff;
+  box-shadow:0 0 14px rgba(255,255,255,.6), inset 0 0 12px rgba(255,255,255,.2);
+  animation: none;
+}
 </style>
 </head>
 <body>
@@ -2070,8 +2142,10 @@ function rarityOf(p){
   const r=p.rating; if(r>=94)return'icon'; if(r>=90)return'legend'; if(r>=85)return'epic'; if(r>=75)return'rare'; return'common'; 
 }
 function cardTier(p){
-  if (baseId(p.id)==='ostap') return 'meme';
+  const b = baseId(p.id);
+  if (b === 'ostap') return 'meme';
   if (p.origins) return 'origins';
+  if (b.startsWith('ny_')) return 'newyear';
   return rarityOf(p);
 }
 function sellValue(p){ return SELL_VALUE[rarityOf(p)]; }
@@ -5723,6 +5797,24 @@ function fxCfg(p){
       rays:'rgba(255,45,149,.6)'
     };
   }
+function fxCfg(p){
+  if (p.pro) {
+    return {
+      tier:'pro', top:true, epic:false, meme:false,
+      colors:['#ff2d95','#fff','#ff5cf4','#ffb703'],
+      main:'#ff2d95',
+      rays:'rgba(255,45,149,.6)'
+    };
+  }
+  // Новогодние карточки — белые светящиеся, без анимаций
+  if (String(p.id).startsWith('ny_')) {
+    return {
+      tier:'newyear', top:false, epic:false, meme:false,
+      colors:['#ffffff','#e0f2ff','#ffffff'],
+      main:'#ffffff',
+      rays:'rgba(255,255,255,.5)'
+    };
+  }
   if (p.goldEvent) {
     return {
       tier: 'gold', top: true, epic: false, meme: false,
@@ -5731,6 +5823,12 @@ function fxCfg(p){
       rays: 'rgba(255,215,0,.6)'
     };
   }
+  const meme=baseId(p.id)==='ostap'; const t=rarityOf(p);
+  return {tier:t,meme,top:(t==='legend'||t==='icon'||meme),epic:(t==='epic'),
+    colors:meme?['#ff2b4a','#fff','#ffb703']:t==='icon'?['#00e5ff','#a855f7','#ff5cf4','#fff']:t==='legend'?['#ffd166','#f59e0b','#fff']:['#c084fc','#a855f7','#fff'],
+    main:meme?'#ff2b4a':t==='icon'?'#00e5ff':t==='legend'?'#ffd166':'#a855f7',
+    rays:meme?'rgba(255,43,74,.45)':t==='icon'?'rgba(0,229,255,.45)':'rgba(255,209,102,.45)'};
+}
   const meme=baseId(p.id)==='ostap'; const t=rarityOf(p);
   return {tier:t,meme,top:(t==='legend'||t==='icon'||meme),epic:(t==='epic'),
     colors:meme?['#ff2b4a','#fff','#ffb703']:t==='icon'?['#00e5ff','#a855f7','#ff5cf4','#fff']:t==='legend'?['#ffd166','#f59e0b','#fff']:['#c084fc','#a855f7','#fff'],
@@ -5899,16 +5997,18 @@ function isNewYearCard(p){
   return String(p.id).startsWith('ny_');
 }
 function showFinal(idx, withFx){
+  
   packClearTimers();
   const item = PACK.list[idx]; 
   if(!item) return;
   
-  const p = item.p; 
-  const cfg = fxCfg(p); 
-  const slot = $('pack-slot');
-  const snowy = isNewYearCard(p);
-  const pos = POS_LABELS[p.pos] || {label:p.pos, icon:'⚽'};
-  const isGold = !!p.goldEvent;
+const p = item.p; 
+const cfg = fxCfg(p); 
+const slot = $('pack-slot');
+const isNy = String(p.id).startsWith('ny_');
+const snowy = true;                                 
+const pos = POS_LABELS[p.pos] || {label:p.pos, icon:'⚽'};
+const isGold = !!p.goldEvent && !isNy;                
 const isPro = !!p.pro;
   
   const badge = item.isNew
