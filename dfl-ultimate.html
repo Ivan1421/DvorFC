@@ -1991,7 +1991,7 @@ const ALL_PLAYERS = [
   {id:'snowman_fw2', name:'Снеговик-нападающий', short:'Снеговик', pos:'FW', rating:95, team:'Снеговики', icon:'⛄', eventOnly:true},
   // === НОВЫЙ ГОД — Новогодние звёзды (8-й матч) ===
     // === НОВЫЙ ГОД — Новогодние звёзды (8-й матч) ===
-  {id:'ny_gk',       name:'Новогодний вратарь',  short:'Вратарь',   pos:'GK', rating:104, team:'МЕРА',    icon:'🎄', eventOnly:true},
+
   {id:'ny_gleb',     name:'Глеб',                short:'Глеб',      pos:'DF', rating:103, team:'Арсенал', icon:'🎄', eventOnly:true},
   {id:'ny_maxim',    name:'Максим Бузмаков',     short:'Бузмаков',  pos:'DF', rating:105, team:'МЕРА',    icon:'🎄', eventOnly:true},
   {id:'ny_russkov',  name:'Руссков Артём',       short:'Руссков',   pos:'FW', rating:105, team:'Южный',   icon:'🎄', eventOnly:true},
@@ -2070,8 +2070,7 @@ const PLAYSTYLES_MAP = {
   ny_maxim:{playstyles:['strag','intuation','borec'],playstyleColors:{strag:'gold',intuation:'gold',borec:'gold'}},
   ny_russkov:{playstyles:['tiki_taka','bombardir','bistro_gold'],playstyleColors:{tiki_taka:'gold',bombardir:'gold',bistro_gold:'gold'}},
   ny_batrakov:{playstyles:['Bezjalostniy','naves','tiki_taka'],playstyleColors:{Bezjalostniy:'gold',naves:'gold',tiki_taka:'gold'}},
-  ny_zaharov:{playstyles:['vihod','otraz','far'],playstyleColors:{vihod:'gold',otraz:'gold',far:'gold'}},
-  ny_gk:{playstyles:['vihod','otraz','far'],playstyleColors:{vihod:'gold',otraz:'gold',far:'gold'}}
+  ny_zaharov:{playstyles:['vihod','otraz','far'],playstyleColors:{vihod:'gold',otraz:'gold',far:'gold'}}
 };
 
 const GOLD_BASE = {
@@ -2236,7 +2235,13 @@ ALL_PLAYERS.forEach(p=>{ p.attrs=genAttrs(p); });
 // CAMPAIGN — составы соперников = игроки команд ДФЛ
 // ============================================================
 function lineupFor(team){
-  const roster = ALL_PLAYERS.filter(p=>p.team===team && !p.eventOnly);
+  const roster = ALL_PLAYERS.filter(p=>
+    p.team===team &&
+    !p.eventOnly &&
+    !p.goldEvent &&
+    !p.origins &&
+    !String(p.id).startsWith('ny_')
+  );
   
   // 1. Вратарь
   const gk = roster.filter(p=>p.pos==='GK').sort((a,b)=>b.rating-a.rating)[0];
@@ -2263,7 +2268,14 @@ function lineupFor(team){
   const remaining = [...fwds, ...mids.slice(2), ...rest].filter(p => !lineup.includes(p.id));
   lineup.push(...remaining.slice(0, 2).map(p => p.id));
   
-  return lineup.filter(Boolean).slice(0, 5);
+  const seen = new Set();
+  return lineup.filter(id => {
+    if (!id) return false;
+    const person = personOf(id);
+    if (seen.has(person)) return false;
+    seen.add(person);
+    return true;
+  }).slice(0, 5);
 }
 const CAMPAIGN = [
   {id:1,team:'ПСЖ',name:'ФК ПСЖ',difficulty:'easy',reward:150,desc:"Четыре игрока и ни одного вратаря.",intro:{icon:"🔵",title:"Этап 1: ФК ПСЖ",text:"Начинается лига. <em>ФК ПСЖ</em> выходит вчетвером, и вратаря у них нет — в воротах стоит полевой игрок. Главная угроза — <strong>Шапов Леонид</strong>."}},
@@ -5044,7 +5056,7 @@ const NEWYEAR_EVENT = {
     {
       id:'ny8', team:'Новый год', name:'Новогодние звёзды', difficulty:'boss', reward:1500, isNewYearFinal:true,
       desc:'Финал · новые карточки события',
-      players:['ny_gk','ny_gleb','ny_maxim','ny_russkov','ny_batrakov'],
+      players:['ny_zaharov','ny_gleb','ny_maxim','ny_russkov','ny_batrakov'],
       intro:{icon:'🎄',title:'ФИНАЛ: Новогодние звёзды',
         text:'Сборная новых карточек события: <strong>Глеб</strong>, <strong>Бузмаков</strong>, <strong>Руссё</strong>, <strong>Кравченко</strong> и новогодний вратарь. Победа откроет доступ к контейнеру с <strong>Максимом Захаровым</strong>!'}
     }
@@ -5077,8 +5089,7 @@ const ZAHAROV_CONTAINER = {
     'gold_elisey',       // 99
     'gold_andryushka',   // 99
     'gold_tankov',       // 98
-    // ny_* — 103..105 (кроме Захарова)
-    'ny_gk',             // 104
+    // ny_* — 103..105 
     'ny_gleb',           // 103
     'ny_maxim',          // 105
     'ny_russkov',        // 105
@@ -5752,8 +5763,8 @@ function openPack(packId){
       picks.push(goldPool[Math.floor(Math.random() * goldPool.length)]);
     }
 } else if (pack.onlyNewYear) {
-  // Пак «Новогодний» — только карточки финального матча ny8 (без Захарова)
-  const NY_PACK_IDS = ['ny_gk','ny_gleb','ny_maxim','ny_russkov','ny_batrakov'];
+  // Пак «Новогодний» — только карточки финального матча ny8 
+  const NY_PACK_IDS = ['ny_gleb','ny_maxim','ny_russkov','ny_batrakov'];
   const nyPool = NY_PACK_IDS
     .map(id => PLAYER_MAP[id])
     .filter(Boolean);
@@ -6006,7 +6017,7 @@ const p = item.p;
 const cfg = fxCfg(p); 
 const slot = $('pack-slot');
 const isNy = String(p.id).startsWith('ny_');
-const snowy = true;                                 
+const snowy = isNy;                                 
 const pos = POS_LABELS[p.pos] || {label:p.pos, icon:'⚽'};
 const isGold = !!p.goldEvent && !isNy;                
 const isPro = !!p.pro;
